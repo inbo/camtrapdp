@@ -9,10 +9,11 @@ read_camtrap_dp(path, multimedia = TRUE)
 \arguments{
 \item{path}{Path to the folder containing the camera trap data files.}
 
-\item{multimedia}{If \code{TRUE}, read multimedia records into memory. If \code{FALSE}, ignore multimedia file to speed up reading larger Camtrap DP packages.}
+\item{multimedia}{If \code{TRUE}, read multimedia records into memory. If \code{FALSE},
+ignore multimedia file to speed up reading larger Camtrap DP packages.}
 }
 \value{
-a list of tibbles (dataframes)
+A list of tibbles (dataframes).
 }
 \description{
 This function reads camera trap data formatted following the \href{https://github.com/tdwg/camtrap-dp}{Camera Trap Data Package (Camtrap DP)} format.
@@ -21,11 +22,17 @@ This function reads camera trap data formatted following the \href{https://githu
 \dontrun{
 library(here)
 # Read Camtrap DP package
-camtrap_dp_dir <- here("inst", "extdata", "mica-muskrat-and-coypu-20210302172233")
+camtrap_dp_dir <- here(
+    "inst",
+    "extdata",
+    "mica-muskrat-and-coypu-20210302172233")
 muskrat_coypu <- read_camtrap_dp(camtrap_dp_dir)
 
 # Read Camtrap DP package and ignore multimedia file
-camtrap_dp_dir <- here("inst", "extdata", "gmu8-monitoring-faunabeheerzone-8-20210301093537")
+camtrap_dp_dir <- here(
+    "inst",
+    "extdata",
+    "gmu8-monitoring-faunabeheerzone-8-20210301093537")
 gmu8 <- read_camtrap_dp(camtrap_dp_dir, multimedia = FALSE)
 }
 }

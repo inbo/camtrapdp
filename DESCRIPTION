@@ -21,6 +21,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     assertthat,
+    datapackage,
     dplyr,
     glue,
     grDevices,
@@ -34,6 +35,8 @@ Imports:
     rlang,
     stringr,
     tidyr
+Remotes:
+    inbo/datapackage
 Suggests: 
     covr,
     knitr,
@@ -43,6 +46,7 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: bzip2
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Config/testthat/edition: 3
