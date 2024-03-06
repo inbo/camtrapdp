@@ -13,7 +13,7 @@ convert <- function(dataset) {
   if (!version %in% supported_versions) {
     cli::cli_abort(
       c(
-        "Can't recognize used Camtrap DP version {.val {version}}.",
+        "{.val {version}} is not a supported Camtrap DP version.",
         "i" = "Supported version{?s}: {.val {supported_versions}}."
       ),
       class = "camtrapdp_error_unsupported_version"
