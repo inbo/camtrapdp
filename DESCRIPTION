@@ -10,6 +10,8 @@ Authors@R: c(
            role = "fnd", comment = "https://lifewatch.be")
   )
 Description: What the package does (one paragraph).
+Imports:
+    cli
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
