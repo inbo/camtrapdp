@@ -1,9 +1,14 @@
 Package: camtrapdp
-Title: What the Package Does (One Line, Title Case)
+Title: Read and Convert Camera Trap Data Packages (Camtrap DP)
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Authors@R: c(
+    person("Damiano", "Oldoni", email = "damiano.oldoni@inbo.be",
+           role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3445-7562")),
+    person("Research Institute for Nature and Forest (INBO)",
+           role = "cph", comment = "https://www.vlaanderen.be/inbo/en-gb/"),
+    person("LifeWatch Belgium",
+           role = "fnd", comment = "https://lifewatch.be")
+  )
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
