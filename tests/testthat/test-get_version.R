@@ -13,7 +13,7 @@ test_that("get_version() extracts version from dataset$profile on match", {
 test_that("get_version() returns dataset$profile when no match is found", {
   dataset <- list()
   dataset$profile <- NULL
-  expect_identical(get_version(dataset), NULL)
+  expect_identical(get_version(dataset), NA)
   dataset$profile <- NA
   expect_identical(get_version(dataset), NA)
   dataset$profile <- 1
