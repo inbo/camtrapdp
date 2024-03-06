@@ -10,6 +10,8 @@ Authors@R: c(
            role = "fnd", comment = "https://lifewatch.be")
   )
 Description: What the package does (one paragraph).
+URL: https://github.com/inbo/camtrapdp
+BugReports: https://github.com/inbo/camtrapdp/issues
 Imports:
     cli,
     frictionless
