@@ -6,25 +6,25 @@
 #'
 #' The version number is derived as follows:
 #' 1. The `version` attribute, if defined.
-#' 2. A version number contained in `camtrapdp$profile`, which is expected to
+#' 2. A version number contained in `x$profile`, which is expected to
 #' contain the URL to the used Camtrap DP standard.
-#' 3. `camtrapdp$profile` in its entirety (can be `NULL`).
+#' 3. `x$profile` in its entirety (can be `NULL`).
 #'
-#' @param camtrapdp Camera Trap Data Package object, as returned by
+#' @param x Camera Trap Data Package object, as returned by
 #'   `read_camtrap_dp()`.
 #'   Also works on a Frictionless Data Package, as returned by
 #'   `frictionless::read_package()`.
 #' @return Camtrap DP version number (e.g. `1.0`).
 #' @export
-version <- function(camtrapdp) {
+version <- function(x) {
   # Get version from attribute
-  attr_version <- attr(camtrapdp, "version")
+  attr_version <- attr(x, "version")
   if (!is.null(attr_version)) {
     return(attr_version)
   }
 
   # Get version from profile
-  profile <- camtrapdp$profile
+  profile <- x$profile
   if (is.null(profile)) {
     return(NA)
   }

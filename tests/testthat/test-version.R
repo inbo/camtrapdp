@@ -4,7 +4,7 @@ test_that("version() extracts version from attribute", {
   expect_identical(version(x), "1.0")
 })
 
-test_that("version() extracts version from camtrapdp$profile on match", {
+test_that("version() extracts version from x$profile on match", {
   x <- list()
   x$profile <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/camtrap-dp-profile.json"
   expect_identical(version(x), "1.0")
@@ -20,7 +20,7 @@ test_that("version() extracts version from camtrapdp$profile on match", {
   expect_identical(version(x), "1.0-rc.1")
 })
 
-test_that("version() returns camtrapdp$profile when no match is found", {
+test_that("version() returns x$profile when no match is found", {
   x <- list()
   x$profile <- NULL
   expect_identical(version(x), NA)

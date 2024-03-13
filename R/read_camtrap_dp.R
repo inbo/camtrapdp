@@ -24,18 +24,18 @@ read_camtrap_dp <- function(file) {
   }
 
   # Create camtrapdp object
-  camtrapdp <- package
-  class(camtrapdp) <- c("camtrapdp", class(camtrapdp))
-  attr(camtrapdp, "version") <- version
+  x <- package
+  class(x) <- c("camtrapdp", class(x))
+  attr(x, "version") <- version
 
   # Read and attach csv data
-  camtrapdp$data$deployments <-
+  x$data$deployments <-
     frictionless::read_resource(package, "deployments")
-  camtrapdp$data$media <-
+  x$data$media <-
     frictionless::read_resource(package, "media")
-  camtrapdp$data$observations <-
+  x$data$observations <-
     frictionless::read_resource(package, "observations")
 
   # Convert
-  convert(package, convert_to = "1.0")
+  convert(x, convert_to = "1.0")
 }
