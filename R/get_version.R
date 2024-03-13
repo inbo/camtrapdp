@@ -7,7 +7,7 @@
 #' @inheritParams convert
 #' @return Camtrap DP version number (e.g. `1.0`) or `package$profile` in its
 #' entirety when no version number is found.
-#' @export
+#' @noRd
 get_version <- function(package) {
   profile <- package$profile # E.g. https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/camtrap-dp-profile.json
 

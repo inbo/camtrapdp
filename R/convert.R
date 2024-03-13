@@ -6,7 +6,7 @@
 #' @param package Camera Trap Data Package, as returned by
 #'   `frictionless::read_package()`.
 #' @return A `camtrapdp` object.
-#' @export
+#' @noRd
 convert <- function(package) {
   # Check Camtrap DP version
   version <- get_version(package)
