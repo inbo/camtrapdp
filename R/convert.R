@@ -32,4 +32,9 @@ convert <- function(package) {
   class(dataset) <- c("camtrap_dp", class(dataset))
   attr(dataset, "version") <- version
 
+  # TODO: Read and attach csv data (currently same for all versions)
+  # dataset$data$deployments <- frictionless::read_resource(dataset, "deployments")
+  # dataset$data$media <- frictionless::read_resource(dataset, "media")
+  # dataset$data$observations <- frictionless::read_resource(dataset, "observations")
+
 }
