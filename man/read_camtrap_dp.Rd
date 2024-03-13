@@ -10,7 +10,7 @@ read_camtrap_dp(file)
 \item{file}{Path or URL to a \code{datapackage.json} file.}
 }
 \value{
-List describing a Camera Trap Data Package.
+Camera Trap Data Package object.
 }
 \description{
 Reads files from a \href{https://camtrap-dp.tdwg.org}{Camera Trap Data Package (Camtrap DP)} into memory.
