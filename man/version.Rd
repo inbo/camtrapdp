@@ -4,10 +4,10 @@
 \alias{version}
 \title{Get Camtrap DP version}
 \usage{
-version(camtrapdp)
+version(x)
 }
 \arguments{
-\item{camtrapdp}{Camera Trap Data Package object, as returned by
+\item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrap_dp()}.
 Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
@@ -23,8 +23,8 @@ This version number indicates what version of the \href{https://camtrap-dp.tdwg.
 The version number is derived as follows:
 \enumerate{
 \item The \code{version} attribute, if defined.
-\item A version number contained in \code{camtrapdp$profile}, which is expected to
+\item A version number contained in \code{x$profile}, which is expected to
 contain the URL to the used Camtrap DP standard.
-\item \code{camtrapdp$profile} in its entirety (can be \code{NULL}).
+\item \code{x$profile} in its entirety (can be \code{NULL}).
 }
 }
