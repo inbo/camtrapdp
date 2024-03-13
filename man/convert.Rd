@@ -2,17 +2,18 @@
 % Please edit documentation in R/convert.R
 \name{convert}
 \alias{convert}
-\title{Convert a dataset to the latest version of Camtrap DP}
+\title{Convert a Camera Trap Data Package}
 \usage{
-convert(dataset)
+convert(package)
 }
 \arguments{
-\item{dataset}{Camera Trap Data Package, as returned by \code{read_camtrap_dp()}.}
+\item{package}{Camera Trap Data Package, as returned by
+\code{frictionless::read_package()}.}
 }
 \value{
-Converted dataset.
+A \code{camtrapdp} object.
 }
 \description{
-Converts a dataset that uses an older version of Camtrap DP to the latest
-version (currently \code{1.0}).
+Converts a Camera Trap Data Package that uses an older version of Camtrap DP
+to the latest version (currently \code{1.0}).
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_camtrap_dp.R
 \name{read_camtrap_dp}
 \alias{read_camtrap_dp}
-\title{Read a Camera Trap Data Package dataset}
+\title{Read a Camera Trap Data Package}
 \usage{
 read_camtrap_dp(file)
 }

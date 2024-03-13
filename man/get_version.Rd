@@ -2,19 +2,20 @@
 % Please edit documentation in R/get_version.R
 \name{get_version}
 \alias{get_version}
-\title{Get the Camtrap DP version used by a dataset}
+\title{Get the Camtrap DP version used by a package}
 \usage{
-get_version(dataset)
+get_version(package)
 }
 \arguments{
-\item{dataset}{Camera Trap Data Package, as returned by \code{read_camtrap_dp()}.}
+\item{package}{Camera Trap Data Package, as returned by
+\code{frictionless::read_package()}.}
 }
 \value{
-Camtrap DP version number (e.g. \code{1.0}) or \code{dataset$profile}.
+Camtrap DP version number (e.g. \code{1.0}) or \code{package$profile} in its
+entirety when no version number is found.
 }
 \description{
-Extracts the Camtrap DP version number used by a dataset, by searching for
-\verb{camtrap-dp/<version-number>} in \code{dataset$profile}, which is expected to
+Extracts the version number used by a Camera Trap Data Package, by searching
+for \verb{camtrap-dp/<version-number>} in \code{package$profile}, which is expected to
 contain the URL of the used Camtrap DP standard.
-When no match is found, \code{dataset$profile} is returned in its entirety.
 }

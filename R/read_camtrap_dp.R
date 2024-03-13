@@ -1,4 +1,4 @@
-#' Read a Camera Trap Data Package dataset
+#' Read a Camera Trap Data Package
 #'
 #' Reads files from a [Camera Trap Data Package (Camtrap DP)](
 #' https://camtrap-dp.tdwg.org) into memory.
@@ -7,6 +7,6 @@
 #' @return List describing a Camera Trap Data Package.
 #' @export
 read_camtrap_dp <- function(file) {
-  dataset <- frictionless::read_package(file)
-  convert(dataset)
+  package <- frictionless::read_package(file)
+  convert(package)
 }

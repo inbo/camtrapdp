@@ -1,14 +1,15 @@
-#' Convert a dataset to the latest version of Camtrap DP
+#' Convert a Camera Trap Data Package
 #'
-#' Converts a dataset that uses an older version of Camtrap DP to the latest
-#' version (currently `1.0`).
+#' Converts a Camera Trap Data Package that uses an older version of Camtrap DP
+#' to the latest version (currently `1.0`).
 #'
-#' @param dataset Camera Trap Data Package, as returned by `read_camtrap_dp()`.
-#' @return Converted dataset.
+#' @param package Camera Trap Data Package, as returned by
+#'   `frictionless::read_package()`.
+#' @return A `camtrapdp` object.
 #' @export
-convert <- function(dataset) {
+convert <- function(package) {
   # Check Camtrap DP version
-  version <- get_version(dataset)
+  version <- get_version(package)
   supported_versions <- c("1.0")
   if (!version %in% supported_versions) {
     cli::cli_abort(
@@ -20,10 +21,10 @@ convert <- function(dataset) {
     )
   }
 
-  # Convert dataset
+  # Convert package
   switch(
     version,
-    # "0.1.6" = convert_from_0.1.6(dataset), # Example of conversion function
-    "1.0" = return(dataset)
+    # "0.1.6" = convert_from_0.1.6(package), # Example of conversion function
+    "1.0" = return(package)
   )
 }
