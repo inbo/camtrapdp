@@ -1,7 +1,7 @@
 #' Convert a Camera Trap Data Package
 #'
 #' Converts a Camera Trap Data Package object that uses an older version of
-#' the Camtrap DP standard to a newer version (currently `1.0`).
+#' the Camtrap DP standard to a newer version.
 #'
 #' @inheritParams version
 #' @param convert_to Version to convert to.

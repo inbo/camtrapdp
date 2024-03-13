@@ -1,16 +1,18 @@
-#' Get the used Camtrap DP version
+#' Get Camtrap DP version
 #'
-#' Extracts the version number used by a Camera Trap Data Package.
-#' This version number indicates what version of the standard was used.
+#' Extracts the version number used by a Camera Trap Data Package object.
+#' This version number indicates what version of the [Camtrap DP standard](
+#' https://camtrap-dp.tdwg.org) was used.
 #'
-#' The version number is extracted as follows:
+#' The version number is derived as follows:
 #' 1. The `version` attribute, if defined.
-#' 2. If undefined, a version number contained in `camtrapdp$profile`, which is
-#' expected to contain the URL to the used Camtrap DP standard.
+#' 2. A version number contained in `camtrapdp$profile`, which is expected to
+#' contain the URL to the used Camtrap DP standard.
 #' 3. `camtrapdp$profile` in its entirety (can be `NULL`).
 #'
 #' @param camtrapdp Camera Trap Data Package object, as returned by
-#'   `read_camtrap_dp()` or Frictionless Data Package, as returned by
+#'   `read_camtrap_dp()`.
+#'   Also works on a Frictionless Data Package, as returned by
 #'   `frictionless::read_package()`.
 #' @return Camtrap DP version number (e.g. `1.0`).
 #' @export

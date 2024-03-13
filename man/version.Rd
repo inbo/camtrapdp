@@ -2,28 +2,29 @@
 % Please edit documentation in R/version.R
 \name{version}
 \alias{version}
-\title{Get the used Camtrap DP version}
+\title{Get Camtrap DP version}
 \usage{
 version(camtrapdp)
 }
 \arguments{
 \item{camtrapdp}{Camera Trap Data Package object, as returned by
-\code{read_camtrap_dp()} or Frictionless Data Package, as returned by
+\code{read_camtrap_dp()}.
+Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
 Camtrap DP version number (e.g. \code{1.0}).
 }
 \description{
-Extracts the version number used by a Camera Trap Data Package.
-This version number indicates what version of the standard was used.
+Extracts the version number used by a Camera Trap Data Package object.
+This version number indicates what version of the \href{https://camtrap-dp.tdwg.org}{Camtrap DP standard} was used.
 }
 \details{
-The version number is extracted as follows:
+The version number is derived as follows:
 \enumerate{
 \item The \code{version} attribute, if defined.
-\item If undefined, a version number contained in \code{camtrapdp$profile}, which is
-expected to contain the URL to the used Camtrap DP standard.
+\item A version number contained in \code{camtrapdp$profile}, which is expected to
+contain the URL to the used Camtrap DP standard.
 \item \code{camtrapdp$profile} in its entirety (can be \code{NULL}).
 }
 }
