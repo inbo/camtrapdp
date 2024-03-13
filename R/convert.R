@@ -27,4 +27,9 @@ convert <- function(package) {
     # "0.1.6" = convert_from_0.1.6(package), # Example of conversion function
     "1.0" = return(package)
   )
+  # Create camtrap_dp object
+  dataset <- package
+  class(dataset) <- c("camtrap_dp", class(dataset))
+  attr(dataset, "version") <- version
+
 }
