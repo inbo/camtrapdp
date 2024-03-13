@@ -21,12 +21,6 @@ convert <- function(package) {
     )
   }
 
-  # Convert package
-  switch(
-    version,
-    # "0.1.6" = convert_from_0.1.6(package), # Example of conversion function
-    "1.0" = return(package)
-  )
   # Create camtrap_dp object
   dataset <- package
   class(dataset) <- c("camtrap_dp", class(dataset))
@@ -37,4 +31,23 @@ convert <- function(package) {
   # dataset$data$media <- frictionless::read_resource(dataset, "media")
   # dataset$data$observations <- frictionless::read_resource(dataset, "observations")
 
+  # Convert dataset
+  while(version != "1.0") {
+    dataset <- switch(
+      version,
+      "0.1.6" = convert_0.1.6_to_1.0(dataset),
+      "1.0" = dataset
+    )
+    version <- attr(dataset, "version")
+  }
+
+  dataset
+}
+
+#' Convert a Camtrap DP 0.1.6 to 1.0
+#' @noRd
+convert_0.1.6_to_1.0 <- function(dataset) {
+  # TODO: conversion steps for 0.1.6
+  attr(dataset, "version") <- "1.0"
+  dataset
 }
