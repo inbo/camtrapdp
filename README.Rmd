@@ -16,8 +16,11 @@ knitr::opts_chunk$set(
 # camtrapdp
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/camtraptor)](https://CRAN.R-project.org/package=camtrapdp)
 [![R-CMD-check](https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml)
-[![test-coverage](https://github.com/inbo/camtrapdp/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/inbo/camtrapdp/actions/workflows/test-coverage.yaml)
+[![codecov](https://codecov.io/gh/inbo/camtraptor/branch/main/graph/badge.svg)](https://app.codecov.io/gh/inbo/camtrapdp/)
+[![repo status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
 <!-- badges: end -->
 
 The goal of camtrapdp is to ...
