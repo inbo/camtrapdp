@@ -1,4 +1,12 @@
 url: https://inbo.github.io/camtrapdp/
+
 template:
   bootstrap: 5
 
+#navbar:
+#  bg: dark
+
+authors:
+  LifeWatch Belgium:
+    href: https://lifewatch.be
+    html: "<img src='https://www.lifewatch.be/sites/lifewatch.be/themes/lifewatchportal/images/header_lw_logo.png' width=72>"
