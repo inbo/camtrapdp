@@ -9,6 +9,10 @@ test_that("build_taxonomy() returns one row per species in $data$observations",{
       example_dataset()$data$observations$scientificName,
       na.rm = TRUE)
 
+  expect_identical(
+    nrow(build_taxonomy(example_dataset())),
+    number_of_species
+  )
 })
 
 test_that("build_taxonomy() can handle missing vernacular names",{
