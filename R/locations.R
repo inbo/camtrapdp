@@ -1,4 +1,4 @@
-#' Get locations of the deployments of a Camera Trap Data Package object
+#' Get locations
 #'
 #' Extract unique locations of the deployments of a Camera Trap Data Package
 #' object.
