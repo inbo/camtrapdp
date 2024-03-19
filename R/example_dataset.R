@@ -1,7 +1,7 @@
-#' Read the example data
+#' Read the Camtrap DP example dataset
 #'
-#' This function is a helper that saves you from having to remember the url to
-#' the example dataset based on the Mica data.
+#' Reads the [Camtrap DP example dataset](https://camtrap-dp.tdwg.org/example/).
+#' This dataset is maintained and versioned with the Camtrap DP standard.
 #'
 #' @return Camera Trap Data Package object.
 example_dataset <- function() {

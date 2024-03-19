@@ -2,7 +2,7 @@
 % Please edit documentation in R/example_dataset.R
 \name{example_dataset}
 \alias{example_dataset}
-\title{Read the example data}
+\title{Read the Camtrap DP example dataset}
 \usage{
 example_dataset()
 }
@@ -10,6 +10,6 @@ example_dataset()
 Camera Trap Data Package object.
 }
 \description{
-This function is a helper that saves you from having to remember the url to
-the example dataset based on the Mica data.
+Reads the \href{https://camtrap-dp.tdwg.org/example/}{Camtrap DP example dataset}.
+This dataset is maintained and versioned with the Camtrap DP standard.
 }
