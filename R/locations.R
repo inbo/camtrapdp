@@ -1,8 +1,9 @@
-#' Get locations of the deployments of a Camtrap DP object
+#' Get locations of the deployments of a Camera Trap Data Package object
 #'
-#' Extract unique locations of the deployments of a Camptrap DP object.
+#' Extract unique locations of the deployments of a Camera Trap Data Package
+#' object.
 #'
-#' @param x a Camtrap DP object
+#' @param x a Camera Trap Data Package object.
 #'
 #' @return a tibble data.frame with the following columns:
 #' - `locationID`
