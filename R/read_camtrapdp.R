@@ -8,7 +8,7 @@
 #' @export
 read_camtrapdp <- function(file) {
   # Read datapackage.json
-  package <- frictionless::read_package(file)
+  package <- suppressMessages(frictionless::read_package(file))
 
   # Check version
   version <- version(package)
