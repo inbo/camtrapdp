@@ -6,6 +6,7 @@
 #' @inheritParams version
 #' @param convert_to Version to convert to.
 #' @return Converted Camera Trap Data Package object.
+#' @family convert functions
 #' @noRd
 convert <- function(x, convert_to = "1.0") {
   # Convert until the version number matches the expected version
