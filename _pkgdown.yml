@@ -10,3 +10,14 @@ authors:
   LifeWatch Belgium:
     href: https://lifewatch.be
     html: "<img src='https://www.lifewatch.be/sites/lifewatch.be/themes/lifewatchportal/images/header_lw_logo.png' width=72>"
+
+reference:
+- title: "Read function"
+  contents:
+  - has_concept("read functions")
+- title: "Accessor functions"
+  contents:
+  - has_concept("accessor functions")
+- title: "Sample datasets"
+  contents:
+  - has_concept("sample data")
