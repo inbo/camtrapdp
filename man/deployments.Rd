@@ -13,7 +13,7 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-tibble with deployments.
+\code{tibble()} data frame with deployments.
 }
 \description{
 Gets the deployments from a Camera Trap Data Package object.

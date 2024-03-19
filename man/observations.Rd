@@ -13,7 +13,7 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-Observations tibble.
+\code{tibble()} data frame with observations.
 }
 \description{
 Gets the observations from a Camera Trap Data Package object.

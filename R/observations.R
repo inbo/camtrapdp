@@ -3,7 +3,7 @@
 #' Gets the observations from a Camera Trap Data Package object.
 #'
 #' @inheritParams version
-#' @return Observations tibble.
+#' @return `tibble()` data frame with observations.
 #' @family accessor functions
 #' @export
 observations <- function(x) {

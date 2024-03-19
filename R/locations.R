@@ -3,9 +3,8 @@
 #' Extract unique locations of the deployments of a Camera Trap Data Package
 #' object.
 #'
-#' @param x a Camera Trap Data Package object.
-#'
-#' @return a tibble data.frame with the following columns:
+#' @inheritParams version
+#' @return `tibble()` data frame with the following columns:
 #' - `locationID`
 #' - `locationName`
 #' - `latitude`
@@ -13,7 +12,6 @@
 #' - `coordinateUncertainty`
 #'
 #' @export
-#'
 #' @examples
 #' dataset <- example_dataset()
 #' locations(dataset)

@@ -10,7 +10,7 @@ locations(x)
 \item{x}{a Camera Trap Data Package object.}
 }
 \value{
-a tibble data.frame with the following columns:
+\code{tibble()} data frame with the following columns:
 \itemize{
 \item \code{locationID}
 \item \code{locationName}

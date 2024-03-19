@@ -13,7 +13,7 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-Media tibble.
+\code{tibble()} data frame with media.
 }
 \description{
 Gets the media from a Camera Trap Data Package object.
