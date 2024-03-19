@@ -15,6 +15,7 @@
 #'   Also works on a Frictionless Data Package, as returned by
 #'   `frictionless::read_package()`.
 #' @return Camtrap DP version number (e.g. `1.0`).
+#' @family accessor functions
 #' @export
 version <- function(x) {
   # Get version from attribute

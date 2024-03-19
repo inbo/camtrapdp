@@ -4,7 +4,8 @@
 #' This dataset is maintained and versioned with the Camtrap DP standard.
 #'
 #' @return Camera Trap Data Package object.
-#' @noRd
+#' @family sample data
+#' @export
 example_dataset <- function() {
   camtrapdp_1.0 <- file.path(
     "https://raw.githubusercontent.com/tdwg/camtrap-dp",

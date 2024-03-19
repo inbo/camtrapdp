@@ -5,6 +5,7 @@
 #'
 #' @param file Path or URL to a `datapackage.json` file.
 #' @return Camera Trap Data Package object.
+#' @family read functions
 #' @export
 read_camtrapdp <- function(file) {
   # Read datapackage.json
