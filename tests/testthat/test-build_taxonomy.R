@@ -26,3 +26,7 @@ test_that("build_taxonomy() returns NULL when there is no taxonomic information"
 test_that("build_taxonomy() fills missing values with NA when a taxonomic field is only present for some of the records", {
 
 })
+
+test_that("build_taxonomy() creates a column per language for vernacularName", {
+
+})
