@@ -18,3 +18,6 @@ reference:
 - title: "Accessor functions"
   contents:
   - has_concept("accessor functions")
+- title: "Sample datasets"
+  contents:
+  - has_concept("sample data")
