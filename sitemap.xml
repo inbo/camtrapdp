@@ -25,10 +25,19 @@
     <loc>https://inbo.github.io/camtrapdp/news/index.html</loc>
   </url>
   <url>
+    <loc>https://inbo.github.io/camtrapdp/reference/deployments.html</loc>
+  </url>
+  <url>
     <loc>https://inbo.github.io/camtrapdp/reference/example_dataset.html</loc>
   </url>
   <url>
     <loc>https://inbo.github.io/camtrapdp/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://inbo.github.io/camtrapdp/reference/media.html</loc>
+  </url>
+  <url>
+    <loc>https://inbo.github.io/camtrapdp/reference/observations.html</loc>
   </url>
   <url>
     <loc>https://inbo.github.io/camtrapdp/reference/read_camtrapdp.html</loc>
