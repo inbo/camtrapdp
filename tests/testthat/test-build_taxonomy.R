@@ -5,7 +5,10 @@ test_that("build_taxonomy() returns tibble", {
 
 test_that("build_taxonomy() returns one row per species in $data$observations",{
   number_of_species <-
-    length(unique(example_dataset()$data$observations$scientificName))
+    dplyr::n_distinct(
+      example_dataset()$data$observations$scientificName,
+      na.rm = TRUE)
+
 })
 
 test_that("build_taxonomy() can handle missing vernacular names",{
