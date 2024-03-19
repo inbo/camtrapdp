@@ -1,5 +1,6 @@
 test_that("build_taxonomy() returns tibble", {
-
+  expect_s3_class(build_taxonomy(example_data()),
+                  "data.frame")
 })
 
 test_that("build_taxonomy() returns one row per species in $data$observations",{
