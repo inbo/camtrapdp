@@ -18,3 +18,10 @@ Observations tibble.
 \description{
 Gets the observations from a Camera Trap Data Package object.
 }
+\seealso{
+Other accessor functions: 
+\code{\link{deployments}()},
+\code{\link{media}()},
+\code{\link{version}()}
+}
+\concept{accessor functions}

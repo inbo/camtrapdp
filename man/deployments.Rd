@@ -18,3 +18,10 @@ Deployments tibble.
 \description{
 Gets the deployments from a Camera Trap Data Package object.
 }
+\seealso{
+Other accessor functions: 
+\code{\link{media}()},
+\code{\link{observations}()},
+\code{\link{version}()}
+}
+\concept{accessor functions}

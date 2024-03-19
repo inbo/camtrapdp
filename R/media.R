@@ -4,7 +4,8 @@
 #'
 #' @inheritParams version
 #' @return Media tibble.
-
+#' @family accessor functions
+#' @export
 media <- function(x) {
   x$data$media
 }

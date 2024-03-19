@@ -18,3 +18,10 @@ Media tibble.
 \description{
 Gets the media from a Camera Trap Data Package object.
 }
+\seealso{
+Other accessor functions: 
+\code{\link{deployments}()},
+\code{\link{observations}()},
+\code{\link{version}()}
+}
+\concept{accessor functions}

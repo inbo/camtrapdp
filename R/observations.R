@@ -4,7 +4,8 @@
 #'
 #' @inheritParams version
 #' @return Observations tibble.
-
+#' @family accessor functions
+#' @export
 observations <- function(x) {
   x$data$observations
 }
