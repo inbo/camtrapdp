@@ -4,8 +4,6 @@
 #' the example dataset based on the Mica data.
 #'
 #' @return Camera Trap Data Package object.
-#'
-#' @examples example_dataset()
 example_dataset <- function() {
   read_camtrap_dp(file = file.path(
     "https://raw.githubusercontent.com",

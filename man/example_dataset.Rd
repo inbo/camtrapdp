@@ -13,6 +13,3 @@ Camera Trap Data Package object.
 This function is a helper that saves you from having to remember the url to
 the example dataset based on the Mica data.
 }
-\examples{
-example_dataset()
-}
