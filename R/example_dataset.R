@@ -5,9 +5,9 @@
 #'
 #' @return Camera Trap Data Package object.
 example_dataset <- function() {
-  read_camtrap_dp(file = file.path(
-    "https://raw.githubusercontent.com",
-    "tdwg",
-    "camtrap-dp", "1.0", "example", "datapackage.json"
-  ))
+  camtrapdp_1.0 <- file.path(
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp",
+    "1.0/example/datapackage.json"
+  )
+  read_camtrapdp(camtrapdp_1.0)
 }
