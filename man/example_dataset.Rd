@@ -13,3 +13,4 @@ Camera Trap Data Package object.
 Reads the \href{https://camtrap-dp.tdwg.org/example/}{Camtrap DP example dataset}.
 This dataset is maintained and versioned with the Camtrap DP standard.
 }
+\concept{sample data}
