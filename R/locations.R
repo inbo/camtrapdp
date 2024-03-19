@@ -15,7 +15,10 @@
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
+#' dataset <- read_camtrapdp("https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json")
+#' locations(dataset)
+#' }
 locations <- function(x) {
   check(x)
   deployments(x) %>%
