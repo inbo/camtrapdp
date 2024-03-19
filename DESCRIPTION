@@ -1,11 +1,13 @@
 Package: camtrapdp
 Title: Read and Convert Camera Trap Data Packages (Camtrap DP)
-Version: 0.0.0.9000
+Version: 0.1.0.9000
 Authors@R: c(
     person("Peter", "Desmet", email = "peter.desmet@inbo.be",
            role = c("aut", "cre"), comment =  c(ORCID = "0000-0002-8442-8025")),
     person("Damiano", "Oldoni", email = "damiano.oldoni@inbo.be",
            role = "aut", comment = c(ORCID = "0000-0003-3445-7562")),
+    person("Pieter", "Huybrechts", email = "pieter.huybrechts@inbo.be",
+           role = "aut", comment = c(ORCID = "0000-0002-6658-6062")),
     person("Research Institute for Nature and Forest (INBO)",
            role = "cph", comment = "https://www.vlaanderen.be/inbo/en-gb/"),
     person("LifeWatch Belgium",
@@ -22,5 +24,5 @@ Suggests:
     testthat (>= 3.0.0)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.1
 Config/testthat/edition: 3
