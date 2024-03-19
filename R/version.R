@@ -11,7 +11,7 @@
 #' 3. `x$profile` in its entirety (can be `NULL`).
 #'
 #' @param x Camera Trap Data Package object, as returned by
-#'   `read_camtrap_dp()`.
+#'   `read_camtrapdp()`.
 #'   Also works on a Frictionless Data Package, as returned by
 #'   `frictionless::read_package()`.
 #' @return Camtrap DP version number (e.g. `1.0`).
