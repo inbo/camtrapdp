@@ -3,7 +3,7 @@
 #' Gets the deployments from a Camera Trap Data Package object.
 #'
 #' @inheritParams version
-#' @return Deployments tibble.
+#' @return tibble with deployments.
 #' @family accessor functions
 #' @export
 deployments <- function(x) {
