@@ -20,7 +20,7 @@
 #' locations(dataset)
 #' }
 locations <- function(x) {
-  check(x)
+  # check_camtrapdp(x) # uncomment if check_camtrapdp() will exist
   deployments(x) %>%
     dplyr::distinct(.data$locationID,
                     .data$locationName,
