@@ -1,11 +1,11 @@
 test_that("build_taxonomy() returns tibble", {
-  expect_s3_class(build_taxonomy(example_data()),
+  expect_s3_class(build_taxonomy(example_dataset()),
                   "data.frame")
 })
 
 test_that("build_taxonomy() returns one row per species in $data$observations",{
   number_of_species <-
-    length(unique(example_package()$data$observations$scientificName))
+    length(unique(example_dataset()$data$observations$scientificName))
 })
 
 test_that("build_taxonomy() can handle missing vernacular names",{
