@@ -23,4 +23,7 @@ build_taxonomy <- function(x) {
     ) %>%
     purrr::map(as.data.frame) %>%
     purrr::list_rbind()
+  # Add prefix "tax." to all columns
+  colnames(taxon_df) <- paste("tax", colnames(taxon_df), sep = ".")
+  taxon_df
 }
