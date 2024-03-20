@@ -4,7 +4,7 @@ test_that("build_taxonomy() returns tibble", {
                   "data.frame")
 })
 
-test_that("build_taxonomy() returns one row per species in $data$observations"
+test_that("build_taxonomy() returns one row per species in $data$observations",{
   skip_if_offline()
   number_of_species <-
     dplyr::n_distinct(
