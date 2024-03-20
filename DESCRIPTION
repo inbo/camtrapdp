@@ -22,7 +22,8 @@ BugReports: https://github.com/inbo/camtrapdp/issues
 Imports:
     cli,
     dplyr,
-    frictionless
+    frictionless,
+    purrr
 Suggests: 
     testthat (>= 3.0.0)
 Encoding: UTF-8
