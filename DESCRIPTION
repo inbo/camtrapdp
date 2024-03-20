@@ -21,7 +21,9 @@ URL: https://github.com/inbo/camtrapdp, https://inbo.github.io/camtrapdp/
 BugReports: https://github.com/inbo/camtrapdp/issues
 Imports:
     cli,
-    frictionless
+    dplyr,
+    frictionless,
+    purrr
 Suggests: 
     testthat (>= 3.0.0)
 Encoding: UTF-8
