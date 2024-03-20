@@ -25,6 +25,7 @@ media(dataset)
 \seealso{
 Other accessor functions: 
 \code{\link{deployments}()},
+\code{\link{locations}()},
 \code{\link{observations}()},
 \code{\link{version}()}
 }

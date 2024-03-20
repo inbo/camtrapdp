@@ -24,6 +24,7 @@ deployments(dataset)
 }
 \seealso{
 Other accessor functions: 
+\code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()},
 \code{\link{version}()}

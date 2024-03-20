@@ -10,6 +10,7 @@
 #' - `latitude`
 #' - `longitude`
 #' - `coordinateUncertainty`
+#' @family accessor functions
 #' @importFrom dplyr %>% .data
 #' @export
 #' @examples
