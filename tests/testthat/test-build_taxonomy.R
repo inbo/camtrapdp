@@ -58,7 +58,40 @@ test_that("build_taxonomy() can handle missing vernacular names",{
 })
 
 test_that("build_taxonomy() fills missing values with NA when a taxonomic field is only present for some of the records", {
+  two_missing_vernacular_names <-
+    list(taxonomic = list(
+      list(
+        scientificName = "Anas platyrhynchos",
+        taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+        taxonRank = "species",
+        vernacularNames = list(
+          eng = "mallard"
+        )
+      ),
+      list(
+        scientificName = "Anas strepera",
+        taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+        taxonRank = "species",
+        vernacularNames = list(nld = "krakeend")
+      )
+    ))
 
+  # Check that we still get the `vernacularNames.` prefix
+  expect_named(
+    build_taxonomy(two_missing_vernacular_names),
+    c("scientificName", "taxonID", "taxonRank", "vernacularNames.eng",
+      "vernacularNames.nld")
+  )
+  # Check that the Dutch vernacular name column contains an NA
+  expect_contains(
+    dplyr::pull(build_taxonomy(two_missing_vernacular_names), vernacularNames.nld),
+    NA_character_
+  )
+  # Check that the English vernacular name column contains an NA
+  expect_contains(
+    dplyr::pull(build_taxonomy(two_missing_vernacular_names), vernacularNames.eng),
+    NA_character_
+  )
 })
 
 test_that("build_taxonomy() creates a column per language for vernacularName", {
