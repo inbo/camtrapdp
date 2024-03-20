@@ -7,7 +7,7 @@
 build_taxonomy(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{Camera Trap Data Package object.}
 }
 \value{
 A tibble with the taxonomic information from a Camera Trap Data
