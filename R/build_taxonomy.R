@@ -4,6 +4,7 @@
 #'
 #' @return A tibble with the taxonomic information from a Camera Trap Data
 #'   Package
+#' @noRd
 build_taxonomy <- function(x) {
   # Extract the taxonomic information only
   taxonomic_list <- purrr::pluck(x, "taxonomic")
