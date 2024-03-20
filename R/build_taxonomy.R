@@ -1,12 +1,13 @@
-#' Parse the taxon information from a Camera Trap Data Package object
+#' Build a data frame with taxonomic information
 #'
-#' @param x Camera Trap Data Package object.
+#' Builds a data frame from the `taxonomy` property in a Camera Trap Data
+#' Package object.
 #'
-#' @return A tibble with the taxonomic information from a Camera Trap Data
-#'   Package
+#' @inheritParams version
+#' @return `tibble()` data frame with the taxonomic information.
 #' @noRd
 build_taxonomy <- function(x) {
-  # Extract the taxonomic information only
+  # Extract the taxonomic information
   taxonomic_list <- purrr::pluck(x, "taxonomic")
 
   # If there is no taxonomic information, return NULL
@@ -15,8 +16,11 @@ build_taxonomy <- function(x) {
   }
 
   # Convert list into a data.frame
-  purrr::map(taxonomic_list, purrr::list_flatten,
-             name_spec = "{outer}.{inner}") %>%
+  purrr::map(
+      taxonomic_list,
+      purrr::list_flatten,
+      name_spec = "{outer}.{inner}"
+    ) %>%
     purrr::map(as.data.frame) %>%
     purrr::list_rbind()
 }
