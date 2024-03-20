@@ -62,7 +62,41 @@ test_that("build_taxonomy() fills missing values with NA when a taxonomic field 
 })
 
 test_that("build_taxonomy() creates a column per language for vernacularName", {
-
+  many_languages <-
+    list(taxonomic = list(
+      list(
+        scientificName = "Anas platyrhynchos",
+        taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+        taxonRank = "species",
+        vernacularNames = list(
+          eng = "mallard",
+          nld = "wilde eend",
+          est = "sinikael-part",
+          glv = "Laagh Voirrey",
+          wel = "Hwyaden Wyllt",
+          afr = "Groenkopeend"
+        )
+      )
+    ))
+  # Expect 6 vernacularName columns
+  expect_length(
+    dplyr::select(
+      build_taxonomy(many_languages),
+      dplyr::starts_with("vernacularNames.")
+    ),
+    6
+  )
+  # Expect the right vernacularName columns
+  expect_named(
+    dplyr::select(
+      build_taxonomy(many_languages),
+      dplyr::starts_with("vernacularNames.")
+    ),
+    c(
+      "vernacularNames.eng", "vernacularNames.nld", "vernacularNames.est",
+      "vernacularNames.glv", "vernacularNames.wel", "vernacularNames.afr"
+    )
+  )
 })
 
 test_that("build_taxonomy() returns NULL when there is no taxonomic information", {
