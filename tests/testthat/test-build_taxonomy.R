@@ -1,7 +1,9 @@
-test_that("build_taxonomy() returns a data frame", {
+library(tibble)
+
+test_that("build_taxonomy() returns a tibble data frame", {
   skip_if_offline()
   x <- example_dataset()
-  expect_s3_class(build_taxonomy(x), "data.frame")
+  expect_true(is_tibble(build_taxonomy(x)))
 })
 
 test_that("build_taxonomy() returns NULL when there is no taxonomic information", {
