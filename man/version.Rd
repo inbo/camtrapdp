@@ -28,3 +28,10 @@ contain the URL to the used Camtrap DP standard.
 \item \code{x$profile} in its entirety (can be \code{NULL}).
 }
 }
+\seealso{
+Other accessor functions: 
+\code{\link{deployments}()},
+\code{\link{media}()},
+\code{\link{observations}()}
+}
+\concept{accessor functions}
