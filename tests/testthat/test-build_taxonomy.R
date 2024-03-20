@@ -57,14 +57,20 @@ test_that("build_taxonomy() can handle missing vernacular names",{
   )
 })
 
-test_that("build_taxonomy() returns NULL when there is no taxonomic information", {
-
-})
-
 test_that("build_taxonomy() fills missing values with NA when a taxonomic field is only present for some of the records", {
 
 })
 
 test_that("build_taxonomy() creates a column per language for vernacularName", {
 
+})
+
+test_that("build_taxonomy() returns NULL when there is no taxonomic information", {
+  skip_if_offline()
+  no_taxonomic_information <- example_dataset()
+  no_taxonomic_information$taxonomic <- NULL
+
+  expect_null(
+    build_taxonomy(no_taxonomic_information)
+  )
 })
