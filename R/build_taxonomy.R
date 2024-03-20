@@ -4,7 +4,7 @@
 #' Package object.
 #'
 #' @inheritParams version
-#' @return `data.frame()` data frame with the taxonomic information.
+#' @return Data frame with the taxonomic information.
 #' @noRd
 build_taxonomy <- function(x) {
   # Extract the taxonomic information
