@@ -50,7 +50,7 @@ read_camtrapdp <- function(file) {
     x$data$observations <- dplyr::left_join(
       observations(x),
       taxonomy,
-      by = join_by(scientificName == taxon.scientificName)
+      by = dplyr::join_by(scientificName == taxon.scientificName)
     )
   }
   return(x)
