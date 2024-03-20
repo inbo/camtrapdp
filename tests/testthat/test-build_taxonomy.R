@@ -4,6 +4,14 @@ test_that("build_taxonomy() returns a data frame", {
   expect_s3_class(build_taxonomy(x), "data.frame")
 })
 
+test_that("build_taxonomy() returns NULL when there is no taxonomic information", {
+  skip_if_offline()
+  x <- example_dataset()
+  x$taxonomic <- NULL
+
+  expect_null(build_taxonomy(x))
+})
+
 test_that("build_taxonomy() returns one row per species in $data$observations", {
   skip_if_offline()
   x <- example_dataset()
@@ -23,6 +31,41 @@ test_that("build_taxonomy() returns the expected columns", {
     build_taxonomy(x),
     c("scientificName", "taxonID", "taxonRank", "vernacularNames.eng",
       "vernacularNames.nld")
+  )
+})
+
+test_that("build_taxonomy() creates a column per language for vernacularName", {
+  x <- example_dataset()
+  taxonomy_many_languages <- list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "mallard",
+        nld = "wilde eend",
+        est = "sinikael-part",
+        glv = "Laagh Voirrey",
+        wel = "Hwyaden Wyllt",
+        afr = "Groenkopeend"
+      )
+    )
+  )
+  x$taxonomic <- taxonomy_many_languages
+
+  # Expect 6 vernacularName columns
+  expect_length(
+    dplyr::select(build_taxonomy(x), dplyr::starts_with("vernacularNames.")),
+    6
+  )
+
+  # Expect the right vernacularName columns
+  expect_named(
+    dplyr::select(build_taxonomy(x), dplyr::starts_with("vernacularNames.")),
+    c(
+      "vernacularNames.eng", "vernacularNames.nld", "vernacularNames.est",
+      "vernacularNames.glv", "vernacularNames.wel", "vernacularNames.afr"
+    )
   )
 })
 
@@ -98,47 +141,4 @@ test_that("build_taxonomy() fills missing values with NA when a taxonomic field
     dplyr::pull(build_taxonomy(x), vernacularNames.eng),
     NA_character_
   )
-})
-
-test_that("build_taxonomy() creates a column per language for vernacularName", {
-  x <- example_dataset()
-  taxonomy_many_languages <- list(
-    list(
-      scientificName = "Anas platyrhynchos",
-      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
-      taxonRank = "species",
-      vernacularNames = list(
-        eng = "mallard",
-        nld = "wilde eend",
-        est = "sinikael-part",
-        glv = "Laagh Voirrey",
-        wel = "Hwyaden Wyllt",
-        afr = "Groenkopeend"
-      )
-    )
-  )
-  x$taxonomic <- taxonomy_many_languages
-
-  # Expect 6 vernacularName columns
-  expect_length(
-    dplyr::select(build_taxonomy(x), dplyr::starts_with("vernacularNames.")),
-    6
-  )
-
-  # Expect the right vernacularName columns
-  expect_named(
-    dplyr::select(build_taxonomy(x), dplyr::starts_with("vernacularNames.")),
-    c(
-      "vernacularNames.eng", "vernacularNames.nld", "vernacularNames.est",
-      "vernacularNames.glv", "vernacularNames.wel", "vernacularNames.afr"
-    )
-  )
-})
-
-test_that("build_taxonomy() returns NULL when there is no taxonomic information", {
-  skip_if_offline()
-  x <- example_dataset()
-  x$taxonomic <- NULL
-
-  expect_null(build_taxonomy(x))
 })
