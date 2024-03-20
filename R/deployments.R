@@ -10,6 +10,6 @@
 #' dataset <- example_dataset()
 #' deployments(dataset)
 deployments <- function(x) {
-  # TOOD: check_camtrapdp
+  # check_camtrapdp(x) # uncomment if check_camtrapdp() will exist
   x$data$deployments
 }

@@ -7,5 +7,6 @@
 #' @family accessor functions
 #' @export
 media <- function(x) {
+  # check_camtrapdp(x) # uncomment if check_camtrapdp() will exist
   x$data$media
 }
