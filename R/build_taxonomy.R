@@ -1,6 +1,6 @@
 #' Parse the taxon information from a Camera Trap Data Package object
 #'
-#' @param x
+#' @param x Camera Trap Data Package object.
 #'
 #' @return A tibble with the taxonomic information from a Camera Trap Data
 #'   Package
