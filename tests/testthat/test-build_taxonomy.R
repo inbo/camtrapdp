@@ -15,6 +15,14 @@ test_that("build_taxonomy() returns one row per species in $data$observations",{
   )
 })
 
+test_that("build_taxonomy() returns the expected columns", {
+  expect_named(
+    build_taxonomy(example_dataset()),
+    c("scientificName", "taxonID", "taxonRank", "vernacularNames.eng",
+      "vernacularNames.nld")
+  )
+})
+
 test_that("build_taxonomy() can handle missing vernacular names",{
 
 })
