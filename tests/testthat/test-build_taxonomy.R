@@ -1,9 +1,11 @@
 test_that("build_taxonomy() returns tibble", {
+  skip_if_offline()
   expect_s3_class(build_taxonomy(example_dataset()),
                   "data.frame")
 })
 
-test_that("build_taxonomy() returns one row per species in $data$observations",{
+test_that("build_taxonomy() returns one row per species in $data$observations"
+  skip_if_offline()
   number_of_species <-
     dplyr::n_distinct(
       example_dataset()$data$observations$scientificName,
@@ -16,6 +18,7 @@ test_that("build_taxonomy() returns one row per species in $data$observations",{
 })
 
 test_that("build_taxonomy() returns the expected columns", {
+  skip_if_offline()
   expect_named(
     build_taxonomy(example_dataset()),
     c("scientificName", "taxonID", "taxonRank", "vernacularNames.eng",
