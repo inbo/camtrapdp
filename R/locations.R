@@ -10,7 +10,7 @@
 #' - `latitude`
 #' - `longitude`
 #' - `coordinateUncertainty`
-#'
+#' @importFrom dplyr %>% .data
 #' @export
 #' @examples
 #' dataset <- example_dataset()
