@@ -40,14 +40,18 @@ read_camtrapdp <- function(file) {
   # Convert
   x <- convert(x, convert_to = "1.0")
 
-  # Retrieve taxonomic information from taxonomic slot
-  taxa <- build_taxonomy(x)
+  # Add taxonomy
+  taxonomy <- build_taxonomy(x)
+  if (!is.null(taxonomy)) {
+    # Add taxon. as column suffix
+    colnames(taxonomy) <- paste("taxon", colnames(taxonomy), sep = ".")
 
-  # Add taxonomic information to observations if present
-  if (is.null(taxa)) {
-    return(x)
+    # Join taxonomy with observations
+    x$data$observations <- dplyr::left_join(
+      observations(x),
+      taxonomy,
+      by = join_by(scientificName == taxon.scientificName)
+    )
   }
-  x$data$observations <- x$data$observations %>%
-    dplyr::left_join(taxa, by = c("scientificName" = "tax.scientificName"))
-  x
+  return(x)
 }
