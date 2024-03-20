@@ -1,36 +1,36 @@
-test_that("build_taxonomy() returns tibble", {
+test_that("build_taxonomy() returns a data frame", {
   skip_if_offline()
-  expect_s3_class(build_taxonomy(example_dataset()),
-                  "data.frame")
+  x <- example_dataset()
+  expect_s3_class(build_taxonomy(x), "data.frame")
 })
 
-test_that("build_taxonomy() returns one row per species in $data$observations",{
+test_that("build_taxonomy() returns one row per species in $data$observations", {
   skip_if_offline()
+  x <- example_dataset()
   number_of_species <-
-    dplyr::n_distinct(
-      example_dataset()$data$observations$scientificName,
-      na.rm = TRUE)
+    dplyr::n_distinct(x$data$observations$scientificName, na.rm = TRUE)
 
   expect_identical(
-    nrow(build_taxonomy(example_dataset())),
+    nrow(build_taxonomy(x)),
     number_of_species
   )
 })
 
 test_that("build_taxonomy() returns the expected columns", {
   skip_if_offline()
+  x <- example_dataset()
   expect_named(
-    build_taxonomy(example_dataset()),
+    build_taxonomy(x),
     c("scientificName", "taxonID", "taxonRank", "vernacularNames.eng",
       "vernacularNames.nld")
   )
 })
 
-test_that("build_taxonomy() can handle missing vernacular names",{
-  # Create a list with the taxonomic part of a Camera Trap Data Package object,
-  # the English vernacularName of Anas strepera is not provided.
-  missing_vernacular_name <-
-  list(taxonomic = list(
+test_that("build_taxonomy() can handle missing vernacular names", {
+  x <- example_dataset()
+  # Create a taxonomy where the English vernacularName of Anas strepera is not
+  # provided.
+  taxonomy_missing_vernacular <- list(
     list(
       scientificName = "Anas platyrhynchos",
       taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
@@ -44,87 +44,90 @@ test_that("build_taxonomy() can handle missing vernacular names",{
       scientificName = "Anas strepera",
       taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
       taxonRank = "species",
-      vernacularNames = list(nld = "krakeend")
+      vernacularNames = list(
+        nld = "krakeend"
+      )
     )
-  ))
+  )
+  x$taxonomic <- taxonomy_missing_vernacular
 
-  # Test to check that vernacularNames are still receiving the
-  # `vernacularNames.` prefix
+  # Check that we still get the `vernacularNames.` prefix
   expect_named(
-    build_taxonomy(missing_vernacular_name),
+    build_taxonomy(x),
     c("scientificName", "taxonID", "taxonRank", "vernacularNames.eng",
       "vernacularNames.nld")
   )
 })
 
-test_that("build_taxonomy() fills missing values with NA when a taxonomic field is only present for some of the records", {
-  two_missing_vernacular_names <-
-    list(taxonomic = list(
-      list(
-        scientificName = "Anas platyrhynchos",
-        taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
-        taxonRank = "species",
-        vernacularNames = list(
-          eng = "mallard"
-        )
-      ),
-      list(
-        scientificName = "Anas strepera",
-        taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
-        taxonRank = "species",
-        vernacularNames = list(nld = "krakeend")
+test_that("build_taxonomy() fills missing values with NA when a taxonomic field
+           is only present for some of the records", {
+  x <- example_dataset()
+  taxonomy_missing_vernaculars <- list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "mallard"
       )
-    ))
+    ),
+    list(
+      scientificName = "Anas strepera",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+      taxonRank = "species",
+      vernacularNames = list(
+        nld = "krakeend"
+      )
+    )
+  )
+  x$taxonomic <- taxonomy_missing_vernaculars
 
   # Check that we still get the `vernacularNames.` prefix
   expect_named(
-    build_taxonomy(two_missing_vernacular_names),
+    build_taxonomy(x),
     c("scientificName", "taxonID", "taxonRank", "vernacularNames.eng",
       "vernacularNames.nld")
   )
   # Check that the Dutch vernacular name column contains an NA
   expect_contains(
-    dplyr::pull(build_taxonomy(two_missing_vernacular_names), vernacularNames.nld),
+    dplyr::pull(build_taxonomy(x), vernacularNames.nld),
     NA_character_
   )
   # Check that the English vernacular name column contains an NA
   expect_contains(
-    dplyr::pull(build_taxonomy(two_missing_vernacular_names), vernacularNames.eng),
+    dplyr::pull(build_taxonomy(x), vernacularNames.eng),
     NA_character_
   )
 })
 
 test_that("build_taxonomy() creates a column per language for vernacularName", {
-  many_languages <-
-    list(taxonomic = list(
-      list(
-        scientificName = "Anas platyrhynchos",
-        taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
-        taxonRank = "species",
-        vernacularNames = list(
-          eng = "mallard",
-          nld = "wilde eend",
-          est = "sinikael-part",
-          glv = "Laagh Voirrey",
-          wel = "Hwyaden Wyllt",
-          afr = "Groenkopeend"
-        )
+  x <- example_dataset()
+  taxonomy_many_languages <- list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "mallard",
+        nld = "wilde eend",
+        est = "sinikael-part",
+        glv = "Laagh Voirrey",
+        wel = "Hwyaden Wyllt",
+        afr = "Groenkopeend"
       )
-    ))
+    )
+  )
+  x$taxonomic <- taxonomy_many_languages
+
   # Expect 6 vernacularName columns
   expect_length(
-    dplyr::select(
-      build_taxonomy(many_languages),
-      dplyr::starts_with("vernacularNames.")
-    ),
+    dplyr::select(build_taxonomy(x), dplyr::starts_with("vernacularNames.")),
     6
   )
+
   # Expect the right vernacularName columns
   expect_named(
-    dplyr::select(
-      build_taxonomy(many_languages),
-      dplyr::starts_with("vernacularNames.")
-    ),
+    dplyr::select(build_taxonomy(x), dplyr::starts_with("vernacularNames.")),
     c(
       "vernacularNames.eng", "vernacularNames.nld", "vernacularNames.est",
       "vernacularNames.glv", "vernacularNames.wel", "vernacularNames.afr"
@@ -134,10 +137,8 @@ test_that("build_taxonomy() creates a column per language for vernacularName", {
 
 test_that("build_taxonomy() returns NULL when there is no taxonomic information", {
   skip_if_offline()
-  no_taxonomic_information <- example_dataset()
-  no_taxonomic_information$taxonomic <- NULL
+  x <- example_dataset()
+  x$taxonomic <- NULL
 
-  expect_null(
-    build_taxonomy(no_taxonomic_information)
-  )
+  expect_null(build_taxonomy(x))
 })
