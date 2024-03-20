@@ -24,6 +24,26 @@ test_that("build_taxonomy() returns the expected columns", {
 })
 
 test_that("build_taxonomy() can handle missing vernacular names",{
+  # Create a list with the taxonomic part of a Camera Trap Data Package object,
+  # the English vernacularName of Anas strepera is not provided.
+  missing_vernacular_name <-
+  list(taxonomic = list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "mallard",
+        nld = "wilde eend"
+      )
+    ),
+    list(
+      scientificName = "Anas strepera",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+      taxonRank = "species",
+      vernacularNames = list(nld = "krakeend")
+    )
+  ))
 
 })
 
