@@ -45,6 +45,13 @@ test_that("build_taxonomy() can handle missing vernacular names",{
     )
   ))
 
+  # Test to check that vernacularNames are still receiving the
+  # `vernacularNames.` prefix
+  expect_named(
+    build_taxonomy(missing_vernacular_name),
+    c("scientificName", "taxonID", "taxonRank", "vernacularNames.eng",
+      "vernacularNames.nld")
+  )
 })
 
 test_that("build_taxonomy() returns NULL when there is no taxonomic information", {
