@@ -6,3 +6,4 @@
 * New internal function `example_package()` returns the latest Camtrap DP example dataset (#24).
 * New internal function `convert()` converts camtrapdp objects to the latest version. This function is currently not used, as the only supported version is Camtrap DP 1.0 (#9).
 * Pipe (`%>%`) is imported from [dplyr](https://cran.r-project.org/package=dplyr) at package level, so it can be used in functions (#37).
+* New function `taxonomy()` to extract taxonomy information from observations (#17).
