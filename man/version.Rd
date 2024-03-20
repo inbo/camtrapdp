@@ -32,6 +32,7 @@ contain the URL to the used Camtrap DP standard.
 Other accessor functions: 
 \code{\link{deployments}()},
 \code{\link{media}()},
-\code{\link{observations}()}
+\code{\link{observations}()},
+\code{\link{taxonomy}()}
 }
 \concept{accessor functions}

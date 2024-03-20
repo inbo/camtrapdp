@@ -22,6 +22,7 @@ Gets the media from a Camera Trap Data Package object.
 Other accessor functions: 
 \code{\link{deployments}()},
 \code{\link{observations}()},
+\code{\link{taxonomy}()},
 \code{\link{version}()}
 }
 \concept{accessor functions}
