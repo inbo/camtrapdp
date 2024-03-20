@@ -18,6 +18,10 @@ Also works on a Frictionless Data Package, as returned by
 \description{
 Gets the media from a Camera Trap Data Package object.
 }
+\examples{
+dataset <- example_dataset()
+media(dataset)
+}
 \seealso{
 Other accessor functions: 
 \code{\link{deployments}()},

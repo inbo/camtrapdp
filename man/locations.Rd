@@ -7,7 +7,10 @@
 locations(x)
 }
 \arguments{
-\item{x}{a Camera Trap Data Package object.}
+\item{x}{Camera Trap Data Package object, as returned by
+\code{read_camtrapdp()}.
+Also works on a Frictionless Data Package, as returned by
+\code{frictionless::read_package()}.}
 }
 \value{
 \code{tibble()} data frame with the following columns:
