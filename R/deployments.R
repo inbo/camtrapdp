@@ -3,12 +3,12 @@
 #' Gets the deployments from a Camera Trap Data Package object.
 #'
 #' @inheritParams version
-#' @return `tibble()` data frame with deployments.
+#' @return [tibble()] data frame with deployments.
 #' @family accessor functions
 #' @export
 #' @examples
-#' dataset <- example_dataset()
-#' deployments(dataset)
+#' x <- example_dataset()
+#' deployments(x)
 deployments <- function(x) {
   check_camtrapdp(x)
   x$data$deployments

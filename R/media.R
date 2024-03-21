@@ -3,12 +3,12 @@
 #' Gets the media from a Camera Trap Data Package object.
 #'
 #' @inheritParams version
-#' @return `tibble()` data frame with media.
+#' @return [tibble()] data frame with media.
 #' @family accessor functions
 #' @export
 #' @examples
-#' dataset <- example_dataset()
-#' media(dataset)
+#' x <- example_dataset()
+#' media(x)
 media <- function(x) {
   check_camtrapdp(x)
   x$data$media

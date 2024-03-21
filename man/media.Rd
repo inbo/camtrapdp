@@ -13,14 +13,14 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-\code{tibble()} data frame with media.
+\code{\link[=tibble]{tibble()}} data frame with media.
 }
 \description{
 Gets the media from a Camera Trap Data Package object.
 }
 \examples{
-dataset <- example_dataset()
-media(dataset)
+x <- example_dataset()
+media(x)
 }
 \seealso{
 Other accessor functions: 

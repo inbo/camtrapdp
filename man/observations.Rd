@@ -13,14 +13,14 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-\code{tibble()} data frame with observations.
+\code{\link[=tibble]{tibble()}} data frame with observations.
 }
 \description{
 Gets the observations from a Camera Trap Data Package object.
 }
 \examples{
-dataset <- example_dataset()
-observations(dataset)
+x <- example_dataset()
+observations(x)
 }
 \seealso{
 Other accessor functions: 
