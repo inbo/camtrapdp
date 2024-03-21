@@ -14,6 +14,7 @@
 #' taxonomy(dataset)
 taxonomy <- function(x) {
   observations(x) %>%
-    dplyr::select(.data$scientificName, dplyr::starts_with("taxon.")) %>%
+    dplyr::filter(!is.na(.data$scientificName)) %>%
+    dplyr::select("scientificName", dplyr::starts_with("taxon.")) %>%
     dplyr::distinct()
 }
