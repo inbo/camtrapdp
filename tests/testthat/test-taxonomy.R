@@ -49,7 +49,7 @@ test_that("taxonomy never returns more rows than observations", {
   dataset <- example_dataset()
   obs <- observations(dataset)
   taxa <- taxonomy(dataset)
-  expect_true(nrow(taxa) <= nrow(obs))
+  expect_lte(nrow(taxa), nrow(obs))
 })
 
 test_that(
