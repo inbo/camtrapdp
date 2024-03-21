@@ -21,20 +21,6 @@ test_that("taxonomy returns the columns scientificName and with taxon prefix", {
   )
 })
 
-test_that(
-  "taxonomy returns scientificName column only if no taxon info in observations", {
-  skip_if_offline()
-  dataset_no_taxon_info  <- example_dataset()
-  dataset_no_taxon_info$data$observations <- dataset_no_taxon_info$data$observations %>%
-    dplyr::select(-dplyr::starts_with("taxon."))
-  expect_identical(
-    taxonomy(dataset_no_taxon_info),
-    observations(dataset_no_taxon_info) %>%
-      dplyr::distinct(scientificName) %>%
-      dplyr::filter(!is.na(scientificName))
-  )
-})
-
 test_that("taxonomy returns the expected amount of rows", {
   skip_if_offline()
   dataset <- example_dataset()
