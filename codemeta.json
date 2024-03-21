@@ -1,0 +1,142 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "camtrapdp",
+  "description": "What the package does (one paragraph).",
+  "name": "camtrapdp: Read and Convert Camera Trap Data Packages (Camtrap DP)",
+  "relatedLink": "https://inbo.github.io/camtrapdp/",
+  "codeRepository": "https://github.com/inbo/camtrapdp",
+  "issueTracker": "https://github.com/inbo/camtrapdp/issues",
+  "license": "https://spdx.org/licenses/MIT",
+  "version": "0.1.0.9000",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Peter",
+      "familyName": "Desmet",
+      "email": "peter.desmet@inbo.be",
+      "@id": "https://orcid.org/0000-0002-8442-8025"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Damiano",
+      "familyName": "Oldoni",
+      "email": "damiano.oldoni@inbo.be",
+      "@id": "https://orcid.org/0000-0003-3445-7562"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Pieter",
+      "familyName": "Huybrechts",
+      "email": "pieter.huybrechts@inbo.be",
+      "@id": "https://orcid.org/0000-0002-6658-6062"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Sanne",
+      "familyName": "Govaert",
+      "email": "sanne.govaert@inbo.be",
+      "@id": "https://orcid.org/0000-0002-8939-1305"
+    }
+  ],
+  "copyrightHolder": [
+    {
+      "@type": "Organization",
+      "name": "Research Institute for Nature and Forest (INBO)"
+    }
+  ],
+  "funder": [
+    {
+      "@type": "Organization",
+      "name": "LifeWatch Belgium"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Peter",
+      "familyName": "Desmet",
+      "email": "peter.desmet@inbo.be",
+      "@id": "https://orcid.org/0000-0002-8442-8025"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 3.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    }
+  ],
+  "softwareRequirements": {
+    "1": {
+      "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
+    "2": {
+      "@type": "SoftwareApplication",
+      "identifier": "dplyr",
+      "name": "dplyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dplyr"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
+      "identifier": "frictionless",
+      "name": "frictionless",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=frictionless"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
+      "identifier": "purrr",
+      "name": "purrr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=purrr"
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "22.694KB",
+  "releaseNotes": "https://github.com/inbo/camtrapdp/blob/master/NEWS.md",
+  "readme": "https://github.com/inbo/camtrapdp/blob/main/README.md",
+  "contIntegration": ["https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/inbo/camtrapdp/"],
+  "developmentStatus": "https://www.repostatus.org/#wip"
+}
