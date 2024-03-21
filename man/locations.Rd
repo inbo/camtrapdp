@@ -13,7 +13,7 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-\code{tibble()} data frame with the following columns:
+\code{\link[=tibble]{tibble()}} data frame with the following columns:
 \itemize{
 \item \code{locationID}
 \item \code{locationName}
@@ -23,12 +23,12 @@ Also works on a Frictionless Data Package, as returned by
 }
 }
 \description{
-Extract unique locations of the deployments of a Camera Trap Data Package
+Gets the unique locations from the deployments of a Camera Trap Data Package
 object.
 }
 \examples{
-dataset <- example_dataset()
-locations(dataset)
+x <- example_dataset()
+locations(x)
 }
 \seealso{
 Other accessor functions: 
