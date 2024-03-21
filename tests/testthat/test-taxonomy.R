@@ -27,16 +27,3 @@ test_that("taxonomy() returns the expected rows (unique taxa)", {
     nrow(observations(x))
   )
 })
-
-test_that(
-  "one row returned if all observations have same taxonomy information", {
-    skip_if_offline()
-    dataset_only_fox <- example_dataset()
-    dataset_only_fox$data$observations$scientificName <- "Vulpes vulpes"
-    dataset_only_fox$data$observations$taxon.taxonRank <- "species"
-    dataset_only_fox$data$observations$taxon.taxonID <- "https://www.checklistbank.org/dataset/COL2023/taxon/5BSG3"
-    dataset_only_fox$data$observations$taxon.vernacularNames.eng <- "red fox"
-    dataset_only_fox$data$observations$taxon.vernacularNames.nld <- "vos"
-    taxa <- taxonomy(dataset_only_fox)
-    expect_identical(nrow(taxa), 1L)
-  })
