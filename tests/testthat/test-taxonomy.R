@@ -1,12 +1,10 @@
-library(tibble)
 library(dplyr)
 
 test_that("taxonomy returns a tibble data.frame", {
   skip_if_offline()
   dataset <- example_dataset()
   taxa <- taxonomy(dataset)
-  expect_true(is.data.frame(taxa))
-  expect_true(is_tibble(taxa))
+  expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("taxonomy returns the columns scientificName and with taxon prefix", {
