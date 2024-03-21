@@ -3,7 +3,7 @@
 * New function `read_camtrapdp()` reads data files into memory (#9).
 * New function `version()` allows to get the version of a camtrapdp object.
 * New functions `deployments()`, `media()` and `observations()` return a data frame with respectively deployments, media and observations (#29).
-* New function `locations()` return a data frame with location information extracted from `deployments()` (#22). 
+* New function `locations()` returns a data frame with unique locations derived from deployments (#22). 
 * New internal function `example_package()` returns the latest Camtrap DP example dataset (#24).
 * New internal function `check_camtrapdp()` validates a camtrapdp object (#34).
 * New internal function `convert()` converts camtrapdp objects to the latest version. This function is currently not used, as the only supported version is Camtrap DP 1.0 (#9).
