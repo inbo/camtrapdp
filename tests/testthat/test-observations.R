@@ -1,4 +1,5 @@
 library(purrr)
+library(dplyr)
 
 test_that("observations() returns the observations", {
   skip_if_offline()
