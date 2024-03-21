@@ -1,5 +1,11 @@
 library(purrr)
 library(dplyr)
+test_that("observations() returns a tibble data.frame", {
+  skip_if_offline()
+  dataset <- example_dataset()
+  obs <- observations(dataset)
+  expect_s3_class(obs, c("tbl_df", "tbl", "data.frame"))
+})
 
 test_that("observations() returns the observations", {
   skip_if_offline()
