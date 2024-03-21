@@ -41,7 +41,7 @@ test_that("taxonomy returns the expected amount of rows", {
   skip_if_offline()
   dataset <- example_dataset()
   taxa <- taxonomy(dataset)
-  expect_equal(nrow(taxa),10)
+  expect_identical(nrow(taxa),10L)
 })
 
 test_that("taxonomy never returns more rows than observations", {
