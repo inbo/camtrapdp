@@ -4,35 +4,28 @@ test_that("taxonomy() returns a tibble", {
   expect_s3_class(taxonomy(x), "tbl")
 })
 
-test_that("taxonomy returns the columns scientificName and with taxon prefix", {
+test_that("taxonomy() returns the expected columns, incl. scientificName", {
   skip_if_offline()
-  dataset <- example_dataset()
-  taxa <- taxonomy(dataset)
-  expect_named(
-    taxa,
-    c(
-      "scientificName",
-      "taxon.taxonID",
-      "taxon.taxonRank",
-      "taxon.vernacularNames.eng",
-      "taxon.vernacularNames.nld"
-    )
+  x <- example_dataset()
+  expected_cols <- c(
+    "scientificName",
+    "taxon.taxonID",
+    "taxon.taxonRank",
+    "taxon.vernacularNames.eng",
+    "taxon.vernacularNames.nld"
   )
+  expect_named(taxonomy(x), expected_cols)
 })
 
-test_that("taxonomy returns the expected amount of rows", {
+test_that("taxonomy() returns the expected rows (unique taxa)", {
   skip_if_offline()
-  dataset <- example_dataset()
-  taxa <- taxonomy(dataset)
-  expect_identical(nrow(taxa),10L)
-})
-
-test_that("taxonomy never returns more rows than observations", {
-  skip_if_offline()
-  dataset <- example_dataset()
-  obs <- observations(dataset)
-  taxa <- taxonomy(dataset)
-  expect_lte(nrow(taxa), nrow(obs))
+  x <- example_dataset()
+  expect_equal(nrow(taxonomy(x)), 10)
+  # Less or equal than observations
+  expect_lte(
+    nrow(taxonomy(x)),
+    nrow(observations(x))
+  )
 })
 
 test_that(
