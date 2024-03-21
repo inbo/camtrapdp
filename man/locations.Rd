@@ -13,7 +13,8 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-\code{\link[=tibble]{tibble()}} data frame with the following columns:
+\code{\link[=tibble]{tibble()}} data frame with the locations, containing the following
+columns:
 \itemize{
 \item \code{locationID}
 \item \code{locationName}
@@ -23,8 +24,8 @@ Also works on a Frictionless Data Package, as returned by
 }
 }
 \description{
-Gets the unique locations from the deployments of a Camera Trap Data Package
-object.
+Gets the (unique) locations from the deployments of a Camera Trap Data
+Package object.
 }
 \examples{
 x <- example_dataset()
@@ -35,6 +36,7 @@ Other accessor functions:
 \code{\link{deployments}()},
 \code{\link{media}()},
 \code{\link{observations}()},
+\code{\link{taxonomy}()},
 \code{\link{version}()}
 }
 \concept{accessor functions}

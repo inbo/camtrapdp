@@ -13,21 +13,21 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-\code{tibble()} data.frame with taxonomic information. It contains at
-least one column called \code{scientificName}.
+\code{\link[=tibble]{tibble()}} data frame with the taxonomic information, containing at
+least a \code{scientificName} column.
 }
 \description{
-Gets the taxonomy information from the observations of a Camera Trap Data
-Package object. Notice that this information could differ from the taxonomy
-described in \code{taxonomic} slot.
+Gets the (unique) scientific names and associated taxonomic information from
+the observations of a Camera Trap Data Package object.
 }
 \examples{
-dataset <- example_dataset()
-taxonomy(dataset)
+x <- example_dataset()
+taxonomy(x)
 }
 \seealso{
 Other accessor functions: 
 \code{\link{deployments}()},
+\code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()},
 \code{\link{version}()}

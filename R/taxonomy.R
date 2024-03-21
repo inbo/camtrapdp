@@ -1,17 +1,16 @@
 #' Get taxonomy
 #'
-#' Gets the taxonomy information from the observations of a Camera Trap Data
-#' Package object. Notice that this information could differ from the taxonomy
-#' described in `taxonomic` slot.
+#' Gets the (unique) scientific names and associated taxonomic information from
+#' the observations of a Camera Trap Data Package object.
 #'
 #' @inheritParams version
-#' @return `tibble()` data.frame with taxonomic information. It contains at
-#'   least one column called `scientificName`.
+#' @return [tibble()] data frame with the taxonomic information, containing at
+#'   least a `scientificName` column.
 #' @family accessor functions
 #' @export
 #' @examples
-#' dataset <- example_dataset()
-#' taxonomy(dataset)
+#' x <- example_dataset()
+#' taxonomy(x)
 taxonomy <- function(x) {
   observations(x) %>%
     dplyr::filter(!is.na(.data$scientificName)) %>%
