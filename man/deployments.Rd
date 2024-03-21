@@ -13,13 +13,18 @@ Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
 }
 \value{
-Deployments tibble.
+\code{\link[=tibble]{tibble()}} data frame with deployments.
 }
 \description{
 Gets the deployments from a Camera Trap Data Package object.
 }
+\examples{
+x <- example_dataset()
+deployments(x)
+}
 \seealso{
 Other accessor functions: 
+\code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()},
 \code{\link{version}()}

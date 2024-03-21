@@ -2,8 +2,10 @@
 
 export(deployments)
 export(example_dataset)
+export(locations)
 export(media)
 export(observations)
 export(read_camtrapdp)
 export(version)
 importFrom(dplyr,"%>%")
+importFrom(dplyr,.data)
