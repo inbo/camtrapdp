@@ -11,5 +11,5 @@
 #' media(x)
 media <- function(x) {
   check_camtrapdp(x)
-  x$data$media
+  purrr::pluck(x, "data", "media")
 }

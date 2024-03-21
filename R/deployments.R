@@ -11,5 +11,5 @@
 #' deployments(x)
 deployments <- function(x) {
   check_camtrapdp(x)
-  x$data$deployments
+  purrr::pluck(x, "data", "deployments")
 }
