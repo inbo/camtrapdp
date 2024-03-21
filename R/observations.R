@@ -7,5 +7,6 @@
 #' @family accessor functions
 #' @export
 observations <- function(x) {
+  check_camtrapdp(x)
   x$data$observations
 }

@@ -7,6 +7,6 @@
 #' @family accessor functions
 #' @export
 deployments <- function(x) {
-  # TOOD: check_camtrapdp
+  check_camtrapdp(x)
   x$data$deployments
 }
