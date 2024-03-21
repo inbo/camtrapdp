@@ -20,6 +20,6 @@ test_that("locations() returns expected columns", {
 test_that("locations() returns unique location information", {
   skip_if_offline()
   x <- example_dataset()
-  expect_identical(nrow(locations(x)), 4)
+  expect_equal(nrow(locations(x)), 4)
   # TODO: reduce cardinality of location information in deployments and expect fewer rows
 })
