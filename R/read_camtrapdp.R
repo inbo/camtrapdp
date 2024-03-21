@@ -53,5 +53,6 @@ read_camtrapdp <- function(file) {
       by = dplyr::join_by("scientificName" == "taxon.scientificName")
     )
   }
+
   return(x)
 }

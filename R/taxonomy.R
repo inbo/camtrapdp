@@ -12,6 +12,7 @@
 #' x <- example_dataset()
 #' taxonomy(x)
 taxonomy <- function(x) {
+  check_camtrapdp(x)
   observations(x) %>%
     dplyr::filter(!is.na(.data$scientificName)) %>%
     dplyr::select("scientificName", dplyr::starts_with("taxon.")) %>%
