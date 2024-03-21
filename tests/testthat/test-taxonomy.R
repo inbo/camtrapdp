@@ -1,8 +1,7 @@
-test_that("taxonomy returns a tibble data.frame", {
+test_that("taxonomy() returns a tibble", {
   skip_if_offline()
-  dataset <- example_dataset()
-  taxa <- taxonomy(dataset)
-  expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
+  x <- example_dataset()
+  expect_s3_class(taxonomy(x), "tbl")
 })
 
 test_that("taxonomy returns the columns scientificName and with taxon prefix", {

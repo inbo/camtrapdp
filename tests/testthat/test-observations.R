@@ -1,8 +1,7 @@
-test_that("observations() returns a tibble data.frame", {
+test_that("observations() returns a tibble", {
   skip_if_offline()
-  dataset <- example_dataset()
-  obs <- observations(dataset)
-  expect_s3_class(obs, c("tbl_df", "tbl", "data.frame"))
+  x <- example_dataset()
+  expect_s3_class(observations(x), "tbl")
 })
 
 test_that("observations() returns the observations", {
