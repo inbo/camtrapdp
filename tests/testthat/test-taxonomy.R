@@ -1,5 +1,3 @@
-library(dplyr)
-
 test_that("taxonomy returns a tibble data.frame", {
   skip_if_offline()
   dataset <- example_dataset()
@@ -26,12 +24,12 @@ test_that(
   skip_if_offline()
   dataset <- example_dataset()
   dataset$data$observations <- dataset$data$observations %>%
-    select(-starts_with("taxon."))
+    dplyr::select(-dplyr::starts_with("taxon."))
   expect_identical(
     taxonomy(dataset),
     observations(dataset) %>%
-      distinct(scientificName) %>%
-      filter(!is.na(scientificName))
+      dplyr::distinct(scientificName) %>%
+      dplyr::filter(!is.na(scientificName))
   )
 })
 
