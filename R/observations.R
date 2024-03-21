@@ -10,6 +10,6 @@
 #' dataset <- example_dataset()
 #' observations(dataset)
 observations <- function(x) {
-  # check_camtrapdp(x) # uncomment if check_camtrapdp() will exist
+  check_camtrapdp(x)
   x$data$observations
 }
