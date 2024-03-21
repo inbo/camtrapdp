@@ -67,16 +67,39 @@ Also works on a Frictionless Data Package, as returned by
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>Media tibble.</p>
+<p><code>tibble()</code> data frame with media.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other accessor functions: 
 <code><a href="deployments.html">deployments</a>()</code>,
+<code><a href="locations.html">locations</a>()</code>,
 <code><a href="observations.html">observations</a>()</code>,
 <code><a href="version.html">version</a>()</code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="example_dataset.html">example_dataset</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">media</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 423 × 11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    mediaID  deploymentID captureMethod   timestamp           filePath filePublic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 07840dcc 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:37</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 401386c7 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:40</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ca3ff293 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:40</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> e8b8e44c 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:41</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> b8690a15 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:41</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 64734615 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:42</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 12ce5004 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:43</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> f372acaf 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:43</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 97140835 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:44</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> d1326349 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:44</span> https:/… TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 413 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5 more variables: fileName &lt;chr&gt;, fileMediatype &lt;chr&gt;, exifData &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   favorite &lt;lgl&gt;, mediaComments &lt;chr&gt;</span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

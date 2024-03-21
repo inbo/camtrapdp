@@ -67,16 +67,36 @@ Also works on a Frictionless Data Package, as returned by
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>Deployments tibble.</p>
+<p><code>tibble()</code> data frame with deployments.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other accessor functions: 
+<code><a href="locations.html">locations</a>()</code>,
 <code><a href="media.html">media</a>()</code>,
 <code><a href="observations.html">observations</a>()</code>,
 <code><a href="version.html">version</a>()</code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="example_dataset.html">example_dataset</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">deployments</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 24</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   deploymentID locationID locationName  latitude longitude coordinateUncertainty</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 00a2c20d     e254a13c   B_HS_val 2_p…     51.5      4.77                   187</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 29b7d356     2df5259b   B_DL_val 5_b…     51.2      5.66                   187</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 577b543a     ff1535c0   B_DL_val 3_d…     51.2      5.66                   187</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 62c200a9     ce943ced   B_DM_val 4_'…     50.7      4.01                   187</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 18 more variables: deploymentStart &lt;dttm&gt;, deploymentEnd &lt;dttm&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   setupBy &lt;chr&gt;, cameraID &lt;chr&gt;, cameraModel &lt;chr&gt;, cameraDelay &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   cameraHeight &lt;dbl&gt;, cameraDepth &lt;dbl&gt;, cameraTilt &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   cameraHeading &lt;dbl&gt;, detectionDistance &lt;dbl&gt;, timestampIssues &lt;lgl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   baitUse &lt;lgl&gt;, featureType &lt;fct&gt;, habitat &lt;chr&gt;, deploymentGroups &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   deploymentTags &lt;chr&gt;, deploymentComments &lt;chr&gt;</span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
