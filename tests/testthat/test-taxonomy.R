@@ -39,12 +39,12 @@ test_that("taxonomy never returns more rows than observations", {
 test_that(
   "one row returned if all observations have same taxonomy information", {
     skip_if_offline()
-    dataset <- example_dataset()
-    dataset$data$observations$scientificName <- "Vulpes vulpes"
-    dataset$data$observations$taxon.taxonRank <- "species"
-    dataset$data$observations$taxon.taxonID <- "https://www.checklistbank.org/dataset/COL2023/taxon/5BSG3"
-    dataset$data$observations$taxon.vernacularNames.eng <- "red fox"
-    dataset$data$observations$taxon.vernacularNames.nld <- "vos"
-    taxa <- taxonomy(dataset)
+    dataset_only_fox <- example_dataset()
+    dataset_only_fox$data$observations$scientificName <- "Vulpes vulpes"
+    dataset_only_fox$data$observations$taxon.taxonRank <- "species"
+    dataset_only_fox$data$observations$taxon.taxonID <- "https://www.checklistbank.org/dataset/COL2023/taxon/5BSG3"
+    dataset_only_fox$data$observations$taxon.vernacularNames.eng <- "red fox"
+    dataset_only_fox$data$observations$taxon.vernacularNames.nld <- "vos"
+    taxa <- taxonomy(dataset_only_fox)
     expect_identical(nrow(taxa), 1L)
   })
