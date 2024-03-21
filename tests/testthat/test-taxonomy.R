@@ -9,12 +9,14 @@ test_that("taxonomy returns the columns scientificName and with taxon prefix", {
   skip_if_offline()
   dataset <- example_dataset()
   taxa <- taxonomy(dataset)
-  expect_true("scientificName" %in% names(taxa))
-  expect_true(
-    all(
-      grepl(pattern = "^taxon\\.",
-              x = names(taxa %>% dplyr::select(-scientificName))
-            )
+  expect_named(
+    taxa,
+    c(
+      "scientificName",
+      "taxon.taxonID",
+      "taxon.taxonRank",
+      "taxon.vernacularNames.eng",
+      "taxon.vernacularNames.nld"
     )
   )
 })
