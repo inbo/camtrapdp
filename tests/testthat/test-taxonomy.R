@@ -58,5 +58,5 @@ test_that(
     dataset$data$observations$taxon.vernacularNames.eng <- "red fox"
     dataset$data$observations$taxon.vernacularNames.nld <- "vos"
     taxa <- taxonomy(dataset)
-    expect_equal(nrow(taxa), 1)
+    expect_identical(nrow(taxa), 1L)
   })
