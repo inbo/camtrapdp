@@ -36,7 +36,7 @@ Other accessor functions:
 \code{\link{deployments}()},
 \code{\link{media}()},
 \code{\link{observations}()},
-\code{\link{taxonomy}()},
+\code{\link{taxa}()},
 \code{\link{version}()}
 }
 \concept{accessor functions}
