@@ -4,15 +4,15 @@ test_that("taxa() returns a tibble", {
   expect_s3_class(taxa(x), "tbl")
 })
 
-test_that("taxa() returns the expected columns, incl. scientificName", {
+test_that("taxa() returns the expected columns, without .taxon prefix", {
   skip_if_offline()
   x <- example_dataset()
   expected_cols <- c(
     "scientificName",
-    "taxon.taxonID",
-    "taxon.taxonRank",
-    "taxon.vernacularNames.eng",
-    "taxon.vernacularNames.nld"
+    "taxonID",
+    "taxonRank",
+    "vernacularNames.eng",
+    "vernacularNames.nld"
   )
   expect_named(taxa(x), expected_cols)
 })
