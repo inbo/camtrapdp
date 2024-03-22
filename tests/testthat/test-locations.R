@@ -20,7 +20,7 @@ test_that("locations() returns the expected columns", {
 test_that("locations() returns the expected rows (unique locations)", {
   skip_if_offline()
   x <- example_dataset()
-  expect_equal(nrow(locations(x)), 4)
+  expect_equal(locations(x), 4)
   # Less or equal than deployments
   expect_lte(
     nrow(locations(x)),
