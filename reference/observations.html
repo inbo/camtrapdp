@@ -75,6 +75,7 @@ Also works on a Frictionless Data Package, as returned by
 <code><a href="deployments.html">deployments</a>()</code>,
 <code><a href="locations.html">locations</a>()</code>,
 <code><a href="media.html">media</a>()</code>,
+<code><a href="taxa.html">taxa</a>()</code>,
 <code><a href="version.html">version</a>()</code></p></div>
     </div>
 
@@ -82,7 +83,7 @@ Also works on a Frictionless Data Package, as returned by
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="example_dataset.html">example_dataset</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">observations</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 549 × 28</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 549 × 32</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    observationID deploymentID mediaID  eventID  eventStart         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 705e6036      00a2c20d     <span style="color: #BB0000;">NA</span>       4bb69c45 2020-05-30 <span style="color: #949494;">02:57:37</span></span>
@@ -96,7 +97,7 @@ Also works on a Frictionless Data Package, as returned by
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> f372acaf_1    00a2c20d     f372acaf 4bb69c45 2020-05-30 <span style="color: #949494;">02:57:43</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 97140835_1    00a2c20d     97140835 4bb69c45 2020-05-30 <span style="color: #949494;">02:57:44</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 539 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 23 more variables: eventEnd &lt;dttm&gt;, observationLevel &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 27 more variables: eventEnd &lt;dttm&gt;, observationLevel &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   observationType &lt;fct&gt;, cameraSetupType &lt;fct&gt;, scientificName &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   count &lt;dbl&gt;, lifeStage &lt;fct&gt;, sex &lt;fct&gt;, behavior &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   individualID &lt;chr&gt;, individualPositionRadius &lt;dbl&gt;,</span></span>

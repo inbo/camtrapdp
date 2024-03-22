@@ -47,13 +47,14 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="camtrapdp-development-version">camtrapdp (development version)<a class="anchor" aria-label="anchor" href="#camtrapdp-development-version"></a></h2>
 <ul><li>New function <code><a href="../reference/read_camtrapdp.html">read_camtrapdp()</a></code> reads data files into memory (<a href="https://github.com/inbo/camtrapdp/issues/9" class="external-link">#9</a>).</li>
-<li>New function <code><a href="../reference/version.html">version()</a></code> allows to get the version of a camtrapdp object.</li>
 <li>New functions <code><a href="../reference/deployments.html">deployments()</a></code>, <code><a href="../reference/media.html">media()</a></code> and <code><a href="../reference/observations.html">observations()</a></code> return a data frame with respectively deployments, media and observations (<a href="https://github.com/inbo/camtrapdp/issues/29" class="external-link">#29</a>).</li>
-<li>New function <code><a href="../reference/locations.html">locations()</a></code> returns a data frame with unique locations derived from deployments (<a href="https://github.com/inbo/camtrapdp/issues/22" class="external-link">#22</a>).</li>
+<li>New function <code><a href="../reference/locations.html">locations()</a></code> returns the unique locations from the deployments (<a href="https://github.com/inbo/camtrapdp/issues/22" class="external-link">#22</a>).</li>
+<li>New function <code><a href="../reference/taxa.html">taxa()</a></code> returns the unique scientific names and associated taxonomic information from the observations (<a href="https://github.com/inbo/camtrapdp/issues/17" class="external-link">#17</a>). This information is derived from the metadata and added the observations with column prefix <code>taxon.</code> in <code>read_camtrap_dp()</code> (<a href="https://github.com/inbo/camtrapdp/issues/37" class="external-link">#37</a>).</li>
 <li>New internal function <code>example_package()</code> returns the latest Camtrap DP example dataset (<a href="https://github.com/inbo/camtrapdp/issues/24" class="external-link">#24</a>).</li>
+<li>New function <code><a href="../reference/version.html">version()</a></code> allows to get the version of a camtrapdp object.</li>
 <li>New internal function <code>check_camtrapdp()</code> validates a camtrapdp object (<a href="https://github.com/inbo/camtrapdp/issues/34" class="external-link">#34</a>).</li>
 <li>New internal function <code>convert()</code> converts camtrapdp objects to the latest version. This function is currently not used, as the only supported version is Camtrap DP 1.0 (<a href="https://github.com/inbo/camtrapdp/issues/9" class="external-link">#9</a>).</li>
-<li>Pipe (<code>%&gt;%</code>) is imported from <a href="https://cran.r-project.org/package=dplyr" class="external-link">dplyr</a> at package level, so it can be used in functions (<a href="https://github.com/inbo/camtrapdp/issues/37" class="external-link">#37</a>).</li>
+<li>Pipe (<code>%&gt;%</code>) is imported from <a href="https://cran.r-project.org/package=dplyr" class="external-link">dplyr</a> at package level, so it can be used in functions (<a href="https://github.com/inbo/camtrapdp/issues/37" class="external-link">#37</a>). Same for <code>.data</code>.</li>
 </ul></div>
   </main></div>
 
