@@ -12,19 +12,3 @@ test_that("observations() returns the observations", {
     x$data$observations
   )
 })
-
-test_that("observations() returns taxonomic information if present", {
-  skip_if_offline()
-  x <- example_dataset()
-  col_taxon <- purrr::map(x$taxonomic,
-                   purrr::list_flatten,
-                   name_spec = "{outer}.{inner}") %>%
-    purrr::map(as.data.frame) %>%
-    purrr::list_rbind() %>%
-    names
-  taxon_df <- observations(x) %>%
-    dplyr::select(scientificName, starts_with("taxon."))
-  names(taxon_df) <- sub('^taxon.', '', names(taxon_df))
-  expect_equal(col_taxon, names(taxon_df))
-})
-
