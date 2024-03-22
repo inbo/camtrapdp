@@ -27,6 +27,7 @@ Other accessor functions:
 \code{\link{deployments}()},
 \code{\link{locations}()},
 \code{\link{media}()},
+\code{\link{taxa}()},
 \code{\link{version}()}
 }
 \concept{accessor functions}

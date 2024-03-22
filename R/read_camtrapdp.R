@@ -38,5 +38,21 @@ read_camtrapdp <- function(file) {
     frictionless::read_resource(package, "observations")
 
   # Convert
-  convert(x, convert_to = "1.0")
+  x <- convert(x, convert_to = "1.0")
+
+  # Add taxonomy
+  taxonomy <- build_taxonomy(x)
+  if (!is.null(taxonomy)) {
+    # Add taxon. as column suffix
+    colnames(taxonomy) <- paste("taxon", colnames(taxonomy), sep = ".")
+
+    # Join taxonomy with observations
+    x$data$observations <- dplyr::left_join(
+      observations(x),
+      taxonomy,
+      by = dplyr::join_by("scientificName" == "taxon.scientificName")
+    )
+  }
+
+  return(x)
 }
