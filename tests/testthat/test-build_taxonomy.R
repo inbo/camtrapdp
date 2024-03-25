@@ -243,6 +243,7 @@ test_that("build_taxonomy() doesn't return empty columns when a duplicate specie
         dplyr::everything(), is.na
       )
     )
+  # We expect no rows with missing values
   expect_identical(
     nrow(rows_with_missing_value), 0L
   )
