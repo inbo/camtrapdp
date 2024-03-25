@@ -158,3 +158,24 @@ test_that("build_taxonomy() fills missing values with NA when a taxonomic field
     NA_character_
   )
 })
+
+test_that("build_taxonomy() returns warning when a scientificName occurs more than once in x$taxonomic", {
+  skip_if_offline()
+  x <- example_dataset()
+  x$taxonomic <- append(
+    x$taxonomic,
+    list(list(
+      scientificName = "Vulpes vulpes",
+      taxonID = "https://www.wikidata.org/wiki/Q8332",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "red fox",
+        lbe = "Цулчӏа"
+      )
+    ))
+  )
+  expect_warning(
+    build_taxonomy(x),
+    class = "camtrapdp_warning_duplicate_scientificname"
+  )
+})
