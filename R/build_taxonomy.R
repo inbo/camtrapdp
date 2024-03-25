@@ -32,4 +32,9 @@ build_taxonomy <- function(x) {
       class = "camtrapdp_warning_duplicate_scientificname"
     )
   }
+
+  # Return a data.frame, if scientificNames are repeated, only return the first
+  # one
+
+  dplyr::distinct(taxonomy_df, scientificName, .keep_all = TRUE)
 }
