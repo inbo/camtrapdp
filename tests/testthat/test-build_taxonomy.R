@@ -178,4 +178,14 @@ test_that("build_taxonomy() returns warning when a scientificName occurs more th
     build_taxonomy(x),
     class = "camtrapdp_warning_duplicate_scientificname"
   )
+  expect_warning(
+    build_taxonomy(x),
+    regexp = paste("Duplicate scientificNames present in `x$taxonmic`,",
+                   "only the first one was returned."),
+    fixed = TRUE
+  )
+})
+
+test_that("build_taxonomy() returns only the first species if duplicates are present in `x$taxonomic`", {
+
 })
