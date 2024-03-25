@@ -187,5 +187,23 @@ test_that("build_taxonomy() returns warning when a scientificName occurs more th
 })
 
 test_that("build_taxonomy() returns only the first species if duplicates are present in `x$taxonomic`", {
+  skip_if_offline()
+  x <- example_dataset()
+  x$taxonomic <- append(
+    x$taxonomic,
+    list(list(
+      scientificName = "Vulpes vulpes",
+      taxonID = "https://www.wikidata.org/wiki/Q8332",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "red fox",
+        lbe = "Цулчӏа"
+      )
+    ))
+  )
+  expect_identical(
+    build_taxonomy(x)$scientificName,
+    unique(build_taxonomy(x)$scientificName)
+  )
 
 })
