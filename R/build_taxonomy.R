@@ -16,11 +16,11 @@ build_taxonomy <- function(x) {
   }
 
   # Convert list into a data.frame
-  purrr::map(
-      taxonomic_list,
-      purrr::list_flatten,
-      name_spec = "{outer}.{inner}"
-    ) %>%
+  taxonomy_df <- purrr::map(
+    taxonomic_list,
+    purrr::list_flatten,
+    name_spec = "{outer}.{inner}"
+  ) %>%
     purrr::map(as.data.frame) %>%
     purrr::list_rbind()
 }
