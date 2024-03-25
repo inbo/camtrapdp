@@ -158,3 +158,104 @@ test_that("build_taxonomy() fills missing values with NA when a taxonomic field
     NA_character_
   )
 })
+
+test_that("build_taxonomy() returns warning when a scientificName occurs more than once in x$taxonomic", {
+  skip_if_offline()
+  x <- example_dataset()
+  x$taxonomic <- append(
+    x$taxonomic,
+    list(list(
+      scientificName = "Vulpes vulpes",
+      taxonID = "https://www.wikidata.org/wiki/Q8332",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "red fox",
+        lbe = "Цулчӏа"
+      )
+    ))
+  )
+  expect_warning(
+    build_taxonomy(x),
+    class = "camtrapdp_warning_duplicate_scientificname"
+  )
+  expect_warning(
+    build_taxonomy(x),
+    regexp = paste(
+      "Duplicate scientificNames present in `x$taxonmic`,",
+      "only the first one will be returned."
+    ),
+    fixed = TRUE
+  )
+})
+
+test_that("build_taxonomy() returns only the first species if duplicates are present in `x$taxonomic`", {
+  skip_if_offline()
+  x <- example_dataset()
+  x$taxonomic <- append(
+    x$taxonomic,
+    list(list(
+      scientificName = "Vulpes vulpes",
+      taxonID = "https://www.wikidata.org/wiki/Q8332",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "red fox",
+        lbe = "Цулчӏа"
+      )
+    ))
+  )
+  expect_identical(
+    build_taxonomy(x)$scientificName,
+    unique(build_taxonomy(x)$scientificName)
+  )
+})
+
+test_that("build_taxonomy() doesn't return empty columns when a duplicate species has a field missing from the first record of that species in `x$taxonomic`", {
+  skip_if_offline()
+  x <- example_dataset()
+  # The first record only has `eng` and `lbe` vernacularNames, so only those
+  # should be retained. There should be no empty columns.
+  x$taxonomic <-
+    list(
+      list(
+        scientificName = "Vulpes vulpes",
+        taxonID = "https://www.wikidata.org/wiki/Q8332",
+        taxonRank = "species",
+        vernacularNames = list(
+          eng = "red fox",
+          lbe = "Цулчӏа"
+        )
+      ),
+      list(
+        scientificName = "Vulpes vulpes",
+        vernacularNames = list(
+          dsb = "Cerwjena liška",
+          eng = "red fox",
+          kas = "پۄژھٕ لوو",
+          est = "Rebane"
+        )
+      )
+    )
+  # Only keep rows that have an NA value in any column:
+  rows_with_missing_value <-
+    dplyr::filter(
+      build_taxonomy(x),
+      dplyr::if_any(
+        dplyr::everything(), is.na
+      )
+    )
+  # We expect no rows with missing values
+  expect_identical(
+    nrow(rows_with_missing_value), 0L
+  )
+  # We expect only columns from the fields of the first fox record
+  expect_named(
+    build_taxonomy(x),
+    c(
+      "scientificName",
+      "taxonID",
+      "taxonRank",
+      "vernacularNames.eng",
+      "vernacularNames.lbe"
+    )
+  )
+})
