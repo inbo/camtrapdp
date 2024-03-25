@@ -180,8 +180,10 @@ test_that("build_taxonomy() returns warning when a scientificName occurs more th
   )
   expect_warning(
     build_taxonomy(x),
-    regexp = paste("Duplicate scientificNames present in `x$taxonmic`,",
-                   "only the first one will be returned."),
+    regexp = paste(
+      "Duplicate scientificNames present in `x$taxonmic`,",
+      "only the first one will be returned."
+    ),
     fixed = TRUE
   )
 })
