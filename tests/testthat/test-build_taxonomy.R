@@ -247,4 +247,15 @@ test_that("build_taxonomy() doesn't return empty columns when a duplicate specie
   expect_identical(
     nrow(rows_with_missing_value), 0L
   )
+  # We expect only columns from the fields of the first fox record
+  expect_named(
+    build_taxonomy(x),
+    c(
+      "scientificName",
+      "taxonID",
+      "taxonRank",
+      "vernacularNames.eng",
+      "vernacularNames.lbe"
+    )
+  )
 })
