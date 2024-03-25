@@ -205,5 +205,8 @@ test_that("build_taxonomy() returns only the first species if duplicates are pre
     build_taxonomy(x)$scientificName,
     unique(build_taxonomy(x)$scientificName)
   )
+})
+
+test_that("build_taxonomy() doesn't return empty columns when a duplicate species has a field missing from the first record of that species in `x$taxonomic`", {
 
 })
