@@ -235,7 +235,7 @@ test_that("build_taxonomy() doesn't return empty columns when a duplicate specie
         )
       )
     )
-  # only keep rows that have an NA value in any column:
+  # Only keep rows that have an NA value in any column:
   rows_with_missing_value <-
     dplyr::filter(
       build_taxonomy(x),
