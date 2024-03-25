@@ -33,8 +33,7 @@ build_taxonomy <- function(x) {
     )
   }
 
-  # Return a data.frame, if scientificNames are repeated, only return the first
-  # one
 
-  dplyr::distinct(taxonomy_df, scientificName, .keep_all = TRUE)
+  # Only keep the first row if a scientificName occurs more than once
+  taxonomy_df <- dplyr::distinct(taxonomy_df, scientificName, .keep_all = TRUE)
 }
