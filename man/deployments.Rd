@@ -2,15 +2,20 @@
 % Please edit documentation in R/deployments.R
 \name{deployments}
 \alias{deployments}
+\alias{deployments<-}
 \title{Get deployments}
 \usage{
 deployments(x)
+
+deployments(x) <- value
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.
 Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
+
+\item{value}{data.frame to assign to the deployments of a Camera Trap Data Package Object.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with deployments.
