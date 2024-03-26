@@ -12,3 +12,15 @@ test_that("deployments() returns the deployments", {
     x$data$deployments
   )
 })
+
+test_that("deployments() <- allows assignment of data.frames to deployments", {
+
+})
+
+test_that("deployments() <- returns the object after assignment", {
+
+})
+
+test_that("deployments() <- errors when you try to assign a non data.frame", {
+
+})
