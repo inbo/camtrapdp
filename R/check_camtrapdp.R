@@ -4,7 +4,7 @@
 #' properties.
 #'
 #' @inheritParams version
-#' @return `TRUE` or error.
+#' @return `x` invisibly or error.
 #' @family check functions
 #' @noRd
 check_camtrapdp <- function(x) {
@@ -16,5 +16,6 @@ check_camtrapdp <- function(x) {
       class = "camtrapdp_error_object_invalid"
     )
   }
-  return(TRUE)
+
+  invisible(x)
 }
