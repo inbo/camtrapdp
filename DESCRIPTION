@@ -22,7 +22,7 @@ BugReports: https://github.com/inbo/camtrapdp/issues
 Imports:
     cli,
     dplyr,
-    frictionless,
+    frictionless (>= 1.1.0),
     purrr
 Suggests: 
     testthat (>= 3.0.0)

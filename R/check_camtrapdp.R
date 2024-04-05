@@ -8,7 +8,7 @@
 #' @family check functions
 #' @noRd
 check_camtrapdp <- function(x) {
-  # TODO: use check_package() from frictionless
+  frictionless::check_package(x)
   if (!("camtrapdp" %in% class(x))) {
     cli::cli_abort(
       "{.arg x} must be a Camera Trap Data Package object created with
