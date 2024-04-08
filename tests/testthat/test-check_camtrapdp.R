@@ -5,9 +5,18 @@ test_that("check_camtrapdp() returns x invisibly when valid", {
   expect_invisible(check_camtrapdp(x))
 })
 
+test_that("read_camtrapdp() returns error on invalid Data Package", {
+  expect_error(
+    check_camtrapdp("not_a_package"),
+    class = "frictionless_error_package_invalid"
+  )
+})
+
 test_that("read_camtrapdp() returns error on invalid camtrapdp object", {
   skip_if_offline()
-  o_assen <- "https://zenodo.org/records/10053903/files/datapackage.json"
+  o_assen <- frictionless::read_package(
+    "https://zenodo.org/records/10053903/files/datapackage.json"
+  )
   expect_error(
     check_camtrapdp(o_assen),
     class = "camtrapdp_error_object_invalid"
