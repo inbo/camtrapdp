@@ -16,3 +16,21 @@ test_that("check_camtrapdp() returns error on invalid camtrapdp object", {
   )
 })
 
+#  Check that deployments, media and observations data frames are present.
+test_that("x has a deployments, media and observations data frame", {
+  skip_if_offline()
+  x <- example_dataset()
+  expect_no_error(x)
+
+  x$data$deployments <- list("a", "b")
+  expect_error(
+    check_camtrapdp(x),
+    class = "camtrapdp_error_data_invalid"
+  )
+
+  x$data$deployments <- NULL
+  expect_error(
+    check_camtrapdp(x),
+    class = "camtrapdp_error_data_invalid"
+  )
+})
