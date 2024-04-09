@@ -84,7 +84,8 @@ write_dwc <- function(package, directory = ".") {
       by = "deploymentID",
       suffix = c(".dep", ".obs")
     ) %>%
-    dplyr::arrange(.data$deploymentID, .data$timestamp) %>%
+    # TODO: check if timestamp == eventStart?
+     dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
     dplyr::mutate(
       .keep = "none",
       type = "Image",
@@ -102,19 +103,19 @@ write_dwc <- function(package, directory = ".") {
       individualCount = .data$count,
       sex = .data$sex,
       lifeStage = .data$lifeStage,
-      behavior = .data$behaviour,
+      behavior = .data$behavior,
       occurrenceStatus = "present",
-      occurrenceRemarks = .data$comments.obs,
+      occurrenceRemarks = .data$observationComments,
       organismID = .data$individualID,
-      eventID = .data$sequenceID,
+      eventID = .data$eventID,
       parentEventID = .data$deploymentID,
-      eventDate = format(.data$timestamp, format = "%Y-%m-%dT%H:%M:%SZ"),
+      eventDate = format(.data$eventStart, format = "%Y-%m-%dT%H:%M:%SZ"),
       habitat = .data$habitat,
       samplingProtocol = "camera trap",
       samplingEffort = glue::glue(
         "{start}/{end}",
-        start = format(.data$start, format = "%Y-%m-%dT%H:%M:%SZ"),
-        end = format(.data$end, format = "%Y-%m-%dT%H:%M:%SZ")
+        start = format(.data$eventStart, format = "%Y-%m-%dT%H:%M:%SZ"),
+        end = format(.data$eventEnd, format = "%Y-%m-%dT%H:%M:%SZ")
       ),
       eventRemarks = stringr::str_squish(glue::glue(
         # E.g. "camera trap with bait near burrow | tags: <t1, t2> | <comment>"
@@ -124,7 +125,7 @@ write_dwc <- function(package, directory = ".") {
           !is.na(.data$baitUse) ~
             glue::glue("camera trap with {.data$baitUse} bait"),
           .default = "camera trap",
-        ),
+        ) ,
         dep_feature_value = dplyr::recode(
           .data$featureType,
           "roadPaved" = "paved road",
@@ -144,15 +145,18 @@ write_dwc <- function(package, directory = ".") {
           "none" = NA_character_
         ),
         dep_feature = dplyr::case_when(
-          !is.na(dep_feature_value) ~ glue::glue("near {dep_feature_value}"),
+          !is.na(dep_feature_value) ~
+            glue::glue("near {dep_feature_value}"),
           .default = ""
         ),
         dep_tags = dplyr::case_when(
-          !is.na(.data$tags) ~ glue::glue(" | tags: {.data$tags}"),
+          !is.na(.data$observationTags) ~
+            glue::glue(" | tags: {.data$observationTags}"),
           .default = ""
         ),
         dep_comments = dplyr::case_when(
-          !is.na(.data$comments.dep) ~ glue::glue(" | {.data$comments.dep}"),
+          !is.na(.data$deploymentComments) ~
+            glue::glue(" | {.data$deploymentComments}"),
           .default = ""
         )
       )),
@@ -177,7 +181,7 @@ write_dwc <- function(package, directory = ".") {
           ),
           .default = ""
         ),
-        degree_of_certainty = .data$classificationConfidence * 100,
+        degree_of_certainty = .data$classificationProbability * 100,
         classification_certainty = dplyr::case_when(
           !is.na(degree_of_certainty) ~ glue::glue(
             "with a degree of certainty of {degree_of_certainty}%"
@@ -185,11 +189,11 @@ write_dwc <- function(package, directory = ".") {
           .default = ""
         )
       )),
-      taxonID = .data$taxonID,
+      #taxonID = .data$taxonID, # Can't find taxonID?
       scientificName = .data$scientificName,
       kingdom = "Animalia"
     ) %>%
-    # Set column order
+    #Set column order
     dplyr::select(
       "type", "license", "rightsHolder", "datasetID", "collectionCode",
       "datasetName", "basisOfRecord", "dataGeneralizations", "occurrenceID",
@@ -199,7 +203,8 @@ write_dwc <- function(package, directory = ".") {
       "eventRemarks", "locationID", "locality", "decimalLatitude",
       "decimalLongitude", "geodeticDatum", "coordinateUncertaintyInMeters",
       "coordinatePrecision", "identifiedBy", "dateIdentified",
-      "identificationRemarks", "taxonID", "scientificName", "kingdom"
+      "identificationRemarks", #"taxonID",
+      "scientificName", "kingdom"
     )
 
   # Create auduboncore
