@@ -207,15 +207,7 @@ write_dwc <- function(package, directory = ".") {
     )
 
   # Create auduboncore
-  # Media can be linked to observations via ??? or mediaID
-  # Create mutually exclusive data frames for both cases and union (next step)
-  # on_seq <-
-  #   observations %>%
-  #   dplyr::filter(is.na(.data$mediaID)) %>%
-  #   dplyr::left_join(media, by = "sequenceID", suffix = c(".obs", "")) %>%
-  #   dplyr::select(dplyr::all_of(
-  #     c("observationID", "timestamp", colnames(media)
-  #     )))
+  # Media can be linked to observations via mediaID
   on_med <-
     observations %>%
     dplyr::filter(!is.na(.data$mediaID)) %>%
@@ -224,7 +216,6 @@ write_dwc <- function(package, directory = ".") {
       c("observationID", "timestamp", colnames(media)
       )))
   dwc_audubon <-
-    # dplyr::bind_rows(on_seq, on_med) %>%
     on_med %>%
     dplyr::left_join(
       deployments,
