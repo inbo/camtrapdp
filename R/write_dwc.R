@@ -23,18 +23,18 @@
 #' This **follows recommendations** discussed and created by Peter Desmet,
 #' John Wieczorek, Lien Reyserhove, Ben Norton and others.
 #'
-#' The following terms are set from the `package` metadata:
-#' - **datasetName**: Title as provided in `package$title`.
-#' - **datasetID**: Identifier as provided in `package$id`.
+#' The following terms are set from the `x` metadata:
+#' - **datasetName**: Title as provided in `x$title`.
+#' - **datasetID**: Identifier as provided in `x$id`.
 #'   Can be a DOI.
-#' - **rightsHolder**: Rights holder as provided in `package$rightsHolder`.
-#' - **collectionCode**: Platform name as provided in `package$platform$title`.
-#' - **license**: License with scope `data` as provided in `package$licenses`.
+#' - **rightsHolder**: Rights holder as provided in `x$rightsHolder`.
+#' - **collectionCode**: Platform name as provided in `x$platform$title`.
+#' - **license**: License with scope `data` as provided in `x$licenses`.
 #' - **rights** for media files: License with scope `media` as provided in
-#'   `package$licenses`.
+#'   `x$licenses`.
 #' - **dwc:dataGeneralizations**: "coordinates rounded to
-#'   `package$coordinatePrecision` degree".
-#' - **coordinatePrecision**: `package$coordinatePrecision` (e.g. `0.001`).
+#'   `x$coordinatePrecision` degree".
+#' - **coordinatePrecision**: `x$coordinatePrecision` (e.g. `0.001`).
 #'
 #' Key features of the Darwin Core transformation:
 #' - Deployments (of camera traps) are parent events, with observations
