@@ -207,15 +207,15 @@ write_dwc <- function(package, directory = ".") {
     )
 
   # Create auduboncore
-  # Media can be linked to observations via sequenceID or mediaID
+  # Media can be linked to observations via ??? or mediaID
   # Create mutually exclusive data frames for both cases and union (next step)
-  on_seq <-
-    observations %>%
-    dplyr::filter(is.na(.data$mediaID)) %>%
-    dplyr::left_join(media, by = "sequenceID", suffix = c(".obs", "")) %>%
-    dplyr::select(dplyr::all_of(
-      c("observationID", "timestamp", colnames(media)
-      )))
+  # on_seq <-
+  #   observations %>%
+  #   dplyr::filter(is.na(.data$mediaID)) %>%
+  #   dplyr::left_join(media, by = "sequenceID", suffix = c(".obs", "")) %>%
+  #   dplyr::select(dplyr::all_of(
+  #     c("observationID", "timestamp", colnames(media)
+  #     )))
   on_med <-
     observations %>%
     dplyr::filter(!is.na(.data$mediaID)) %>%
@@ -224,7 +224,8 @@ write_dwc <- function(package, directory = ".") {
       c("observationID", "timestamp", colnames(media)
       )))
   dwc_audubon <-
-    dplyr::bind_rows(on_seq, on_med) %>%
+    # dplyr::bind_rows(on_seq, on_med) %>%
+    on_med %>%
     dplyr::left_join(
       deployments,
       by = "deploymentID",
@@ -240,10 +241,10 @@ write_dwc <- function(package, directory = ".") {
         .default = "StillImage"
       ),
       comments = dplyr::case_when(
-        !is.na(favourite) & !is.na(comments.obs_med)
-        ~ paste("marked as favourite", comments.obs_med, sep = " | "),
-        !is.na(favourite) ~ "marked as favourite",
-        .default = .data$comments.obs_med
+        !is.na(favorite) & !is.na(mediaComments)
+        ~ paste("marked as favourite", mediaComments, sep = " | "),
+        !is.na(favorite) ~ "marked as favourite",
+        .default = .data$mediaComments
       ),
       `dcterms:rights` = media_license,
       CreateDate = format(.data$timestamp, format = "%Y-%m-%dT%H:%M:%SZ"),
