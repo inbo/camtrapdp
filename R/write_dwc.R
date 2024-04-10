@@ -7,7 +7,7 @@
 #' A `meta.xml` file is included as well.
 #' See `write_eml()` to create an `eml.xml` file.
 #'
-#' @param package A Camtrap DP, as read by [read_camtrap_dp()].
+#' @param x A Camtrap DP, as read by [read_camtrap_dp()].
 #' @param directory Path to local directory to write file(s) to.
 #'   If `NULL`, then a list of data frames is returned instead, which can be
 #'   useful for extending/adapting the Darwin Core mapping before writing with
@@ -50,28 +50,28 @@
 #'   key to the observation.
 #' - Excluded are records that document blank or unclassified media, vehicles
 #'   and observations of humans.
-write_dwc <- function(package, directory = ".") {
+write_dwc <- function(x, directory = ".") {
   # Set properties from metadata
   # Use purrr::pluck() to force NA when metadata field is missing
-  dataset_name <- purrr::pluck(package, "title", .default = NA)
-  dataset_id <- purrr::pluck(package, "id", .default = NA)
-  rights_holder <- purrr::pluck(package, "rightsHolder", .default = NA)
-  collection_code <- purrr::pluck(package, "platform", "title", .default = NA)
+  dataset_name <- purrr::pluck(x, "title", .default = NA)
+  dataset_id <- purrr::pluck(x, "id", .default = NA)
+  rights_holder <- purrr::pluck(x, "rightsHolder", .default = NA)
+  collection_code <- purrr::pluck(x, "platform", "title", .default = NA)
   license <- dplyr::coalesce(
-    purrr::keep(package$licenses, ~ .$scope == "data")[[1]]$path,
+    purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$path,
     NA
   )
   media_license <- dplyr::coalesce(
-    purrr::keep(package$licenses, ~ .$scope == "media")[[1]]$path,
+    purrr::keep(x$licenses, ~ .$scope == "media")[[1]]$path,
     NA
   )
   coordinate_precision <-
-    purrr::pluck(package, "coordinatePrecision", .default = NA)
+    purrr::pluck(x, "coordinatePrecision", .default = NA)
 
-  # Read package data
-  deployments <- dplyr::tibble(package$data$deployments)
-  media <- dplyr::tibble(package$data$media)
-  observations <- dplyr::tibble(package$data$observations)
+  # Read data
+  deployments <- dplyr::tibble(x$data$deployments)
+  media <- dplyr::tibble(x$data$media)
+  observations <- dplyr::tibble(x$data$observations)
 
   # Filter observations on animal observations (excluding humans, blanks, etc.)
   observations <- dplyr::filter(observations, .data$observationType == "animal")
