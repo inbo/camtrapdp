@@ -189,7 +189,7 @@ write_dwc <- function(package, directory = ".") {
           .default = ""
         )
       )),
-      #taxonID = .data$taxonID, # Can't find taxonID?
+      taxonID = .data$taxon.taxonID,
       scientificName = .data$scientificName,
       kingdom = "Animalia"
     ) %>%
@@ -203,8 +203,7 @@ write_dwc <- function(package, directory = ".") {
       "eventRemarks", "locationID", "locality", "decimalLatitude",
       "decimalLongitude", "geodeticDatum", "coordinateUncertaintyInMeters",
       "coordinatePrecision", "identifiedBy", "dateIdentified",
-      "identificationRemarks", #"taxonID",
-      "scientificName", "kingdom"
+      "identificationRemarks", "taxonID", "scientificName", "kingdom"
     )
 
   # Create auduboncore
