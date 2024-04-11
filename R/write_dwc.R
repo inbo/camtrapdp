@@ -7,7 +7,8 @@
 #' A `meta.xml` file is included as well.
 #' See `write_eml()` to create an `eml.xml` file.
 #'
-#' @param x A Camtrap DP, as read by [read_camtrap_dp()].
+#' @param x A Camtrap DP, as read by [read_camtrapdp()](
+#' https://camtrap-dp.tdwg.org).
 #' @param directory Path to local directory to write file(s) to.
 #'   If `NULL`, then a list of data frames is returned instead, which can be
 #'   useful for extending/adapting the Darwin Core mapping before writing with
