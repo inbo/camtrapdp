@@ -69,7 +69,7 @@ write_dwc <- function(x, directory = ".") {
       contributors[[1]]$organization,
       NA
   )
-  collection_code <- purrr::pluck(x, "platform", "title", .default = NA)
+  collection_code <- purrr::pluck(x, "sources", .default = NA)[[1]]$title
   license <- dplyr::coalesce(
     purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$path,
     NA
