@@ -4,10 +4,10 @@
 \alias{write_dwc}
 \title{Transform Camtrap DP data to Darwin Core}
 \usage{
-write_dwc(package, directory = ".")
+write_dwc(x, directory = ".")
 }
 \arguments{
-\item{package}{A Camtrap DP, as read by \code{\link[=read_camtrap_dp]{read_camtrap_dp()}}.}
+\item{x}{A Camtrap DP, as read by \code{\link[=read_camtrap_dp]{read_camtrap_dp()}}.}
 
 \item{directory}{Path to local directory to write file(s) to.
 If \code{NULL}, then a list of data frames is returned instead, which can be
@@ -32,19 +32,19 @@ Data are transformed into an
 This \strong{follows recommendations} discussed and created by Peter Desmet,
 John Wieczorek, Lien Reyserhove, Ben Norton and others.
 
-The following terms are set from the \code{package} metadata:
+The following terms are set from the \code{x} metadata:
 \itemize{
-\item \strong{datasetName}: Title as provided in \code{package$title}.
-\item \strong{datasetID}: Identifier as provided in \code{package$id}.
+\item \strong{datasetName}: Title as provided in \code{x$title}.
+\item \strong{datasetID}: Identifier as provided in \code{x$id}.
 Can be a DOI.
-\item \strong{rightsHolder}: Rights holder as provided in \code{package$rightsHolder}.
-\item \strong{collectionCode}: Platform name as provided in \code{package$platform$title}.
-\item \strong{license}: License with scope \code{data} as provided in \code{package$licenses}.
+\item \strong{rightsHolder}: Rights holder as provided in \code{x$rightsHolder}.
+\item \strong{collectionCode}: Platform name as provided in \code{x$platform$title}.
+\item \strong{license}: License with scope \code{data} as provided in \code{x$licenses}.
 \item \strong{rights} for media files: License with scope \code{media} as provided in
-\code{package$licenses}.
+\code{x$licenses}.
 \item \strong{dwc:dataGeneralizations}: "coordinates rounded to
-\code{package$coordinatePrecision} degree".
-\item \strong{coordinatePrecision}: \code{package$coordinatePrecision} (e.g. \code{0.001}).
+\code{x$coordinatePrecision} degree".
+\item \strong{coordinatePrecision}: \code{x$coordinatePrecision} (e.g. \code{0.001}).
 }
 
 Key features of the Darwin Core transformation:
