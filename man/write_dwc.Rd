@@ -7,7 +7,7 @@
 write_dwc(x, directory = ".")
 }
 \arguments{
-\item{x}{A Camtrap DP, as read by \code{\link[=read_camtrap_dp]{read_camtrap_dp()}}.}
+\item{x}{A Camtrap DP, as read by \href{https://camtrap-dp.tdwg.org}{read_camtrapdp()}.}
 
 \item{directory}{Path to local directory to write file(s) to.
 If \code{NULL}, then a list of data frames is returned instead, which can be
