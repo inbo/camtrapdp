@@ -71,6 +71,7 @@ write_dwc <- function(x, directory = ".") {
   )
   collection_code <- purrr::pluck(x, "sources", .default = NA)[[1]]$title
   license <- dplyr::coalesce(
+    purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$name,
     purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$path,
     NA
   )
