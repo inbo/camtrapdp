@@ -123,7 +123,11 @@ write_dwc <- function(x, directory = ".") {
       organismID = .data$individualID,
       eventID = .data$eventID,
       parentEventID = .data$deploymentID,
-      eventDate = format(.data$eventStart, format = "%Y-%m-%dT%H:%M:%SZ"),
+      eventDate =
+        paste0(
+          format(.data$eventStart, format = "%Y-%m-%dT%H:%M:%SZ"), "/",
+          format(.data$eventEnd, format = "%Y-%m-%dT%H:%M:%SZ")
+        ),
       habitat = .data$habitat,
       samplingProtocol = "camera trap",
       samplingEffort = glue::glue(
