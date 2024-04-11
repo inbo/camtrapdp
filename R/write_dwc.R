@@ -56,7 +56,19 @@ write_dwc <- function(x, directory = ".") {
   # Use purrr::pluck() to force NA when metadata field is missing
   dataset_name <- purrr::pluck(x, "title", .default = NA)
   dataset_id <- purrr::pluck(x, "id", .default = NA)
-  rights_holder <- purrr::pluck(x, "rightsHolder", .default = NA)
+  # Find contributor with rightsHolder role
+  contributors <- purrr::pluck(x, "contributors", .default = NA)
+  rightHoldersIndex <- grep("rightsHolder", contributors)
+  rights_holder <-
+    dplyr::coalesce(
+      ifelse(
+        !is.na(rightHoldersIndex),
+        contributors[[rightHoldersIndex]]$title,
+        NA),
+      # If no rightsHolder assigned, set to organization of first contributor
+      contributors[[1]]$organization,
+      NA
+  )
   collection_code <- purrr::pluck(x, "platform", "title", .default = NA)
   license <- dplyr::coalesce(
     purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$path,
