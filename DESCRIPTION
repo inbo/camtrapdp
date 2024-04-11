@@ -23,7 +23,10 @@ Imports:
     cli,
     dplyr,
     frictionless (>= 1.1.0),
-    purrr
+    glue,
+    purrr,
+    readr,
+    stringr
 Suggests: 
     testthat (>= 3.0.0)
 Encoding: UTF-8
