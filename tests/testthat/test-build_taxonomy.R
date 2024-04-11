@@ -204,8 +204,8 @@ test_that("build_taxonomy() returns only the first species if duplicates are pre
     ))
   )
   expect_identical(
-    build_taxonomy(x)$scientificName,
-    unique(build_taxonomy(x)$scientificName)
+    suppressWarnings(build_taxonomy(x))$scientificName,
+    unique(suppressWarnings(build_taxonomy(x))$scientificName)
   )
 })
 
@@ -238,7 +238,7 @@ test_that("build_taxonomy() doesn't return empty columns when a duplicate specie
   # Only keep rows that have an NA value in any column:
   rows_with_missing_value <-
     dplyr::filter(
-      build_taxonomy(x),
+      suppressWarnings(build_taxonomy(x)),
       dplyr::if_any(
         dplyr::everything(), is.na
       )
@@ -249,7 +249,7 @@ test_that("build_taxonomy() doesn't return empty columns when a duplicate specie
   )
   # We expect only columns from the fields of the first fox record
   expect_named(
-    build_taxonomy(x),
+    suppressWarnings(build_taxonomy(x)),
     c(
       "scientificName",
       "taxonID",
