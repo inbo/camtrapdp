@@ -142,10 +142,8 @@ write_dwc <- function(x, directory = ".") {
         # E.g. "camera trap with bait near burrow | tags: <t1, t2> | <comment>"
         "{bait_use} {dep_feature} {dep_tags} {dep_comments}",
         bait_use = dplyr::case_when(
-          .data$baitUse == "none" ~ "camera trap without bait",
-          !is.na(.data$baitUse) ~
-            glue::glue("camera trap with {.data$baitUse} bait"),
-          .default = "camera trap",
+          .data$baitUse ~ "camera trap with bait",
+          !.data$baitUse ~ "camera trap without bait"
         ) ,
         dep_feature_value = dplyr::recode(
           .data$featureType,
