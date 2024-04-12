@@ -159,9 +159,7 @@ write_dwc <- function(x, directory = ".") {
           "nestSite" = "nest site",
           "carcass" = "carcass",
           "waterSource" = "water source",
-          "fruitingTree" = "fruiting tree",
-          "other" = "other feature",
-          "none" = NA_character_
+          "fruitingTree" = "fruiting tree"
         ),
         dep_feature = dplyr::case_when(
           !is.na(dep_feature_value) ~
