@@ -88,7 +88,10 @@ write_dwc <- function(x, directory = ".") {
   observations <- observations(x)
 
   # Filter observations on animal observations (excluding humans, blanks, etc.)
-  observations <- dplyr::filter(observations, .data$observationType == "animal")
+  observations <- observations %>%
+    dplyr::filter(.data$observationType == "animal") %>%
+    # Keep only eventbased observations
+    dplyr::filter(.data$observationLevel == "event")
 
   # Create dwc_occurrence
   dwc_occurrence <-
