@@ -85,10 +85,10 @@ write_dwc <- function(x, directory = ".") {
   # Read data
   deployments <- deployments(x)
   media <- media(x)
-  observations <- observations(x)
+  observations_all <- observations(x)
 
   # Filter observations on animal observations (excluding humans, blanks, etc.)
-  observations <- observations %>%
+  observations <- observations_all %>%
     dplyr::filter(.data$observationType == "animal") %>%
     # Keep only eventbased observations
     dplyr::filter(.data$observationLevel == "event")
@@ -118,8 +118,13 @@ write_dwc <- function(x, directory = ".") {
       ),
       occurrenceID = .data$observationID,
       individualCount = .data$count,
-      sex = .data$sex,
-      lifeStage = .data$lifeStage,
+      sex = dplyr::recode(.data$sex,
+                          "male" = "male",
+                          "female" = "female"),
+      lifeStage = dplyr::recode(.data$lifeStage,
+                                "adult" = "adult",
+                                "subadult" = "subadult",
+                                "juvenile" = "juvenile"),
       behavior = .data$behavior,
       occurrenceStatus = "present",
       occurrenceRemarks = .data$observationComments,
@@ -225,19 +230,12 @@ write_dwc <- function(x, directory = ".") {
 
   # Create auduboncore
   # Media can be linked to observations via mediaID
-  on_seq <-
-    observations %>%
-    dplyr::filter(is.na(.data$mediaID)) %>%
-    dplyr::left_join(media, by = "sequenceID", suffix = c(".obs", "")) %>%
-    dplyr::select(dplyr::all_of(
-      c("observationID", "timestamp", colnames(media)
-      )))
   on_med <-
-    observations %>%
+    observations_all %>%
     dplyr::filter(!is.na(.data$mediaID)) %>%
     dplyr::left_join(media, by = "mediaID", suffix = c(".obs", "")) %>%
     dplyr::select(dplyr::all_of(
-      c("observationID", "timestamp", colnames(media)
+      c("eventID", "observationID", "timestamp", colnames(media)
       )))
   dwc_audubon <-
     on_med %>%
