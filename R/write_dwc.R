@@ -98,8 +98,7 @@ write_dwc <- function(x, directory = ".") {
     deployments %>%
     dplyr::right_join(
       observations,
-      by = "deploymentID",
-      suffix = c(".dep", ".obs")
+      by = "deploymentID"
     ) %>%
     # TODO: check if timestamp == eventStart?
      dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
@@ -242,7 +241,6 @@ write_dwc <- function(x, directory = ".") {
     dplyr::left_join(
       deployments,
       by = "deploymentID",
-      suffix = c(".obs_med", ".dep")
     ) %>%
     dplyr::arrange(.data$deploymentID, .data$timestamp, .data$fileName) %>%
     dplyr::mutate(
