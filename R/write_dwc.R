@@ -100,7 +100,6 @@ write_dwc <- function(x, directory = ".") {
       observations,
       by = "deploymentID"
     ) %>%
-    # TODO: check if timestamp == eventStart?
      dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
     dplyr::mutate(
       .keep = "none",
