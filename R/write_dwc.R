@@ -28,8 +28,10 @@
 #' - **datasetName**: Title as provided in `x$title`.
 #' - **datasetID**: Identifier as provided in `x$id`.
 #'   Can be a DOI.
-#' - **rightsHolder**: Rights holder as provided in `x$rightsHolder`.
-#' - **collectionCode**: Platform name as provided in `x$platform$title`.
+#' - **rightsHolder**: Rights holder with role `rightsHolder` as provided in
+#'  `x$contributors`. If no rightsHolder is assigned, rightsHolder is set to the
+#'  organization of the first contributor.
+#' - **collectionCode**: Platform name as provided in `x$sources[[1]]$title`.
 #' - **license**: License with scope `data` as provided in `x$licenses`.
 #' - **rights** for media files: License with scope `media` as provided in
 #'   `x$licenses`.

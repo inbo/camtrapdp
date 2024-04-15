@@ -37,8 +37,10 @@ The following terms are set from the \code{x} metadata:
 \item \strong{datasetName}: Title as provided in \code{x$title}.
 \item \strong{datasetID}: Identifier as provided in \code{x$id}.
 Can be a DOI.
-\item \strong{rightsHolder}: Rights holder as provided in \code{x$rightsHolder}.
-\item \strong{collectionCode}: Platform name as provided in \code{x$platform$title}.
+\item \strong{rightsHolder}: Rights holder with role \code{rightsHolder} as provided in
+\code{x$contributors}. If no rightsHolder is assigned, rightsHolder is set to the
+organization of the first contributor.
+\item \strong{collectionCode}: Platform name as provided in \code{x$sources[[1]]$title}.
 \item \strong{license}: License with scope \code{data} as provided in \code{x$licenses}.
 \item \strong{rights} for media files: License with scope \code{media} as provided in
 \code{x$licenses}.
