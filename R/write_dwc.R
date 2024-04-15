@@ -225,6 +225,13 @@ write_dwc <- function(x, directory = ".") {
 
   # Create auduboncore
   # Media can be linked to observations via mediaID
+  on_seq <-
+    observations %>%
+    dplyr::filter(is.na(.data$mediaID)) %>%
+    dplyr::left_join(media, by = "sequenceID", suffix = c(".obs", "")) %>%
+    dplyr::select(dplyr::all_of(
+      c("observationID", "timestamp", colnames(media)
+      )))
   on_med <-
     observations %>%
     dplyr::filter(!is.na(.data$mediaID)) %>%
