@@ -6,7 +6,7 @@ test_that("write_dwc() writes csv files to a path", {
   suppressMessages(write_dwc(x, directory = out_dir))
   expect_identical(
     list.files(out_dir, pattern = "*.csv"),
-    c("dwc_audubon.csv", "dwc_occurrence.csv")
+    c("dwc_audiovisual.csv", "dwc_occurrence.csv")
   )
 })
 
@@ -15,9 +15,9 @@ test_that("write_dwc() can return data as list of tibbles rather than files", {
   x <- example_dataset()
   result <- suppressMessages(write_dwc(x, directory = NULL))
 
-  expect_identical(names(result), c("dwc_occurrence", "dwc_audubon"))
+  expect_identical(names(result), c("dwc_occurrence", "dwc_audiovisual"))
   expect_s3_class(result$dwc_occurrence, "tbl")
-  expect_s3_class(result$dwc_audubon, "tbl")
+  expect_s3_class(result$dwc_audiovisual, "tbl")
   # meta.xml is not included
 })
 
@@ -79,7 +79,7 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
     )
   )
   expect_identical(
-    colnames(result$dwc_audubon),
+    colnames(result$dwc_audiovisual),
     c(
       "occurrenceID",
       "identifier",
@@ -90,7 +90,8 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
       "captureDevice",
       "resourceCreationTechnique",
       "accessURI",
-      "dc:format"
+      "dc:format",
+      "serviceExpectation"
     )
   )
 })
@@ -103,7 +104,7 @@ test_that("write_dwc() returns the expected Darwin Core mapping for a known data
 
   # Use helper function that outputs path write_dwc() wrote to.
   expect_snapshot_file(write_dwc_snapshot(x, out_dir, "occurrence"))
-  expect_snapshot_file(write_dwc_snapshot(x, out_dir, "audubon"))
+  expect_snapshot_file(write_dwc_snapshot(x, out_dir, "audiovisual"))
 })
 
 test_that("write_dwc() returns files that comply with the info in meta.xml", {
@@ -115,8 +116,8 @@ test_that("write_dwc() returns files that comply with the info in meta.xml", {
 
   # Test if all fields are present, in the right order
   expect_fields(file.path(out_dir,"dwc_occurrence.csv"))
-  expect_fields(file.path(out_dir,"dwc_audubon.csv"))
+  expect_fields(file.path(out_dir,"dwc_audiovisual.csv"))
   # Test if the file locations (filenames) are the same as in meta.xml
   expect_location(file.path(out_dir,"dwc_occurrence.csv"))
-  expect_location(file.path(out_dir,"dwc_audubon.csv"))
+  expect_location(file.path(out_dir,"dwc_audiovisual.csv"))
 })
