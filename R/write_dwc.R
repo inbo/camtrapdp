@@ -20,7 +20,7 @@
 #' @section Transformation details:
 #' Data are transformed into an
 #' [Occurrence core](https://rs.gbif.org/core/dwc_occurrence_2022-02-02.xml) and
-#' [Audubon Media Description extension](https://rs.gbif.org/extension/ac/audubon_2020_10_06.xml).
+#' [Audiovisual core](https://ac.tdwg.org/termlist/).
 #' This **follows recommendations** discussed and created by Peter Desmet,
 #' John Wieczorek, Lien Reyserhove, Ben Norton and others.
 #'
@@ -228,17 +228,15 @@ write_dwc <- function(x, directory = ".") {
       "identificationRemarks", "taxonID", "scientificName", "kingdom"
     )
 
-  # Create auduboncore
+  # Create audiovisual core
   # Media can be linked to observations via mediaID
-  on_med <-
+  dwc_audiovisual <-
     observations_all %>%
     dplyr::filter(!is.na(.data$mediaID)) %>%
     dplyr::left_join(media, by = "mediaID", suffix = c(".obs", "")) %>%
     dplyr::select(dplyr::all_of(
       c("eventID", "observationID", "timestamp", colnames(media)
-      )))
-  dwc_audubon <-
-    on_med %>%
+      ))) %>%
     dplyr::left_join(
       deployments,
       by = "deploymentID",
@@ -254,8 +252,8 @@ write_dwc <- function(x, directory = ".") {
       ),
       comments = dplyr::case_when(
         !is.na(favorite) & !is.na(mediaComments)
-        ~ paste("marked as favourite", mediaComments, sep = " | "),
-        !is.na(favorite) ~ "marked as favourite",
+        ~ paste("marked as favorite", mediaComments, sep = " | "),
+        !is.na(favorite) ~ "marked as favorite",
         .default = .data$mediaComments
       ),
       `dcterms:rights` = media_license,
@@ -285,16 +283,16 @@ write_dwc <- function(x, directory = ".") {
   if (is.null(directory)) {
     list(
       dwc_occurrence = dplyr::as_tibble(dwc_occurrence),
-      dwc_audubon = dplyr::as_tibble(dwc_audubon)
+      dwc_audiovisual = dplyr::as_tibble(dwc_audiovisual)
     )
   } else {
     dwc_occurrence_path <- file.path(directory, "dwc_occurrence.csv")
-    dwc_audubon_path <- file.path(directory, "dwc_audubon.csv")
+    dwc_audiovisual_path <- file.path(directory, "dwc_audiovisual.csv")
     meta_xml_path <- file.path(directory, "meta.xml")
     message(glue::glue(
       "Writing data to:",
       dwc_occurrence_path,
-      dwc_audubon_path,
+      dwc_audiovisual_path,
       meta_xml_path,
       .sep = "\n"
     ))
@@ -302,7 +300,7 @@ write_dwc <- function(x, directory = ".") {
       dir.create(directory, recursive = TRUE)
     }
     readr::write_csv(dwc_occurrence, dwc_occurrence_path, na = "")
-    readr::write_csv(dwc_audubon, dwc_audubon_path, na = "")
+    readr::write_csv(dwc_audiovisual, dwc_audiovisual_path, na = "")
     # Get static meta.xml file from package extdata
     file.copy(
       from = system.file("extdata", "meta.xml", package = "camtraptor"),

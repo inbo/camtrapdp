@@ -28,7 +28,7 @@ See \code{write_eml()} to create an \code{eml.xml} file.
 
 Data are transformed into an
 \href{https://rs.gbif.org/core/dwc_occurrence_2022-02-02.xml}{Occurrence core} and
-\href{https://rs.gbif.org/extension/ac/audubon_2020_10_06.xml}{Audubon Media Description extension}.
+\href{https://ac.tdwg.org/termlist/}{Audiovisual core}.
 This \strong{follows recommendations} discussed and created by Peter Desmet,
 John Wieczorek, Lien Reyserhove, Ben Norton and others.
 
