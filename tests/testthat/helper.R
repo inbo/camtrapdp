@@ -30,7 +30,7 @@ write_dwc_snapshot <- function(package, directory, file){
 expect_fields <- function(file, ...) {
   xml_list <-
     xml2::read_xml(
-      system.file("extdata", "meta.xml", package = "camtraptor")
+      system.file("extdata", "meta.xml", package = "camtrapdp")
     ) %>%
     xml2::as_list()
   file_is_core <- basename(file) == "dwc_occurrence.csv"
@@ -75,7 +75,7 @@ expect_fields <- function(file, ...) {
 expect_location <- function(file, ...) {
   xml_list <-
     xml2::read_xml(
-      system.file("extdata", "meta.xml", package = "camtraptor")
+      system.file("extdata", "meta.xml", package = "camtrapdp")
     ) %>%
     xml2::as_list()
   file_is_core <- basename(file) == "dwc_occurrence.csv"
