@@ -81,6 +81,7 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
   expect_identical(
     colnames(result$dwc_audiovisual),
     c(
+      "metadataLanguage",
       "occurrenceID",
       "identifier",
       "dc:type",
