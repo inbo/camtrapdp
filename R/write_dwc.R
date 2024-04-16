@@ -243,7 +243,7 @@ write_dwc <- function(x, directory = ".") {
     dplyr::arrange(.data$deploymentID, .data$timestamp, .data$fileName) %>%
     dplyr::mutate(
       .keep = "none",
-      metadataLanguage = "eng",
+      metadataLanguage = "http://id.loc.gov/vocabulary/iso639-2/eng",
       occurrenceID = .data$observationID,
       identifier = .data$mediaID,
       `dc:type` = dplyr::case_when(
