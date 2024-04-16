@@ -5,7 +5,6 @@
 #' The resulting CSV files can be uploaded to an [IPT](
 #' https://www.gbif.org/ipt) for publication to GBIF.
 #' A `meta.xml` file is included as well.
-#' See `write_eml()` to create an `eml.xml` file.
 #'
 #' @param x A Camtrap DP, as read by [read_camtrapdp()](
 #' https://camtrap-dp.tdwg.org).
