@@ -305,7 +305,7 @@ write_dwc <- function(x, directory = ".") {
     readr::write_csv(dwc_audiovisual, dwc_audiovisual_path, na = "")
     # Get static meta.xml file from package extdata
     file.copy(
-      from = system.file("extdata", "meta.xml", package = "camtraptor"),
+      from = system.file("extdata", "meta.xml", package = "camtrapdp"),
       to = meta_xml_path
     )
   }
