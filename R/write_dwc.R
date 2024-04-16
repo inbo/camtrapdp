@@ -46,9 +46,8 @@
 #'   by all occurrences in a deployment.
 #' - Sequence-based observations share an `eventID` per sequence, image-based
 #'   observations share an `eventID` per image.
-#' - The image(s) an observation is based on are provided in the [Audubon Media
-#'   Description extension](
-#'   https://rs.gbif.org/extension/ac/audubon_2020_10_06.xml), with a foreign
+#' - The image(s) an observation is based on are provided in the
+#'   [Audiovisual core](https://ac.tdwg.org/termlist/), with a foreign
 #'   key to the observation.
 #' - Excluded are records that document blank or unclassified media, vehicles
 #'   and observations of humans.

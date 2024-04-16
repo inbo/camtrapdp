@@ -4,7 +4,7 @@
 #' Needed for `testthat::expect_snapshot_file()` which expects the path of a
 #' single file to compare against snapshot.
 #' @inheritParams write_dwc
-#' @param file Either `occurrence` or `audubon` to select which output file of
+#' @param file Either `occurrence` or `audiovisual` to select which output file of
 #'   `write_dwc()` to return.
 #' @return Path of selected output file.
 #' @noRd
@@ -14,7 +14,7 @@ write_dwc_snapshot <- function(package, directory, file){
   switch(
     file,
     occurrence = file.path(directory, "dwc_occurrence.csv"),
-    audubon = file.path(directory, "dwc_audubon.csv")
+    audiovisual = file.path(directory, "dwc_audiovisual.csv")
   )
 }
 
@@ -22,11 +22,11 @@ write_dwc_snapshot <- function(package, directory, file){
 #'
 #' @param file Filepath from of file from DwC-A file to compare against
 #'   `meta.xml` included in the package.
-#'   The basename can either be `dwc_occurrence.csv` or `dwc_audubon.csv`
+#'   The basename can either be `dwc_occurrence.csv` or `dwc_audiovisual.csv`
 #' @inheritDotParams expect_identical info label
 #' @noRd
 #' @examples
-#' expect_fields("tests/testthat/_snaps/write_dwc/dwc_audubon.csv")
+#' expect_fields("tests/testthat/_snaps/write_dwc/dwc_audiovisual.csv")
 expect_fields <- function(file, ...) {
   xml_list <-
     xml2::read_xml(
@@ -67,11 +67,11 @@ expect_fields <- function(file, ...) {
 #'
 #' @param file Filepath from of file from DwC-A file to compare against
 #'   `meta.xml` included in the package.
-#'   The basename can either be `dwc_occurrence.csv` or `dwc_audubon.csv`
+#'   The basename can either be `dwc_occurrence.csv` or `dwc_audiovisual.csv`
 #' @inheritDotParams expect_identical info label
 #' @noRd
 #' @examples
-#' expect_location("tests/testthat/_snaps/write_dwc/dwc_audubon.csv")
+#' expect_location("tests/testthat/_snaps/write_dwc/dwc_audiovisual.csv")
 expect_location <- function(file, ...) {
   xml_list <-
     xml2::read_xml(
