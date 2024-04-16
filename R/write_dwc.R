@@ -265,18 +265,18 @@ write_dwc <- function(x, directory = ".") {
         "timeLapse" = "time lapse"
       ),
       accessURI = .data$filePath,
-      # serviceExpectation = dplyr::if_else(
-      #   .data$filePublic,
-      #   "online",
-      #   "authenticate"
-      # ),
+      serviceExpectation = dplyr::if_else(
+        .data$filePublic,
+        "online",
+        "authenticate"
+      ),
       `dc:format` = .data$fileMediatype
     ) %>%
     # Set column order
     dplyr::select(
       "occurrenceID", "identifier", "dc:type", "comments", "dcterms:rights",
       "CreateDate", "captureDevice", "resourceCreationTechnique", "accessURI",
-      "dc:format"
+      "dc:format", "serviceExpectation"
     )
 
   # Return object or write files
