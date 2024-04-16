@@ -43,7 +43,7 @@
   </core>
   <extension encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/ac/terms/Multimedia">
     <files>
-      <location>dwc_audubon.csv</location>
+      <location>dwc_audiovisual.csv</location>
     </files>
     <coreid index="0"/>
     <field index="0" term="http://rs.tdwg.org/dwc/terms/occurrenceID"/>
