@@ -275,8 +275,8 @@ write_dwc <- function(x, directory = ".") {
     # Set column order
     dplyr::select(
       "occurrenceID", "identifier", "dc:type", "comments", "dcterms:rights",
-      "CreateDate", "captureDevice", "resourceCreationTechnique", "accessURI",
-      "dc:format", "serviceExpectation"
+      "CreateDate", "captureDevice", "resourceCreationTechnique",
+      "accessURI", "serviceExpectation", "dc:format",
     )
 
   # Return object or write files

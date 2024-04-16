@@ -90,8 +90,8 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
       "captureDevice",
       "resourceCreationTechnique",
       "accessURI",
+      "serviceExpectation",
       "dc:format",
-      "serviceExpectation"
     )
   )
 })
