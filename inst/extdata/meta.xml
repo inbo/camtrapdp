@@ -1,0 +1,60 @@
+<archive xmlns="http://rs.tdwg.org/dwc/text/">
+  <core encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/dwc/terms/Occurrence">
+    <files>
+      <location>dwc_occurrence.csv</location>
+    </files>
+    <id index="8"/>
+    <field index="0" term="http://purl.org/dc/terms/type"/>
+    <field index="1" term="http://purl.org/dc/terms/license"/>
+    <field index="2" term="http://purl.org/dc/terms/rightsHolder"/>
+    <field index="3" term="http://rs.tdwg.org/dwc/terms/datasetID"/>
+    <field index="4" term="http://rs.tdwg.org/dwc/terms/collectionCode"/>
+    <field index="5" term="http://rs.tdwg.org/dwc/terms/datasetName"/>
+    <field index="6" term="http://rs.tdwg.org/dwc/terms/basisOfRecord"/>
+    <field index="7" term="http://rs.tdwg.org/dwc/terms/dataGeneralizations"/>
+    <field index="8" term="http://rs.tdwg.org/dwc/terms/occurrenceID"/>
+    <field index="9" term="http://rs.tdwg.org/dwc/terms/individualCount"/>
+    <field index="10" term="http://rs.tdwg.org/dwc/terms/sex"/>
+    <field index="11" term="http://rs.tdwg.org/dwc/terms/lifeStage"/>
+    <field index="12" term="http://rs.tdwg.org/dwc/terms/behavior"/>
+    <field index="13" term="http://rs.tdwg.org/dwc/terms/occurrenceStatus"/>
+    <field index="14" term="http://rs.tdwg.org/dwc/terms/occurrenceRemarks"/>
+    <field index="15" term="http://rs.tdwg.org/dwc/terms/organismID"/>
+    <field index="16" term="http://rs.tdwg.org/dwc/terms/eventID"/>
+    <field index="17" term="http://rs.tdwg.org/dwc/terms/parentEventID"/>
+    <field index="18" term="http://rs.tdwg.org/dwc/terms/eventDate"/>
+    <field index="19" term="http://rs.tdwg.org/dwc/terms/habitat"/>
+    <field index="20" term="http://rs.tdwg.org/dwc/terms/samplingProtocol"/>
+    <field index="21" term="http://rs.tdwg.org/dwc/terms/samplingEffort"/>
+    <field index="22" term="http://rs.tdwg.org/dwc/terms/eventRemarks"/>
+    <field index="23" term="http://rs.tdwg.org/dwc/terms/locationID"/>
+    <field index="24" term="http://rs.tdwg.org/dwc/terms/locality"/>
+    <field index="25" term="http://rs.tdwg.org/dwc/terms/decimalLatitude"/>
+    <field index="26" term="http://rs.tdwg.org/dwc/terms/decimalLongitude"/>
+    <field index="27" term="http://rs.tdwg.org/dwc/terms/geodeticDatum"/>
+    <field index="28" term="http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters"/>
+    <field index="29" term="http://rs.tdwg.org/dwc/terms/coordinatePrecision"/>
+    <field index="30" term="http://rs.tdwg.org/dwc/terms/identifiedBy"/>
+    <field index="31" term="http://rs.tdwg.org/dwc/terms/dateIdentified"/>
+    <field index="32" term="http://rs.tdwg.org/dwc/terms/identificationRemarks"/>
+    <field index="33" term="http://rs.tdwg.org/dwc/terms/taxonID"/>
+    <field index="34" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
+    <field index="35" term="http://rs.tdwg.org/dwc/terms/kingdom"/>
+  </core>
+  <extension encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/ac/terms/Multimedia">
+    <files>
+      <location>dwc_audubon.csv</location>
+    </files>
+    <coreid index="0"/>
+    <field index="0" term="http://rs.tdwg.org/dwc/terms/occurrenceID"/>
+    <field index="1" term="http://purl.org/dc/terms/identifier"/>
+    <field index="2" term="http://purl.org/dc/elements/1.1/type"/>
+    <field index="3" term="http://rs.tdwg.org/ac/terms/comments"/>
+    <field index="4" term="http://purl.org/dc/terms/rights"/>
+    <field index="5" term="http://ns.adobe.com/xap/1.0/CreateDate"/>
+    <field index="6" term="http://rs.tdwg.org/ac/terms/captureDevice"/>
+    <field index="7" term="http://rs.tdwg.org/ac/terms/resourceCreationTechnique"/>
+    <field index="8" term="http://rs.tdwg.org/ac/terms/accessURI"/>
+    <field index="9" term="http://purl.org/dc/terms/format"/>
+  </extension>
+</archive>
