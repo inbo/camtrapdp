@@ -22,7 +22,6 @@ frames when \code{directory = NULL}.
 Transforms data from a \href{https://camtrap-dp.tdwg.org}{Camera Trap Data Package} to \href{https://dwc.tdwg.org/}{Darwin Core}.
 The resulting CSV files can be uploaded to an \href{https://www.gbif.org/ipt}{IPT} for publication to GBIF.
 A \code{meta.xml} file is included as well.
-See \code{write_eml()} to create an \code{eml.xml} file.
 }
 \section{Transformation details}{
 
@@ -58,7 +57,8 @@ an Occurrence Core with one row per observation and \code{parentEventID} shared
 by all occurrences in a deployment.
 \item Sequence-based observations share an \code{eventID} per sequence, image-based
 observations share an \code{eventID} per image.
-\item The image(s) an observation is based on are provided in the \href{https://rs.gbif.org/extension/ac/audubon_2020_10_06.xml}{Audubon Media Description extension}, with a foreign
+\item The image(s) an observation is based on are provided in the
+\href{https://ac.tdwg.org/termlist/}{Audiovisual core}, with a foreign
 key to the observation.
 \item Excluded are records that document blank or unclassified media, vehicles
 and observations of humans.
