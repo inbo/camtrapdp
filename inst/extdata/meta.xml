@@ -29,17 +29,21 @@
     <field index="22" term="http://rs.tdwg.org/dwc/terms/eventRemarks"/>
     <field index="23" term="http://rs.tdwg.org/dwc/terms/locationID"/>
     <field index="24" term="http://rs.tdwg.org/dwc/terms/locality"/>
-    <field index="25" term="http://rs.tdwg.org/dwc/terms/decimalLatitude"/>
-    <field index="26" term="http://rs.tdwg.org/dwc/terms/decimalLongitude"/>
-    <field index="27" term="http://rs.tdwg.org/dwc/terms/geodeticDatum"/>
-    <field index="28" term="http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters"/>
-    <field index="29" term="http://rs.tdwg.org/dwc/terms/coordinatePrecision"/>
-    <field index="30" term="http://rs.tdwg.org/dwc/terms/identifiedBy"/>
-    <field index="31" term="http://rs.tdwg.org/dwc/terms/dateIdentified"/>
-    <field index="32" term="http://rs.tdwg.org/dwc/terms/identificationRemarks"/>
-    <field index="33" term="http://rs.tdwg.org/dwc/terms/taxonID"/>
-    <field index="34" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
-    <field index="35" term="http://rs.tdwg.org/dwc/terms/kingdom"/>
+    <field index="25" term="http://rs.tdwg.org/dwc/terms/minimumDepthInMeters"/>
+    <field index="26" term="http://rs.tdwg.org/dwc/terms/maximumDepthInMeters"/>
+    <field index="27" term="http://rs.tdwg.org/dwc/terms/minimumDistanceAboveSurfaceInMeters"/>
+    <field index="28" term="http://rs.tdwg.org/dwc/terms/maximumDistanceAboveSurfaceInMeters"/>
+    <field index="29" term="http://rs.tdwg.org/dwc/terms/decimalLatitude"/>
+    <field index="30" term="http://rs.tdwg.org/dwc/terms/decimalLongitude"/>
+    <field index="31" term="http://rs.tdwg.org/dwc/terms/geodeticDatum"/>
+    <field index="32" term="http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters"/>
+    <field index="33" term="http://rs.tdwg.org/dwc/terms/coordinatePrecision"/>
+    <field index="34" term="http://rs.tdwg.org/dwc/terms/identifiedBy"/>
+    <field index="35" term="http://rs.tdwg.org/dwc/terms/dateIdentified"/>
+    <field index="36" term="http://rs.tdwg.org/dwc/terms/identificationRemarks"/>
+    <field index="37" term="http://rs.tdwg.org/dwc/terms/taxonID"/>
+    <field index="38" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
+    <field index="39" term="http://rs.tdwg.org/dwc/terms/kingdom"/>
   </core>
   <extension encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/ac/terms/Multimedia">
     <files>
