@@ -270,7 +270,7 @@ write_dwc <- function(x, directory = ".") {
       captureDevice = .data$cameraModel,
       resourceCreationTechnique = dplyr::recode(
         .data$captureMethod,
-        "motionDetection" = "motion detection",
+        "activityDetection" = "activity detection",
         "timeLapse" = "time lapse"
       ),
       accessURI = .data$filePath,
