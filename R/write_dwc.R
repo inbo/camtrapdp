@@ -186,6 +186,10 @@ write_dwc <- function(x, directory = ".") {
       )),
       locationID = .data$locationID,
       locality = .data$locationName,
+      minimumDepthInMeters = .data$cameraDepth,
+      maximumDepthInMeters = .data$cameraDepth,
+      minimumDistanceAboveSurfaceInMeters = .data$cameraHeight,
+      maximumDistanceAboveSurfaceInMeters = .data$cameraHeight,
       decimalLatitude = .data$latitude,
       decimalLongitude = .data$longitude,
       geodeticDatum = "EPSG:4326", # WGS84
@@ -224,10 +228,13 @@ write_dwc <- function(x, directory = ".") {
       "individualCount", "sex", "lifeStage", "behavior", "occurrenceStatus",
       "occurrenceRemarks", "organismID", "eventID", "parentEventID",
       "eventDate", "habitat", "samplingProtocol", "samplingEffort",
-      "eventRemarks", "locationID", "locality", "decimalLatitude",
-      "decimalLongitude", "geodeticDatum", "coordinateUncertaintyInMeters",
-      "coordinatePrecision", "identifiedBy", "dateIdentified",
-      "identificationRemarks", "taxonID", "scientificName", "kingdom"
+      "eventRemarks", "locationID", "locality", "minimumDepthInMeters",
+      "maximumDepthInMetersdecimalLatitude",
+      "minimumDistanceAboveSurfaceInMeters",
+      "maximumDistanceAboveSurfaceInMeters", "decimalLongitude",
+      "geodeticDatum", "coordinateUncertaintyInMeters", "coordinatePrecision",
+      "identifiedBy", "dateIdentified", "identificationRemarks", "taxonID",
+      "scientificName", "kingdom"
     )
 
   # Create audiovisual core
