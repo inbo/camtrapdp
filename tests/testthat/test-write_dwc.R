@@ -66,7 +66,7 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
       "locationID",
       "locality",
       "minimumDepthInMeters",
-      "maximumDepthInMetersdecimalLatitude",
+      "maximumDepthInMeters",
       "minimumDistanceAboveSurfaceInMeters",
       "maximumDistanceAboveSurfaceInMeters",
       "decimalLatitude",

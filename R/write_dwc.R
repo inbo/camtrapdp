@@ -229,12 +229,11 @@ write_dwc <- function(x, directory = ".") {
       "occurrenceRemarks", "organismID", "eventID", "parentEventID",
       "eventDate", "habitat", "samplingProtocol", "samplingEffort",
       "eventRemarks", "locationID", "locality", "minimumDepthInMeters",
-      "maximumDepthInMetersdecimalLatitude",
-      "minimumDistanceAboveSurfaceInMeters",
-      "maximumDistanceAboveSurfaceInMeters", "decimalLongitude",
-      "geodeticDatum", "coordinateUncertaintyInMeters", "coordinatePrecision",
-      "identifiedBy", "dateIdentified", "identificationRemarks", "taxonID",
-      "scientificName", "kingdom"
+      "maximumDepthInMeters", "minimumDistanceAboveSurfaceInMeters",
+      "maximumDistanceAboveSurfaceInMeters", "decimalLatitude",
+      "decimalLongitude", "geodeticDatum", "coordinateUncertaintyInMeters",
+      "coordinatePrecision", "identifiedBy", "dateIdentified",
+      "identificationRemarks", "taxonID", "scientificName", "kingdom"
     )
 
   # Create audiovisual core
