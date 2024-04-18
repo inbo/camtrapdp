@@ -33,6 +33,7 @@ Other accessor functions:
 \code{\link{deployments}()},
 \code{\link{locations}()},
 \code{\link{media}()},
-\code{\link{observations}()}
+\code{\link{observations}()},
+\code{\link{taxa}()}
 }
 \concept{accessor functions}

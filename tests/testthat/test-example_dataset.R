@@ -10,5 +10,5 @@ test_that("example_dataset() returns the expected dataset", {
 
 test_that("example_dataset() returns a valid camtrapdp object", {
   skip_if_offline()
-  expect_true(check_camtrapdp(example_dataset()))
+  expect_no_error(check_camtrapdp(example_dataset()))
 })

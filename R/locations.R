@@ -1,15 +1,16 @@
 #' Get locations
 #'
-#' Gets the unique locations from the deployments of a Camera Trap Data Package
-#' object.
+#' Gets the (unique) locations from the deployments of a Camera Trap Data
+#' Package object.
 #'
 #' @inheritParams version
-#' @return [tibble()] data frame with the following columns:
-#' - `locationID`
-#' - `locationName`
-#' - `latitude`
-#' - `longitude`
-#' - `coordinateUncertainty`
+#' @return [tibble()] data frame with the locations, containing the following
+#'   columns:
+#'   - `locationID`
+#'   - `locationName`
+#'   - `latitude`
+#'   - `longitude`
+#'   - `coordinateUncertainty`
 #' @family accessor functions
 #' @export
 #' @examples
