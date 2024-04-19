@@ -7,7 +7,7 @@
 #' are not always hard linked to media.
 #'
 #' @inheritParams version
-#'
+#' @param ... filtering expressions. Same behavior as dplyr's `filter()`.
 #' @return Camera Trap Data Package object.
 #' @family filter functions
 #' @export

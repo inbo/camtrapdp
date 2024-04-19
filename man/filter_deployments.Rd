@@ -11,6 +11,8 @@ filter_deployments(x, ...)
 \code{read_camtrapdp()}.
 Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
+
+\item{...}{filtering expressions. Same behavior as dplyr's \code{filter()}.}
 }
 \value{
 Camera Trap Data Package object.
@@ -24,7 +26,6 @@ The media and the observations of the removed deployments will be removed as wel
 library(dplyr)
 dataset <- example_dataset()
 filter_deployments(dataset, locationName == "B_HS_val 2_processiepark")
-filter_deployments(dataset, locationName != "B_HS_val 2_processiepark")
 filter_deployments(dataset, deploymentStart > as.POSIXct("2021-01-01"))
 # piping is allowed
 dataset \%>\% filter_deployments(latitude > 51, longitude < 5)

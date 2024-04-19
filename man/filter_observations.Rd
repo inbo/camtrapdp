@@ -11,6 +11,8 @@ filter_observations(x, ...)
 \code{read_camtrapdp()}.
 Also works on a Frictionless Data Package, as returned by
 \code{frictionless::read_package()}.}
+
+\item{...}{filtering expressions. Same behavior as dplyr's \code{filter()}.}
 }
 \value{
 Camera Trap Data Package object.
