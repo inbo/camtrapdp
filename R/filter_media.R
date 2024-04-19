@@ -43,7 +43,7 @@ filter_media <- function(x, ...) {
     dplyr::mutate(is_media_present = any(
       .data$eventStart <= media$timestamp &
         media$timestamp <= .data$eventEnd)) %>%
-    dplyr::filter(is_media_present == TRUE) %>%
+    dplyr::filter(.data$is_media_present == TRUE) %>%
     dplyr::select(-"is_media_present")
 
   # Assign filtered data
