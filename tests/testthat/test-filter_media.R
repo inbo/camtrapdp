@@ -39,9 +39,6 @@ test_that("filter_media() filters correctly on media, deploys and obs", {
   )
   # Only observations:
   # - from the deployments mentioned in media left
-  obs <- observations(x)
-  obs$mediaID <- NA # To be sure  we are not filtering because of `mediaID`
-  x$data$observations <- obs # to be replaced by observations(x) <- obs if ready
   filtered_dp <- filter_media(x, timestamp > time_threshold)
   deploys_id <- unique(purrr::pluck(media(filtered_dp), "deploymentID"))
   expect_true(
