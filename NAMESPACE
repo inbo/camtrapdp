@@ -2,6 +2,7 @@
 
 export(deployments)
 export(example_dataset)
+export(filter_deployments)
 export(locations)
 export(media)
 export(observations)

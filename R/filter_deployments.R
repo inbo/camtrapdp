@@ -1,6 +1,8 @@
-#' Define filter method for camtrapdp class
+#' Filter based on deployments
 #'
-#' Internal function for filtering deployments
+#' Filter a Camera Trap Data Package object based on deployments. Same syntax
+#' and behavior as in dplyr's `filter()` function. The deployments will be filtered based on the provided conditions.
+#' The media and the observations of the removed deployments will be removed as well.
 #'
 #' @inheritParams version
 #'
@@ -8,13 +10,14 @@
 #' @family filter functions
 #' @export
 #' @examples
-#' # example code
+#' library(dplyr)
 #' dataset <- example_dataset()
 #' filter_deployments(dataset, locationName == "B_HS_val 2_processiepark")
+#' filter_deployments(dataset, locationName != "B_HS_val 2_processiepark")
+#' filter_deployments(dataset, deploymentStart > as.POSIXct("2021-01-01"))
+#' # piping is allowed
+#' dataset %>% filter_deployments(latitude > 51, longitude < 5)
 filter_deployments <- function(x, ...) {
-
-  # Check args validity
-  # TODO
 
   # Filter deployments
   deploys <- deployments(x)
