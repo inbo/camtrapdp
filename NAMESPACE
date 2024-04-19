@@ -3,6 +3,7 @@
 export(deployments)
 export(example_dataset)
 export(filter_deployments)
+export(filter_observations)
 export(locations)
 export(media)
 export(observations)
