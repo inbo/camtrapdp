@@ -9,3 +9,4 @@
 * New internal function `check_camtrapdp()` validates a camtrapdp object (#34).
 * New internal function `convert()` converts camtrapdp objects to the latest version. This function is currently not used, as the only supported version is Camtrap DP 1.0 (#9).
 * Pipe (`%>%`) is imported from [dplyr](https://cran.r-project.org/package=dplyr) at package level, so it can be used in functions (#37). Same for `.data`.
+* New functions allow filtering at package level: `filter_deployments()`, `filter_observations()` and `filter_media()`). They work similarly to [dplyr](https://cran.r-project.org/package=dplyr)'s `filter()` (#23).
