@@ -18,6 +18,9 @@
 #' dataset %>% filter_deployments(latitude > 51, longitude < 5)
 filter_deployments <- function(x, ...) {
 
+  # Check Camtrap DP object
+  check_camtrapdp(x)
+
   # Filter deployments
   deploys <- deployments(x)
   deploys <- dplyr::filter(deploys, ...)

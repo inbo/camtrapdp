@@ -23,6 +23,10 @@
 #'     timestamp > as.POSIXct("2020-08-04 08:01:00")
 #' )
 filter_media <- function(x, ...) {
+
+  # Check Camtrap DP object
+  check_camtrapdp(x)
+
   # Filter media
   media <- media(x)
   media <- dplyr::filter(media, ...)

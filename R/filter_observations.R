@@ -26,6 +26,9 @@
 #' )
 filter_observations <- function(x, ...) {
 
+  # Check Camtrap DP object
+  check_camtrapdp(x)
+
   # Filter observations
   obs <- observations(x)
   obs <- dplyr::filter(obs, ...)
