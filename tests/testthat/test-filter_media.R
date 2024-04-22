@@ -46,7 +46,7 @@ test_that("filter_media() filters correctly on media, deploys and obs", {
       purrr::pluck(observations(filtered_dp), "deploymentID") %in% deploys_id
     )
   )
-  # Only observations :
+  # Only observations:
   # - where eventStart <= one or more timestamp of the media left <= eventEnd
   expect_true(
     all(
