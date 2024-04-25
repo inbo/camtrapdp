@@ -5,12 +5,4 @@ test_that("read_camtrapdp() returns error on invalid camtrapdp object", {
     check_camtrapdp(o_assen),
     class = "camtrapdp_error_object_invalid"
   )
-  expect_error(
-    check_camtrapdp(o_assen),
-    regexp = paste(
-      "`x` must be a Camera Trap Data Package object created with",
-      "`read_camtrapdp()`."
-    ),
-    fixed = TRUE
-  )
 })

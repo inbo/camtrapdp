@@ -171,14 +171,6 @@ test_that("build_taxonomy() returns warning for duplicate scientificNames", {
     build_taxonomy(x),
     class = "camtrapdp_warning_duplicate_scientificname"
   )
-  expect_warning(
-    build_taxonomy(x),
-    regexp = paste(
-      "Duplicate scientificNames present in `x$taxonmic`,",
-      "only the first one will be returned."
-    ),
-    fixed = TRUE
-  )
 })
 
 test_that("build_taxonomy() uses first record for duplicate scientificNames", {

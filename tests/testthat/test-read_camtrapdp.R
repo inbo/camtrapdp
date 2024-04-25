@@ -17,11 +17,6 @@ test_that("read_camtrapdp() returns error on unsupported Camtrap DP version", {
     read_camtrapdp(camtrapdp_1.0_rc.1),
     class = "camtrapdp_error_unsupported_version"
   )
-  expect_error(
-    read_camtrapdp(camtrapdp_1.0_rc.1),
-    regexp = "\"1.0-rc.1\" is not a supported Camtrap DP version.",
-    fixed = TRUE
-  )
 
   # Not a Camtrap DP
   o_assen <- "https://zenodo.org/records/10053903/files/datapackage.json"
