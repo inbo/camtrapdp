@@ -32,7 +32,7 @@ build_taxonomy <- function(x) {
     cli::cli_warn(
       c(
         "Duplicate {.field scientificName} found in taxonomy.",
-        "i" = "The first instance of {.val {duplicate_names}} will be used."
+        "i" = "Information of the first {.val {duplicate_names}} will be used."
       ),
       class = "camtrapdp_warning_duplicate_scientificname"
     )
