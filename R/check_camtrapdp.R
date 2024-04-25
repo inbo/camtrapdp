@@ -27,38 +27,33 @@ check_camtrapdp <- function(x) {
     )
   }
 
-  general_message2 <- paste("{.arg x} must have deployments, media and",
-                            "observations data frames present.")
-  # Check deployments is a data frame
-  if(!is.data.frame(x$data$deployments)) {
+  # Check if deployments, media, observations are data frames
+  if (!is.data.frame(x$data$deployments)) {
     cli::cli_abort(
       c(
-        general_message2,
-        "x" = "{.arg x} is missing a {.field deployments} attribute OR
-        {.field deployments} is not a data frame.",
+        general_message,
+        "x" = "{.field deployments} must be a dataframe, but it is
+               {.obj_type_friendly {x$data$deployments}}."
       ),
       class = "camtrapdp_error_data_invalid"
     )
   }
-
-  # Check media is a data frame
-  if(!is.data.frame(x$data$media)) {
+  if (!is.data.frame(x$data$media)) {
     cli::cli_abort(
       c(
-        general_message2,
-        "x" = "{.arg x} is missing a {.field media} attribute OR
-        {.field media} is not a data frame.",
+        general_message,
+        "x" = "{.field media} must be a dataframe, but it is
+               {.obj_type_friendly {x$data$media}}."
       ),
       class = "camtrapdp_error_data_invalid"
     )
   }
-  # Check observations is a data frame
-  if(!is.data.frame(x$data$observations)) {
+  if (!is.data.frame(x$data$observations)) {
     cli::cli_abort(
       c(
-        general_message2,
-        "x" = "{.arg x} is missing a {.field observations} attribute OR
-        {.field observations} is not a data frame.",
+        general_message,
+        "x" = "{.field observations} must be a dataframe, but it is
+               {.obj_type_friendly {x$data$observations}}."
       ),
       class = "camtrapdp_error_data_invalid"
     )
