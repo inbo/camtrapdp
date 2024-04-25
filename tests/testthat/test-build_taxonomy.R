@@ -159,20 +159,13 @@ test_that("build_taxonomy() fills missing values with NA when a taxonomic field
   )
 })
 
-test_that("build_taxonomy() returns warning when a scientificName occurs more than once in x$taxonomic", {
+test_that("build_taxonomy() returns warning for duplicate scientificNames", {
   skip_if_offline()
   x <- example_dataset()
+  # Add duplicate name
   x$taxonomic <- append(
     x$taxonomic,
-    list(list(
-      scientificName = "Vulpes vulpes",
-      taxonID = "https://www.wikidata.org/wiki/Q8332",
-      taxonRank = "species",
-      vernacularNames = list(
-        eng = "red fox",
-        lbe = "Цулчӏа"
-      )
-    ))
+    list(list(scientificName = "Vulpes vulpes"))
   )
   expect_warning(
     build_taxonomy(x),
@@ -188,20 +181,13 @@ test_that("build_taxonomy() returns warning when a scientificName occurs more th
   )
 })
 
-test_that("build_taxonomy() returns only the first species if duplicates are present in `x$taxonomic`", {
+test_that("build_taxonomy() uses first record for duplicate scientificNames", {
   skip_if_offline()
   x <- example_dataset()
+  # Add duplicate name
   x$taxonomic <- append(
     x$taxonomic,
-    list(list(
-      scientificName = "Vulpes vulpes",
-      taxonID = "https://www.wikidata.org/wiki/Q8332",
-      taxonRank = "species",
-      vernacularNames = list(
-        eng = "red fox",
-        lbe = "Цулчӏа"
-      )
-    ))
+    list(list(scientificName = "Vulpes vulpes"))
   )
   expect_identical(
     suppressWarnings(build_taxonomy(x))$scientificName,
@@ -209,11 +195,11 @@ test_that("build_taxonomy() returns only the first species if duplicates are pre
   )
 })
 
-test_that("build_taxonomy() doesn't return empty columns when a duplicate species has a field missing from the first record of that species in `x$taxonomic`", {
+test_that("build_taxonomy() removes columns that are empty", {
   skip_if_offline()
   x <- example_dataset()
-  # The first record only has `eng` and `lbe` vernacularNames, so only those
-  # should be retained. There should be no empty columns.
+  # Overwrite taxonomy with two duplicate taxa
+  # Only first one (and its columns only) should be retained
   x$taxonomic <-
     list(
       list(
@@ -221,41 +207,27 @@ test_that("build_taxonomy() doesn't return empty columns when a duplicate specie
         taxonID = "https://www.wikidata.org/wiki/Q8332",
         taxonRank = "species",
         vernacularNames = list(
-          eng = "red fox",
-          lbe = "Цулчӏа"
+          eng = "red fox", # Retain
+          lbe = NA_character_ # Ignore
         )
       ),
       list(
         scientificName = "Vulpes vulpes",
+        order = "Carnivora", # Ignore
         vernacularNames = list(
-          dsb = "Cerwjena liška",
+          dsb = "Cerwjena liška", # Ignore
           eng = "red fox",
-          kas = "پۄژھٕ لوو",
-          est = "Rebane"
+          est = "Rebane" # Ignore
         )
       )
     )
-  # Only keep rows that have an NA value in any column:
-  rows_with_missing_value <-
-    dplyr::filter(
-      suppressWarnings(build_taxonomy(x)),
-      dplyr::if_any(
-        dplyr::everything(), is.na
-      )
-    )
-  # We expect no rows with missing values
-  expect_identical(
-    nrow(rows_with_missing_value), 0L
-  )
-  # We expect only columns from the fields of the first fox record
   expect_named(
     suppressWarnings(build_taxonomy(x)),
     c(
       "scientificName",
       "taxonID",
       "taxonRank",
-      "vernacularNames.eng",
-      "vernacularNames.lbe"
+      "vernacularNames.eng"
     )
   )
 })

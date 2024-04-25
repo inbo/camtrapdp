@@ -41,7 +41,7 @@ build_taxonomy <- function(x) {
   # Only keep the first row if a scientificName occurs more than once
   taxonomy_df <- dplyr::distinct(taxonomy_df, scientificName, .keep_all = TRUE)
 
-  # Drop any columns that are now empty after dropping the duplicate records
+  # Drop any columns that are empty (e.g as result of dropping duplicates)
   cols_to_keep <- colSums(is.na(taxonomy_df)) != nrow(taxonomy_df)
   taxonomy_df <- taxonomy_df[,cols_to_keep, drop = FALSE]
 
