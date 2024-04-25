@@ -158,3 +158,68 @@ test_that("build_taxonomy() fills missing values with NA when a taxonomic field
     NA_character_
   )
 })
+
+test_that("build_taxonomy() returns warning for duplicate scientificNames", {
+  skip_if_offline()
+  x <- example_dataset()
+  # Add duplicate name
+  x$taxonomic <- append(
+    x$taxonomic,
+    list(list(scientificName = "Vulpes vulpes"))
+  )
+  expect_warning(
+    build_taxonomy(x),
+    class = "camtrapdp_warning_duplicate_scientificname"
+  )
+})
+
+test_that("build_taxonomy() uses first record for duplicate scientificNames", {
+  skip_if_offline()
+  x <- example_dataset()
+  # Add duplicate name
+  x$taxonomic <- append(
+    x$taxonomic,
+    list(list(scientificName = "Vulpes vulpes"))
+  )
+  expect_identical(
+    suppressWarnings(build_taxonomy(x))$scientificName,
+    unique(suppressWarnings(build_taxonomy(x))$scientificName)
+  )
+})
+
+test_that("build_taxonomy() removes columns that are empty", {
+  skip_if_offline()
+  x <- example_dataset()
+  # Overwrite taxonomy with two duplicate taxa
+  # Only first one (and its columns only) should be retained
+  x$taxonomic <-
+    list(
+      list(
+        scientificName = "Vulpes vulpes",
+        taxonID = "https://www.wikidata.org/wiki/Q8332",
+        taxonRank = "species",
+        vernacularNames = list(
+          eng = "red fox", # Retain
+          lbe = NA_character_ # Ignore
+        )
+      ),
+      list(
+        scientificName = "Vulpes vulpes",
+        order = "Carnivora", # Ignore
+        vernacularNames = list(
+          dsb = "Cerwjena liška", # Ignore
+          eng = "red fox",
+          est = "Rebane" # Ignore
+        )
+      )
+    )
+  expect_named(
+    suppressWarnings(build_taxonomy(x)),
+    c(
+      "scientificName",
+      "taxonID",
+      "taxonRank",
+      "vernacularNames.eng"
+    )
+  )
+})
