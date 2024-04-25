@@ -7,10 +7,6 @@
 #' @return Data frame with the taxonomic information.
 #' @noRd
 build_taxonomy <- function(x) {
-
-  # Check Camtrap DP object
-  check_camtrapdp(x)
-
   # Extract the taxonomic information
   taxonomic_list <- purrr::pluck(x, "taxonomic")
 
