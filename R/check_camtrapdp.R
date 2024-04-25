@@ -16,12 +16,12 @@ check_camtrapdp <- function(x) {
   # Check if valid Data Package
   frictionless::check_package(x)
 
+  # Check if class is present
   if (!("camtrapdp" %in% class(x))) {
-    # Check x is a Camera Trap Data Package
     cli::cli_abort(
       c(
         general_message,
-        "x" = "{.arg x} is a {.cls {class(x)}} object.",
+        "x" = "{.arg x} is missing a {.val camtrapdp} class."
       ),
       class = "camtrapdp_error_object_invalid"
     )
