@@ -46,4 +46,9 @@ Note that this can result in media being linked to multiple events (and thus
 being duplicated), for example when events and sub-events were defined.
 }
 
+\examples{
+file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
+dataset <- read_camtrapdp(file)
+dataset
+}
 \concept{read functions}

@@ -35,6 +35,10 @@
 #' @return Camera Trap Data Package object.
 #' @family read functions
 #' @export
+#' @examples
+#' file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
+#' dataset <- read_camtrapdp(file)
+#' dataset
 read_camtrapdp <- function(file) {
   # Read datapackage.json
   package <- suppressMessages(frictionless::read_package(file))
