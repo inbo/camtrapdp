@@ -33,7 +33,7 @@ check_camtrapdp <- function(x) {
       c(
         general_message,
         "x" = "{.field deployments} must be a dataframe, but it is
-               {.obj_type_friendly {x$data$deployments}}."
+               {.type {x$data$deployments}}."
       ),
       class = "camtrapdp_error_data_invalid"
     )
@@ -43,7 +43,7 @@ check_camtrapdp <- function(x) {
       c(
         general_message,
         "x" = "{.field media} must be a dataframe, but it is
-               {.obj_type_friendly {x$data$media}}."
+               {.type {x$data$media}}."
       ),
       class = "camtrapdp_error_data_invalid"
     )
@@ -53,7 +53,7 @@ check_camtrapdp <- function(x) {
       c(
         general_message,
         "x" = "{.field observations} must be a dataframe, but it is
-               {.obj_type_friendly {x$data$observations}}."
+               {.type {x$data$observations}}."
       ),
       class = "camtrapdp_error_data_invalid"
     )
