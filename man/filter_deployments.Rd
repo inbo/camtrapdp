@@ -13,13 +13,14 @@ filter_deployments(x, ...)
 \item{...}{Filtering conditions, see \code{dplyr::filter()}.}
 }
 \value{
-Camera Trap Data Package object.
+Filtered Camera Trap Data Package object.
 }
 \description{
 Subsets deployments in a Camera Trap Data Package object, retaining all
-rows that satisfy a condition.
+rows that satisfy the conditions.
+}
+\details{
 \itemize{
-\item Deployments are filtered on the conditions.
 \item Media are filtered on associated \code{deploymentID}.
 \item Observations are filtered on associated \code{deploymentID}.
 }
@@ -27,20 +28,17 @@ rows that satisfy a condition.
 \examples{
 x <- example_dataset()
 
-# Filtering returns x (the dataset)
-filter_deployments(x, deploymentID == "62c200a9")
-
-# Use deployments() to get the filtered deployments
+# Filtering returns x, so pipe with deployments() to see the result
 x \%>\%
   filter_deployments(deploymentID == "62c200a9") \%>\%
   deployments()
 
-# Filtering by multiple criteria
+# Filtering on multiple conditions (combined with &)
 x \%>\%
-  filter_deployments(latitude > 51.0 & longitude > 5.0) \%>\%
+  filter_deployments(latitude > 51.0, longitude > 5.0) \%>\%
   deployments()
 
-# Associated media and observations are filtered as well
+# Filtering on deployments also affects associated media and observations
 x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
 media(x_filtered)
 observations(x_filtered)

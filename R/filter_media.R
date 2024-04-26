@@ -1,58 +1,61 @@
-#' Filter based on media
+#' Filter media
 #'
-#' Filter a Camera Trap Data Package object based on media. Same syntax and
-#' behavior as in dplyr's `filter()` function. This function does not filter
-#' deployments, so absences are retained. It filters observations (on
-#' `mediaID`), but note that not all observations have these. It filters also
-#' observations taken by the same deployments and same time range as the
-#' filtered media.
+#' Subsets media in a Camera Trap Data Package object, retaining all rows that
+#' satisfy the conditions.
+#'
+#' - Deployments are not filtered.
+#' - Observations are filtered on associated `mediaID` (for media-based
+#' observations) and `eventID` (for event-based observations).
 #'
 #' @inheritParams check_camtrapdp
-#' @param ... filtering expressions. Same behavior as dplyr's `filter()`.
-#' @return Camera Trap Data Package object.
+#' @param ... Filtering conditions, see `dplyr::filter()`.
+#' @return Filtered Camera Trap Data Package object.
 #' @family filter functions
 #' @export
 #' @examples
-#' library(dplyr)
-#' dataset <- example_dataset()
-#' filter_media(dataset, favorite == TRUE)
+#' x <- example_dataset()
 #'
-#' # piping is allowed
-#' dataset %>%
+#' # Filtering returns x, so pipe with media() to see the result
+#' x %>%
+#'   filter_media(captureMethod == "timeLapse") %>%
+#'   media()
+#'
+#' # Filtering on multiple conditions (combined with &)
+#' x %>%
 #'   filter_media(
-#'     timestamp > as.POSIXct("2020-08-04 08:01:00")
-#' )
+#'     timestamp >= as.POSIXct("2020-08-02 05:01:00"),
+#'     timestamp <= as.POSIXct("2020-08-02 05:02:00")
+#'   ) %>%
+#'   media()
+#'
+#' # Filtering on media also affects associated observations, but not deployments
+#' x_filtered <- filter_media(x, favorite == TRUE)
+#' observations(x_filtered)
 filter_media <- function(x, ...) {
-
-  # Check Camtrap DP object
   check_camtrapdp(x)
 
   # Filter media
-  media <- media(x)
-  media <- dplyr::filter(media, ...)
+  media <-
+    media(x) %>%
+    dplyr::filter(...)
 
-  # Filters observations on `mediaID`
-  obs <- observations(x) %>%
-    dplyr::filter(.data$mediaID %in% media$mediaID)
-
-  # Filter observations based on deploymentID and timestamp
-  deploys <- unique(media$deploymentID)
-  obs <- obs %>%
-    dplyr::filter(.data$deploymentID %in% deploys)
-
-  # Filter observations with eventStart <= timestamp <= eventEnd
-  # where timestamp is any of the media timestamps
-  obs <- obs %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(is_media_present = any(
-      .data$eventStart <= media$timestamp &
-        media$timestamp <= .data$eventEnd)) %>%
-    dplyr::filter(.data$is_media_present == TRUE) %>%
-    dplyr::select(-"is_media_present")
+  # Filter observations
+  select_media_ids <- unique(purrr::pluck(media, "mediaID"))
+  select_event_ids <- unique(purrr::pluck(media, "eventID"))
+  observations <-
+    observations(x) %>%
+    dplyr::filter(
+      # On mediaID for media-based obs
+      (.data$observationLevel == "media" &
+       .data$mediaID %in% select_media_ids) |
+      # On eventID for event-based obs
+      (.data$observationLevel == "event" &
+       .data$eventID %in% select_event_ids)
+    )
 
   # Assign filtered data
   x$data$media <- media
-  x$data$observations <- obs
+  x$data$observations <- observations
 
   return(x)
 }

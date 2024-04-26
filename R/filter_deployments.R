@@ -1,46 +1,47 @@
 #' Filter deployments
 #'
 #' Subsets deployments in a Camera Trap Data Package object, retaining all
-#' rows that satisfy a condition.
-#' - Deployments are filtered on the conditions.
+#' rows that satisfy the conditions.
+#'
 #' - Media are filtered on associated `deploymentID`.
 #' - Observations are filtered on associated `deploymentID`.
 #'
 #' @inheritParams check_camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
-#' @return Camera Trap Data Package object.
+#' @return Filtered Camera Trap Data Package object.
 #' @family filter functions
 #' @export
 #' @examples
 #' x <- example_dataset()
 #'
-#' # Filtering returns x (the dataset)
-#' filter_deployments(x, deploymentID == "62c200a9")
-#'
-#' # Use deployments() to get the filtered deployments
+#' # Filtering returns x, so pipe with deployments() to see the result
 #' x %>%
 #'   filter_deployments(deploymentID == "62c200a9") %>%
 #'   deployments()
 #'
-#' # Filtering by multiple criteria
+#' # Filtering on multiple conditions (combined with &)
 #' x %>%
-#'   filter_deployments(latitude > 51.0 & longitude > 5.0) %>%
+#'   filter_deployments(latitude > 51.0, longitude > 5.0) %>%
 #'   deployments()
 #'
-#' # Associated media and observations are filtered as well
+#' # Filtering on deployments also affects associated media and observations
 #' x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
 #' media(x_filtered)
 #' observations(x_filtered)
 filter_deployments <- function(x, ...) {
   check_camtrapdp(x)
 
-  # Filter data
+  # Filter deployments
   deployments <-
     deployments(x) %>%
     dplyr::filter(...)
+
+  # Filter media
   media <-
     media(x) %>%
     dplyr::filter(.data$deploymentID %in% deployments$deploymentID)
+
+  # Filter observations
   observations <-
     observations(x) %>%
     dplyr::filter(.data$deploymentID %in% deployments$deploymentID)

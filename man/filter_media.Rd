@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter_media.R
 \name{filter_media}
 \alias{filter_media}
-\title{Filter based on media}
+\title{Filter media}
 \usage{
 filter_media(x, ...)
 }
@@ -10,29 +10,41 @@ filter_media(x, ...)
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{...}{filtering expressions. Same behavior as dplyr's \code{filter()}.}
+\item{...}{Filtering conditions, see \code{dplyr::filter()}.}
 }
 \value{
-Camera Trap Data Package object.
+Filtered Camera Trap Data Package object.
 }
 \description{
-Filter a Camera Trap Data Package object based on media. Same syntax and
-behavior as in dplyr's \code{filter()} function. This function does not filter
-deployments, so absences are retained. It filters observations (on
-\code{mediaID}), but note that not all observations have these. It filters also
-observations taken by the same deployments and same time range as the
-filtered media.
+Subsets media in a Camera Trap Data Package object, retaining all rows that
+satisfy the conditions.
+}
+\details{
+\itemize{
+\item Deployments are not filtered.
+\item Observations are filtered on associated \code{mediaID} (for media-based
+observations) and \code{eventID} (for event-based observations).
+}
 }
 \examples{
-library(dplyr)
-dataset <- example_dataset()
-filter_media(dataset, favorite == TRUE)
+x <- example_dataset()
 
-# piping is allowed
-dataset \%>\%
+# Filtering returns x, so pipe with media() to see the result
+x \%>\%
+  filter_media(captureMethod == "timeLapse") \%>\%
+  media()
+
+# Filtering on multiple conditions (combined with &)
+x \%>\%
   filter_media(
-    timestamp > as.POSIXct("2020-08-04 08:01:00")
-)
+    timestamp >= as.POSIXct("2020-08-02 05:01:00"),
+    timestamp <= as.POSIXct("2020-08-02 05:02:00")
+  ) \%>\%
+  media()
+
+# Filtering on media also affects associated observations, but not deployments
+x_filtered <- filter_media(x, favorite == TRUE)
+observations(x_filtered)
 }
 \seealso{
 Other filter functions: 
