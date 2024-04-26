@@ -3,10 +3,11 @@
 #' Checks if an object is a Camera Trap Data Package object with the required
 #' properties.
 #'
-#' @inheritParams version
+#' @param x Camera Trap Data Package object, as returned by
+#'   `read_camtrapdp()`.
 #' @return `x` invisibly or error.
 #' @family check functions
-#' @noRd
+#' @export
 check_camtrapdp <- function(x) {
   frictionless::check_package(x)
   if (!("camtrapdp" %in% class(x))) {
