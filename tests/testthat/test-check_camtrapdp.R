@@ -25,8 +25,8 @@ test_that("check_camtrapdp() returns error if deployments, media, observations
   z <- example_dataset()
   x$data$deployments <- "not_a_dataframe"
   y$data$media <- NULL
-  z$data$observations <- data.frame() # Valid
+  z$data$observations <- NA
   expect_error(check_camtrapdp(x), class = "camtrapdp_error_data_invalid")
   expect_error(check_camtrapdp(y), class = "camtrapdp_error_data_invalid")
-  expect_no_error(check_camtrapdp(z))
+  expect_error(check_camtrapdp(z), class = "camtrapdp_error_data_invalid")
 })
