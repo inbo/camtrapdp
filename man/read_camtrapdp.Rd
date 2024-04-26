@@ -4,10 +4,13 @@
 \alias{read_camtrapdp}
 \title{Read a Camera Trap Data Package}
 \usage{
-read_camtrapdp(file)
+read_camtrapdp(file, media_eventid = TRUE)
 }
 \arguments{
 \item{file}{Path or URL to a \code{datapackage.json} file.}
+
+\item{media_eventid}{Whether \code{eventID}s found in observations should be
+assigned to media.}
 }
 \value{
 Camera Trap Data Package object.
