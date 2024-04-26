@@ -15,4 +15,35 @@ Camera Trap Data Package object.
 \description{
 Reads files from a \href{https://camtrap-dp.tdwg.org}{Camera Trap Data Package (Camtrap DP)} into memory.
 }
+\section{Assign taxonomic information}{
+
+
+Camtrap DP metadata has a \code{taxonomic} property that can contain extra
+information for each \code{scientificName} found in observations.
+Such information can include higher taxonomy (\code{family}, \code{order}, etc.) and
+vernacular names in multiple languages.
+
+This function \strong{will automatically include this taxonomic information in
+observations}, as extra columns starting with \code{taxon.}.
+}
+
+\section{Assign eventIDs}{
+
+
+Observations can contain two classifications at two levels:
+
+\strong{Media-based} observations (\code{observationLevel == "media"}) are based on a
+single media file and are directly linked to it via \code{mediaID}.
+
+\strong{Event-based} observations (\code{observationLevel == "event"}) are based an
+event, defined as a combination of \code{eventID}, \code{eventStart} and \code{eventID}.
+This event can consist of one or more media files, but is not directly linked
+to these
+
+This function \strong{will automatically assign \code{eventID}s to media}, using
+\code{media.deploymentID == event.deploymentID} and \verb{eventStart <= media.timestamp <= eventEnd}.
+Note that this can result in media being linked to multiple events (and thus
+being duplicated), for example when events and sub-events were defined.
+}
+
 \concept{read functions}
