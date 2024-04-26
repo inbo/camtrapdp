@@ -31,8 +31,9 @@ build_taxonomy <- function(x) {
   if (length(duplicate_names) > 0) {
     cli::cli_warn(
       c(
-        "Duplicate {.field scientificName} found in taxonomy.",
-        "i" = "Information of the first {.val {duplicate_names}} will be used."
+        "{length(duplicate_names)} duplicate {.field scientificName}{?s} found
+         in taxonomy:",
+        "i" = "Only the first {.val {duplicate_names}} will be used."
       ),
       class = "camtrapdp_warning_duplicate_scientificname"
     )
