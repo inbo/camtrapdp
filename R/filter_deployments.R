@@ -4,8 +4,8 @@
 #' and behavior as in dplyr's `filter()` function. The deployments will be filtered based on the provided conditions.
 #' The media and the observations of the removed deployments will be removed as well.
 #'
-#' @inheritParams version
 #' @param ... filtering expressions. Same behavior as dplyr's `filter()`.
+#' @inheritParams check_camtrapdp
 #' @return Camera Trap Data Package object.
 #' @family filter functions
 #' @export

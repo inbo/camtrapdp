@@ -8,9 +8,7 @@ filter_deployments(x, ...)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.
-Also works on a Frictionless Data Package, as returned by
-\code{frictionless::read_package()}.}
+\code{read_camtrapdp()}.}
 
 \item{...}{filtering expressions. Same behavior as dplyr's \code{filter()}.}
 }

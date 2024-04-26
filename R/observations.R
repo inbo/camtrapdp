@@ -2,7 +2,7 @@
 #'
 #' Gets the observations from a Camera Trap Data Package object.
 #'
-#' @inheritParams version
+#' @inheritParams check_camtrapdp
 #' @return [tibble()] data frame with observations.
 #' @family accessor functions
 #' @export

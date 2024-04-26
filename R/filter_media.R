@@ -7,7 +7,7 @@
 #' observations taken by the same deployments and same time range as the
 #' filtered media.
 #'
-#' @inheritParams version
+#' @inheritParams check_camtrapdp
 #' @param ... filtering expressions. Same behavior as dplyr's `filter()`.
 #' @return Camera Trap Data Package object.
 #' @family filter functions
