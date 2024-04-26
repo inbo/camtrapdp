@@ -73,6 +73,7 @@ Also works on a Frictionless Data Package, as returned by
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other accessor functions: 
 <code><a href="deployments.html">deployments</a>()</code>,
+<code><a href="events.html">events</a>()</code>,
 <code><a href="locations.html">locations</a>()</code>,
 <code><a href="observations.html">observations</a>()</code>,
 <code><a href="taxa.html">taxa</a>()</code>,
@@ -83,7 +84,7 @@ Also works on a Frictionless Data Package, as returned by
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="example_dataset.html">example_dataset</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">media</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 423 × 11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 423 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    mediaID  deploymentID captureMethod   timestamp           filePath filePublic</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 07840dcc 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:37</span> https:/… TRUE      </span>
@@ -97,8 +98,8 @@ Also works on a Frictionless Data Package, as returned by
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 97140835 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:44</span> https:/… TRUE      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> d1326349 00a2c20d     activityDetect… 2020-05-30 <span style="color: #949494;">02:57:44</span> https:/… TRUE      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 413 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5 more variables: fileName &lt;chr&gt;, fileMediatype &lt;chr&gt;, exifData &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   favorite &lt;lgl&gt;, mediaComments &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 6 more variables: fileName &lt;chr&gt;, fileMediatype &lt;chr&gt;, exifData &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   favorite &lt;lgl&gt;, mediaComments &lt;chr&gt;, eventID &lt;chr&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
