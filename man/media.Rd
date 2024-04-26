@@ -23,6 +23,7 @@ media(x)
 \seealso{
 Other accessor functions: 
 \code{\link{deployments}()},
+\code{\link{events}()},
 \code{\link{locations}()},
 \code{\link{observations}()},
 \code{\link{taxa}()},

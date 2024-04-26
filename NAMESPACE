@@ -3,6 +3,7 @@
 export("%>%")
 export(check_camtrapdp)
 export(deployments)
+export(events)
 export(example_dataset)
 export(filter_deployments)
 export(filter_media)

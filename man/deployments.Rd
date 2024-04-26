@@ -22,6 +22,7 @@ deployments(x)
 }
 \seealso{
 Other accessor functions: 
+\code{\link{events}()},
 \code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()},
