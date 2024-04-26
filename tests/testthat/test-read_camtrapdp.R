@@ -33,24 +33,19 @@ test_that("read_camtrapdp() does not convert 1.0", {
   expect_identical(version(x), "1.0")
 })
 
-test_that("read_camtrapdp() optionally adds eventIDs to media", {
+test_that("read_camtrapdp() adds eventIDs to media", {
   skip_if_offline()
   file <-
     "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
-
-  # Don't assign eventID
-  x_without_eventid <- read_camtrapdp(file, media_eventid = FALSE)
-  expect_true(!"eventID" %in% colnames(media(x_without_eventid)))
-
-  # Assign eventID
-  x <- read_camtrapdp(file, media_eventid = TRUE)
+  x <- read_camtrapdp(file)
   expect_true("eventID" %in% colnames(media(x)))
+
+  # All media get eventID, except 3 (timeLapse) media that have no event-level obs
+  expect_equal(media(x) %>% dplyr::filter(is.na(eventID)) %>% nrow(), 3)
+
+  # At least for example dataset, no duplicate mediaIDs are created
   expect_identical(
     nrow(media(x)),
-    nrow(media(x_without_eventid)) # No duplicates are created in example dataset
-  )
-  expect_equal(
-    media(x) %>% dplyr::filter(is.na(eventID)) %>% nrow(),
-    3 # Only 3 (timeLapse) media don't have an eventID assigned
+    nrow(dplyr::distinct(media(x), mediaID)),
   )
 })

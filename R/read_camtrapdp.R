@@ -4,12 +4,10 @@
 #' https://camtrap-dp.tdwg.org) into memory.
 #'
 #' @param file Path or URL to a `datapackage.json` file.
-#' @param media_eventid Whether `eventID`s found in observations should be
-#'   assigned to media.
 #' @return Camera Trap Data Package object.
 #' @family read functions
 #' @export
-read_camtrapdp <- function(file, media_eventid = TRUE) {
+read_camtrapdp <- function(file) {
   # Read datapackage.json
   package <- suppressMessages(frictionless::read_package(file))
 
@@ -43,19 +41,17 @@ read_camtrapdp <- function(file, media_eventid = TRUE) {
   x <- convert(x, convert_to = "1.0")
 
   # Add eventID to media
-  if (media_eventid) {
-    x$data$media <-
-      dplyr::left_join(
-        media(x),
-        events(x),
-        by = dplyr::join_by(
-          "deploymentID",
-          "timestamp" >= "eventStart",
-          "timestamp" <= "eventEnd"
-        )
-      ) %>%
-      dplyr::select(-"eventStart", -"eventEnd")
-  }
+  x$data$media <-
+    dplyr::left_join(
+      media(x),
+      events(x),
+      by = dplyr::join_by(
+        "deploymentID",
+        "timestamp" >= "eventStart",
+        "timestamp" <= "eventEnd"
+      )
+    ) %>%
+    dplyr::select(-"eventStart", -"eventEnd")
 
   # Add taxonomic info to observations
   taxonomy <- build_taxonomy(x)
