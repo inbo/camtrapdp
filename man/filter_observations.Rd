@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter_observations.R
 \name{filter_observations}
 \alias{filter_observations}
-\title{Filter based on observations}
+\title{Filter observations}
 \usage{
 filter_observations(x, ...)
 }
@@ -10,31 +10,46 @@ filter_observations(x, ...)
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{...}{filtering expressions. Same behavior as dplyr's \code{filter()}.}
+\item{...}{Filtering conditions, see \code{dplyr::filter()}.}
 }
 \value{
-Camera Trap Data Package object.
+Filtered Camera Trap Data Package object.
 }
 \description{
-Filter a Camera Trap Data Package object based on observations. Same syntax
-and behavior as in dplyr's \code{filter()} function. This function does not filter
-deployments, so absences are retained. It does not filter media either
-since a media file can be used by more than one observation and observations
-are not always hard linked to media.
+Subsets observations in a Camera Trap Data Package object, retaining all rows
+that satisfy the conditions.
+}
+\details{
+\itemize{
+\item Deployments are not filtered.
+\item Media are filtered on associated \code{mediaID} (for media-based observations)
+and \code{eventID} (for event-based observations).
+Filter on \code{observationLevel == "media"} to only retain directly linked media.
+}
 }
 \examples{
-library(dplyr)
-dataset <- example_dataset()
-filter_observations(dataset, observationType == "animal")
-filter_observations(
-  dataset,
-  scientificName \%in\% c("Anas platyrhynchos", "Ardea cinerea")
-)
-# piping is allowed
-dataset \%>\%
+x <- example_dataset()
+
+# Filtering returns x, so pipe with observations() to see the result
+x \%>\%
+  filter_observations(observationType == "animal") \%>\%
+  observations()
+
+# Filtering on multiple conditions (combined with &)
+x \%>\%
   filter_observations(
-  observationLevel == "event", observationType == "animal"
-)
+    deploymentID == "577b543a",
+    scientificName \%in\% c("Martes foina", "Mustela putorius")
+  ) \%>\%
+  observations()
+
+# Filtering on observations also affects associated media, but not deployments
+x \%>\%
+  filter_observations(scientificName == "Vulpes vulpes", observationLevel == "event") \%>\%
+  media()
+x \%>\%
+  filter_observations(scientificName == "Vulpes vulpes", observationLevel == "media") \%>\%
+  media()
 }
 \seealso{
 Other filter functions: 
