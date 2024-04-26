@@ -25,16 +25,36 @@
 #'   observationLevel == "event", observationType == "animal"
 #' )
 filter_observations <- function(x, ...) {
-
-  # Check Camtrap DP object
   check_camtrapdp(x)
 
   # Filter observations
-  obs <- observations(x)
-  obs <- dplyr::filter(obs, ...)
+  observations <-
+    observations(x) %>%
+    dplyr::filter(...)
+
+  # Filter media
+  select_media_ids <-
+    observations %>%
+    dplyr::filter(observationLevel == "media") %>%
+    dplyr::distinct(.data$mediaID) %>%
+    dplyr::pull()
+  select_event_ids <-
+    observations %>%
+    dplyr::filter(observationLevel == "event") %>%
+    dplyr::distinct(.data$eventID) %>%
+    dplyr::pull()
+  media <-
+    media(x) %>%
+    dplyr::filter(
+      # On mediaID for media-based obs
+      .data$mediaID %in% select_media_ids |
+      # On eventID for event-based obs
+      .data$eventID %in% select_event_ids
+    )
 
   # Assign filtered data
-  x$data$observations <- obs
+  x$data$media <- media
+  x$data$observations <- observations
 
   return(x)
 }
