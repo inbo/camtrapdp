@@ -56,12 +56,12 @@ filter_observations <- function(x, ...) {
   # Filter media
   select_media_ids <-
     observations %>%
-    dplyr::filter(observationLevel == "media") %>%
+    dplyr::filter(.data$observationLevel == "media") %>%
     dplyr::distinct(.data$mediaID) %>%
     dplyr::pull()
   select_event_ids <-
     observations %>%
-    dplyr::filter(observationLevel == "event") %>%
+    dplyr::filter(.data$observationLevel == "event") %>%
     dplyr::distinct(.data$eventID) %>%
     dplyr::pull()
   media <-
