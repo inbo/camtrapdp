@@ -1,23 +1,25 @@
-test_that("filter_observations() returns a Camtrap DP object, same version", {
+test_that("filter_observations() returns a valid camtrapdp object", {
   skip_if_offline()
   x <- example_dataset()
-  filtered_dp <- filter_observations(x, observationType == "animal")
-  expect_s3_class(filtered_dp, "camtrapdp")
-  expect_s3_class(filtered_dp, "datapackage")
-  expect_s3_class(filtered_dp, "list")
-  expect_identical(version(filtered_dp), version(x))
+  expect_no_error(
+    check_camtrapdp(filter_observations(x, observationType == "animal"))
+  )
 })
 
-test_that("filter_observations() returns error if condition is wrong", {
+test_that("filter_observations() returns error on wrong condition", {
   skip_if_offline()
   x <- example_dataset()
-  expect_error(filter_observations(x, non_existing_col > 51),
-               regex = "object 'non_existing_col' not found")
+  expect_error(
+    filter_observations(x, non_existing_col == "animal"),
+    regex = "object 'non_existing_col' not found",
+    fixed = TRUE
+  )
 })
 
-test_that("filter_observations() filters correctly on obs, deploys and media", {
+test_that("filter_observations() supports combinations of conditions", {
   skip_if_offline()
   x <- example_dataset()
+
   x_single <- filter_observations(x, observationID == "1fcdba64")
   expect_equal(nrow(observations(x_single)), 1) # 1 observation
   x_multiple <- filter_observations(x, scientificName == "Vulpes vulpes")
@@ -33,4 +35,29 @@ test_that("filter_observations() filters correctly on obs, deploys and media", {
     eventStart >= lubridate::as_datetime("2020-06-19 22:00:00"),
     eventEnd <= lubridate::as_datetime("2020-06-19 22:10:00")
   )
+  expect_equal(nrow(observations(x_between)), 12) # 2020-06-19 22:00:00 till 2020-06-19 T22:06:00
+  x_combo <- filter_observations(x, eventID %in% c("a80896b5", "5fbf69a4"))
+  expect_equal(nrow(observations(x_combo)), 12) # Same as x_between: 1 timestamp, 1 event, 10 media
+})
+
+test_that("filter_observations() filters observations and media, but not deployments", {
+  skip_if_offline()
+  x <- example_dataset()
+  x_filtered <- filter_observations(
+    x,
+    scientificName == "Vulpes vulpes",
+    observationLevel == "media"
+  )
+  expect_equal(deployments(x_filtered), deployments(x))
+  expect_lt(nrow(media(x_filtered)), nrow(media(x)))
+  expect_equal(nrow(media(x_filtered)), 6) # 6 directly linked media files
+  expect_lt(nrow(observations(x_filtered)), nrow(observations(x)))
+
+  # When event-based observations are included, include all media files from event
+  x_filtered_event <- filter_observations(
+    x,
+    scientificName == "Vulpes vulpes",
+    observationLevel == "event"
+  )
+  expect_equal(nrow(media(x_filtered_event)), 10) # All media files in the event
 })

@@ -1,4 +1,4 @@
-test_that("check_camtrapdp() returns x invisibly when valid", {
+test_that("check_camtrapdp() returns an invisible camtrapdp object when valid", {
   skip_if_offline()
   x <- example_dataset()
   expect_identical(check_camtrapdp(x), x)
