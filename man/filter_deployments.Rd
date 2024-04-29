@@ -33,15 +33,24 @@ x \%>\%
   filter_deployments(deploymentID == "62c200a9") \%>\%
   deployments()
 
+# Filtering on deployments also affects associated media and observations
+x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
+media(x_filtered)
+observations(x_filtered)
+
 # Filtering on multiple conditions (combined with &)
 x \%>\%
   filter_deployments(latitude > 51.0, longitude > 5.0) \%>\%
   deployments()
 
-# Filtering on deployments also affects associated media and observations
-x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
-media(x_filtered)
-observations(x_filtered)
+# Filtering on dates is easiest with lubridate
+library(lubridate, warn.conflicts = FALSE)
+x \%>\%
+  filter_deployments(
+    deploymentStart >= lubridate::as_date("2020-06-19"),
+    deploymentEnd <= lubridate::as_date("2020-08-30")
+  ) \%>\%
+  deployments()
 }
 \seealso{
 Other filter functions: 

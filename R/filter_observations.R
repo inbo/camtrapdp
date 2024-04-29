@@ -21,6 +21,14 @@
 #'   filter_observations(observationType == "animal") %>%
 #'   observations()
 #'
+#' # Filtering on observations also affects associated media, but not deployments
+#' x %>%
+#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "event") %>%
+#'   media()
+#' x %>%
+#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "media") %>%
+#'   media()
+#'
 #' # Filtering on multiple conditions (combined with &)
 #' x %>%
 #'   filter_observations(
@@ -29,13 +37,14 @@
 #'   ) %>%
 #'   observations()
 #'
-#' # Filtering on observations also affects associated media, but not deployments
+#' # Filtering on datetimes is easiest with lubridate
+#' library(lubridate, warn.conflicts = FALSE)
 #' x %>%
-#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "event") %>%
-#'   media()
-#' x %>%
-#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "media") %>%
-#'   media()
+#'   filter_observations(
+#'     eventStart >= lubridate::as_datetime("2020-06-19 22:00:00"),
+#'     eventEnd <= lubridate::as_datetime("2020-06-19 22:10:00")
+#'   ) %>%
+#'   observations()
 filter_observations <- function(x, ...) {
   check_camtrapdp(x)
 

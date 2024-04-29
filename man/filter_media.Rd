@@ -34,17 +34,23 @@ x \%>\%
   filter_media(captureMethod == "timeLapse") \%>\%
   media()
 
-# Filtering on multiple conditions (combined with &)
-x \%>\%
-  filter_media(
-    timestamp >= as.POSIXct("2020-08-02 05:01:00"),
-    timestamp <= as.POSIXct("2020-08-02 05:02:00")
-  ) \%>\%
-  media()
-
 # Filtering on media also affects associated observations, but not deployments
 x_filtered <- filter_media(x, favorite == TRUE)
 observations(x_filtered)
+
+# Filtering on multiple conditions (combined with &)
+x \%>\%
+  filter_media(captureMethod == "activityDetection", filePublic == FALSE) \%>\%
+  media()
+
+# Filtering on datetimes is easiest with lubridate
+library(lubridate, warn.conflicts = FALSE)
+x \%>\%
+  filter_media(
+    timestamp >= lubridate::as_datetime("2020-08-02 05:01:00"),
+    timestamp <= lubridate::as_datetime("2020-08-02 05:02:00")
+  ) \%>\%
+  media()
 }
 \seealso{
 Other filter functions: 
