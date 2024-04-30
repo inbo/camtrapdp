@@ -11,11 +11,7 @@ deployments(x) <- value
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.
-Also works on a Frictionless Data Package, as returned by
-\code{frictionless::read_package()}.}
-
-\item{value}{data.frame to assign to the deployments of a Camera Trap Data Package Object.}
+\code{read_camtrapdp()}.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with deployments.
@@ -28,7 +24,8 @@ x <- example_dataset()
 deployments(x)
 }
 \seealso{
-Other accessor functions: 
+Other accessor functions:
+\code{\link{events}()},
 \code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()},

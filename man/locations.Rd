@@ -8,9 +8,7 @@ locations(x)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.
-Also works on a Frictionless Data Package, as returned by
-\code{frictionless::read_package()}.}
+\code{read_camtrapdp()}.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with the locations, containing the following
@@ -34,6 +32,7 @@ locations(x)
 \seealso{
 Other accessor functions: 
 \code{\link{deployments}()},
+\code{\link{events}()},
 \code{\link{media}()},
 \code{\link{observations}()},
 \code{\link{taxa}()},
