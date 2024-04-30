@@ -78,12 +78,12 @@ locations(x)
 
 One can also **filter** data, which will automatically filter the
 related data. For example, here are all the event-based observations
-that have a media that was marked as favourite:
+that have a media file that was marked as favourite:
 
 ``` r
 x %>%
-  filter_media(favorite == TRUE) %>%
   filter_observations(observationLevel == "event") %>%
+  filter_media(favorite == TRUE) %>%
   observations()
 #> # A tibble: 1 × 32
 #>   observationID deploymentID mediaID eventID  eventStart         
