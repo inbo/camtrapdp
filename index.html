@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="What the package does (one paragraph).">
+<meta name="description" content="camtrapdp is the R interface to Camera Trap Data Package (Camtrap DP, &lt;https://camtrap-dp.tdwg.org&gt;), a data exchange format for camera trap data. It is designed to read, filter and convert data (including to Darwin Core) before further analysis in e.g. camtraptor or camtrapR.">
 <title>Read and Convert Camera Trap Data Packages (Camtrap DP) • camtrapdp</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read and Convert Camera Trap Data Packages (Camtrap DP)">
-<meta property="og:description" content="What the package does (one paragraph).">
+<meta property="og:description" content="camtrapdp is the R interface to Camera Trap Data Package (Camtrap DP, &lt;https://camtrap-dp.tdwg.org&gt;), a data exchange format for camera trap data. It is designed to read, filter and convert data (including to Darwin Core) before further analysis in e.g. camtraptor or camtrapR.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -66,14 +66,74 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>The goal of camtrapdp is to …</p>
+<p>Camtrapdp is the R interface to <a href="https://camtrap-dp.tdwg.org" class="external-link">Camera Trap Data Package (Camtrap DP)</a>, a data exchange format for camera trap data. It is designed to read, filter and convert data (including to <a href="https://dwc.tdwg.org" class="external-link">Darwin Core</a>) before further analysis in e.g. <a href="https://inbo.github.io/camtraptor/" class="external-link">camtraptor</a> or <a href="https://cran.r-project.org/package=camtrapR" class="external-link">camtrapR</a>.</p>
+<p>To get started, see:</p>
+<ul>
+<li>
+<a href="https://inbo.github.io/camtrapdp/reference/index.html">Function reference</a>: overview of all functions.</li>
+</ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of camtrapdp from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of camtrapdp from <a href="https://github.com/inbo/camtrapdp" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"inbo/camtrapdp"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>With camtrapdp you can <strong>read</strong> a (downloaded) Camtrap DP dataset into your R environment:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inbo/camtrapdp" class="external-link">camtrapdp</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_camtrapdp.html">read_camtrapdp</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; A Data Package with 4 resources:</span></span>
+<span><span class="co">#&gt; • deployments</span></span>
+<span><span class="co">#&gt; • media</span></span>
+<span><span class="co">#&gt; • observations</span></span>
+<span><span class="co">#&gt; • individuals</span></span>
+<span><span class="co">#&gt; Use `unclass()` to print the Data Package as a list.</span></span></code></pre></div>
+<p><code><a href="reference/read_camtrapdp.html">read_camtrapdp()</a></code> will automatically <strong>convert</strong> an older version of Camtrap DP to the latest version. It will also make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and <code>eventID</code>s (found in the observations) to the media.</p>
+<p>To access the data, use one of the <a href="https://inbo.github.io/camtrapdp/reference/index.html#accessor-functions">accessor functions</a> like <code><a href="reference/locations.html">locations()</a></code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/locations.html">locations</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 5</span></span>
+<span><span class="co">#&gt;   locationID locationName               latitude longitude coordinateUncertainty</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;                         &lt;dbl&gt;     &lt;dbl&gt;                 &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 e254a13c   B_HS_val 2_processiepark       51.5      4.77                   187</span></span>
+<span><span class="co">#&gt; 2 2df5259b   B_DL_val 5_beek kleine vi…     51.2      5.66                   187</span></span>
+<span><span class="co">#&gt; 3 ff1535c0   B_DL_val 3_dikke boom          51.2      5.66                   187</span></span>
+<span><span class="co">#&gt; 4 ce943ced   B_DM_val 4_'t WAD              50.7      4.01                   187</span></span></code></pre></div>
+<p>One can also <strong>filter</strong> data, which will automatically filter the related data. For example, here are all the event-based observations that have a media file that was marked as favourite:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/filter_observations.html">filter_observations</a></span><span class="op">(</span><span class="va">observationLevel</span> <span class="op">==</span> <span class="st">"event"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/filter_media.html">filter_media</a></span><span class="op">(</span><span class="va">favorite</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/observations.html">observations</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 32</span></span>
+<span><span class="co">#&gt;   observationID deploymentID mediaID eventID  eventStart         </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;    &lt;dttm&gt;             </span></span>
+<span><span class="co">#&gt; 1 f5707f70      29b7d356     &lt;NA&gt;    45ee3031 2020-08-02 05:00:14</span></span>
+<span><span class="co">#&gt; # ℹ 27 more variables: eventEnd &lt;dttm&gt;, observationLevel &lt;fct&gt;,</span></span>
+<span><span class="co">#&gt; #   observationType &lt;fct&gt;, cameraSetupType &lt;fct&gt;, scientificName &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   count &lt;dbl&gt;, lifeStage &lt;fct&gt;, sex &lt;fct&gt;, behavior &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   individualID &lt;chr&gt;, individualPositionRadius &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   individualPositionAngle &lt;dbl&gt;, individualSpeed &lt;dbl&gt;, bboxX &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   bboxY &lt;dbl&gt;, bboxWidth &lt;dbl&gt;, bboxHeight &lt;dbl&gt;, classificationMethod &lt;fct&gt;,</span></span>
+<span><span class="co">#&gt; #   classifiedBy &lt;chr&gt;, classificationTimestamp &lt;dttm&gt;, …</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="meta">Meta<a class="anchor" aria-label="anchor" href="#meta"></a>
+</h2>
+<ul>
+<li>We welcome <a href="https://inbo.github.io/camtrapdp/CONTRIBUTING.html">contributions</a> including bug reports.</li>
+<li>License: MIT</li>
+<li>Get <a href="https://inbo.github.io/camtrapdp/authors.html#citation">citation information</a> for camtrapdp in R doing <code>citation("camtrapdp")</code>.</li>
+<li>Please note that this project is released with a <a href="https://inbo.github.io/camtrapdp/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
