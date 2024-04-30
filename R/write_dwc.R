@@ -248,7 +248,7 @@ write_dwc <- function(x, directory = ".") {
     dplyr::filter(!is.na(.data$mediaID)) %>%
     dplyr::left_join(media, by = "mediaID", suffix = c(".obs", "")) %>%
     dplyr::select(dplyr::all_of(
-      c("eventID", "observationID", "timestamp", colnames(media)
+      c("observationID", "timestamp", colnames(media)
       ))) %>%
     dplyr::left_join(
       deployments,
