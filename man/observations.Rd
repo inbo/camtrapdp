@@ -25,6 +25,7 @@ observations(x)
 \seealso{
 Other accessor functions: 
 \code{\link{deployments}()},
+\code{\link{events}()},
 \code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{taxa}()},
