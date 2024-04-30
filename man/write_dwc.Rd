@@ -65,4 +65,10 @@ and observations of humans.
 }
 }
 
+\examples{
+\dontrun{
+x <- example_dataset()
+write_dwc(x)
+}
+}
 \concept{publication functions}

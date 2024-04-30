@@ -51,6 +51,11 @@
 #'   key to the observation.
 #' - Excluded are records that document blank or unclassified media, vehicles
 #'   and observations of humans.
+#' @examples
+#' \dontrun{
+#' x <- example_dataset()
+#' write_dwc(x)
+#' }
 write_dwc <- function(x, directory = ".") {
   # Set properties from metadata
   # Use purrr::pluck() to force NA when metadata field is missing
