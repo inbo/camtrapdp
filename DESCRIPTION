@@ -27,7 +27,8 @@ Imports:
     purrr,
     readr,
     stringr
-Suggests: 
+Suggests:
+    lubridate,
     testthat (>= 3.0.0),
     xml2
 Encoding: UTF-8
