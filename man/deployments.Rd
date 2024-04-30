@@ -12,6 +12,8 @@ deployments(x) <- value
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
+
+\item{value}{data.frame to assign to the deployments of a Camera Trap Data Package Object.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with deployments.
@@ -24,7 +26,7 @@ x <- example_dataset()
 deployments(x)
 }
 \seealso{
-Other accessor functions:
+Other accessor functions: 
 \code{\link{events}()},
 \code{\link{locations}()},
 \code{\link{media}()},
