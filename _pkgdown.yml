@@ -3,8 +3,8 @@ url: https://inbo.github.io/camtrapdp/
 template:
   bootstrap: 5
 
-#navbar:
-#  bg: dark
+navbar:
+  bg: dark
 
 authors:
   LifeWatch Belgium:
@@ -12,12 +12,18 @@ authors:
     html: "<img src='https://www.lifewatch.be/sites/lifewatch.be/themes/lifewatchportal/images/header_lw_logo.png' width=72>"
 
 reference:
-- title: "Read function"
+- title: "Read functions"
   contents:
   - has_concept("read functions")
 - title: "Accessor functions"
   contents:
   - has_concept("accessor functions")
+- title: "Filter functions"
+  contents:
+  - has_concept("filter functions")
+- title: "Miscellaneous functions"
+  contents:
+  - has_concept("check functions")
 - title: "Sample datasets"
   contents:
   - has_concept("sample data")
