@@ -25,11 +25,50 @@ knitr::opts_chunk$set(
 
 'camtrapdp' is the R interface to [Camera Trap Data Package](https://camtrap-dp.tdwg.org), a data exchange format for camera trap data. It is designed to read, filter and convert data - including to Darwin Core - before further analysis in e.g. 'camtrapR' or 'camtraptor'.
 
+To get started, see:
+
+- [Function reference](https://inbo.github.io/camtrapdp/reference/index.html): overview of all functions.
+
 ## Installation
 
-You can install the development version of camtrapdp from [GitHub](https://github.com/) with:
+You can install the development version of camtrapdp from [GitHub](https://github.com/inbo/camtrapdp) with:
 
-``` r
+```r
 # install.packages("devtools")
 devtools::install_github("inbo/camtrapdp")
 ```
+
+## Usage
+
+With camtrapdp you can **read** a (downloaded) Camtrap DP dataset into your R environment:
+
+```{r}
+library(camtrapdp)
+
+file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
+x <- read_camtrapdp(file)
+x
+```
+
+`read_camtrapdp()` will automatically **convert** an older version of Camtrap DP to the latest version. It will also make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and `eventID`s (found in the observations) to the media.
+
+To access the data, use one of the [accessor functions](https://inbo.github.io/camtrapdp/reference/index.html#accessor-functions) like `locations()`:
+
+```{r}
+locations(x)
+```
+
+One can also **filter** data, which will automatically filter the related data. For example, here are all the event-based observations that have a media that was marked as favourite:
+
+```{r}
+x %>%
+  filter_media(favorite == TRUE) %>%
+  filter_observations(observationLevel == "event") %>%
+  observations()
+```
+## Meta
+
+- We welcome [contributions](https://inbo.github.io/camtrapdp/CONTRIBUTING.html) including bug reports.
+- License: MIT
+- Get [citation information](https://inbo.github.io/camtrapdp/authors.html#citation) for camtrapdp in R doing `citation("camtrapdp")`.
+- Please note that this project is released with a [Contributor Code of Conduct](https://inbo.github.io/camtrapdp/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms.
