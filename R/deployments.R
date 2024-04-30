@@ -2,7 +2,7 @@
 #'
 #' Gets the deployments from a Camera Trap Data Package object.
 #'
-#' @inheritParams version
+#' @inheritParams check_camtrapdp
 #' @return [tibble()] data frame with deployments.
 #' @family accessor functions
 #' @export

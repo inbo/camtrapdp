@@ -24,7 +24,8 @@ Imports:
     dplyr,
     frictionless (>= 1.1.0),
     purrr
-Suggests: 
+Suggests:
+    lubridate,
     testthat (>= 3.0.0)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
