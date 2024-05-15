@@ -6,6 +6,8 @@
 #' @return Camera Trap Data Package object.
 #' @family sample data
 #' @export
+#' @examples
+#' example_dataset()
 example_dataset <- function() {
   camtrapdp_1.0 <- file.path(
     "https://raw.githubusercontent.com/tdwg/camtrap-dp",

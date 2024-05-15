@@ -1,10 +1,9 @@
 # camtrapdp (development version)
 
-* New function `read_camtrapdp()` reads data files into memory (#9).
-* New functions `deployments()`, `media()` and `observations()` return a data frame with respectively deployments, media and observations (#29).
-* New functions `filter_deployments()`, `filter_observations()` and `filter_media()` allow filtering at package level. They work similarly to [dplyr](https://cran.r-project.org/package=dplyr)'s `filter()` (#23).
-* New function `locations()` returns the unique locations from the deployments (#22). 
-* New function `taxa()` returns the unique scientific names and associated taxonomic information from the observations (#17). This information is derived from the metadata and added the observations with column prefix `taxon.` in `read_camtrap_dp()` (#37).
+* New function `read_camtrapdp()` reads data files from a Camtrap DP into memory (#9). It will make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and `eventID`s (found in the observations) to the media (#37).
+* New accessor functions `deployments()`, `media()` and `observations()` return a data frame with the deployments, media and observations respectively (#29).
+* New accessor functions  `locations()`, `events()` and `taxa()` return a data frame with unique locations, events and taxa respectively (#22, #57, #17).
+* New functions `filter_deployments()`, `filter_observations()` and `filter_media()` allow to filter data. They work similarly to [dplyr](https://cran.r-project.org/package=dplyr)'s `filter()` (#23).
 * New function `example_package()` returns the latest Camtrap DP example dataset (#24).
 * New function `version()` allows to get the version of a camtrapdp object.
 * New internal function `check_camtrapdp()` validates a camtrapdp object (#34).

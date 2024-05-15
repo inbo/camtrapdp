@@ -28,6 +28,10 @@ contain the URL to the used Camtrap DP standard.
 \item \code{x$profile} in its entirety (can be \code{NULL}).
 }
 }
+\examples{
+x <- example_dataset()
+version(x)
+}
 \seealso{
 Other accessor functions: 
 \code{\link{deployments}()},
