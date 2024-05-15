@@ -20,10 +20,10 @@
 #' **Media-based** observations (`observationLevel == "media"`) are based on a
 #' single media file and are directly linked to it via `mediaID`.
 #'
-#' **Event-based** observations (`observationLevel == "event"`) are based an
+#' **Event-based** observations (`observationLevel == "event"`) are based on an
 #' event, defined as a combination of `eventID`, `eventStart` and `eventID`.
 #' This event can consist of one or more media files, but is not directly linked
-#' to these
+#' to these.
 #'
 #' This function **will automatically assign `eventID`s to media**, using
 #' `media.deploymentID == event.deploymentID` and `eventStart <= media.timestamp

@@ -35,10 +35,10 @@ Observations can contain two classifications at two levels:
 \strong{Media-based} observations (\code{observationLevel == "media"}) are based on a
 single media file and are directly linked to it via \code{mediaID}.
 
-\strong{Event-based} observations (\code{observationLevel == "event"}) are based an
+\strong{Event-based} observations (\code{observationLevel == "event"}) are based on an
 event, defined as a combination of \code{eventID}, \code{eventStart} and \code{eventID}.
 This event can consist of one or more media files, but is not directly linked
-to these
+to these.
 
 This function \strong{will automatically assign \code{eventID}s to media}, using
 \code{media.deploymentID == event.deploymentID} and \verb{eventStart <= media.timestamp <= eventEnd}.
