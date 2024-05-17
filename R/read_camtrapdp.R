@@ -21,7 +21,7 @@
 #' single media file and are directly linked to it via `mediaID`.
 #'
 #' **Event-based** observations (`observationLevel == "event"`) are based on an
-#' event, defined as a combination of `eventID`, `eventStart` and `eventID`.
+#' event, defined as a combination of `eventID`, `eventStart` and `eventEnd`.
 #' This event can consist of one or more media files, but is not directly linked
 #' to these.
 #'

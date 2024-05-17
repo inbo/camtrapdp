@@ -36,7 +36,7 @@ Observations can contain two classifications at two levels:
 single media file and are directly linked to it via \code{mediaID}.
 
 \strong{Event-based} observations (\code{observationLevel == "event"}) are based on an
-event, defined as a combination of \code{eventID}, \code{eventStart} and \code{eventID}.
+event, defined as a combination of \code{eventID}, \code{eventStart} and \code{eventEnd}.
 This event can consist of one or more media files, but is not directly linked
 to these.
 
@@ -48,7 +48,7 @@ being duplicated), for example when events and sub-events were defined.
 
 \examples{
 file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
-dataset <- read_camtrapdp(file)
-dataset
+x <- read_camtrapdp(file)
+x
 }
 \concept{read functions}
