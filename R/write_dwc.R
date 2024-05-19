@@ -51,35 +51,32 @@
 #' write_dwc(x)
 #' }
 write_dwc <- function(x, directory = ".") {
-  # Set properties from metadata
-  # Use purrr::pluck() to force NA when metadata field is missing
+  # Set properties from metadata or default to NA when missing
   dataset_name <- purrr::pluck(x, "title", .default = NA)
   dataset_id <- purrr::pluck(x, "id", .default = NA)
-  # Find contributor with rightsHolder role
-  contributors <- purrr::pluck(x, "contributors", .default = NA)
-  rightHoldersIndex <- grep("rightsHolder", contributors)
+  collection_code <-
+    purrr::pluck(x, "sources") %>%
+    purrr::pluck(1) %>%
+    purrr::pluck("title", .default = NA)
+  license <-
+    purrr::pluck(x, "licenses") %>%
+    purrr::keep(~ "scope" %in% names(.))
+    purrr::pluck(~ .$scope == "data") %>%
+    purrr::pluck(1) %>%
+    purrr::pluck("name", .default = NA)
+  media_license <-
+    purrr::pluck(x, "licenses") %>%
+    purrr::keep(~ "scope" %in% names(.))
+    purrr::keep(~ .$scope == "media") %>%
+    purrr::pluck(1) %>%
+    purrr::pluck("name", .default = NA)
   rights_holder <-
-    dplyr::coalesce(
-      ifelse(
-        !is.na(rightHoldersIndex),
-        contributors[[rightHoldersIndex]]$title,
-        NA),
-      # If no rightsHolder assigned, set to organization of first contributor
-      contributors[[1]]$organization,
-      NA
-  )
-  collection_code <- purrr::pluck(x, "sources", .default = NA)[[1]]$title
-  license <- dplyr::coalesce(
-    purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$name,
-    purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$path,
-    NA
-  )
-  media_license <- dplyr::coalesce(
-    purrr::keep(x$licenses, ~ .$scope == "media")[[1]]$path,
-    NA
-  )
-  coordinate_precision <-
-    purrr::pluck(x, "coordinatePrecision", .default = NA)
+    purrr::pluck(x, "contributors") %>%
+    purrr::pluck(~ "role" %in% names(.)) %>%
+    purrr::keep(~ .$role == "rightsHolder") %>%
+    purrr::pluck(1) %>%
+    purrr::pluck("title", .default = NA)
+  coordinate_precision <- purrr::pluck(x, "coordinatePrecision", .default = NA)
 
   # Read data
   deployments <- deployments(x)
