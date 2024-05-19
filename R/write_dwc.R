@@ -69,25 +69,19 @@ write_dwc <- function(x, directory = ".") {
     purrr::pluck("title", .default = NA)
   coordinate_precision <- purrr::pluck(x, "coordinatePrecision", .default = NA)
 
-  # Read data
+  # Filter observations
   deployments <- deployments(x)
   media <- media(x)
-  observations_all <- observations(x)
-
-  # Filter observations on animal observations (excluding humans, blanks, etc.)
-  observations <- observations_all %>%
+  filtered_observations <-
+    observations(x) %>%
     dplyr::filter(.data$observationType == "animal") %>%
-    # Keep only eventbased observations
     dplyr::filter(.data$observationLevel == "event")
 
   # Create dwc_occurrence
   dwc_occurrence <-
-    deployments %>%
-    dplyr::right_join(
-      observations,
-      by = "deploymentID"
-    ) %>%
-     dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
+    filtered_observations %>%
+    left_join(deployments(x), by = "deploymentID")
+    dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
     dplyr::mutate(
       .keep = "none",
       type = "Image",
@@ -226,7 +220,7 @@ write_dwc <- function(x, directory = ".") {
   # Create audiovisual core
   # Media can be linked to observations via mediaID
   dwc_audiovisual <-
-    observations_all %>%
+    filtered_observations %>%
     dplyr::filter(!is.na(.data$mediaID)) %>%
     dplyr::left_join(media, by = "mediaID", suffix = c(".obs", "")) %>%
     dplyr::select(dplyr::all_of(
