@@ -1,56 +1,50 @@
-#' Transform Camtrap DP data to Darwin Core
+#' Transform a Camera Trap Data Package to a Darwin Core Archive
 #'
-#' Transforms data from a [Camera Trap Data Package](
-#' https://camtrap-dp.tdwg.org) to [Darwin Core](https://dwc.tdwg.org/).
-#' The resulting CSV files can be uploaded to an [IPT](
-#' https://www.gbif.org/ipt) for publication to GBIF.
-#' A `meta.xml` file is included as well.
+#' Transforms a Camera Trap Data Package object to a [Darwin Core Archive](
+#' https://dwc.tdwg.org/text/).
 #'
-#' @param x A Camtrap DP, as read by [read_camtrapdp()](
-#' https://camtrap-dp.tdwg.org).
-#' @param directory Path to local directory to write file(s) to.
-#'   If `NULL`, then a list of data frames is returned instead, which can be
-#'   useful for extending/adapting the Darwin Core mapping before writing with
-#'   [readr::write_csv()].
-#' @return CSV and `meta.xml` files written to disk or a list of data
-#'   frames when `directory = NULL`.
+#' @inheritParams check_camtrapdp
+#' @param directory Path to local directory to write files to.
+#'   If `NULL`, a list of data frames is returned.
+#' @return CSV and `meta.xml` files written to disk or a list of data frames
+#'   when `directory = NULL`.
 #' @family transformation functions
 #' @export
 #' @section Transformation details:
-#' Data are transformed into an
-#' [Occurrence core](https://rs.gbif.org/core/dwc_occurrence_2022-02-02.xml) and
-#' [Audiovisual core](https://ac.tdwg.org/termlist/).
-#' This **follows recommendations** discussed and created by Peter Desmet,
-#' John Wieczorek, Lien Reyserhove, Ben Norton and others.
-#'
-#' The following terms are set from the `x` metadata:
-#' - **datasetName**: Title as provided in `x$title`.
-#' - **datasetID**: Identifier as provided in `x$id`.
-#'   Can be a DOI.
-#' - **rightsHolder**: Rights holder with role `rightsHolder` as provided in
-#'  `x$contributors`. If no rightsHolder is assigned, rightsHolder is set to the
-#'  organization of the first contributor.
-#' - **collectionCode**: Platform name as provided in `x$sources[[1]]$title`.
-#' - **license**: License with scope `data` as provided in `x$licenses`.
-#' - **rights** for media files: License with scope `media` as provided in
-#'   `x$licenses`.
-#' - **dwc:dataGeneralizations**: "coordinates rounded to
-#'   `x$coordinatePrecision` degree".
-#' - **coordinatePrecision**: `x$coordinatePrecision` (e.g. `0.001`).
+#' This function **follows [Reyserhove et al. 2024](
+#' https://doi.org/10.35035/doc-0qzp-2x37) recommendations** and transform data
+#' to:
+#' - An [Occurrence core](
+#' https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core).
+#' - An [Audubon Media Description extension](
+#' https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension).
+#' - A `meta.xml` file.
 #'
 #' Key features of the Darwin Core transformation:
-#' - Deployments (of camera traps) are parent events, with observations
-#'   (machine observations) as child events. No information about the parent
-#'   event is provided other than its ID, meaning that data can be expressed in
-#'   an Occurrence Core with one row per observation and `parentEventID` shared
-#'   by all occurrences in a deployment.
-#' - Sequence-based observations share an `eventID` per sequence, image-based
-#'   observations share an `eventID` per image.
-#' - The image(s) an observation is based on are provided in the
-#'   [Audiovisual core](https://ac.tdwg.org/termlist/), with a foreign
-#'   key to the observation.
-#' - Excluded are records that document blank or unclassified media, vehicles
-#'   and observations of humans.
+#' - The Occurrence core contains one row per observation
+#'   (`dwc:occurrenceID = observationID`).
+#' - Only observations with `observationType = "animal"` and
+#'   `observationLevel = "event"` are included, thus excluding observations that
+#'   are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.
+#' - Deployment information is included in the Occurrence core, such as
+#'   location, habitat, `dwc:samplingProtocol`, deployment duration in
+#'   `dwc:samplingEffort` and `dwc:parentEventID = deploymentID` as grouping
+#'   identifier.
+#' - Event information is included in the Occurrence core, as event duration in
+#'   `dwc:eventDate` and `dwc:eventID = eventID` as grouping identifier.
+#' - Media files are included in the Audubon Media Description extension, with a
+#'   foreign key to the observation.
+#'   A media file that is used for more than one observation is repeated.
+#' - Metadata is used to set the following record-level terms:
+#'   - `dwc:datasetID = id`.
+#'   - `dwc:datasetName = title`.
+#'   - `dwc:collectionCode`: first source in `sources`.
+#'   - `dcterms:license`: license in `licenses` with scope `data`.
+#'     The license with scope `media` is used as `dcterms:rights` in
+#'     the Audubon Media Description extension.
+#'   - `dcterms:rightsHolder`: first contributor in `contributors` with role
+#'     `rightsHolder`.
+#'   - `dwc:dataGeneralizations`: set if `coordinatePrecision` is defined.
 #' @examples
 #' \dontrun{
 #' x <- example_dataset()
