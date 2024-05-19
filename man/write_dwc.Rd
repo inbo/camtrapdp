@@ -71,4 +71,4 @@ x <- example_dataset()
 write_dwc(x)
 }
 }
-\concept{publication functions}
+\concept{transformation functions}

@@ -14,7 +14,7 @@
 #'   [readr::write_csv()].
 #' @return CSV and `meta.xml` files written to disk or a list of data
 #'   frames when `directory = NULL`.
-#' @family publication functions
+#' @family transformation functions
 #' @export
 #' @section Transformation details:
 #' Data are transformed into an
