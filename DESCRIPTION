@@ -28,8 +28,7 @@ Imports:
     frictionless (>= 1.1.0),
     glue,
     purrr,
-    readr,
-    stringr
+    readr
 Suggests:
     lubridate,
     testthat (>= 3.0.0),

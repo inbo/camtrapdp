@@ -91,80 +91,87 @@ write_dwc <- function(x, directory = ".") {
       collectionCode = collection_code,
       datasetName = dataset_name,
       basisOfRecord = "MachineObservation",
-      dataGeneralizations = glue::glue(
-        "coordinates rounded to {coordinate_precision} degree",
-        .na = NULL
+      dataGeneralizations = dplyr::if_else(
+        !is.na(coordinate_precision),
+        paste("coordinates rounded to", coordinate_precision, "degree"),
+        NA_character_
       ),
       occurrenceID = .data$observationID,
       individualCount = .data$count,
-      sex = dplyr::recode(.data$sex,
-                          "male" = "male",
-                          "female" = "female"),
-      lifeStage = dplyr::recode(.data$lifeStage,
-                                "adult" = "adult",
-                                "subadult" = "subadult",
-                                "juvenile" = "juvenile"),
+      sex = dplyr::recode(
+        .data$sex,
+        "male" = "male",
+        "female" = "female"
+      ),
+      lifeStage = dplyr::recode(
+        .data$lifeStage,
+        "adult" = "adult",
+        "subadult" = "subadult",
+        "juvenile" = "juvenile"
+      ),
       behavior = .data$behavior,
       occurrenceStatus = "present",
       occurrenceRemarks = .data$observationComments,
       organismID = .data$individualID,
       eventID = .data$eventID,
       parentEventID = .data$deploymentID,
-      eventDate =
-        ifelse(
-          .data$eventStart == .data$eventEnd,
+      eventDate = dplyr::if_else(
+        .data$eventStart == .data$eventEnd,
+        format(.data$eventStart, format = "%Y-%m-%dT%H:%M:%SZ"),
+        paste(
           format(.data$eventStart, format = "%Y-%m-%dT%H:%M:%SZ"),
-          paste0(
-            format(.data$eventStart, format = "%Y-%m-%dT%H:%M:%SZ"), "/",
-            format(.data$eventEnd, format = "%Y-%m-%dT%H:%M:%SZ")
-            )
-          ),
+          format(.data$eventEnd, format = "%Y-%m-%dT%H:%M:%SZ"),
+          sep = "/"
+        )
+      ),
       habitat = .data$habitat,
       samplingProtocol = "camera trap",
-      samplingEffort = glue::glue(
-        "{start}/{end}",
-        start = format(.data$eventStart, format = "%Y-%m-%dT%H:%M:%SZ"),
-        end = format(.data$eventEnd, format = "%Y-%m-%dT%H:%M:%SZ")
+      samplingEffort = paste(
+        format(.data$deploymentStart, format = "%Y-%m-%dT%H:%M:%SZ"),
+        format(.data$deploymentEnd, format = "%Y-%m-%dT%H:%M:%SZ"),
+        sep = "/"
       ),
-      eventRemarks = stringr::str_squish(glue::glue(
+      eventRemarks = paste0(
         # E.g. "camera trap with bait near burrow | tags: <t1, t2> | <comment>"
-        "{bait_use} {dep_feature} {dep_tags} {dep_comments}",
-        bait_use = dplyr::case_when(
-          .data$baitUse ~ "camera trap with bait",
-          !.data$baitUse ~ "camera trap without bait"
-        ) ,
-        dep_feature_value = dplyr::recode(
-          .data$featureType,
-          "roadPaved" = "paved road",
-          "roadDirt" = "dirt road",
-          "trailHiking" = "hiking trail",
-          "trailGame" = "game trail",
-          "roadUnderpass" = "road underpass",
-          "roadOverpass" = "road overpass",
-          "roadBridge" = "road bridge",
-          "culvert" = "culvert",
-          "burrow" = "burrow",
-          "nestSite" = "nest site",
-          "carcass" = "carcass",
-          "waterSource" = "water source",
-          "fruitingTree" = "fruiting tree"
+        dplyr::if_else(
+          .data$baitUse,
+          "camera trap with bait",
+          "camera trap without bait"
         ),
-        dep_feature = dplyr::case_when(
-          !is.na(dep_feature_value) ~
-            glue::glue("near {dep_feature_value}"),
-          .default = ""
+        dplyr::if_else(
+          is.na(.data$featureType),
+          "",
+          paste0(
+            " near ",
+            dplyr::recode(
+              .data$featureType,
+              "roadPaved" = "paved road",
+              "roadDirt" = "dirt road",
+              "trailHiking" = "hiking trail",
+              "trailGame" = "game trail",
+              "roadUnderpass" = "road underpass",
+              "roadOverpass" = "road overpass",
+              "roadBridge" = "road bridge",
+              "culvert" = "culvert",
+              "burrow" = "burrow",
+              "nestSite" = "nest site",
+              "carcass" = "carcass",
+              "waterSource" = "water source",
+              "fruitingTree" = "fruiting tree"
+            )
+          )
         ),
-        dep_tags = dplyr::case_when(
-          !is.na(.data$observationTags) ~
-            glue::glue(" | tags: {.data$observationTags}"),
-          .default = ""
+        dplyr::if_else(
+          !is.na(.data$observationTags),
+          paste0(" | tags: ", .data$observationTags),
+          ""
         ),
-        dep_comments = dplyr::case_when(
-          !is.na(.data$deploymentComments) ~
-            glue::glue(" | {.data$deploymentComments}"),
-          .default = ""
+        dplyr::if_else(
+          !is.na(.data$deploymentComments),
+          paste0(" | ", .data$deploymentComments),
+          ""
         )
-      )),
+      ),
       locationID = .data$locationID,
       locality = .data$locationName,
       minimumDepthInMeters = .data$cameraDepth,
@@ -181,28 +188,24 @@ write_dwc <- function(x, directory = ".") {
         .data$classificationTimestamp,
         format = "%Y-%m-%dT%H:%M:%SZ"
       ),
-      identificationRemarks = stringr::str_squish(glue::glue(
-        # E.g. "classified by a machine with a degree of certainty of 89%"
-        "{classification_method} {classification_certainty}",
-        classification_method = dplyr::case_when(
-          !is.na(.data$classificationMethod) ~ glue::glue(
-            "classified by a {.data$classificationMethod}"
-          ),
-          .default = ""
+      identificationRemarks = paste0(
+        # E.g. "classified by a machine with 89% certainty"
+        dplyr::if_else(
+          is.na(.data$classificationMethod),
+          "classified",
+          paste0("classified by a ", .data$classificationMethod)
         ),
-        degree_of_certainty = .data$classificationProbability * 100,
-        classification_certainty = dplyr::case_when(
-          !is.na(degree_of_certainty) ~ glue::glue(
-            "with a degree of certainty of {degree_of_certainty}%"
-          ),
-          .default = ""
+        dplyr::if_else(
+          is.na(.data$classificationProbability),
+          "",
+          paste0(" with ", .data$classificationProbability * 100, "% certainty")
         )
-      )),
+      ),
       taxonID = .data$taxon.taxonID,
       scientificName = .data$scientificName,
       kingdom = "Animalia"
     ) %>%
-    #Set column order
+    # Set column order
     dplyr::select(
       "type", "license", "rightsHolder", "datasetID", "collectionCode",
       "datasetName", "basisOfRecord", "dataGeneralizations", "occurrenceID",
