@@ -283,12 +283,11 @@ write_dwc <- function(x, directory = ".") {
     dwc_occurrence_path <- file.path(directory, "dwc_occurrence.csv")
     dwc_audiovisual_path <- file.path(directory, "dwc_audiovisual.csv")
     meta_xml_path <- file.path(directory, "meta.xml")
-    message(glue::glue(
-      "Writing data to:",
-      dwc_occurrence_path,
-      dwc_audiovisual_path,
-      meta_xml_path,
-      .sep = "\n"
+    cli::cli_h2("Writing files")
+    cli::cli_ul(c(
+      "{.file {dwc_occurrence_path}}",
+      "{.file {dwc_audiovisual_path}}",
+      "{.file {meta_xml_path}}"
     ))
     if (!dir.exists(directory)) {
       dir.create(directory, recursive = TRUE)
