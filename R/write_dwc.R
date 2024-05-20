@@ -219,18 +219,19 @@ write_dwc <- function(x, directory = ".") {
       "identificationRemarks", "taxonID", "scientificName", "kingdom"
     )
 
-  # Create audiovisual core
+  # Create audiovisual extension
   # Media can be linked to observations via mediaID
   dwc_audiovisual <-
-    dplyr::filter(!is.na(.data$mediaID)) %>%
-    dplyr::left_join(media, by = "mediaID", suffix = c(".obs", "")) %>%
-    dplyr::select(dplyr::all_of(
-      c("observationID", "timestamp", colnames(media)
-      ))) %>%
     observations(x) %>%
+    dplyr::select(-"mediaID") %>%
     dplyr::left_join(
-      deployments,
-      by = "deploymentID",
+      media(x),
+      by = c("deploymentID", "eventID"),
+      relationship = "many-to-many" # Silence warning
+    ) %>%
+    dplyr::left_join(
+      deployments(x),
+      by = "deploymentID"
     ) %>%
     dplyr::arrange(.data$deploymentID, .data$timestamp, .data$fileName) %>%
     dplyr::mutate(
@@ -239,12 +240,12 @@ write_dwc <- function(x, directory = ".") {
       occurrenceID = .data$observationID,
       identifier = .data$mediaID,
       `dc:type` = dplyr::case_when(
-        grepl("video", fileMediatype) ~ "MovingImage",
+        grepl("video", .data$fileMediatype) ~ "MovingImage",
         .default = "StillImage"
       ),
       comments = dplyr::case_when(
-        !is.na(favorite) & !is.na(mediaComments)
-        ~ paste("marked as favorite", mediaComments, sep = " | "),
+        !is.na(favorite) & !is.na(mediaComments) ~
+          paste("marked as favorite", mediaComments, sep = " | "),
         !is.na(favorite) ~ "marked as favorite",
         .default = .data$mediaComments
       ),
