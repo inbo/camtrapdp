@@ -5,9 +5,8 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param directory Path to local directory to write files to.
-#'   If `NULL`, a list of data frames is returned.
-#' @return CSV and `meta.xml` files written to disk or a list of data frames
-#'   when `directory = NULL`.
+#' @return CSV and `meta.xml` files written to disk.
+#'   And invisibly, a list of data frames with transformed data.
 #' @family transformation functions
 #' @export
 #' @section Transformation details:
@@ -273,31 +272,30 @@ write_dwc <- function(x, directory = ".") {
       "dc:format"
     )
 
-  # Return object or write files
-  if (is.null(directory)) {
-    list(
-      dwc_occurrence = dplyr::as_tibble(dwc_occurrence),
-      dwc_audiovisual = dplyr::as_tibble(dwc_audiovisual)
-    )
-  } else {
-    dwc_occurrence_path <- file.path(directory, "dwc_occurrence.csv")
-    dwc_audiovisual_path <- file.path(directory, "dwc_audiovisual.csv")
-    meta_xml_path <- file.path(directory, "meta.xml")
-    cli::cli_h2("Writing files")
-    cli::cli_ul(c(
-      "{.file {dwc_occurrence_path}}",
-      "{.file {dwc_audiovisual_path}}",
-      "{.file {meta_xml_path}}"
-    ))
-    if (!dir.exists(directory)) {
-      dir.create(directory, recursive = TRUE)
-    }
-    readr::write_csv(dwc_occurrence, dwc_occurrence_path, na = "")
-    readr::write_csv(dwc_audiovisual, dwc_audiovisual_path, na = "")
-    # Get static meta.xml file from package extdata
-    file.copy(
-      from = system.file("extdata", "meta.xml", package = "camtrapdp"),
-      to = meta_xml_path
-    )
+  # Write files
+  dwc_occurrence_path <- file.path(directory, "dwc_occurrence.csv")
+  dwc_audiovisual_path <- file.path(directory, "dwc_audiovisual.csv")
+  meta_xml_path <- file.path(directory, "meta.xml")
+  cli::cli_h2("Writing files")
+  cli::cli_ul(c(
+    "{.file {dwc_occurrence_path}}",
+    "{.file {dwc_audiovisual_path}}",
+    "{.file {meta_xml_path}}"
+  ))
+  if (!dir.exists(directory)) {
+    dir.create(directory, recursive = TRUE)
   }
+  readr::write_csv(dwc_occurrence, dwc_occurrence_path, na = "")
+  readr::write_csv(dwc_audiovisual, dwc_audiovisual_path, na = "")
+  file.copy(
+    system.file("extdata", "meta.xml", package = "camtrapdp"), # Static meta.xml
+    meta_xml_path
+  )
+
+  # Return list with Darwin Core data invisibly
+  return <- list(
+    dwc_occurrence = dplyr::as_tibble(dwc_occurrence),
+    dwc_audiovisual = dplyr::as_tibble(dwc_audiovisual)
+  )
+  invisible(return)
 }

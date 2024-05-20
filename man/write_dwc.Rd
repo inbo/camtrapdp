@@ -10,12 +10,11 @@ write_dwc(x, directory = ".")
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{directory}{Path to local directory to write files to.
-If \code{NULL}, a list of data frames is returned.}
+\item{directory}{Path to local directory to write files to.}
 }
 \value{
-CSV and \code{meta.xml} files written to disk or a list of data frames
-when \code{directory = NULL}.
+CSV and \code{meta.xml} files written to disk.
+And invisibly, a list of data frames with transformed data.
 }
 \description{
 Transforms a Camera Trap Data Package object to a \href{https://dwc.tdwg.org/text/}{Darwin Core Archive}.
