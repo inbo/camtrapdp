@@ -1,23 +1,28 @@
-#' testthat wrapper to compare DwC-A files against meta.xml file for fieldsnames
+#' Helper function to compare a CSV file against the meta.xml file
 #'
-#' @param file Filepath from of file from DwC-A file to compare against
-#'   `meta.xml` included in the package.
-#'   The basename can either be `dwc_occurrence.csv` or `dwc_audiovisual.csv`
+#' Compares the file name and column headers (without namespace) in a CSV file
+#' with (respectively) the `location` and `fields` as defined in the `meta.xml`
+#' file.
+#'
+#' @param file Path to CSV file.
+#' @param core Name of core CSV file.
 #' @inheritDotParams expect_identical info label
 #' @noRd
 #' @examples
-#' expect_fields("tests/testthat/_snaps/write_dwc/dwc_audiovisual.csv")
-expect_fields <- function(file, ...) {
-  xml_list <-
-    xml2::read_xml(
-      system.file("extdata", "meta.xml", package = "camtrapdp")
-    ) %>%
-    xml2::as_list()
-  file_is_core <- basename(file) == "dwc_occurrence.csv"
+#' expect_comform_meta("tests/testthat/_snaps/write_dwc/dwc_audiovisual.csv")
+expect_comform_meta <- function(file, core = "dwc_occurrence.csv", ...) {
+  core_or_extension <- ifelse(basename(file) == core, "core", "extension")
 
-  xml_fields <-
+  # Parse reference meta.xml from inst/extdata/meta.xml
+  xml_list <-
+    xml2::read_xml(system.file("extdata", "meta.xml", package = "camtrapdp")) %>%
+    xml2::as_list()
+  xml_file_location <-
+    purrr::chuck(xml_list, "archive", core_or_extension, "files", "location") %>%
+    unlist()
+  xml_file_fields <-
     xml_list %>%
-    purrr::chuck("archive", ifelse(file_is_core, "core", "extension")) %>%
+    purrr::chuck("archive", core_or_extension) %>%
     purrr::map_dfr(~ dplyr::tibble(
       index = as.numeric(attr(.x, which = "index")),
       term = attr(.x, which = "term")
@@ -25,47 +30,16 @@ expect_fields <- function(file, ...) {
     dplyr::filter(!is.na(term)) %>%
     dplyr::mutate(field = basename(term), .keep = "unused")
 
-  file_cols <-
+  # Get fields from csv
+  csv_file_cols <-
     readr::read_csv(file, show_col_types = FALSE) %>%
-    readr::spec() %>%
-    purrr::chuck(1) %>%
-    names()
+    colnames() %>%
+    purrr::map_chr(~ sub("^[A-Za-z]+:", "", .)) # Remove namespace like "dcterms:"
+  csv_file_fields <-
+    dplyr::tibble(field = csv_file_cols) %>%
+    dplyr::mutate(index = as.integer(rownames(.)) - 1, .before = field) # Add index
 
-  file_fields <-
-    # remove the namespace from the csv header, if present
-    dplyr::tibble(field = stringr::str_extract(file_cols, "[a-zA-Z]+$")) %>%
-    dplyr::mutate(index = as.integer(rownames(.)) - 1, .before = field)
-
-  testthat::expect_identical(
-    xml_fields,
-    file_fields,
-    ...
-  )
-}
-
-#' testthat wrapper to compare DwC-A files against meta.xml file for file location
-#'
-#' @param file Filepath from of file from DwC-A file to compare against
-#'   `meta.xml` included in the package.
-#'   The basename can either be `dwc_occurrence.csv` or `dwc_audiovisual.csv`
-#' @inheritDotParams expect_identical info label
-#' @noRd
-#' @examples
-#' expect_location("tests/testthat/_snaps/write_dwc/dwc_audiovisual.csv")
-expect_location <- function(file, ...) {
-  xml_list <-
-    xml2::read_xml(
-      system.file("extdata", "meta.xml", package = "camtrapdp")
-    ) %>%
-    xml2::as_list()
-  file_is_core <- basename(file) == "dwc_occurrence.csv"
-  file_locations <-
-    purrr::chuck(
-      xml_list,
-      "archive",
-      ifelse(file_is_core, "core", "extension"),
-      "files",
-      "location"
-    )
-  testthat::expect_identical(unlist(file_locations), basename(file))
+  # Compare
+  testthat::expect_identical(csv_file_fields, xml_file_fields, )
+  testthat::expect_identical(basename(file), xml_file_location)
 }
