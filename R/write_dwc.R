@@ -235,7 +235,6 @@ write_dwc <- function(x, directory = ".") {
     dplyr::arrange(.data$deploymentID, .data$timestamp, .data$fileName) %>%
     dplyr::mutate(
       .keep = "none",
-      metadataLanguage = "http://id.loc.gov/vocabulary/iso639-2/eng",
       occurrenceID = .data$observationID,
       identifier = .data$mediaID,
       `dc:type` = dplyr::case_when(
@@ -266,10 +265,9 @@ write_dwc <- function(x, directory = ".") {
     ) %>%
     # Set column order
     dplyr::select(
-      "metadataLanguage", "occurrenceID", "identifier", "dc:type", "comments",
-      "dcterms:rights", "CreateDate", "captureDevice",
-      "resourceCreationTechnique", "accessURI", "dc:format",
-      "serviceExpectation",
+      "occurrenceID", "identifier", "dc:type", "comments", "dcterms:rights",
+      "CreateDate", "captureDevice", "resourceCreationTechnique", "accessURI",
+      "dc:format", "serviceExpectation",
     )
 
   # Write files
