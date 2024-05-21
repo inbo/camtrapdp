@@ -14,7 +14,7 @@ write_dwc(x, directory = ".")
 }
 \value{
 CSV and \code{meta.xml} files written to disk.
-And invisibly, a list of data frames with transformed data.
+And invisibly, a list of data frames with the transformed data.
 }
 \description{
 Transforms a Camera Trap Data Package object to a \href{https://dwc.tdwg.org/text/}{Darwin Core Archive}.
@@ -25,7 +25,7 @@ This function \strong{follows \href{https://doi.org/10.35035/doc-0qzp-2x37}{Reys
 to:
 \itemize{
 \item An \href{https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core}{Occurrence core}.
-\item An \href{https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension}{Audubon Media Description extension}.
+\item An \href{https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension}{Audubon/Audiovisual Media Description extension}.
 \item A \code{meta.xml} file.
 }
 
@@ -42,8 +42,8 @@ location, habitat, \code{dwc:samplingProtocol}, deployment duration in
 identifier.
 \item Event information is included in the Occurrence core, as event duration in
 \code{dwc:eventDate} and \code{dwc:eventID = eventID} as grouping identifier.
-\item Media files are included in the Audubon Media Description extension, with a
-foreign key to the observation.
+\item Media files are included in the Audubon/Audiovisual Media Description
+extension, with a foreign key to the observation.
 A media file that is used for more than one observation is repeated.
 \item Metadata is used to set the following record-level terms:
 \itemize{

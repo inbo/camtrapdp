@@ -6,7 +6,7 @@
 #' @inheritParams check_camtrapdp
 #' @param directory Path to local directory to write files to.
 #' @return CSV and `meta.xml` files written to disk.
-#'   And invisibly, a list of data frames with transformed data.
+#'   And invisibly, a list of data frames with the transformed data.
 #' @family transformation functions
 #' @export
 #' @section Transformation details:
@@ -15,7 +15,7 @@
 #' to:
 #' - An [Occurrence core](
 #' https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core).
-#' - An [Audubon Media Description extension](
+#' - An [Audubon/Audiovisual Media Description extension](
 #' https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension).
 #' - A `meta.xml` file.
 #'
@@ -31,8 +31,8 @@
 #'   identifier.
 #' - Event information is included in the Occurrence core, as event duration in
 #'   `dwc:eventDate` and `dwc:eventID = eventID` as grouping identifier.
-#' - Media files are included in the Audubon Media Description extension, with a
-#'   foreign key to the observation.
+#' - Media files are included in the Audubon/Audiovisual Media Description
+#'   extension, with a foreign key to the observation.
 #'   A media file that is used for more than one observation is repeated.
 #' - Metadata is used to set the following record-level terms:
 #'   - `dwc:datasetID = id`.
@@ -50,6 +50,8 @@
 #' write_dwc(x)
 #' }
 write_dwc <- function(x, directory = ".") {
+  check_camtrapdp(x)
+
   # Set properties from metadata or default to NA when missing
   dataset_name <- purrr::pluck(x, "title", .default = NA)
   dataset_id <- purrr::pluck(x, "id", .default = NA)
