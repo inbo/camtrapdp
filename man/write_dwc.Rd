@@ -50,8 +50,8 @@ A media file that is used for more than one observation is repeated.
 \item \code{dwc:datasetID = id}.
 \item \code{dwc:datasetName = title}.
 \item \code{dwc:collectionCode}: first source in \code{sources}.
-\item \code{dcterms:license}: license in \code{licenses} with scope \code{data}.
-The license with scope \code{media} is used as \code{dcterms:rights} in
+\item \code{dcterms:license}: license (\code{name}) in \code{licenses} with scope \code{data}.
+The license (\code{name}) with scope \code{media} is used as \code{dcterms:rights} in
 the Audubon Media Description extension.
 \item \code{dcterms:rightsHolder}: first contributor in \code{contributors} with role
 \code{rightsHolder}.
