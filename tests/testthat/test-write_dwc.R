@@ -105,10 +105,7 @@ test_that("write_dwc() returns files that comply with the info in meta.xml", {
   on.exit(unlink(temp_dir, recursive = TRUE))
   suppressMessages(write_dwc(x, temp_dir))
 
-  # Test if all fields are present, in the right order
-  expect_fields(file.path(temp_dir,"dwc_occurrence.csv"))
-  expect_fields(file.path(temp_dir,"dwc_audiovisual.csv"))
-  # Test if the file locations (i.e. file names) are the same as in meta.xml
-  expect_location(file.path(temp_dir,"dwc_occurrence.csv"))
-  expect_location(file.path(temp_dir,"dwc_audiovisual.csv"))
+  # Use helper function to compare
+  expect_comform_meta(file.path(temp_dir, "dwc_occurrence.csv"))
+  expect_comform_meta(file.path(temp_dir, "dwc_audiovisual.csv"))
 })
