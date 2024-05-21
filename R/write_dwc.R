@@ -38,8 +38,8 @@
 #'   - `dwc:datasetID = id`.
 #'   - `dwc:datasetName = title`.
 #'   - `dwc:collectionCode`: first source in `sources`.
-#'   - `dcterms:license`: license in `licenses` with scope `data`.
-#'     The license with scope `media` is used as `dcterms:rights` in
+#'   - `dcterms:license`: license (`name`) in `licenses` with scope `data`.
+#'     The license (`name`) with scope `media` is used as `dcterms:rights` in
 #'     the Audubon Media Description extension.
 #'   - `dcterms:rightsHolder`: first contributor in `contributors` with role
 #'     `rightsHolder`.
