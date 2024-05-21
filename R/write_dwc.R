@@ -77,6 +77,9 @@ write_dwc <- function(x, directory = ".") {
     .data$observationType == "animal"
   )
 
+  # Start transformation
+  cli::cli_h2("Transforming data to Darwin Core")
+
   # Create dwc_occurrence
   dwc_occurrence <-
     observations(x) %>%
@@ -205,7 +208,6 @@ write_dwc <- function(x, directory = ".") {
       scientificName = .data$scientificName,
       kingdom = "Animalia"
     ) %>%
-    # Set column order
     dplyr::select(
       "type", "license", "rightsHolder", "datasetID", "collectionCode",
       "datasetName", "basisOfRecord", "dataGeneralizations", "occurrenceID",
@@ -221,7 +223,6 @@ write_dwc <- function(x, directory = ".") {
     )
 
   # Create audiovisual extension
-  # Media can be linked to observations via mediaID
   dwc_audiovisual <-
     observations(x) %>%
     dplyr::select(-"mediaID") %>%
@@ -265,7 +266,6 @@ write_dwc <- function(x, directory = ".") {
         "authenticate"
       )
     ) %>%
-    # Set column order
     dplyr::select(
       "occurrenceID", "identifier", "dc:type", "comments", "dcterms:rights",
       "CreateDate", "captureDevice", "resourceCreationTechnique", "accessURI",
