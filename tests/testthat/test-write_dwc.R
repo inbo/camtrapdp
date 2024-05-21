@@ -1,41 +1,26 @@
-test_that("write_dwc() writes csv files to a path", {
+test_that("write_dwc() writes CSV and meta.xml files to a directory and
+           a list of data frames invisibly", {
   skip_if_offline()
   x <- example_dataset()
-  out_dir <- file.path(tempdir(), "dwc")
-  on.exit(unlink(out_dir, recursive = TRUE))
-  suppressMessages(write_dwc(x, directory = out_dir))
+  temp_dir <- file.path(tempdir(), "dwc")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  result <- suppressMessages(write_dwc(x, temp_dir))
+
   expect_identical(
-    list.files(out_dir, pattern = "*.csv"),
-    c("dwc_audiovisual.csv", "dwc_occurrence.csv")
+    list.files(temp_dir),
+    c("dwc_audiovisual.csv", "dwc_occurrence.csv", "meta.xml")
   )
-})
-
-test_that("write_dwc() can return data as list of tibbles rather than files", {
-  skip_if_offline()
-  x <- example_dataset()
-  result <- suppressMessages(write_dwc(x, directory = NULL))
-
   expect_identical(names(result), c("dwc_occurrence", "dwc_audiovisual"))
   expect_s3_class(result$dwc_occurrence, "tbl")
   expect_s3_class(result$dwc_audiovisual, "tbl")
-  # meta.xml is not included
-})
-
-test_that("write_dwc() writes the expected meta.xml", {
-  skip_if_offline()
-  x <- example_dataset()
-  out_dir <- file.path(tempdir(), "dwc_meta")
-  on.exit(unlink(out_dir, recursive = TRUE))
-  suppressMessages(write_dwc(x, directory = out_dir))
-
-  expect_true("meta.xml" %in% list.files(out_dir))
-  expect_snapshot_file(file.path(out_dir, "meta.xml"))
 })
 
 test_that("write_dwc() returns the expected Darwin Core terms as columns", {
   skip_if_offline()
   x <- example_dataset()
-  result <- suppressMessages(write_dwc(x, directory = NULL))
+  temp_dir <- file.path(tempdir(), "dwc")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  result <- suppressMessages(write_dwc(x, temp_dir))
 
   expect_identical(
     colnames(result$dwc_occurrence),
@@ -85,7 +70,6 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
   expect_identical(
     colnames(result$dwc_audiovisual),
     c(
-      "metadataLanguage",
       "occurrenceID",
       "identifier",
       "dc:type",
@@ -95,34 +79,36 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
       "captureDevice",
       "resourceCreationTechnique",
       "accessURI",
-      "serviceExpectation",
-      "dc:format"
+      "dc:format",
+      "serviceExpectation"
     )
   )
 })
 
-test_that("write_dwc() returns the expected Darwin Core mapping for a known dataset", {
+test_that("write_dwc() returns the expected Darwin Core mapping for the example
+           dataset", {
   skip_if_offline()
   x <- example_dataset()
-  out_dir <- file.path(tempdir(), "dwc_mapping")
-  on.exit(unlink(out_dir, recursive = TRUE))
+  temp_dir <- file.path(tempdir(), "dwc")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  suppressMessages(write_dwc(x, temp_dir))
 
-  # Use helper function that outputs path write_dwc() wrote to.
-  expect_snapshot_file(write_dwc_snapshot(x, out_dir, "occurrence"))
-  expect_snapshot_file(write_dwc_snapshot(x, out_dir, "audiovisual"))
+  expect_snapshot_file(file.path(temp_dir, "dwc_occurrence.csv"))
+  expect_snapshot_file(file.path(temp_dir, "dwc_audiovisual.csv"))
+  expect_snapshot_file(file.path(temp_dir, "meta.xml"))
 })
 
 test_that("write_dwc() returns files that comply with the info in meta.xml", {
   skip_if_offline()
   x <- example_dataset()
-  out_dir <- file.path(tempdir(), "dwc")
-  on.exit(unlink(out_dir, recursive = TRUE))
-  suppressMessages(write_dwc(x, out_dir))
+  temp_dir <- file.path(tempdir(), "dwc")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  suppressMessages(write_dwc(x, temp_dir))
 
   # Test if all fields are present, in the right order
-  expect_fields(file.path(out_dir,"dwc_occurrence.csv"))
-  expect_fields(file.path(out_dir,"dwc_audiovisual.csv"))
-  # Test if the file locations (filenames) are the same as in meta.xml
-  expect_location(file.path(out_dir,"dwc_occurrence.csv"))
-  expect_location(file.path(out_dir,"dwc_audiovisual.csv"))
+  expect_fields(file.path(temp_dir,"dwc_occurrence.csv"))
+  expect_fields(file.path(temp_dir,"dwc_audiovisual.csv"))
+  # Test if the file locations (i.e. file names) are the same as in meta.xml
+  expect_location(file.path(temp_dir,"dwc_occurrence.csv"))
+  expect_location(file.path(temp_dir,"dwc_audiovisual.csv"))
 })
