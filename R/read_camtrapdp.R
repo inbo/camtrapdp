@@ -17,16 +17,16 @@
 #'
 #' Observations can contain two classifications at two levels:
 #'
-#' **Media-based** observations (`observationLevel == "media"`) are based on a
+#' **Media-based** observations (`observationLevel = "media"`) are based on a
 #' single media file and are directly linked to it via `mediaID`.
 #'
-#' **Event-based** observations (`observationLevel == "event"`) are based an
-#' event, defined as a combination of `eventID`, `eventStart` and `eventID`.
+#' **Event-based** observations (`observationLevel = "event"`) are based on an
+#' event, defined as a combination of `eventID`, `eventStart` and `eventEnd`.
 #' This event can consist of one or more media files, but is not directly linked
-#' to these
+#' to these.
 #'
 #' This function **will automatically assign `eventID`s to media**, using
-#' `media.deploymentID == event.deploymentID` and `eventStart <= media.timestamp
+#' `media.deploymentID = event.deploymentID` and `eventStart <= media.timestamp
 #' <= eventEnd`.
 #' Note that this can result in media being linked to multiple events (and thus
 #' being duplicated), for example when events and sub-events were defined.
