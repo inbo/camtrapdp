@@ -73,8 +73,8 @@ write_dwc <- function(x, directory = ".") {
   # Filter dataset on observations (also affects media)
   x <- filter_observations(
     x,
-    observationLevel == "event",
-    observationType == "animal"
+    .data$observationLevel == "event",
+    .data$observationType == "animal"
   )
 
   # Create dwc_occurrence
