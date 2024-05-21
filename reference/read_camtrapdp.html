@@ -84,14 +84,14 @@ observations</strong>, as extra columns starting with <code>taxon.</code>.</p>
 
 
 <p>Observations can contain two classifications at two levels:</p>
-<p><strong>Media-based</strong> observations (<code>observationLevel == "media"</code>) are based on a
+<p><strong>Media-based</strong> observations (<code>observationLevel = "media"</code>) are based on a
 single media file and are directly linked to it via <code>mediaID</code>.</p>
-<p><strong>Event-based</strong> observations (<code>observationLevel == "event"</code>) are based an
-event, defined as a combination of <code>eventID</code>, <code>eventStart</code> and <code>eventID</code>.
+<p><strong>Event-based</strong> observations (<code>observationLevel = "event"</code>) are based on an
+event, defined as a combination of <code>eventID</code>, <code>eventStart</code> and <code>eventEnd</code>.
 This event can consist of one or more media files, but is not directly linked
-to these</p>
+to these.</p>
 <p>This function <strong>will automatically assign <code>eventID</code>s to media</strong>, using
-<code>media.deploymentID == event.deploymentID</code> and <code>eventStart &lt;= media.timestamp &lt;= eventEnd</code>.
+<code>media.deploymentID = event.deploymentID</code> and <code>eventStart &lt;= media.timestamp &lt;= eventEnd</code>.
 Note that this can result in media being linked to multiple events (and thus
 being duplicated), for example when events and sub-events were defined.</p>
     </div>
@@ -99,8 +99,8 @@ being duplicated), for example when events and sub-events were defined.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"</span></span></span>
-<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">read_camtrapdp</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dataset</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">read_camtrapdp</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A Data Package with 4 resources:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> • deployments</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> • media</span>
