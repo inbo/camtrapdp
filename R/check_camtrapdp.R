@@ -8,6 +8,9 @@
 #' @return `x` invisibly or error.
 #' @family check functions
 #' @export
+#' @examples
+#' x <- example_dataset()
+#' check_camtrapdp(x) # Invisible return of x if valid
 check_camtrapdp <- function(x) {
   general_message <- paste(
     "{.arg x} must be a Camera Trap Data Package object created with",
