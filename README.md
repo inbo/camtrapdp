@@ -11,10 +11,11 @@
 status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
-Camtrapdp is the R interface to [Camera Trap Data Package (Camtrap
-DP)](https://camtrap-dp.tdwg.org), a data exchange format for camera
-trap data. It is designed to read, filter and transform data (including
-to [Darwin Core](https://dwc.tdwg.org)) before further analysis in
+Camtrapdp is an R package to read and manipulate Camera Trap Data
+Packages (Camtrap DP). [Camtrap DP](https://camtrap-dp.tdwg.org) is a
+data exchange format for camera trap data. With camtrapdp you can read,
+filter and transform data (including to [Darwin
+Core](https://dwc.tdwg.org)) before further analysis in
 e.g. [camtraptor](https://inbo.github.io/camtraptor/) or
 [camtrapR](https://cran.r-project.org/package=camtrapR).
 
