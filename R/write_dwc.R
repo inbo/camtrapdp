@@ -45,10 +45,11 @@
 #'     `rightsHolder`.
 #'   - `dwc:dataGeneralizations`: set if `coordinatePrecision` is defined.
 #' @examples
-#' \dontrun{
 #' x <- example_dataset()
-#' write_dwc(x)
-#' }
+#' write_dwc(x, directory = "my_directory")
+#'
+#' # Clean up (don't do this if you want to keep your files)
+#' unlink("my_directory", recursive = TRUE)
 write_dwc <- function(x, directory = ".") {
   check_camtrapdp(x)
 
