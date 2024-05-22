@@ -30,8 +30,14 @@ To get started, see:
 
 ## Installation
 
-You can install the development version of camtrapdp from
-[GitHub](https://github.com/inbo/camtrapdp) with:
+Install the latest released version from CRAN:
+
+``` r
+install.packages("camtrapdp")
+```
+
+Or the development version from
+[GitHub](https://github.com/inbo/camtrapdp):
 
 ``` r
 # install.packages("devtools")
