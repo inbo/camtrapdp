@@ -10,9 +10,8 @@
 #' @family transformation functions
 #' @export
 #' @section Transformation details:
-#' This function **follows [Reyserhove et al. 2024](
-#' https://doi.org/10.35035/doc-0qzp-2x37) recommendations** and transform data
-#' to:
+#' This function **follows recommendations** in Reyserhove et al. (2023)
+#' \doi{10.35035/doc-0qzp-2x37} and transform data to:
 #' - An [Occurrence core](
 #' https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core).
 #' - An [Audubon/Audiovisual Media Description extension](

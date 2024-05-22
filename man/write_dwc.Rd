@@ -21,8 +21,8 @@ Transforms a Camera Trap Data Package object to a \href{https://dwc.tdwg.org/tex
 }
 \section{Transformation details}{
 
-This function \strong{follows \href{https://doi.org/10.35035/doc-0qzp-2x37}{Reyserhove et al. 2024} recommendations} and transform data
-to:
+This function \strong{follows recommendations} in Reyserhove et al. (2023)
+\doi{10.35035/doc-0qzp-2x37} and transform data to:
 \itemize{
 \item An \href{https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core}{Occurrence core}.
 \item An \href{https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension}{Audubon/Audiovisual Media Description extension}.
