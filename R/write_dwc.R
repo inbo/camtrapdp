@@ -58,15 +58,15 @@ write_dwc <- function(x, directory = ".") {
   collection_code <- purrr::pluck(x, "sources", 1, "title", .default = NA)
   license <-
     purrr::pluck(x, "licenses") %>%
-    purrr::detect(~ !is.null(.$scope) && .$scope == "data") %>%
+    purrr::detect(~ !is.null(.x$scope) && .x$scope == "data") %>%
     purrr::pluck("name", .default = NA)
   media_license <-
     purrr::pluck(x, "licenses") %>%
-    purrr::detect(~ !is.null(.$scope) && .$scope == "media") %>%
+    purrr::detect(~ !is.null(.x$scope) && .x$scope == "media") %>%
     purrr::pluck("name", .default = NA)
   rights_holder <-
     purrr::pluck(x, "contributors") %>%
-    purrr::detect(~ !is.null(.$role) && .$role == "rightsHolder") %>%
+    purrr::detect(~ !is.null(.x$role) && .x$role == "rightsHolder") %>%
     purrr::pluck("title", .default = NA)
   coordinate_precision <- purrr::pluck(x, "coordinatePrecision", .default = NA)
 

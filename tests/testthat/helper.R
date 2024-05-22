@@ -34,7 +34,7 @@ expect_comform_meta <- function(file, core = "dwc_occurrence.csv", ...) {
   csv_file_cols <-
     readr::read_csv(file, show_col_types = FALSE) %>%
     colnames() %>%
-    purrr::map_chr(~ sub("^[A-Za-z]+:", "", .)) # Remove namespace like "dcterms:"
+    purrr::map_chr(~ sub("^[A-Za-z]+:", "", .x)) # Remove namespace like "dcterms:"
   csv_file_fields <-
     dplyr::tibble(field = csv_file_cols) %>%
     dplyr::mutate(index = as.integer(rownames(.)) - 1, .before = field) # Add index
