@@ -5,10 +5,6 @@
 
 <!-- badges: start -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/camtraptor)](https://CRAN.R-project.org/package=camtrapdp)
-[![CRAN
-checks](https://badges.cranchecks.info/worst/camtrapdp.svg)](https://cran.r-project.org/web/checks/check_results_camtrapdp.html)
 [![R-CMD-check](https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/inbo/camtraptor/branch/main/graph/badge.svg)](https://app.codecov.io/gh/inbo/camtrapdp/)
 [![repo
