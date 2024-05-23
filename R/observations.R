@@ -15,6 +15,7 @@ observations <- function(x) {
 }
 
 #' @rdname observations
+#' @param value data.frame to assign to the observations of a Camera Trap Data Package Object.
 #' @export
 'observations<-' <- function(x, value){
   if(!is.data.frame(value)){

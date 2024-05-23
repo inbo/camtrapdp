@@ -15,6 +15,7 @@ media <- function(x) {
 }
 
 #' @rdname media
+#' @param value data.frame to assign to the media of a Camera Trap Data Package Object.
 #' @export
 'media<-' <- function(x, value){
   if(!is.data.frame(value)){
