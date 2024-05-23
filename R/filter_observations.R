@@ -74,8 +74,8 @@ filter_observations <- function(x, ...) {
     )
 
   # Assign filtered data
-  x$data$media <- media
-  x$data$observations <- observations
+  media(x) <- media
+  observations(x) <- observations
 
   return(x)
 }
