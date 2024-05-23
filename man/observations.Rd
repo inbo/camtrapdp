@@ -26,7 +26,8 @@ x <- example_dataset()
 # Get the observations of x
 observations(x)
 # Change the observations of x
-observations(x) <- observations(x)[observations(x)$observationLevel == "media", ]
+observations(x) <-
+  observations(x)[observations(x)$observationLevel == "media", ]
 }
 \seealso{
 Other accessor functions: 
