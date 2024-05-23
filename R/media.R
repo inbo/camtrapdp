@@ -14,6 +14,7 @@ media <- function(x) {
   purrr::pluck(x, "data", "media")
 }
 
+#' @rdname media
 #' @export
 'media<-' <- function(x, value){
   if(!is.data.frame(value)){

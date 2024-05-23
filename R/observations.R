@@ -14,6 +14,7 @@ observations <- function(x) {
   purrr::pluck(x, "data", "observations")
 }
 
+#' @rdname observations
 #' @export
 'observations<-' <- function(x, value){
   if(!is.data.frame(value)){
