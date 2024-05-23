@@ -32,7 +32,14 @@ test_that("deployments() <- allows assignment of data.frames to deployments", {
 })
 
 test_that("deployments() <- returns the object after assignment", {
+  skip_if_offline()
+  y <- example_dataset()
+  test_df <- data.frame(a = 1:3)
 
+  expect_identical(
+    deployments(y) <- test_df,
+    test_df
+  )
 })
 
 test_that("deployments() <- errors when you try to assign a non data.frame", {
