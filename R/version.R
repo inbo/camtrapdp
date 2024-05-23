@@ -17,6 +17,9 @@
 #' @return Camtrap DP version number (e.g. `1.0`).
 #' @family accessor functions
 #' @export
+#' @examples
+#' x <- example_dataset()
+#' version(x)
 version <- function(x) {
   # Get version from attribute
   attr_version <- attr(x, "version")
