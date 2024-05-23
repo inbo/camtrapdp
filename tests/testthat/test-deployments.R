@@ -43,5 +43,17 @@ test_that("deployments() <- returns the object after assignment", {
 })
 
 test_that("deployments() <- errors when you try to assign a non data.frame", {
+  skip_if_offline()
+  y <- example_dataset()
 
+  expect_error(
+    deployments(y) <- "not a data.frame object",
+    class = "camtrapdp_error_assignment_wrong_class"
+  )
+
+  expect_error(
+    deployments(y) <- matrix(1:6,2,3),
+    regexp = "`value` is a an integer matrix but needs to be a `data.frame`",
+    fixed = TRUE
+  )
 })
