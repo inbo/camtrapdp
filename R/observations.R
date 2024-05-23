@@ -13,3 +13,12 @@ observations <- function(x) {
   check_camtrapdp(x)
   purrr::pluck(x, "data", "observations")
 }
+
+'observations<-' <- function(x, value){
+  if(!is.data.frame(value)){
+    cli::cli_abort("{.arg value} is a {.obj_type_friendly {value}} but needs to
+                    be a {.code data.frame}")
+  }
+
+  purrr::assign_in(x, "data", "observations", value)
+}
