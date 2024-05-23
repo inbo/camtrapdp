@@ -14,6 +14,7 @@ media <- function(x) {
   purrr::pluck(x, "data", "media")
 }
 
+#' @export
 'media<-' <- function(x, value){
   if(!is.data.frame(value)){
     cli::cli_abort("{.arg value} is a {.obj_type_friendly {value}} but needs to
