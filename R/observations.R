@@ -11,7 +11,8 @@
 #' # Get the observations of x
 #' observations(x)
 #' # Change the observations of x
-#' observations(x) <- observations(x)[observations(x)$observationLevel == "media", ]
+#' observations(x) <-
+#'   observations(x)[observations(x)$observationLevel == "media", ]
 observations <- function(x) {
   check_camtrapdp(x)
   purrr::pluck(x, "data", "observations")
