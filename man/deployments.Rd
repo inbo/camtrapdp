@@ -23,7 +23,10 @@ Gets the deployments from a Camera Trap Data Package object.
 }
 \examples{
 x <- example_dataset()
+# Get the deployments of x
 deployments(x)
+# Change the deployments of x
+deployments(x) <- tail(deployments(x),-1)
 }
 \seealso{
 Other accessor functions: 

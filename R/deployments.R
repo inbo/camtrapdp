@@ -8,7 +8,10 @@
 #' @export
 #' @examples
 #' x <- example_dataset()
+#' # Get the deployments of x
 #' deployments(x)
+#' # Change the deployments of x
+#' deployments(x) <- tail(deployments(x),-1)
 deployments <- function(x) {
   check_camtrapdp(x)
   purrr::pluck(x, "data", "deployments")
