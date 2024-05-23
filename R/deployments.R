@@ -24,5 +24,5 @@ deployments <- function(x) {
                     be a {.code data.frame}")
   }
 
-  purrr::assign_in(x, "data", "deployments", value)
+  purrr::assign_in(x, list("data", "deployments"), value = value)
 }

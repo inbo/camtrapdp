@@ -22,5 +22,5 @@ observations <- function(x) {
                     be a {.code data.frame}")
   }
 
-  purrr::assign_in(x, "data", "observations", value)
+  purrr::assign_in(x, list("data", "observations"), value)
 }

@@ -22,5 +22,5 @@ media <- function(x) {
                     be a {.code data.frame}")
   }
 
-  purrr::assign_in(x, "data", "media", value)
+  purrr::assign_in(x, list("data", "media"), value)
 }
