@@ -15,7 +15,6 @@ deployments <- function(x) {
 }
 
 #' @rdname deployments
-#' @inheritParams version
 #' @param value data.frame to assign to the deployments of a Camera Trap Data Package Object.
 #' @export
 'deployments<-' <- function(x, value){
