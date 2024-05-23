@@ -2,13 +2,18 @@
 % Please edit documentation in R/media.R
 \name{media}
 \alias{media}
+\alias{media<-}
 \title{Get media}
 \usage{
 media(x)
+
+media(x) <- value
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
+
+\item{value}{data.frame to assign to the media of a Camera Trap Data Package Object.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with media.

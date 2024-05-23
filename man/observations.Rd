@@ -2,13 +2,18 @@
 % Please edit documentation in R/observations.R
 \name{observations}
 \alias{observations}
+\alias{observations<-}
 \title{Get observations}
 \usage{
 observations(x)
+
+observations(x) <- value
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
+
+\item{value}{data.frame to assign to the observations of a Camera Trap Data Package Object.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with observations.
