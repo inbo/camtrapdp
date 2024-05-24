@@ -32,6 +32,6 @@ media <- function(x) {
                     be a {.code data.frame}",
                    class = "camtrapdp_error_assignment_wrong_class")
   }
-
-  purrr::assign_in(x, list("data", "media"), value)
+  purrr::pluck(x, "data", "media") <- dplyr::as_tibble(value)
+  return(x)
 }

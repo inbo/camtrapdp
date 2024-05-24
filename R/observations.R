@@ -32,6 +32,6 @@ observations <- function(x) {
                     be a {.code data.frame}",
                    class = "camtrapdp_error_assignment_wrong_class")
   }
-
-  purrr::assign_in(x, list("data", "observations"), value)
+  purrr::pluck(x, "data", "observations") <- dplyr::as_tibble(value)
+  return(x)
 }

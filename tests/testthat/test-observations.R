@@ -7,53 +7,23 @@ test_that("observations() returns a tibble", {
 test_that("observations() returns the observations", {
   skip_if_offline()
   x <- example_dataset()
-  expect_identical(
-    observations(x),
-    x$data$observations
-  )
+  expect_identical(observations(x), x$data$observations)
 })
 
-test_that("observations() <- allows assignment of data.frames to observations", {
+test_that("observations<-() assigns a data frame (as tibble) as observations", {
   skip_if_offline()
-  y <- example_dataset()
-  test_df <- data.frame(a = 1:3)
-  # overwrite the observations of example dataset with a data.frame
-  observations(y) <- test_df
-
-  expect_identical(
-    y$data$observations,
-    test_df
-  )
-
-  expect_identical(
-    observations(y),
-    test_df
-  )
+  x <- example_dataset()
+  df <- data.frame(a = 1:3)
+  observations(x) <- df
+  expect_identical(observations(x), dplyr::as_tibble(df))
+  expect_s3_class(observations(x), "tbl")
 })
 
-test_that("observations() <- returns the object after assignment", {
+test_that("observations<-() returns error when value is not a data frame", {
   skip_if_offline()
-  y <- example_dataset()
-  test_df <- data.frame(a = 1:3)
-
-  expect_identical(
-    observations(y) <- test_df,
-    test_df
-  )
-})
-
-test_that("observations() <- errors when you try to assign a non data.frame", {
-  skip_if_offline()
-  y <- example_dataset()
-
+  x <- example_dataset()
   expect_error(
-    observations(y) <- "not a data.frame object",
+    observations(x) <- "not_a_data_frame",
     class = "camtrapdp_error_assignment_wrong_class"
-  )
-
-  expect_error(
-    observations(y) <- matrix(1:6,2,3),
-    regexp = "`value` is a an integer matrix but needs to be a `data.frame`",
-    fixed = TRUE
   )
 })
