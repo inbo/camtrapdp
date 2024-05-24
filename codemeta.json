@@ -2,8 +2,8 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "camtrapdp",
-  "description": "What the package does (one paragraph).",
-  "name": "camtrapdp: Read and Convert Camera Trap Data Packages (Camtrap DP)",
+  "description": "Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP' (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data. With 'camtrapdp' you can read, filter and transform data (including to Darwin Core) before further analysis in e.g. 'camtraptor' or 'camtrapR'.",
+  "name": "camtrapdp: Read and Manipulate Camera Trap Data Packages (Camtrap DP)",
   "relatedLink": "https://inbo.github.io/camtrapdp/",
   "codeRepository": "https://github.com/inbo/camtrapdp",
   "issueTracker": "https://github.com/inbo/camtrapdp/issues",
@@ -14,7 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "runtimePlatform": "R version 4.2.3 (2023-03-15)",
   "author": [
     {
       "@type": "Person",
@@ -71,6 +71,18 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "lubridate",
+      "name": "lubridate",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lubridate"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
       "version": ">= 3.0.0",
@@ -81,6 +93,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "xml2",
+      "name": "xml2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=xml2"
     }
   ],
   "softwareRequirements": {
@@ -112,6 +136,7 @@
       "@type": "SoftwareApplication",
       "identifier": "frictionless",
       "name": "frictionless",
+      "version": ">= 1.1.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -132,11 +157,23 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=purrr"
     },
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "readr",
+      "name": "readr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=readr"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "22.694KB",
+  "fileSize": "183.94KB",
   "releaseNotes": "https://github.com/inbo/camtrapdp/blob/master/NEWS.md",
   "readme": "https://github.com/inbo/camtrapdp/blob/main/README.md",
   "contIntegration": ["https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/inbo/camtrapdp/"],
-  "developmentStatus": "https://www.repostatus.org/#wip"
+  "developmentStatus": "https://www.repostatus.org/#active"
 }
