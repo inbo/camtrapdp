@@ -5,7 +5,7 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param convert_to Version to convert to.
-#' @return Converted Camera Trap Data Package object.
+#' @return `x` converted.
 #' @family convert functions
 #' @noRd
 convert <- function(x, convert_to = "1.0") {
