@@ -26,7 +26,7 @@ media <- function(x) {
 #' @rdname media
 #' @param value A data frame to assign as media.
 #' @export
-'media<-' <- function(x, value) {
+"media<-" <- function(x, value) {
   if (!is.data.frame(value)) {
     cli::cli_abort(
       "{.arg value} must be a data.frame, not {.type {value}}.",

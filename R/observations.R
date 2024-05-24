@@ -1,7 +1,8 @@
 #' Get observations
 #'
 #' @description
-#' `observations()` gets the observations from a Camera Trap Data Package object.
+#' `observations()` gets the observations from a Camera Trap Data Package
+#'   object.
 #'
 #' `observations<-()` is the assignment equivalent.
 #'   It should only be used within other functions, where the expected data
@@ -26,7 +27,7 @@ observations <- function(x) {
 #' @rdname observations
 #' @param value A data frame to assign as observations.
 #' @export
-'observations<-' <- function(x, value) {
+"observations<-" <- function(x, value) {
   if (!is.data.frame(value)) {
     cli::cli_abort(
       "{.arg value} must be a data.frame, not {.type {value}}.",

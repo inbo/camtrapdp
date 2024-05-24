@@ -19,7 +19,8 @@ observations(x) <- value
 \code{\link[=tibble]{tibble()}} data frame with observations.
 }
 \description{
-\code{observations()} gets the observations from a Camera Trap Data Package object.
+\code{observations()} gets the observations from a Camera Trap Data Package
+object.
 
 \verb{observations<-()} is the assignment equivalent.
 It should only be used within other functions, where the expected data

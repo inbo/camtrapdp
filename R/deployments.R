@@ -26,7 +26,7 @@ deployments <- function(x) {
 #' @rdname deployments
 #' @param value A data frame to assign as deployments.
 #' @export
-'deployments<-' <- function(x, value) {
+"deployments<-" <- function(x, value) {
   if (!is.data.frame(value)) {
     cli::cli_abort(
       "{.arg value} must be a data.frame, not {.type {value}}.",

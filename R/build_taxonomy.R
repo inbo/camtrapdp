@@ -48,7 +48,7 @@ build_taxonomy <- function(x) {
 
   # Drop any columns that are empty (e.g as result of dropping duplicates)
   cols_to_keep <- colSums(is.na(taxonomy_df)) != nrow(taxonomy_df)
-  taxonomy_df <- taxonomy_df[,cols_to_keep, drop = FALSE]
+  taxonomy_df <- taxonomy_df[, cols_to_keep, drop = FALSE]
 
   # Return data.frame
   return(taxonomy_df)
