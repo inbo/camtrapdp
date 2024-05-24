@@ -9,7 +9,7 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
-#' @return Filtered Camera Trap Data Package object.
+#' @return `x` filtered.
 #' @family filter functions
 #' @export
 #' @examples
@@ -52,16 +52,14 @@ filter_media <- function(x, ...) {
     observations(x) %>%
     dplyr::filter(
       # On mediaID for media-based obs
-      (.data$observationLevel == "media" &
-       .data$mediaID %in% select_media_ids) |
+      (.data$observationLevel == "media" & .data$mediaID %in% select_media_ids) |
       # On eventID for event-based obs
-      (.data$observationLevel == "event" &
-       .data$eventID %in% select_event_ids)
+      (.data$observationLevel == "event" & .data$eventID %in% select_event_ids)
     )
 
   # Assign filtered data
-  x$data$media <- media
-  x$data$observations <- observations
+  media(x) <- media
+  observations(x) <- observations
 
   return(x)
 }

@@ -19,11 +19,11 @@
 events <- function(x) {
   check_camtrapdp(x)
   observations(x) %>%
-  dplyr::filter(.data$observationLevel == "event") %>%
-  dplyr::distinct(
-    .data$deploymentID,
-    .data$eventID,
-    .data$eventStart,
-    .data$eventEnd
-  )
+    dplyr::filter(.data$observationLevel == "event") %>%
+    dplyr::distinct(
+      .data$deploymentID,
+      .data$eventID,
+      .data$eventStart,
+      .data$eventEnd
+    )
 }

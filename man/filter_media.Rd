@@ -13,7 +13,7 @@ filter_media(x, ...)
 \item{...}{Filtering conditions, see \code{dplyr::filter()}.}
 }
 \value{
-Filtered Camera Trap Data Package object.
+\code{x} filtered.
 }
 \description{
 Subsets media in a Camera Trap Data Package object, retaining all rows that

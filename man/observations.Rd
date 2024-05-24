@@ -2,23 +2,37 @@
 % Please edit documentation in R/observations.R
 \name{observations}
 \alias{observations}
+\alias{observations<-}
 \title{Get observations}
 \usage{
 observations(x)
+
+observations(x) <- value
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
+
+\item{value}{A data frame to assign as observations.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with observations.
 }
 \description{
-Gets the observations from a Camera Trap Data Package object.
+\code{observations()} gets the observations from a Camera Trap Data Package
+object.
+
+\verb{observations<-()} is the assignment equivalent.
+It should only be used within other functions, where the expected data
+structure can be guaranteed.
 }
 \examples{
 x <- example_dataset()
+# Get the observations
 observations(x)
+
+# Set observations (not recommended outside a function)
+observations(x) <- head(observations(x), 1)
 }
 \seealso{
 Other accessor functions: 

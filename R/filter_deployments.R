@@ -8,7 +8,7 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
-#' @return Filtered Camera Trap Data Package object.
+#' @return `x` filtered.
 #' @family filter functions
 #' @export
 #' @examples
@@ -56,9 +56,9 @@ filter_deployments <- function(x, ...) {
     dplyr::filter(.data$deploymentID %in% deployments$deploymentID)
 
   # Assign filtered data
-  x$data$deployments <- deployments
-  x$data$media <- media
-  x$data$observations <- observations
+  deployments(x) <- deployments
+  media(x) <- media
+  observations(x) <- observations
 
   return(x)
 }
