@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Desmet"
+  given-names: "Peter"
+  orcid: "https://orcid.org/0000-0002-8442-8025"
+title: "camtrapdp"
+version: 0.2.0
+date-released: 2024-05-24
+url: "https://github.com/inbo/camtrapdp"
