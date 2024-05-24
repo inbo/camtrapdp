@@ -4,12 +4,12 @@ Version: 0.1.0.9000
 Authors@R: c(
     person("Peter", "Desmet", email = "peter.desmet@inbo.be",
            role = c("aut", "cre"), comment =  c(ORCID = "0000-0002-8442-8025")),
-    person("Damiano", "Oldoni", email = "damiano.oldoni@inbo.be",
-           role = "ctb", comment = c(ORCID = "0000-0003-3445-7562")),
-    person("Pieter", "Huybrechts", email = "pieter.huybrechts@inbo.be",
-           role = "ctb", comment = c(ORCID = "0000-0002-6658-6062")),
     person("Sanne", "Govaert", email = "sanne.govaert@inbo.be",
-           role = "ctb", comment = c(ORCID = "0000-0002-8939-1305")),
+           role = "aut", comment = c(ORCID = "0000-0002-8939-1305")),
+    person("Pieter", "Huybrechts", email = "pieter.huybrechts@inbo.be",
+           role = "aut", comment = c(ORCID = "0000-0002-6658-6062")),
+    person("Damiano", "Oldoni", email = "damiano.oldoni@inbo.be",
+           role = "aut", comment = c(ORCID = "0000-0003-3445-7562")),
     person("Research Institute for Nature and Forest (INBO)",
            role = "cph", comment = "https://www.vlaanderen.be/inbo/en-gb/"),
     person("LifeWatch Belgium",
@@ -27,6 +27,7 @@ Imports:
     cli,
     dplyr,
     frictionless (>= 1.1.0),
+    memoise,
     purrr,
     readr
 Suggests:
