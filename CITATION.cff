@@ -1,7 +1,7 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: If you use this software, please cite it using these metadata.
+title: "camtrapdp: Read and Manipulate Camera Trap Data Packages
 authors:
-title: "camtrapdp"
 - given-names: Peter
   family-names: Desmet
   orcid: 0000-0002-8442-8025
@@ -14,6 +14,15 @@ title: "camtrapdp"
 - given-names: Damiano
   family-names: Oldoni
   orcid: 0000-0003-3445-7562
+keywords:
+- R package
+- Camtrap DP
+contact:
+- given-names: Peter
+  family-names: Desmet
+  orcid: 0000-0002-8442-8025
+doi: ~
+license: MIT
+repository-code: https://github.com/inbo/camtrapdp
+type: software
 version: 0.2.0
-date-released: 2024-05-24
-url: "https://github.com/inbo/camtrapdp"
