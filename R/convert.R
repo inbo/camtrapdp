@@ -12,17 +12,19 @@ convert <- function(x, convert_to = "1.0") {
   # Convert until the version number matches the expected version
   while (version(x) != convert_to) {
     x <- switch(version(x),
-      "0.1.6" = convert_0.1.6_to_1.0(x),
+      # "0.1.6" = convert_0.1.6_to_1.0(x),
       "1.0" = x
     )
   }
   x
 }
 
-#' Convert a Camtrap DP 0.1.6 to 1.0
-#' @noRd
-convert_0.1.6_to_1.0 <- function(x) {
-  # TODO: conversion steps for 0.1.6
-  attr(x, "version") <- "1.0"
-  x
-}
+# This is how a conversion function would look like
+# #' Convert a Camtrap DP 0.1.6 to 1.0
+# #' @noRd
+# convert_0.1.6_to_1.0 <- function(x) {
+#   # Do conversion steps
+#   # Set version
+#   attr(x, "version") <- "1.0"
+#   x
+# }
