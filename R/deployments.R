@@ -1,6 +1,11 @@
-#' Get deployments
+#' Get or set deployments
 #'
-#' Gets the deployments from a Camera Trap Data Package object.
+#' @description
+#' `deployments()` gets the deployments from a Camera Trap Data Package object.
+#'
+#' `deployments<-()` is the assignment equivalent.
+#'   It should only be used within other functions, where the expected data
+#'   structure can be guaranteed.
 #'
 #' @inheritParams check_camtrapdp
 #' @return [tibble()] data frame with deployments.
@@ -8,17 +13,18 @@
 #' @export
 #' @examples
 #' x <- example_dataset()
-#' # Get the deployments of x
+#' # Get deployments
 #' deployments(x)
-#' # Change the deployments of x
-#' deployments(x) <- tail(deployments(x),-1)
+#'
+#' # Set deployments (not recommended outside a function)
+#' deployments(x) <- head(deployments(x), 1)
 deployments <- function(x) {
   check_camtrapdp(x)
   purrr::pluck(x, "data", "deployments")
 }
 
 #' @rdname deployments
-#' @param value data.frame to assign to the deployments of a Camera Trap Data Package Object.
+#' @param value A data frame to assign as deployments.
 #' @export
 'deployments<-' <- function(x, value) {
   if (!is.data.frame(value)) {

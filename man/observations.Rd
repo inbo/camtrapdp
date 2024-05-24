@@ -13,21 +13,25 @@ observations(x) <- value
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{value}{data.frame to assign to the observations of a Camera Trap Data Package Object.}
+\item{value}{A data frame to assign as observations.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with observations.
 }
 \description{
-Gets the observations from a Camera Trap Data Package object.
+\code{observations()} gets the observations from a Camera Trap Data Package object.
+
+\verb{observations<-()} is the assignment equivalent.
+It should only be used within other functions, where the expected data
+structure can be guaranteed.
 }
 \examples{
 x <- example_dataset()
-# Get the observations of x
+# Get the observations
 observations(x)
-# Change the observations of x
-observations(x) <-
-  observations(x)[observations(x)$observationLevel == "media", ]
+
+# Set observations (not recommended outside a function)
+observations(x) <- head(observations(x), 1)
 }
 \seealso{
 Other accessor functions: 

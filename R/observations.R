@@ -1,6 +1,11 @@
 #' Get observations
 #'
-#' Gets the observations from a Camera Trap Data Package object.
+#' @description
+#' `observations()` gets the observations from a Camera Trap Data Package object.
+#'
+#' `observations<-()` is the assignment equivalent.
+#'   It should only be used within other functions, where the expected data
+#'   structure can be guaranteed.
 #'
 #' @inheritParams check_camtrapdp
 #' @return [tibble()] data frame with observations.
@@ -8,18 +13,18 @@
 #' @export
 #' @examples
 #' x <- example_dataset()
-#' # Get the observations of x
+#' # Get the observations
 #' observations(x)
-#' # Change the observations of x
-#' observations(x) <-
-#'   observations(x)[observations(x)$observationLevel == "media", ]
+#'
+#' # Set observations (not recommended outside a function)
+#' observations(x) <- head(observations(x), 1)
 observations <- function(x) {
   check_camtrapdp(x)
   purrr::pluck(x, "data", "observations")
 }
 
 #' @rdname observations
-#' @param value data.frame to assign to the observations of a Camera Trap Data Package Object.
+#' @param value A data frame to assign as observations.
 #' @export
 'observations<-' <- function(x, value) {
   if (!is.data.frame(value)) {

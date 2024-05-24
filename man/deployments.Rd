@@ -3,7 +3,7 @@
 \name{deployments}
 \alias{deployments}
 \alias{deployments<-}
-\title{Get deployments}
+\title{Get or set deployments}
 \usage{
 deployments(x)
 
@@ -13,20 +13,25 @@ deployments(x) <- value
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{value}{data.frame to assign to the deployments of a Camera Trap Data Package Object.}
+\item{value}{A data frame to assign as deployments.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with deployments.
 }
 \description{
-Gets the deployments from a Camera Trap Data Package object.
+\code{deployments()} gets the deployments from a Camera Trap Data Package object.
+
+\verb{deployments<-()} is the assignment equivalent.
+It should only be used within other functions, where the expected data
+structure can be guaranteed.
 }
 \examples{
 x <- example_dataset()
-# Get the deployments of x
+# Get deployments
 deployments(x)
-# Change the deployments of x
-deployments(x) <- tail(deployments(x),-1)
+
+# Set deployments (not recommended outside a function)
+deployments(x) <- head(deployments(x), 1)
 }
 \seealso{
 Other accessor functions: 

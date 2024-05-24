@@ -15,7 +15,7 @@ reference:
 - title: "Read functions"
   contents:
   - has_concept("read functions")
-- title: "Accessor functions"
+- title: "Accessor (and assignment) functions"
   contents:
   - has_concept("accessor functions")
 - title: "Filter functions"
