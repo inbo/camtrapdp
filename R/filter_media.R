@@ -9,7 +9,7 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
-#' @return Filtered Camera Trap Data Package object.
+#' @return `x` filtered.
 #' @family filter functions
 #' @export
 #' @examples
@@ -60,8 +60,8 @@ filter_media <- function(x, ...) {
     )
 
   # Assign filtered data
-  x$data$media <- media
-  x$data$observations <- observations
+  media(x) <- media
+  observations(x) <- observations
 
   return(x)
 }

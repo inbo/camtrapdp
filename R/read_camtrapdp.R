@@ -62,11 +62,11 @@ read_camtrapdp <- function(file) {
   attr(x, "version") <- version
 
   # Read and attach csv data
-  x$data$deployments <-
+  deployments(x) <-
     frictionless::read_resource(package, "deployments")
-  x$data$media <-
+  media(x) <-
     frictionless::read_resource(package, "media")
-  x$data$observations <-
+  observations(x) <-
     frictionless::read_resource(package, "observations")
 
   # Convert
@@ -79,7 +79,7 @@ read_camtrapdp <- function(file) {
     colnames(taxonomy) <- paste("taxon", colnames(taxonomy), sep = ".")
 
     # Join taxonomy with observations
-    x$data$observations <-
+    observations(x) <-
       dplyr::left_join(
         observations(x),
         taxonomy,
@@ -88,7 +88,7 @@ read_camtrapdp <- function(file) {
   }
 
   # Add eventID to media
-  x$data$media <-
+  media(x) <-
     dplyr::left_join(
       media(x),
       events(x),

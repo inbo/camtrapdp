@@ -2,23 +2,36 @@
 % Please edit documentation in R/deployments.R
 \name{deployments}
 \alias{deployments}
-\title{Get deployments}
+\alias{deployments<-}
+\title{Get or set deployments}
 \usage{
 deployments(x)
+
+deployments(x) <- value
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
+
+\item{value}{A data frame to assign as deployments.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with deployments.
 }
 \description{
-Gets the deployments from a Camera Trap Data Package object.
+\code{deployments()} gets the deployments from a Camera Trap Data Package object.
+
+\verb{deployments<-()} is the assignment equivalent.
+It should only be used within other functions, where the expected data
+structure can be guaranteed.
 }
 \examples{
 x <- example_dataset()
+# Get deployments
 deployments(x)
+
+# Set deployments (not recommended outside a function)
+deployments(x) <- head(deployments(x), 1)
 }
 \seealso{
 Other accessor functions: 
