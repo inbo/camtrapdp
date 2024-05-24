@@ -4,7 +4,7 @@
 \name{camtrapdp-package}
 \alias{camtrapdp}
 \alias{camtrapdp-package}
-\title{camtrapdp: Read and Manipulate Camera Trap Data Packages (Camtrap DP)}
+\title{camtrapdp: Read and Manipulate Camera Trap Data Packages}
 \description{
 Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP' (\url{https://camtrap-dp.tdwg.org}) is a data exchange format for camera trap data. With 'camtrapdp' you can read, filter and transform data (including to Darwin Core) before further analysis in e.g. 'camtraptor' or 'camtrapR'.
 }

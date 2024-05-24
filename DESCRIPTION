@@ -1,5 +1,5 @@
 Package: camtrapdp
-Title: Read and Manipulate Camera Trap Data Packages (Camtrap DP)
+Title: Read and Manipulate Camera Trap Data Packages
 Version: 0.1.0.9000
 Authors@R: c(
     person("Peter", "Desmet", email = "peter.desmet@inbo.be",

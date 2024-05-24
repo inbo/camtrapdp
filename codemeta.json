@@ -3,7 +3,7 @@
   "@type": "SoftwareSourceCode",
   "identifier": "camtrapdp",
   "description": "Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP' (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data. With 'camtrapdp' you can read, filter and transform data (including to Darwin Core) before further analysis in e.g. 'camtraptor' or 'camtrapR'.",
-  "name": "camtrapdp: Read and Manipulate Camera Trap Data Packages (Camtrap DP)",
+  "name": "camtrapdp: Read and Manipulate Camera Trap Data Packages",
   "relatedLink": "https://inbo.github.io/camtrapdp/",
   "codeRepository": "https://github.com/inbo/camtrapdp",
   "issueTracker": "https://github.com/inbo/camtrapdp/issues",
@@ -181,7 +181,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "189.353KB",
+  "fileSize": "189.311KB",
   "releaseNotes": "https://github.com/inbo/camtrapdp/blob/master/NEWS.md",
   "readme": "https://github.com/inbo/camtrapdp/blob/main/README.md",
   "contIntegration": ["https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/inbo/camtrapdp/"],
