@@ -26,6 +26,7 @@ Imports:
     cli,
     dplyr,
     frictionless (>= 1.1.0),
+    memoise,
     purrr,
     readr
 Suggests:
