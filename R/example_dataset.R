@@ -8,12 +8,14 @@
 #' @export
 #' @examples
 #' example_dataset()
-.example_dataset <- function() {
+example_dataset <- function() {
   url <- file.path(
     "https://raw.githubusercontent.com/tdwg/camtrap-dp",
     "1.0/example/datapackage.json"
   )
-  read_camtrapdp(url)
+  example_dataset_cache(url)
 }
 
-example_dataset <- memoise::memoise(.example_dataset)
+example_dataset_cache <- memoise::memoise(function(url) {
+  read_camtrapdp(url)
+})
