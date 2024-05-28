@@ -6,6 +6,7 @@
 #' @return Camera Trap Data Package object.
 #' @family sample data
 #' @export
+#' @import memoise
 #' @examples
 #' example_dataset()
 example_dataset <- function() {
@@ -16,6 +17,6 @@ example_dataset <- function() {
   example_dataset_cache(url)
 }
 
-example_dataset_cache <- memoise::memoise(function(url) {
+example_dataset_cache <- memoise(function(url) {
   read_camtrapdp(url)
 })
