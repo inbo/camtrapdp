@@ -6,7 +6,7 @@
 #' @return Camera Trap Data Package object.
 #' @family sample data
 #' @export
-#' @import memoise
+#' @importFrom memoise memoise
 #' @examples
 #' example_dataset()
 example_dataset <- function() {
