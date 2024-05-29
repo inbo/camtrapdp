@@ -181,7 +181,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "188.759KB",
+  "fileSize": "188.574KB",
   "releaseNotes": "https://github.com/inbo/camtrapdp/blob/master/NEWS.md",
   "readme": "https://github.com/inbo/camtrapdp/blob/main/README.md",
   "contIntegration": ["https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/inbo/camtrapdp/"],
