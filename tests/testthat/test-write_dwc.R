@@ -8,11 +8,11 @@ test_that("write_dwc() writes CSV and meta.xml files to a directory and
 
   expect_identical(
     list.files(temp_dir),
-    c("dwc_audiovisual.csv", "dwc_occurrence.csv", "meta.xml")
+    c("meta.xml", "multimedia.csv", "occurrence.csv")
   )
-  expect_identical(names(result), c("dwc_occurrence", "dwc_audiovisual"))
-  expect_s3_class(result$dwc_occurrence, "tbl")
-  expect_s3_class(result$dwc_audiovisual, "tbl")
+  expect_identical(names(result), c("occurrence", "multimedia"))
+  expect_s3_class(result$occurrence, "tbl")
+  expect_s3_class(result$multimedia, "tbl")
 })
 
 test_that("write_dwc() returns the expected Darwin Core terms as columns", {
@@ -23,7 +23,7 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
   result <- suppressMessages(write_dwc(x, temp_dir))
 
   expect_identical(
-    colnames(result$dwc_occurrence),
+    colnames(result$occurrence),
     c(
       "type",
       "license",
@@ -68,7 +68,7 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
     )
   )
   expect_identical(
-    colnames(result$dwc_audiovisual),
+    colnames(result$multimedia),
     c(
       "occurrenceID",
       "identifier",
@@ -93,8 +93,8 @@ test_that("write_dwc() returns the expected Darwin Core mapping for the example
   on.exit(unlink(temp_dir, recursive = TRUE))
   suppressMessages(write_dwc(x, temp_dir))
 
-  expect_snapshot_file(file.path(temp_dir, "dwc_occurrence.csv"))
-  expect_snapshot_file(file.path(temp_dir, "dwc_audiovisual.csv"))
+  expect_snapshot_file(file.path(temp_dir, "occurrence.csv"))
+  expect_snapshot_file(file.path(temp_dir, "multimedia.csv"))
   expect_snapshot_file(file.path(temp_dir, "meta.xml"))
 })
 
@@ -106,6 +106,6 @@ test_that("write_dwc() returns files that comply with the info in meta.xml", {
   suppressMessages(write_dwc(x, temp_dir))
 
   # Use helper function to compare
-  expect_comform_meta(file.path(temp_dir, "dwc_occurrence.csv"))
-  expect_comform_meta(file.path(temp_dir, "dwc_audiovisual.csv"))
+  expect_comform_meta(file.path(temp_dir, "occurrence.csv"))
+  expect_comform_meta(file.path(temp_dir, "multimedia.csv"))
 })

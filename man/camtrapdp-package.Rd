@@ -4,9 +4,9 @@
 \name{camtrapdp-package}
 \alias{camtrapdp}
 \alias{camtrapdp-package}
-\title{camtrapdp: Read and Convert Camera Trap Data Packages (Camtrap DP)}
+\title{camtrapdp: Read and Manipulate Camera Trap Data Packages}
 \description{
-'camtrapdp' is the R interface to Camera Trap Data Package ('Camtrap DP', \url{https://camtrap-dp.tdwg.org}), a data exchange format for camera trap data. It is designed to read, filter and convert data (including to Darwin Core) before further analysis in e.g. 'camtraptor' or 'camtrapR'.
+Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP' (\url{https://camtrap-dp.tdwg.org}) is a data exchange format for camera trap data. With 'camtrapdp' you can read, filter and transform data (including to Darwin Core) before further analysis in e.g. 'camtraptor' or 'camtrapR'.
 }
 \seealso{
 Useful links:
@@ -20,11 +20,15 @@ Useful links:
 \author{
 \strong{Maintainer}: Peter Desmet \email{peter.desmet@inbo.be} (\href{https://orcid.org/0000-0002-8442-8025}{ORCID})
 
+Authors:
+\itemize{
+  \item Sanne Govaert \email{sanne.govaert@inbo.be} (\href{https://orcid.org/0000-0002-8939-1305}{ORCID})
+  \item Pieter Huybrechts \email{pieter.huybrechts@inbo.be} (\href{https://orcid.org/0000-0002-6658-6062}{ORCID})
+  \item Damiano Oldoni \email{damiano.oldoni@inbo.be} (\href{https://orcid.org/0000-0003-3445-7562}{ORCID})
+}
+
 Other contributors:
 \itemize{
-  \item Damiano Oldoni \email{damiano.oldoni@inbo.be} (\href{https://orcid.org/0000-0003-3445-7562}{ORCID}) [contributor]
-  \item Pieter Huybrechts \email{pieter.huybrechts@inbo.be} (\href{https://orcid.org/0000-0002-6658-6062}{ORCID}) [contributor]
-  \item Sanne Govaert \email{sanne.govaert@inbo.be} (\href{https://orcid.org/0000-0002-8939-1305}{ORCID}) [contributor]
   \item Research Institute for Nature and Forest (INBO) (https://www.vlaanderen.be/inbo/en-gb/) [copyright holder]
   \item LifeWatch Belgium (https://lifewatch.be) [funder]
 }

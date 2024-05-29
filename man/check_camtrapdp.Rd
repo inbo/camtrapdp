@@ -17,4 +17,8 @@ check_camtrapdp(x)
 Checks if an object is a Camera Trap Data Package object with the required
 properties.
 }
+\examples{
+x <- example_dataset()
+check_camtrapdp(x) # Invisible return of x if valid
+}
 \concept{check functions}

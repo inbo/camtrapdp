@@ -10,9 +10,8 @@
 #' @family transformation functions
 #' @export
 #' @section Transformation details:
-#' This function **follows [Reyserhove et al. 2024](
-#' https://doi.org/10.35035/doc-0qzp-2x37) recommendations** and transform data
-#' to:
+#' This function **follows recommendations** in Reyserhove et al. (2023)
+#' \doi{10.35035/doc-0qzp-2x37} and transform data to:
 #' - An [Occurrence core](
 #' https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core).
 #' - An [Audubon/Audiovisual Media Description extension](
@@ -45,10 +44,11 @@
 #'     `rightsHolder`.
 #'   - `dwc:dataGeneralizations`: set if `coordinatePrecision` is defined.
 #' @examples
-#' \dontrun{
 #' x <- example_dataset()
-#' write_dwc(x)
-#' }
+#' write_dwc(x, directory = "my_directory")
+#'
+#' # Clean up (don't do this if you want to keep your files)
+#' unlink("my_directory", recursive = TRUE)
 write_dwc <- function(x, directory = ".") {
   check_camtrapdp(x)
 
@@ -80,8 +80,8 @@ write_dwc <- function(x, directory = ".") {
   # Start transformation
   cli::cli_h2("Transforming data to Darwin Core")
 
-  # Create dwc_occurrence
-  dwc_occurrence <-
+  # Create Darwin Core Occurrence core
+  occurrence <-
     observations(x) %>%
     dplyr::left_join(deployments(x), by = "deploymentID") %>%
     dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
@@ -222,8 +222,8 @@ write_dwc <- function(x, directory = ".") {
       "identificationRemarks", "taxonID", "scientificName", "kingdom"
     )
 
-  # Create audiovisual extension
-  dwc_audiovisual <-
+  # Create Audubon/Audiovisual Media Description extension
+  multimedia <-
     observations(x) %>%
     dplyr::select(-"mediaID") %>%
     dplyr::left_join(
@@ -273,20 +273,20 @@ write_dwc <- function(x, directory = ".") {
     )
 
   # Write files
-  dwc_occurrence_path <- file.path(directory, "dwc_occurrence.csv")
-  dwc_audiovisual_path <- file.path(directory, "dwc_audiovisual.csv")
+  occurrence_path <- file.path(directory, "occurrence.csv")
+  multimedia_path <- file.path(directory, "multimedia.csv")
   meta_xml_path <- file.path(directory, "meta.xml")
   cli::cli_h2("Writing files")
   cli::cli_ul(c(
-    "{.file {dwc_occurrence_path}}",
-    "{.file {dwc_audiovisual_path}}",
+    "{.file {occurrence_path}}",
+    "{.file {multimedia_path}}",
     "{.file {meta_xml_path}}"
   ))
   if (!dir.exists(directory)) {
     dir.create(directory, recursive = TRUE)
   }
-  readr::write_csv(dwc_occurrence, dwc_occurrence_path, na = "")
-  readr::write_csv(dwc_audiovisual, dwc_audiovisual_path, na = "")
+  readr::write_csv(occurrence, occurrence_path, na = "")
+  readr::write_csv(multimedia, multimedia_path, na = "")
   file.copy(
     system.file("extdata", "meta.xml", package = "camtrapdp"), # Static meta.xml
     meta_xml_path
@@ -294,8 +294,8 @@ write_dwc <- function(x, directory = ".") {
 
   # Return list with Darwin Core data invisibly
   return <- list(
-    dwc_occurrence = dplyr::as_tibble(dwc_occurrence),
-    dwc_audiovisual = dplyr::as_tibble(dwc_audiovisual)
+    occurrence = dplyr::as_tibble(occurrence),
+    multimedia = dplyr::as_tibble(multimedia)
   )
   invisible(return)
 }
