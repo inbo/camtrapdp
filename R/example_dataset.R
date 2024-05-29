@@ -14,9 +14,9 @@ example_dataset <- function() {
     "https://raw.githubusercontent.com/tdwg/camtrap-dp",
     "1.0/example/datapackage.json"
   )
-  example_dataset_cache(url)
+  read_camtrapdp_cache(url)
 }
 
-example_dataset_cache <- memoise(function(url) {
-  read_camtrapdp(url)
+read_camtrapdp_cache <- memoise::memoise(function(file) {
+  read_camtrapdp(file)
 })
