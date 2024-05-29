@@ -44,7 +44,7 @@ devtools::install_github("inbo/camtrapdp")
 
 ## Usage
 
-With camtrapdp you can **read** a (downloaded) Camtrap DP dataset into your R environment:
+With camtrapdp you can **read** a Camtrap DP dataset into your R environment:
 
 ```{r}
 library(camtrapdp)
@@ -56,20 +56,24 @@ x
 
 `read_camtrapdp()` will automatically **convert** an older version of Camtrap DP to the latest version. It will also make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and `eventID`s (found in the observations) to the media.
 
-To access the data, use one of the [accessor functions](https://inbo.github.io/camtrapdp/reference/index.html#accessor-functions) like `locations()`:
+To **access** the data, use one of the [accessor functions](https://inbo.github.io/camtrapdp/reference/index.html#accessor-and-assignment-functions) like `locations()`:
 
 ```{r}
 locations(x)
 ```
 
-One can also **filter** data, which will automatically filter the related data. For example, here are all the event-based observations that have a media file that was marked as favourite:
+You can also **filter** data with one of the [filter functions](https://inbo.github.io/camtrapdp/reference/index.html#filter-functions), which automatically filter the related data. For example, here we filter observations on scientific name(s) and return the associated events in that subset:
 
 ```{r}
 x %>%
-  filter_observations(observationLevel == "event") %>%
-  filter_media(favorite == TRUE) %>%
-  observations()
+  filter_observations(
+    scientificName %in% c("Martes foina", "Mustela putorius")
+  ) %>%
+  events()
 ```
+
+For more functionality, see the [function reference](https://inbo.github.io/camtrapdp/reference/index.html).
+
 ## Meta
 
 - We welcome [contributions](https://inbo.github.io/camtrapdp/CONTRIBUTING.html) including bug reports.

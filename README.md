@@ -43,8 +43,8 @@ devtools::install_github("inbo/camtrapdp")
 
 ## Usage
 
-With camtrapdp you can **read** a (downloaded) Camtrap DP dataset into
-your R environment:
+With camtrapdp you can **read** a Camtrap DP dataset into your R
+environment:
 
 ``` r
 library(camtrapdp)
@@ -65,8 +65,8 @@ Camtrap DP to the latest version. It will also make the data easier to
 use, by assigning taxonomic information (found in the metadata) to the
 observations and `eventID`s (found in the observations) to the media.
 
-To access the data, use one of the [accessor
-functions](https://inbo.github.io/camtrapdp/reference/index.html#accessor-functions)
+To **access** the data, use one of the [accessor
+functions](https://inbo.github.io/camtrapdp/reference/index.html#accessor-and-assignment-functions)
 like `locations()`:
 
 ``` r
@@ -80,27 +80,29 @@ locations(x)
 #> 4 ce943ced   B_DM_val 4_'t WAD              50.7      4.01                   187
 ```
 
-One can also **filter** data, which will automatically filter the
-related data. For example, here are all the event-based observations
-that have a media file that was marked as favourite:
+You can also **filter** data with one of the [filter
+functions](https://inbo.github.io/camtrapdp/reference/index.html#filter-functions),
+which automatically filter the related data. For example, here we filter
+observations on scientific name(s) and return the associated events in
+that subset:
 
 ``` r
 x %>%
-  filter_observations(observationLevel == "event") %>%
-  filter_media(favorite == TRUE) %>%
-  observations()
-#> # A tibble: 1 × 32
-#>   observationID deploymentID mediaID eventID  eventStart         
-#>   <chr>         <chr>        <chr>   <chr>    <dttm>             
-#> 1 f5707f70      29b7d356     <NA>    45ee3031 2020-08-02 05:00:14
-#> # ℹ 27 more variables: eventEnd <dttm>, observationLevel <fct>,
-#> #   observationType <fct>, cameraSetupType <fct>, scientificName <chr>,
-#> #   count <dbl>, lifeStage <fct>, sex <fct>, behavior <chr>,
-#> #   individualID <chr>, individualPositionRadius <dbl>,
-#> #   individualPositionAngle <dbl>, individualSpeed <dbl>, bboxX <dbl>,
-#> #   bboxY <dbl>, bboxWidth <dbl>, bboxHeight <dbl>, classificationMethod <fct>,
-#> #   classifiedBy <chr>, classificationTimestamp <dttm>, …
+  filter_observations(
+    scientificName %in% c("Martes foina", "Mustela putorius")
+  ) %>%
+  events()
+#> # A tibble: 4 × 4
+#>   deploymentID eventID  eventStart          eventEnd           
+#>   <chr>        <chr>    <dttm>              <dttm>             
+#> 1 577b543a     976129e2 2020-06-19 22:31:51 2020-06-19 22:31:56
+#> 2 577b543a     b4b39b00 2020-06-23 23:33:53 2020-06-23 23:33:58
+#> 3 577b543a     5be4f4ed 2020-06-28 22:01:12 2020-06-28 22:01:18
+#> 4 577b543a     a60816f2 2020-06-28 23:33:16 2020-06-28 23:33:22
 ```
+
+For more functionality, see the [function
+reference](https://inbo.github.io/camtrapdp/reference/index.html).
 
 ## Meta
 
