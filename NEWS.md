@@ -1,4 +1,4 @@
-# camtrapdp (development version)
+# camtrapdp 0.2.0
 
 * New function `read_camtrapdp()` reads data files from a Camtrap DP into memory (#9). It will make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and `eventID`s (found in the observations) to the media (#37).
 * New accessor functions `deployments()`, `media()` and `observations()` return a data frame with the deployments, media and observations respectively (#29). These functions also have an assignment equivalent (#50).
