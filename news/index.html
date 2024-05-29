@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">camtrapdp</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,13 +45,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="camtrapdp-development-version">camtrapdp (development version)<a class="anchor" aria-label="anchor" href="#camtrapdp-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="camtrapdp-020">camtrapdp 0.2.0<a class="anchor" aria-label="anchor" href="#camtrapdp-020"></a></h2>
 <ul><li>New function <code><a href="../reference/read_camtrapdp.html">read_camtrapdp()</a></code> reads data files from a Camtrap DP into memory (<a href="https://github.com/inbo/camtrapdp/issues/9" class="external-link">#9</a>). It will make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and <code>eventID</code>s (found in the observations) to the media (<a href="https://github.com/inbo/camtrapdp/issues/37" class="external-link">#37</a>).</li>
 <li>New accessor functions <code><a href="../reference/deployments.html">deployments()</a></code>, <code><a href="../reference/media.html">media()</a></code> and <code><a href="../reference/observations.html">observations()</a></code> return a data frame with the deployments, media and observations respectively (<a href="https://github.com/inbo/camtrapdp/issues/29" class="external-link">#29</a>). These functions also have an assignment equivalent (<a href="https://github.com/inbo/camtrapdp/issues/50" class="external-link">#50</a>).</li>
 <li>New accessor functions <code><a href="../reference/locations.html">locations()</a></code>, <code><a href="../reference/events.html">events()</a></code> and <code><a href="../reference/taxa.html">taxa()</a></code> return a data frame with unique locations, events and taxa respectively (<a href="https://github.com/inbo/camtrapdp/issues/22" class="external-link">#22</a>, <a href="https://github.com/inbo/camtrapdp/issues/57" class="external-link">#57</a>, <a href="https://github.com/inbo/camtrapdp/issues/17" class="external-link">#17</a>).</li>
 <li>New functions <code><a href="../reference/filter_deployments.html">filter_deployments()</a></code>, <code><a href="../reference/filter_observations.html">filter_observations()</a></code> and <code><a href="../reference/filter_media.html">filter_media()</a></code> allow to filter data. They work similarly to <a href="https://cran.r-project.org/package=dplyr" class="external-link">dplyr</a>’s <code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code> (<a href="https://github.com/inbo/camtrapdp/issues/23" class="external-link">#23</a>).</li>
 <li>New function <code><a href="../reference/write_dwc.html">write_dwc()</a></code> transforms a Camera Trap Data Package to a Darwin Core Archive (<a href="https://github.com/inbo/camtrapdp/issues/55" class="external-link">#55</a>).</li>
-<li>New function <code>example_package()</code> returns the latest Camtrap DP example dataset and caches the result (<a href="https://github.com/inbo/camtrapdp/issues/24" class="external-link">#24</a>).</li>
+<li>New function <code>example_package()</code> returns the latest Camtrap DP example dataset and caches the result (<a href="https://github.com/inbo/camtrapdp/issues/24" class="external-link">#24</a>, <a href="https://github.com/inbo/camtrapdp/issues/67" class="external-link">#67</a>).</li>
 <li>New function <code><a href="../reference/version.html">version()</a></code> allows to get the version of a camtrapdp object.</li>
 <li>New internal function <code><a href="../reference/check_camtrapdp.html">check_camtrapdp()</a></code> validates a camtrapdp object (<a href="https://github.com/inbo/camtrapdp/issues/34" class="external-link">#34</a>).</li>
 <li>New internal function <code>convert()</code> converts camtrapdp objects to the latest version. This function is currently not used, as the only supported version is Camtrap DP 1.0 (<a href="https://github.com/inbo/camtrapdp/issues/9" class="external-link">#9</a>).</li>
@@ -62,7 +62,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Peter Desmet, <a href="https://lifewatch.be" class="external-link"><img src="https://www.lifewatch.be/sites/lifewatch.be/themes/lifewatchportal/images/header_lw_logo.png" width="72"></a>.</p>
+  <p>Developed by Peter Desmet, Sanne Govaert, Pieter Huybrechts, Damiano Oldoni, <a href="https://lifewatch.be" class="external-link"><img src="https://www.lifewatch.be/sites/lifewatch.be/themes/lifewatchportal/images/header_lw_logo.png" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
