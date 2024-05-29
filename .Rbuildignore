@@ -1,10 +1,11 @@
-^camtrapdp\.Rproj$
-^\.Rproj\.user$
-^LICENSE\.md$
 ^\.github$
-^README\.Rmd$
+^\.Rproj\.user$
 ^_pkgdown\.yml$
-^docs$
-^pkgdown$
+^camtrapdp\.Rproj$
+^CITATION\.cff$
 ^codemeta\.json$
 ^cran-comments\.md$
+^docs$
+^LICENSE\.md$
+^pkgdown$
+^README\.Rmd$
