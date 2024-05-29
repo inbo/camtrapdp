@@ -6,12 +6,17 @@
 #' @return Camera Trap Data Package object.
 #' @family sample data
 #' @export
+#' @importFrom memoise memoise
 #' @examples
 #' example_dataset()
 example_dataset <- function() {
-  camtrapdp_1.0 <- file.path(
+  url <- file.path(
     "https://raw.githubusercontent.com/tdwg/camtrap-dp",
     "1.0/example/datapackage.json"
   )
-  read_camtrapdp(camtrapdp_1.0)
+  read_camtrapdp_cache(url)
 }
+
+read_camtrapdp_cache <- memoise::memoise(function(file) {
+  read_camtrapdp(file)
+})
