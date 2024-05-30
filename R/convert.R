@@ -19,7 +19,7 @@ convert <- function(x, convert_to = "1.0") {
   x
 }
 
-# This is how a conversion function would look like
+# How a conversion function would look like
 # #' Convert a Camtrap DP 0.1.6 to 1.0
 # #' @noRd
 # convert_0.1.6_to_1.0 <- function(x) {
