@@ -10,12 +10,12 @@
 #' @noRd
 convert <- function(x, convert_to = "1.0") {
   # Convert until the version number matches the expected version
-  # while (version(x) != convert_to) {
-  #   x <- switch(version(x),
-  #     # "0.1.6" = convert_0.1.6_to_1.0(x),
-  #     "1.0" = x
-  #   )
-  # }
+  while (version(x) != convert_to) {
+    x <- switch(version(x),
+      # "0.1.6" = convert_0.1.6_to_1.0(x),
+      "1.0" = x
+    )
+  }
   x
 }
 
