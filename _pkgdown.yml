@@ -27,6 +27,7 @@ reference:
 - title: "Miscellaneous functions"
   contents:
   - has_concept("check functions")
+  - has_concept("misc functions")
 - title: "Sample datasets"
   contents:
   - has_concept("sample data")

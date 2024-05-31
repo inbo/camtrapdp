@@ -28,7 +28,6 @@ Other accessor functions:
 \code{\link{events}()},
 \code{\link{locations}()},
 \code{\link{media}()},
-\code{\link{observations}()},
-\code{\link{version}()}
+\code{\link{observations}()}
 }
 \concept{accessor functions}

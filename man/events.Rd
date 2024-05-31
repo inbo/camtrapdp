@@ -35,7 +35,6 @@ Other accessor functions:
 \code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()},
-\code{\link{taxa}()},
-\code{\link{version}()}
+\code{\link{taxa}()}
 }
 \concept{accessor functions}

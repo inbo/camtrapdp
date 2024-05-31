@@ -32,13 +32,4 @@ contain the URL to the used Camtrap DP standard.
 x <- example_dataset()
 version(x)
 }
-\seealso{
-Other accessor functions: 
-\code{\link{deployments}()},
-\code{\link{events}()},
-\code{\link{locations}()},
-\code{\link{media}()},
-\code{\link{observations}()},
-\code{\link{taxa}()}
-}
-\concept{accessor functions}
+\concept{misc functions}
