@@ -51,7 +51,7 @@ round_coordinates <- function(x, digits = 3) {
     msg = "`digits` must be 1, 2 or 3."
   )
 
-  deployments <- x$data$deployments
+  deployments <- deployments(x)
 
   # Detect original number of digits from coordinatePrecision or data
   original_precision <- x$coordinatePrecision
