@@ -1,9 +1,8 @@
 test_that("round_coordinates() returns error on invalid digits", {
-  error_msg <- "`digits` must be 1, 2 or 3."
   x <- example_dataset()
-  expect_error(round_coordinates(x, digits = 0), error_msg)
-  expect_error(round_coordinates(x, digits = 4), error_msg)
-  expect_error(round_coordinates(x, digits = 1.5), error_msg)
+  expect_error(round_coordinates(x, digits = 0), class = "camtrapdp_error_digits")
+  expect_error(round_coordinates(x, digits = 4), class = "camtrapdp_error_digits")
+  expect_error(round_coordinates(x, digits = 1.5), class = "camtrapdp_error_digits")
 })
 
 test_that("round_coordinates() sets lat, long, uncertainty and precision", {
@@ -73,25 +72,11 @@ test_that("round_coordinates() does not allow to round to higher precision", {
   x2 <- round_coordinates(x, 2)
 
   # Based on package$coordinatePrecision
-  expect_error(
-    round_coordinates(x2, 3),
-    paste(
-      "Can't round from 2 to 3 digits.",
-      "`2` is derived from the `package$coordinatePrecision=0.01`."
-    ),
-    fixed = TRUE
-  )
+  expect_error(round_coordinates(x2, 3), class = "camtrapdp_error_precision")
 
   # Based on data
   x2$coordinatePrecision <- NULL
-  expect_error(
-    round_coordinates(x2, 3),
-    paste(
-      "Can't round from 2 to 3 digits.",
-      "`2` is the maximum number of decimals for latitude in the data."
-    ),
-    fixed = TRUE
-  )
+  expect_error(round_coordinates(x2, 3), class = "camtrapdp_error_precision_max")
 })
 
 test_that("round_coordinates() doesn't overestimate uncertainty on multiple runs", {

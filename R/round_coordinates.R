@@ -46,10 +46,12 @@
 #' # coordinateUncertainty is set in data: original uncertainty (or 30) + 157 m
 #' x_rounded2$data$deployments$coordinateUncertainty
 round_coordinates <- function(x, digits = 3) {
-  assertthat::assert_that(
-    digits %in% c(1, 2, 3),
-    msg = "`digits` must be 1, 2 or 3."
-  )
+  if (!(digits %in% c(1, 2, 3))) {
+    cli::cli_abort(
+      c("`digits` must be 1, 2 or 3."),
+      class = "camtrapdp_error_digits"
+    )
+  }
 
   deployments <- deployments(x)
 
@@ -57,14 +59,15 @@ round_coordinates <- function(x, digits = 3) {
   original_precision <- x$coordinatePrecision
   if (!is.null(original_precision)) {
     original_digits <- -log10(original_precision) # 0.001 -> 3
-    assertthat::assert_that(
-      digits <= original_digits, # 0.1 > 0.01
-      msg = glue::glue(
-        "Can't round from {original_digits} to {digits} digits. ",
-        "`{original_digits}` is derived from the ",
-        "`x$coordinatePrecision={original_precision}`."
+    if (digits >= original_digits) {
+      cli::cli_abort(
+        c("Can't round from {original_digits} to {digits} digits. ",
+          "`{original_digits}` is derived from the ",
+          "`x$coordinatePrecision={original_precision}`."),
+        class = "camtrapdp_error_precision"
       )
-    )
+    }
+
   } else {
     original_digits <-
       deployments %>%
@@ -73,14 +76,14 @@ round_coordinates <- function(x, digits = 3) {
       ) %>%
       dplyr::summarize(max(.data$lat_digits)) %>%
       dplyr::pull()
-    assertthat::assert_that(
-      digits <= original_digits, # 0.1 > 0.01
-      msg = glue::glue(
-        "Can't round from {original_digits} to {digits} digits. ",
-        "`{original_digits}` is the maximum number of decimals for latitude ",
-        "in the data."
+    if (digits >= original_digits) {
+      cli::cli_abort(
+        c("Can't round from {original_digits} to {digits} digits. ",
+          "`{original_digits}` is the maximum number of decimals for latitude ",
+          "in the data."),
+        class = "camtrapdp_error_precision_max"
       )
-    )
+    }
   }
 
   # Set uncertainties
