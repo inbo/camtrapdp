@@ -1,8 +1,14 @@
 test_that("round_coordinates() returns error on invalid digits", {
   x <- example_dataset()
-  expect_error(round_coordinates(x, digits = 0), class = "camtrapdp_error_digits")
-  expect_error(round_coordinates(x, digits = 4), class = "camtrapdp_error_digits")
-  expect_error(round_coordinates(x, digits = 1.5), class = "camtrapdp_error_digits")
+  expect_error(
+    round_coordinates(x, digits = 0),
+    class = "camtrapdp_error_digits")
+  expect_error(
+    round_coordinates(x, digits = 4),
+    class = "camtrapdp_error_digits")
+  expect_error(
+    round_coordinates(x, digits = 1.5),
+    class = "camtrapdp_error_digits")
 })
 
 test_that("round_coordinates() sets lat, long, uncertainty and precision", {
@@ -61,7 +67,9 @@ test_that("round_coordinates() does not allow to round to higher precision", {
 
   # Based on data
   x2$coordinatePrecision <- NULL
-  expect_error(round_coordinates(x2, 3), class = "camtrapdp_error_precision_max")
+  expect_error(
+    round_coordinates(x2, 3),
+    class = "camtrapdp_error_precision_max")
 })
 
 test_that("round_coordinates() doesn't overestimate uncertainty on multiple runs", {
