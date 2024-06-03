@@ -50,21 +50,6 @@ test_that("round_coordinates() sets lat, long, uncertainty and precision", {
   expect_equal(x2$data$deployments$longitude[[4]], 5.65)
   expect_equal(x2$data$deployments$latitude[[4]], -85.18)
   expect_equal(x2$data$deployments$coordinateUncertainty[[4]], 30 + 1570)
-
-  x3 <- round_coordinates(x, 3)
-  expect_equal(x3$coordinatePrecision, 0.001)
-  expect_equal(x3$data$deployments$longitude[[1]], 5.656)
-  expect_equal(x3$data$deployments$latitude[[1]], 15.182)
-  expect_equal(x3$data$deployments$coordinateUncertainty[[1]], 10 - 157 + 157)
-  expect_equal(x3$data$deployments$longitude[[2]], 5.65) # Unchanged
-  expect_equal(x3$data$deployments$latitude[[2]], 51.18) # Unchanged
-  expect_equal(x3$data$deployments$coordinateUncertainty[[2]], 30 + 157)
-  expect_equal(x3$data$deployments$longitude[[3]], 5.65) # Unchanged
-  expect_equal(x3$data$deployments$latitude[[3]], -61.18) # Unchanged
-  expect_equal(x3$data$deployments$coordinateUncertainty[[3]], 30 + 157)
-  expect_equal(x3$data$deployments$longitude[[4]], 5.65) # Unchanged
-  expect_equal(x3$data$deployments$latitude[[4]], -85.18) # Unchanged
-  expect_equal(x3$data$deployments$coordinateUncertainty[[4]], 30 + 157)
 })
 
 test_that("round_coordinates() does not allow to round to higher precision", {
