@@ -38,13 +38,13 @@
 #' @examples
 #' # Round coordinates of example package to 3 digits
 #' x <- example_dataset()
-#' x_rounded <- round_coordinates(x, 3)
+#' x_rounded2 <- round_coordinates(x, 2)
 #'
 #' # coordinatePrecision is set in metadata
-#' x_rounded$coordinatePrecision
+#' x_rounded2$coordinatePrecision
 #'
 #' # coordinateUncertainty is set in data: original uncertainty (or 30) + 157 m
-#' x_rounded$data$deployments$coordinateUncertainty
+#' x_rounded2$data$deployments$coordinateUncertainty
 round_coordinates <- function(x, digits = 3) {
   assertthat::assert_that(
     digits %in% c(1, 2, 3),
@@ -105,5 +105,5 @@ round_coordinates <- function(x, digits = 3) {
   # Update coordinatePrecision
   x$coordinatePrecision <- 1 / 10^digits
 
-  x
+  return(x)
 }
