@@ -88,18 +88,19 @@ round_coordinates <- function(x, digits = 3) {
 
   # Update longitude, latitude and coordinateUncertainty
   x$data$deployments <-
-    dplyr::mutate(deployments,
-                  longitude = round(.data$longitude, digits),
-                  latitude = round(.data$latitude, digits),
-                  coordinateUncertainty = dplyr::case_when(
-                    # No uncertainty in data: assume 30, add rounding uncertainty
-                    is.na(.data$coordinateUncertainty) ~ 30 + uncertainty[digits],
-                    # No precision in metadata: original uncertainty, add rounding uncertainty
-                    is.null(original_precision) ~ .data$coordinateUncertainty + uncertainty[digits],
-                    # Otherwise: subtract old rounding uncertainty, add new rounding uncertainty
-                    TRUE ~ .data$coordinateUncertainty - uncertainty[original_digits] + uncertainty[digits]
-                  )
-    )
+    dplyr::mutate(
+      deployments,
+      longitude = round(.data$longitude, digits),
+      latitude = round(.data$latitude, digits),
+      coordinateUncertainty =
+        dplyr::case_when(
+          # No uncertainty in data: assume 30, add rounding uncertainty
+          is.na(.data$coordinateUncertainty) ~ 30 + uncertainty[digits],
+          is.null(original_precision) ~ .data$coordinateUncertainty + uncertainty[digits],
+          # Otherwise: subtract old rounding uncertainty, add new rounding uncertainty
+          TRUE ~ .data$coordinateUncertainty - uncertainty[original_digits] + uncertainty[digits]
+          )
+      )
 
   # Update coordinatePrecision
   x$coordinatePrecision <- 1 / 10^digits
