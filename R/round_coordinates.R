@@ -37,13 +37,14 @@
 #' Chapman & Wieczorek 2020).
 #' @examples
 #' # Round coordinates of example package to 3 digits
-#' mica <- round_coordinates(mica, 3)
+#' x <- example_dataset()
+#' x_rounded <- round_coordinates(x, 3)
 #'
 #' # coordinatePrecision is set in metadata
-#' mica$coordinatePrecision
+#' x_rounded$coordinatePrecision
 #'
 #' # coordinateUncertainty is set in data: original uncertainty (or 30) + 157 m
-#' mica$data$deployments$coordinateUncertainty
+#' x_rounded$data$deployments$coordinateUncertainty
 round_coordinates <- function(x, digits = 3) {
   assertthat::assert_that(
     digits %in% c(1, 2, 3),
