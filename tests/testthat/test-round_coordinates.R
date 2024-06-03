@@ -26,7 +26,7 @@ test_that("round_coordinates() sets lat, long, uncertainty and precision", {
   expect_equal(x1$coordinatePrecision, 0.1)
   expect_equal(x1$data$deployments$longitude[[1]], 5.7)
   expect_equal(x1$data$deployments$latitude[[1]], 15.2)
-  expect_equal(x1$data$deployments$coordinateUncertainty[[1]], 10 + 15691)
+  expect_equal(x1$data$deployments$coordinateUncertainty[[1]], 10 - 157 + 15691)
   expect_equal(x1$data$deployments$longitude[[2]], 5.7)
   expect_equal(x1$data$deployments$latitude[[2]], 51.2)
   expect_equal(x1$data$deployments$coordinateUncertainty[[2]], 30 + 15691)
@@ -41,7 +41,7 @@ test_that("round_coordinates() sets lat, long, uncertainty and precision", {
   expect_equal(x2$coordinatePrecision, 0.01)
   expect_equal(x2$data$deployments$longitude[[1]], 5.66)
   expect_equal(x2$data$deployments$latitude[[1]], 15.18)
-  expect_equal(x2$data$deployments$coordinateUncertainty[[1]], 10 + 1570)
+  expect_equal(x2$data$deployments$coordinateUncertainty[[1]], 10 - 157 + 1570)
   expect_equal(x2$data$deployments$longitude[[2]], 5.65)
   expect_equal(x2$data$deployments$latitude[[2]], 51.18)
   expect_equal(x2$data$deployments$coordinateUncertainty[[2]], 30 + 1570)
@@ -56,7 +56,7 @@ test_that("round_coordinates() sets lat, long, uncertainty and precision", {
   expect_equal(x3$coordinatePrecision, 0.001)
   expect_equal(x3$data$deployments$longitude[[1]], 5.656)
   expect_equal(x3$data$deployments$latitude[[1]], 15.182)
-  expect_equal(x3$data$deployments$coordinateUncertainty[[1]], 10 + 157)
+  expect_equal(x3$data$deployments$coordinateUncertainty[[1]], 10 - 157 + 157)
   expect_equal(x3$data$deployments$longitude[[2]], 5.65) # Unchanged
   expect_equal(x3$data$deployments$latitude[[2]], 51.18) # Unchanged
   expect_equal(x3$data$deployments$coordinateUncertainty[[2]], 30 + 157)
