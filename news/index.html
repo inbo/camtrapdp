@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">camtrapdp</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,11 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.1" id="camtrapdp-021">camtrapdp 0.2.1<a class="anchor" aria-label="anchor" href="#camtrapdp-021"></a></h2>
+<ul><li>
+<code><a href="../reference/write_dwc.html">write_dwc()</a></code> no longer writes to <code>"."</code> by default, since is not allowed by CRAN policies. The user needs to explicitly define a directory (<a href="https://github.com/inbo/camtrapdp/issues/79" class="external-link">#79</a>).</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="camtrapdp-020">camtrapdp 0.2.0<a class="anchor" aria-label="anchor" href="#camtrapdp-020"></a></h2>
 <ul><li>New function <code><a href="../reference/read_camtrapdp.html">read_camtrapdp()</a></code> reads data files from a Camtrap DP into memory (<a href="https://github.com/inbo/camtrapdp/issues/9" class="external-link">#9</a>). It will make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and <code>eventID</code>s (found in the observations) to the media (<a href="https://github.com/inbo/camtrapdp/issues/37" class="external-link">#37</a>).</li>
 <li>New accessor functions <code><a href="../reference/deployments.html">deployments()</a></code>, <code><a href="../reference/media.html">media()</a></code> and <code><a href="../reference/observations.html">observations()</a></code> return a data frame with the deployments, media and observations respectively (<a href="https://github.com/inbo/camtrapdp/issues/29" class="external-link">#29</a>). These functions also have an assignment equivalent (<a href="https://github.com/inbo/camtrapdp/issues/50" class="external-link">#50</a>).</li>
@@ -58,7 +63,8 @@
 <li>
 <a href="https://cran.r-project.org/package=dplyr" class="external-link">dplyr</a>’s pipe (<code>%&gt;%</code>) is included in NAMESPACE, so you don’t have to load dplyr (or magrittr) to use it (<a href="https://github.com/inbo/camtrapdp/issues/56" class="external-link">#56</a>). <code>%&gt;%</code> and <code>.data</code> are imported at package level, so they can be used in functions without namespace (<a href="https://github.com/inbo/camtrapdp/issues/37" class="external-link">#37</a>).</li>
 </ul></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
