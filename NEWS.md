@@ -1,3 +1,7 @@
+# camtrapdp 0.2.1
+
+* `write_dwc()` no longer writes to `"."` by default, since is not allowed by CRAN policies. The user needs to explicitly define a directory (#79).
+
 # camtrapdp 0.2.0
 
 * New function `read_camtrapdp()` reads data files from a Camtrap DP into memory (#9). It will make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and `eventID`s (found in the observations) to the media (#37).
