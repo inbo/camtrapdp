@@ -49,7 +49,7 @@
 #'
 #' # Clean up (don't do this if you want to keep your files)
 #' unlink("my_directory", recursive = TRUE)
-write_dwc <- function(x, directory = ".") {
+write_dwc <- function(x, directory) {
   check_camtrapdp(x)
 
   # Set properties from metadata or default to NA when missing
