@@ -1,3 +1,5 @@
+# camtrapdp (development version)
+
 # camtrapdp 0.2.1
 
 * First release on [CRAN](https://cran.r-project.org/package=camtrapdp). 🎉
