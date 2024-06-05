@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/inbo/camtraptor/branch/main/graph/badge.svg)](https://app.codecov.io/gh/inbo/camtrapdp/)
 [![repo status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11490269.svg)](https://doi.org/10.5281/zenodo.11490269)
 <!-- badges: end -->
 
 Camtrapdp is an R package to read and manipulate Camera Trap Data Packages (Camtrap DP). [Camtrap DP](https://camtrap-dp.tdwg.org) is a data exchange format for camera trap data. With camtrapdp you can read, filter and transform data (including to [Darwin Core](https://dwc.tdwg.org)) before further analysis in e.g. [camtraptor](https://inbo.github.io/camtraptor/) or [camtrapR](https://cran.r-project.org/package=camtrapR).

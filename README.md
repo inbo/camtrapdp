@@ -13,6 +13,7 @@ checks](https://badges.cranchecks.info/worst/camtrapdp.svg)](https://cran.r-proj
 [![codecov](https://codecov.io/gh/inbo/camtraptor/branch/main/graph/badge.svg)](https://app.codecov.io/gh/inbo/camtrapdp/)
 [![repo
 status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11490269.svg)](https://doi.org/10.5281/zenodo.11490269)
 <!-- badges: end -->
 
 Camtrapdp is an R package to read and manipulate Camera Trap Data
