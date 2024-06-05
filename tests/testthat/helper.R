@@ -9,8 +9,8 @@
 #' @inheritDotParams expect_identical info label
 #' @noRd
 #' @examples
-#' expect_comform_meta("tests/testthat/_snaps/write_dwc/multimedia.csv")
-expect_comform_meta <- function(file, core = "occurrence.csv", ...) {
+#' expect_meta_match("tests/testthat/_snaps/write_dwc/multimedia.csv")
+expect_meta_match <- function(file, core = "occurrence.csv", ...) {
   core_or_extension <- ifelse(basename(file) == core, "core", "extension")
 
   # Parse reference meta.xml from inst/extdata/meta.xml
