@@ -13,9 +13,9 @@
 #' This function **follows recommendations** in Reyserhove et al. (2023)
 #' \doi{10.35035/doc-0qzp-2x37} and transform data to:
 #' - An [Occurrence core](
-#' https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core).
+#'   https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core).
 #' - An [Audubon/Audiovisual Media Description extension](
-#' https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension).
+#'   https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension).
 #' - A `meta.xml` file.
 #'
 #' Key features of the Darwin Core transformation:
