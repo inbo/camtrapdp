@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: If you use this software, please cite it using these metadata.
-title: "camtrapdp: Read and Manipulate Camera Trap Data Packages
+title: "camtrapdp: Read and Manipulate Camera Trap Data Packages"
 authors:
 - given-names: Peter
   family-names: Desmet

@@ -1,5 +1,6 @@
 # camtrapdp 0.2.1
 
+* First release on [CRAN](https://cran.r-project.org/package=camtrapdp). 🎉
 * `write_dwc()` no longer writes to `"."` by default, since this is not allowed by CRAN policies. The user needs to explicitly define a directory (#79).
 
 # camtrapdp 0.2.0
