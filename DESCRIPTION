@@ -3,13 +3,13 @@ Title: Read and Manipulate Camera Trap Data Packages
 Version: 0.2.1.9000
 Authors@R: c(
     person("Peter", "Desmet", , "peter.desmet@inbo.be", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-8442-8025")),
+           comment = c(ORCID = "0000-0002-8442-8025", affiliation = "Research Institute for Nature and Forest (INBO)")),
     person("Sanne", "Govaert", , "sanne.govaert@inbo.be", role = "aut",
-           comment = c(ORCID = "0000-0002-8939-1305")),
+           comment = c(ORCID = "0000-0002-8939-1305", affiliation = "Research Institute for Nature and Forest (INBO)")),
     person("Pieter", "Huybrechts", , "pieter.huybrechts@inbo.be", role = "aut",
-           comment = c(ORCID = "0000-0002-6658-6062")),
+           comment = c(ORCID = "0000-0002-6658-6062", affiliation = "Research Institute for Nature and Forest (INBO)")),
     person("Damiano", "Oldoni", , "damiano.oldoni@inbo.be", role = "aut",
-           comment = c(ORCID = "0000-0003-3445-7562")),
+           comment = c(ORCID = "0000-0003-3445-7562", affiliation = "Research Institute for Nature and Forest (INBO)")),
     person("Research Institute for Nature and Forest (INBO)", role = "cph",
            comment = "https://www.vlaanderen.be/inbo/en-gb/"),
     person("LifeWatch Belgium", role = "fnd",
