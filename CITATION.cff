@@ -45,8 +45,11 @@ contact:
   orcid: https://orcid.org/0000-0002-8442-8025
   affiliation: Research Institute for Nature and Forest (INBO)
 keywords:
-- R package
-- Camtrap DP
+- camtrap-dp
+- oscibio
+- r
+- r-package
+- rstats
 references:
 - type: software
   title: cli

@@ -187,10 +187,10 @@
     },
     "SystemRequirements": null
   },
-  "keywords": ["Rpackage", "CamtrapDP"],
-  "fileSize": "189.314KB",
+  "fileSize": "189.269KB",
   "releaseNotes": "https://github.com/inbo/camtrapdp/blob/master/NEWS.md",
   "readme": "https://github.com/inbo/camtrapdp/blob/main/README.md",
   "contIntegration": ["https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/inbo/camtrapdp/"],
-  "developmentStatus": "https://www.repostatus.org/#active"
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "keywords": ["camtrap-dp", "oscibio", "r", "r-package", "rstats"]
 }
