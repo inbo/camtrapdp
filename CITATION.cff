@@ -1,28 +1,45 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
 cff-version: 1.2.0
-message: If you use this software, please cite it using these metadata.
-title: "camtrapdp: Read and Manipulate Camera Trap Data Packages"
-authors:
-- given-names: Peter
-  family-names: Desmet
-  orcid: 0000-0002-8442-8025
-- given-names: Sanne
-  family-names: Govaert
-  orcid: 0000-0002-8939-1305
-- given-names: Pieter
-  family-names: Huybrechts
-  orcid: 0000-0002-6658-6062
-- given-names: Damiano
-  family-names: Oldoni
-  orcid: 0000-0003-3445-7562
-keywords:
-- R package
-- Camtrap DP
-contact:
-- given-names: Peter
-  family-names: Desmet
-  orcid: 0000-0002-8442-8025
-doi: ~
-license: MIT
-repository-code: https://github.com/inbo/camtrapdp
+title: 'camtrapdp: Read and Manipulate Camera Trap Data Packages'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
 type: software
+authors:
+  - given-names: Peter
+    family-names: Desmet
+    orcid: 'https://orcid.org/0000-0002-8442-8025'
+    affiliation: Research Institute for Nature and Forest (INBO)
+  - given-names: Sanne
+    family-names: Govaert
+    orcid: 'https://orcid.org/0000-0002-8939-1305'
+    affiliation: Research Institute for Nature and Forest (INBO)
+  - given-names: Pieter
+    family-names: Huybrechts
+    orcid: 'https://orcid.org/0000-0002-6658-6062'
+    affiliation: Research Institute for Nature and Forest (INBO)
+  - given-names: Damiano
+    family-names: Oldoni
+    orcid: 'https://orcid.org/0000-0003-3445-7562'
+    affiliation: Research Institute for Nature and Forest (INBO)
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.11490269
+repository-code: 'https://github.com/inbo/camtrapdp'
+url: 'https://inbo.github.io/camtrapdp/'
+repository-artifact: 'https://cran.r-project.org/package=camtrapdp'
+abstract: >-
+  Camtrapdp is an R package to read and manipulate Camera
+  Trap Data Packages (Camtrap DP). Camtrap DP
+  (https://camtrap-dp.tdwg.org) is a data exchange format
+  for camera trap data. With camtrapdp you can read, filter
+  and transform data (including to Darwin Core) before
+  further analysis in e.g. camtraptor or camtrapR.
+keywords:
+  - R package
+  - Camtrap DP
+license: MIT
 version: 0.2.1
+
