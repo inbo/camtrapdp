@@ -1,45 +1,205 @@
-# This CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to generate yours today!
-
+# -----------------------------------------------------------
+# CITATION file created with {cffr} R package, v0.5.0
+# See also: https://docs.ropensci.org/cffr/
+# -----------------------------------------------------------
+ 
 cff-version: 1.2.0
-title: 'camtrapdp: Read and Manipulate Camera Trap Data Packages'
-message: >-
-  If you use this software, please cite it using the
-  metadata from this file.
+message: 'To cite package "camtrapdp" in publications use:'
 type: software
-authors:
-  - given-names: Peter
-    family-names: Desmet
-    orcid: 'https://orcid.org/0000-0002-8442-8025'
-    affiliation: Research Institute for Nature and Forest (INBO)
-  - given-names: Sanne
-    family-names: Govaert
-    orcid: 'https://orcid.org/0000-0002-8939-1305'
-    affiliation: Research Institute for Nature and Forest (INBO)
-  - given-names: Pieter
-    family-names: Huybrechts
-    orcid: 'https://orcid.org/0000-0002-6658-6062'
-    affiliation: Research Institute for Nature and Forest (INBO)
-  - given-names: Damiano
-    family-names: Oldoni
-    orcid: 'https://orcid.org/0000-0003-3445-7562'
-    affiliation: Research Institute for Nature and Forest (INBO)
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.11490269
-repository-code: 'https://github.com/inbo/camtrapdp'
-url: 'https://inbo.github.io/camtrapdp/'
-repository-artifact: 'https://cran.r-project.org/package=camtrapdp'
-abstract: >-
-  Camtrapdp is an R package to read and manipulate Camera
-  Trap Data Packages (Camtrap DP). Camtrap DP
-  (https://camtrap-dp.tdwg.org) is a data exchange format
-  for camera trap data. With camtrapdp you can read, filter
-  and transform data (including to Darwin Core) before
-  further analysis in e.g. camtraptor or camtrapR.
-keywords:
-  - R package
-  - Camtrap DP
 license: MIT
-version: 0.2.1
-
+title: 'camtrapdp: Read and Manipulate Camera Trap Data Packages'
+version: 0.2.1.9000
+abstract: Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP'
+  (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data.
+  With 'camtrapdp' you can read, filter and transform data (including to Darwin Core)
+  before further analysis in e.g. 'camtraptor' or 'camtrapR'.
+authors:
+- family-names: Desmet
+  given-names: Peter
+  email: peter.desmet@inbo.be
+  orcid: https://orcid.org/0000-0002-8442-8025
+  affiliation: Research Institute for Nature and Forest (INBO)
+- family-names: Govaert
+  given-names: Sanne
+  email: sanne.govaert@inbo.be
+  orcid: https://orcid.org/0000-0002-8939-1305
+  affiliation: Research Institute for Nature and Forest (INBO)
+- family-names: Huybrechts
+  given-names: Pieter
+  email: pieter.huybrechts@inbo.be
+  orcid: https://orcid.org/0000-0002-6658-6062
+  affiliation: Research Institute for Nature and Forest (INBO)
+- family-names: Oldoni
+  given-names: Damiano
+  email: damiano.oldoni@inbo.be
+  orcid: https://orcid.org/0000-0003-3445-7562
+  affiliation: Research Institute for Nature and Forest (INBO)
+repository: https://CRAN.R-project.org/package=camtrapdp
+repository-code: https://github.com/inbo/camtrapdp
+url: https://inbo.github.io/camtrapdp/
+date-released: '2024-06-05'
+contact:
+- family-names: Desmet
+  given-names: Peter
+  email: peter.desmet@inbo.be
+  orcid: https://orcid.org/0000-0002-8442-8025
+  affiliation: Research Institute for Nature and Forest (INBO)
+keywords:
+- camtrap-dp
+- oscibio
+- r
+- r-package
+- rstats
+references:
+- type: software
+  title: cli
+  abstract: 'cli: Helpers for Developing Command Line Interfaces'
+  notes: Imports
+  url: https://cli.r-lib.org
+  repository: https://CRAN.R-project.org/package=cli
+  authors:
+  - family-names: Csárdi
+    given-names: Gábor
+    email: csardi.gabor@gmail.com
+  year: '2024'
+- type: software
+  title: dplyr
+  abstract: 'dplyr: A Grammar of Data Manipulation'
+  notes: Imports
+  url: https://dplyr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=dplyr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+    orcid: https://orcid.org/0000-0003-4757-117X
+  - family-names: François
+    given-names: Romain
+    orcid: https://orcid.org/0000-0002-2444-4226
+  - family-names: Henry
+    given-names: Lionel
+  - family-names: Müller
+    given-names: Kirill
+    orcid: https://orcid.org/0000-0002-1416-3412
+  - family-names: Vaughan
+    given-names: Davis
+    email: davis@posit.co
+    orcid: https://orcid.org/0000-0003-4777-038X
+  year: '2024'
+- type: software
+  title: frictionless
+  abstract: 'frictionless: Read and Write Frictionless Data Packages'
+  notes: Imports
+  url: https://docs.ropensci.org/frictionless/
+  repository: https://CRAN.R-project.org/package=frictionless
+  authors:
+  - family-names: Desmet
+    given-names: Peter
+    email: peter.desmet.work@gmail.com
+    orcid: https://orcid.org/0000-0002-8442-8025
+  - family-names: Oldoni
+    given-names: Damiano
+    email: damiano.oldoni@inbo.be
+    orcid: https://orcid.org/0000-0003-3445-7562
+  - family-names: Huybrechts
+    given-names: Pieter
+    email: pieter.huybrechts@inbo.be
+    orcid: https://orcid.org/0000-0002-6658-6062
+  version: '>= 1.1.0'
+  year: '2024'
+- type: software
+  title: memoise
+  abstract: 'memoise: ''Memoisation'' of Functions'
+  notes: Imports
+  url: https://memoise.r-lib.org
+  repository: https://CRAN.R-project.org/package=memoise
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Chang
+    given-names: Winston
+    email: winston@rstudio.com
+  - family-names: Müller
+    given-names: Kirill
+    email: krlmlr+r@mailbox.org
+  - family-names: Cook
+    given-names: Daniel
+    email: danielecook@gmail.com
+  year: '2024'
+- type: software
+  title: purrr
+  abstract: 'purrr: Functional Programming Tools'
+  notes: Imports
+  url: https://purrr.tidyverse.org/
+  repository: https://CRAN.R-project.org/package=purrr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+    orcid: https://orcid.org/0000-0003-4757-117X
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@rstudio.com
+  year: '2024'
+- type: software
+  title: readr
+  abstract: 'readr: Read Rectangular Text Data'
+  notes: Imports
+  url: https://readr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=readr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Bryan
+    given-names: Jennifer
+    email: jenny@posit.co
+    orcid: https://orcid.org/0000-0002-6983-2759
+  year: '2024'
+- type: software
+  title: lubridate
+  abstract: 'lubridate: Make Dealing with Dates a Little Easier'
+  notes: Suggests
+  url: https://lubridate.tidyverse.org
+  repository: https://CRAN.R-project.org/package=lubridate
+  authors:
+  - family-names: Spinu
+    given-names: Vitalie
+    email: spinuvit@gmail.com
+  - family-names: Grolemund
+    given-names: Garrett
+  - family-names: Wickham
+    given-names: Hadley
+  year: '2024'
+- type: software
+  title: testthat
+  abstract: 'testthat: Unit Testing for R'
+  notes: Suggests
+  url: https://testthat.r-lib.org
+  repository: https://CRAN.R-project.org/package=testthat
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2024'
+  version: '>= 3.0.0'
+- type: software
+  title: xml2
+  abstract: 'xml2: Parse XML'
+  notes: Suggests
+  url: https://xml2.r-lib.org/
+  repository: https://CRAN.R-project.org/package=xml2
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Ooms
+    given-names: Jeroen
+  year: '2024'

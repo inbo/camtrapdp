@@ -4,17 +4,23 @@
   "identifier": "camtrapdp",
   "description": "Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP' (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data. With 'camtrapdp' you can read, filter and transform data (including to Darwin Core) before further analysis in e.g. 'camtraptor' or 'camtrapR'.",
   "name": "camtrapdp: Read and Manipulate Camera Trap Data Packages",
-  "relatedLink": "https://inbo.github.io/camtrapdp/",
+  "relatedLink": ["https://inbo.github.io/camtrapdp/", "https://CRAN.R-project.org/package=camtrapdp"],
   "codeRepository": "https://github.com/inbo/camtrapdp",
   "issueTracker": "https://github.com/inbo/camtrapdp/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.1",
+  "version": "0.2.1.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
   "runtimePlatform": "R version 4.2.3 (2023-03-15)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -181,9 +187,10 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "188.364KB",
+  "fileSize": "189.269KB",
   "releaseNotes": "https://github.com/inbo/camtrapdp/blob/master/NEWS.md",
   "readme": "https://github.com/inbo/camtrapdp/blob/main/README.md",
   "contIntegration": ["https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/inbo/camtrapdp/"],
-  "developmentStatus": "https://www.repostatus.org/#active"
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "keywords": ["camtrap-dp", "oscibio", "r", "r-package", "rstats"]
 }
