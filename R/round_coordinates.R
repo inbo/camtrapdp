@@ -54,11 +54,9 @@
 round_coordinates <- function(x, digits = 3) {
 
   if (is.null(digits)) {
-    if(is.null(deployments(x)$coordinateUncertainty)){
-      x$data$deployments <-
-        deployments(x) %>%
-        dplyr::mutate(coordinateUncertainty = 30)
-    }
+    x$data$deployments <-
+      deployments(x) %>%
+      dplyr::mutate(coordinateUncertainty = 30)
 
   } else {
 
