@@ -6,9 +6,8 @@
 #' sensitive species and/or prevent theft of active cameras.
 #'
 #' @inheritParams check_camtrapdp
-#' @param digits NULL or number of decimal places to round coordinates to (`1`,
-#' `2` or `3`). When `digits` = NULL, `coordinateUncertainty` is set to 30 m
-#' and `coordinatePrecicion` remains unchanged.
+#' @param digits Number of decimal places to round coordinates to (`1`,
+#' `2` or `3`).
 #' @return `x` with rounded coordinates as well as updated
 #'   `coordinateUncertainty` (in deployments) and `coordinatePrecision` (in
 #'   metadata).
@@ -46,77 +45,69 @@
 #'
 #' # coordinateUncertainty is set in data: original uncertainty (or 30) + 157 m
 #' x_rounded2$data$deployments$coordinateUncertainty
-#'
-#' # Set coordinateUncertainty to 30 m
-#' x_30m <- round_coordinates(x_, NULL)
-#'
-#' x_30m$data$deployments$coordinateUncertainty
 round_coordinates <- function(x, digits = 3) {
+  if (!(digits %in% c(1, 2, 3))) {
+    cli::cli_abort(
+      c("`digits` must be NULL, 1, 2 or 3."),
+      class = "camtrapdp_error_digits"
+    )
+  }
 
-  if (is.null(digits)) {
-    x$data$deployments$coordinateUncertainty <- 30
-  } else {
-
-    if (!(digits %in% c(1, 2, 3))) {
+  # Detect original number of digits from coordinatePrecision or data
+  original_precision <- x$coordinatePrecision
+  if (!is.null(original_precision)) {
+    original_digits <- -log10(original_precision) # 0.001 -> 3
+    if (digits >= original_digits) {
       cli::cli_abort(
-        c("`digits` must be NULL, 1, 2 or 3."),
-        class = "camtrapdp_error_digits"
+        c(
+          "Can't round from {original_digits} to {digits} digits. ",
+          "`{original_digits}` is derived from the ",
+          "`x$coordinatePrecision={original_precision}`."
+        ),
+        class = "camtrapdp_error_precision"
       )
     }
-
-    # Detect original number of digits from coordinatePrecision or data
-    original_precision <- x$coordinatePrecision
-    if (!is.null(original_precision)) {
-      original_digits <- -log10(original_precision) # 0.001 -> 3
-      if (digits >= original_digits) {
-        cli::cli_abort(
-          c("Can't round from {original_digits} to {digits} digits. ",
-            "`{original_digits}` is derived from the ",
-            "`x$coordinatePrecision={original_precision}`."),
-          class = "camtrapdp_error_precision"
-        )
-      }
-
-    } else {
-      original_digits <-
-        deployments(x) %>%
-        dplyr::mutate(
-          lat_digits = nchar(stringr::str_extract(.data$latitude, "\\d+$"))
-        ) %>%
-        dplyr::summarize(max(.data$lat_digits)) %>%
-        dplyr::pull()
-      if (digits >= original_digits) {
-        cli::cli_abort(
-          c("Can't round from {original_digits} to {digits} digits. ",
-            "`{original_digits}` is the maximum number of decimals for latitude ",
-            "in the data."),
-          class = "camtrapdp_error_precision_max"
-        )
-      }
-    }
-
-    # Set uncertainties
-    uncertainty <- c(15691, 1570, 157) # In order for 1, 2, 3, digits
-
-    # Update longitude, latitude and coordinateUncertainty
-    x$data$deployments <-
+  } else {
+    original_digits <-
+      deployments(x) %>%
       dplyr::mutate(
-        deployments(x),
-        longitude = round(.data$longitude, digits),
-        latitude = round(.data$latitude, digits),
-        coordinateUncertainty =
-          dplyr::case_when(
-            # No uncertainty in data: assume 30, add rounding uncertainty
-            is.na(.data$coordinateUncertainty) ~ 30 + uncertainty[digits],
-            is.null(original_precision) ~ .data$coordinateUncertainty + uncertainty[digits],
-            # Otherwise: subtract old rounding uncertainty, add new rounding uncertainty
-            TRUE ~ .data$coordinateUncertainty - uncertainty[original_digits] + uncertainty[digits]
-            )
-        )
-
-    # Update coordinatePrecision
-    x$coordinatePrecision <- 1 / 10^digits
+        lat_digits = nchar(stringr::str_extract(.data$latitude, "\\d+$"))
+      ) %>%
+      dplyr::summarize(max(.data$lat_digits)) %>%
+      dplyr::pull()
+    if (digits >= original_digits) {
+      cli::cli_abort(
+        c(
+          "Can't round from {original_digits} to {digits} digits. ",
+          "`{original_digits}` is the maximum number of decimals for latitude ",
+          "in the data."
+        ),
+        class = "camtrapdp_error_precision_max"
+      )
+    }
   }
+
+  # Set uncertainties
+  uncertainty <- c(15691, 1570, 157) # In order for 1, 2, 3, digits
+
+  # Update longitude, latitude and coordinateUncertainty
+  x$data$deployments <-
+    dplyr::mutate(
+      deployments(x),
+      longitude = round(.data$longitude, digits),
+      latitude = round(.data$latitude, digits),
+      coordinateUncertainty =
+        dplyr::case_when(
+          # No uncertainty in data: assume 30, add rounding uncertainty
+          is.na(.data$coordinateUncertainty) ~ 30 + uncertainty[digits],
+          is.null(original_precision) ~ .data$coordinateUncertainty + uncertainty[digits],
+          # Otherwise: subtract old rounding uncertainty, add new rounding uncertainty
+          TRUE ~ .data$coordinateUncertainty - uncertainty[original_digits] + uncertainty[digits]
+        )
+    )
+
+  # Update coordinatePrecision
+  x$coordinatePrecision <- 1 / 10^digits
 
   return(x)
 }
