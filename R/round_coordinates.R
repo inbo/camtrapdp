@@ -54,10 +54,7 @@
 round_coordinates <- function(x, digits = 3) {
 
   if (is.null(digits)) {
-    x$data$deployments <-
-      deployments(x) %>%
-      dplyr::mutate(coordinateUncertainty = 30)
-
+    x$data$deployments$coordinateUncertainty <- 30
   } else {
 
     if (!(digits %in% c(1, 2, 3))) {
