@@ -93,3 +93,11 @@ test_that("round_coordinates() doesn't overestimate uncertainty on multiple runs
     x1$data$deployments$coordinateUncertainty[[2]]
   )
 })
+
+test_that("round_coordinates() seets coordinateUncertainty to 30m When `digits` = NULL", {
+  x <- example_dataset()
+  x_NULL <- round_coordinates(x, NULL)
+  expect_equal(
+    x_NULL$data$deployments$coordinateUncertainty[[1]], 30
+  )
+})
