@@ -13,9 +13,9 @@
 #' This function **follows recommendations** in Reyserhove et al. (2023)
 #' \doi{10.35035/doc-0qzp-2x37} and transform data to:
 #' - An [Occurrence core](
-#' https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core).
+#'   https://docs.gbif.org/camera-trap-guide/en/#section-occurrence-core).
 #' - An [Audubon/Audiovisual Media Description extension](
-#' https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension).
+#'   https://docs.gbif.org/camera-trap-guide/en/#section-ac-extension).
 #' - A `meta.xml` file.
 #'
 #' Key features of the Darwin Core transformation:
@@ -49,7 +49,7 @@
 #'
 #' # Clean up (don't do this if you want to keep your files)
 #' unlink("my_directory", recursive = TRUE)
-write_dwc <- function(x, directory = ".") {
+write_dwc <- function(x, directory) {
   check_camtrapdp(x)
 
   # Set properties from metadata or default to NA when missing

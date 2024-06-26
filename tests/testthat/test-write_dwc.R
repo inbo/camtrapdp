@@ -106,6 +106,6 @@ test_that("write_dwc() returns files that comply with the info in meta.xml", {
   suppressMessages(write_dwc(x, temp_dir))
 
   # Use helper function to compare
-  expect_comform_meta(file.path(temp_dir, "occurrence.csv"))
-  expect_comform_meta(file.path(temp_dir, "multimedia.csv"))
+  expect_meta_match(file.path(temp_dir, "occurrence.csv"))
+  expect_meta_match(file.path(temp_dir, "multimedia.csv"))
 })

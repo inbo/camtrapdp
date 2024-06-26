@@ -4,7 +4,7 @@
 \alias{write_dwc}
 \title{Transform a Camera Trap Data Package to a Darwin Core Archive}
 \usage{
-write_dwc(x, directory = ".")
+write_dwc(x, directory)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
