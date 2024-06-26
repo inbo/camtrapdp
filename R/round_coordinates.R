@@ -7,7 +7,8 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param digits NULL or number of decimal places to round coordinates to (`1`,
-#' `2` or `3`).
+#' `2` or `3`). When `digits` = NULL, `coordinateUncertainty` is set to 30 m
+#' and `coordinatePrecicion` remains unchanged.
 #' @return `x` with rounded coordinates as well as updated
 #'   `coordinateUncertainty` (in deployments) and `coordinatePrecision` (in
 #'   metadata).
@@ -45,6 +46,11 @@
 #'
 #' # coordinateUncertainty is set in data: original uncertainty (or 30) + 157 m
 #' x_rounded2$data$deployments$coordinateUncertainty
+#'
+#' # Set coordinateUncertainty to 30 m
+#' x_30m <- round_coordinates(x_, NULL)
+#'
+#' x_30m$data$deployments$coordinateUncertainty
 round_coordinates <- function(x, digits = 3) {
 
   if (is.null(digits)) {

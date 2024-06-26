@@ -10,8 +10,9 @@ round_coordinates(x, digits = 3)
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{digits}{Number of decimal places to round coordinates to (\code{1}, \code{2} or
-\code{3}).}
+\item{digits}{NULL or number of decimal places to round coordinates to (\code{1},
+\code{2} or \code{3}). When \code{digits} = NULL, \code{coordinateUncertainty} is set to 30 m
+and \code{coordinatePrecicion} remains unchanged.}
 }
 \value{
 \code{x} with rounded coordinates as well as updated
@@ -59,6 +60,11 @@ x_rounded2$coordinatePrecision
 
 # coordinateUncertainty is set in data: original uncertainty (or 30) + 157 m
 x_rounded2$data$deployments$coordinateUncertainty
+
+# Set coordinateUncertainty to 30 m
+x_30m <- round_coordinates(x_, NULL)
+
+x_30m$data$deployments$coordinateUncertainty
 }
 \seealso{
 Other transformation functions: 
