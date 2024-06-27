@@ -10,9 +10,8 @@ round_coordinates(x, digits = 3)
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{digits}{NULL or number of decimal places to round coordinates to (\code{1},
-\code{2} or \code{3}). When \code{digits} = NULL, \code{coordinateUncertainty} is set to 30 m
-and \code{coordinatePrecicion} remains unchanged.}
+\item{digits}{Number of decimal places to round coordinates to (\code{1},
+\code{2} or \code{3}).}
 }
 \value{
 \code{x} with rounded coordinates as well as updated
@@ -34,20 +33,27 @@ in Chapman 2020).
 Choose a number of digits that aligns with the sensitivity of the data and
 notice the effect on precision and uncertainty.
 Publish the coordinates as is (i.e. do not use this function) if the data
-are not sensitive.\tabular{llll}{
-   sensitivity \tab digits \tab coordinatePrecision \tab coordinateUncertainty \cr
-   high \tab 1 \tab 0.1 \tab original uncertainty + 15691 m \cr
-   medium \tab 2 \tab 0.01 \tab original uncertainty + 1570 m \cr
-   low \tab 3 \tab 0.001 \tab original uncertainty + 157 m \cr
+are not sensitive.\tabular{lll}{
+   sensitivity \tab digits \tab coordinatePrecision \cr
+   high \tab 1 \tab 0.1 \cr
+   medium \tab 2 \tab 0.01 \cr
+   low \tab 3 \tab 0.001 \cr
 }
 
 
 For records with \code{coordinateUncertainty = NA} the function will assume the
 coordinates were obtained by GPS and use \verb{30 m} as original uncertainty,
 before adding uncertainty caused by rounding.
-The added uncertainty is the largest possible value caused by rounding (see
+The added rounding uncertainty is dependent on latitude and follows the
+categories in
 \href{https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty}{Table 3} in
-Chapman & Wieczorek 2020).
+Chapman & Wieczorek 2020.\tabular{llll}{
+   latitude \tab 0.1 degree \tab 0.01 degree \tab 0.001 degree \cr
+   0° \tab 15691 m \tab 1570 m \tab 157 m \cr
+   30° \tab 14697 m \tab 1470 m \tab 147 m \cr
+   60° \tab 12461 m \tab 1246 m \tab 125 m \cr
+   85° \tab 11211 m \tab 1121 m \tab 112 m \cr
+}
 }
 
 \examples{
@@ -58,13 +64,8 @@ x_rounded2 <- round_coordinates(x, 2)
 # coordinatePrecision is set in metadata
 x_rounded2$coordinatePrecision
 
-# coordinateUncertainty is set in data: original uncertainty (or 30) + 157 m
+# coordinateUncertainty is set in data: original uncertainty (or 30) + 1470 m
 x_rounded2$data$deployments$coordinateUncertainty
-
-# Set coordinateUncertainty to 30 m
-x_30m <- round_coordinates(x_, NULL)
-
-x_30m$data$deployments$coordinateUncertainty
 }
 \seealso{
 Other transformation functions: 

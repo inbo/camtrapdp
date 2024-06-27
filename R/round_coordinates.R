@@ -23,18 +23,27 @@
 #' Publish the coordinates as is (i.e. do not use this function) if the data
 #' are not sensitive.
 #'
-#' sensitivity | digits | coordinatePrecision | coordinateUncertainty
-#' --- | --- | --- | ---
-#' high | 1 | 0.1 | original uncertainty + 15691 m
-#' medium | 2 | 0.01 | original uncertainty + 1570 m
-#' low | 3 | 0.001 | original uncertainty + 157 m
+#' sensitivity | digits | coordinatePrecision
+#' --- | --- | ---
+#' high | 1 | 0.1
+#' medium | 2 | 0.01
+#' low | 3 | 0.001
 #'
 #' For records with `coordinateUncertainty = NA` the function will assume the
 #' coordinates were obtained by GPS and use `30 m` as original uncertainty,
 #' before adding uncertainty caused by rounding.
-#' The added uncertainty is the largest possible value caused by rounding (see
+#' The added rounding uncertainty is dependent on latitude and follows the
+#' categories in
 #' [Table 3](https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty) in
-#' Chapman & Wieczorek 2020).
+#' Chapman & Wieczorek 2020.
+#'
+#' latitude | 0.1 degree | 0.01 degree | 0.001 degree
+#' --- | --- | --- | ---
+#' 0° | 15691 m | 1570 m | 157 m
+#' 30° | 14697 m | 1470 m | 147 m
+#' 60° | 12461 m | 1246 m | 125 m
+#' 85° | 11211 m | 1121 m | 112 m
+#'
 #' @examples
 #' # Round coordinates of example package to 3 digits
 #' x <- example_dataset()
@@ -43,7 +52,7 @@
 #' # coordinatePrecision is set in metadata
 #' x_rounded2$coordinatePrecision
 #'
-#' # coordinateUncertainty is set in data: original uncertainty (or 30) + 157 m
+#' # coordinateUncertainty is set in data: original uncertainty (or 30) + 1470 m
 #' x_rounded2$data$deployments$coordinateUncertainty
 round_coordinates <- function(x, digits = 3) {
   if (!(digits %in% c(1, 2, 3))) {
