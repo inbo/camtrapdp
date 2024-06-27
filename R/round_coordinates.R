@@ -131,7 +131,7 @@ round_coordinates <- function(x, digits = 3) {
           + .data$roundingUncertainty
         )
     ) %>%
-    dplyr::select(-latitudeGroup, - roundingUncertainty)
+    dplyr::select(-"latitudeGroup", -"roundingUncertainty")
 
   # Update coordinatePrecision
   x$coordinatePrecision <- 1 / 10^digits
