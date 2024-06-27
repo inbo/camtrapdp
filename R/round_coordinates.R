@@ -87,24 +87,42 @@ round_coordinates <- function(x, digits = 3) {
     }
   }
 
-  # Set uncertainties
-  uncertainty <- c(15691, 1570, 157) # In order for 1, 2, 3, digits
+  # Set uncertainties per latitude and number of digits
+  uncertainty <- list( # 0.1 degree, 0.01 degree, 0.001 degree
+    "lat_0" = c(15691, 1570, 157),
+    "lat_30" = c(14697, 1470, 147),
+    "lat_60" = c(12461, 1246, 125),
+    "lat_85" = c(11211, 1121, 112)
+  )
 
   # Update longitude, latitude and coordinateUncertainty
   x$data$deployments <-
+    deployments(x) %>%
     dplyr::mutate(
-      deployments(x),
+      latitudeGroup = dplyr::case_when(
+        abs(latitude) >= 85 ~ "lat_85",
+        abs(latitude) >= 60 ~ "lat_60",
+        abs(latitude) >= 30 ~ "lat_30",
+        .default = "lat_0"
+      ),
+      roundingUncertainty = purrr::map_dbl(
+        latitudeGroup, ~uncertainty[[.]][digits]
+      ),
       longitude = round(.data$longitude, digits),
       latitude = round(.data$latitude, digits),
       coordinateUncertainty =
         dplyr::case_when(
           # No uncertainty in data: assume 30, add rounding uncertainty
-          is.na(.data$coordinateUncertainty) ~ 30 + uncertainty[digits],
-          is.null(original_precision) ~ .data$coordinateUncertainty + uncertainty[digits],
+          is.na(.data$coordinateUncertainty) ~ 30 + roundingUncertainty,
+          is.null(original_precision) ~
+            .data$coordinateUncertainty + roundingUncertainty,
           # Otherwise: subtract old rounding uncertainty, add new rounding uncertainty
-          TRUE ~ .data$coordinateUncertainty - uncertainty[original_digits] + uncertainty[digits]
+          TRUE ~ .data$coordinateUncertainty
+          - purrr::map_dbl(latitudeGroup, ~uncertainty[[.]][original_digits])
+          + roundingUncertainty
         )
-    )
+    ) %>%
+    dplyr::select(-latitudeGroup, - roundingUncertainty)
 
   # Update coordinatePrecision
   x$coordinatePrecision <- 1 / 10^digits
