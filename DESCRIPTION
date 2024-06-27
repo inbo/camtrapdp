@@ -29,7 +29,8 @@ Imports:
     frictionless (>= 1.1.0),
     memoise,
     purrr,
-    readr
+    readr,
+    stringr
 Suggests:
     lubridate,
     testthat (>= 3.0.0),
