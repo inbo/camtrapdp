@@ -39,7 +39,7 @@
 #'     timestamp <= lubridate::as_datetime("2020-08-02 05:02:00")
 #'   ) %>%
 #'   media()
-filter_media <- function(x, update_metadata = TRUE, ...) {
+filter_media <- function(x, ..., update_metadata = TRUE) {
   check_camtrapdp(x)
 
   # Filter media

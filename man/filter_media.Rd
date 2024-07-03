@@ -4,7 +4,7 @@
 \alias{filter_media}
 \title{Filter media}
 \usage{
-filter_media(x, update_metadata = TRUE, ...)
+filter_media(x, ..., update_metadata = TRUE)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by

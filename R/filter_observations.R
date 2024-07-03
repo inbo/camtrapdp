@@ -47,7 +47,7 @@
 #'     eventEnd <= lubridate::as_datetime("2020-06-19 22:10:00")
 #'   ) %>%
 #'   observations()
-filter_observations <- function(x, update_metadata = TRUE, ...) {
+filter_observations <- function(x, ..., update_metadata = TRUE) {
   check_camtrapdp(x)
 
   # Filter observations
