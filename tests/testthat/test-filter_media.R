@@ -50,3 +50,38 @@ test_that("filter_media() filters media and observations, but not deployments", 
   expect_lt(nrow(observations(x_filtered)), nrow(observations(x)))
   expect_equal(nrow(observations(x_filtered)), 4) # 1 event, 3 media observations
 })
+
+
+test_that("filter_media() updates the taxonomic property as default", {
+  skip_if_offline()
+  x <- example_dataset()
+  x_favorite <- filter_media(x, favorite == TRUE)
+  remaining_taxa_obs <- unique(observations(x_favorite)$scientificName)
+  remaining_taxa_tax <-
+    purrr::map_chr(x_favorite$taxonomic, ~ purrr::pluck(.x, "scientificName"))
+  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+
+  x_filtered <-
+    filter_media(x, captureMethod == "activityDetection", filePublic == FALSE)
+  remaining_taxa_obs <-
+    unique(observations(x_filtered)$scientificName) %>%
+    sort()
+  remaining_taxa_tax <-
+    purrr::map_chr(
+      x_filtered$taxonomic, ~ purrr::pluck(.x, "scientificName")
+    ) %>%
+    sort()
+  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+})
+
+test_that("filter_media() does not update the taxonomic property when update_metadata == FALSE", {
+  skip_if_offline()
+  x <- example_dataset()
+  original_taxa <-
+    purrr::map_chr(x$taxonomic, ~ purrr::pluck(.x, "scientificName")) %>%
+    sort()
+  x_favorite <- filter_media(x, favorite == TRUE, update_metadata = FALSE)
+  remaining_taxa_tax <-
+    purrr::map_chr(x_favorite$taxonomic, ~ purrr::pluck(.x, "scientificName"))
+  expect_equal(original_taxa, remaining_taxa_tax)
+})
