@@ -3,7 +3,7 @@
 #' Converts a Camera Trap Data Package object that uses an older version of
 #' the Camtrap DP standard to a newer version.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print
 #' @param convert_to Version to convert to.
 #' @return `x` converted.
 #' @family convert functions

@@ -3,7 +3,7 @@
 #' Gets the (unique) locations from the deployments of a Camera Trap Data
 #' Package object.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print
 #' @return [tibble()] data frame with the locations, containing the following
 #'   columns:
 #'   - `locationID`

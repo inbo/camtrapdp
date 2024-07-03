@@ -3,7 +3,7 @@
 #' Transforms a Camera Trap Data Package object to a [Darwin Core Archive](
 #' https://dwc.tdwg.org/text/).
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print
 #' @param directory Path to local directory to write files to.
 #' @return CSV and `meta.xml` files written to disk.
 #'   And invisibly, a list of data frames with the transformed data.

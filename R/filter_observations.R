@@ -8,7 +8,7 @@
 #' and `eventID` (for event-based observations).
 #' Filter on `observationLevel == "media"` to only retain directly linked media.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print
 #' @param ... Filtering conditions, see `dplyr::filter()`.
 #' @return `x` filtered.
 #' @family filter functions

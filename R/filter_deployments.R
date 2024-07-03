@@ -6,7 +6,7 @@
 #' - Media are filtered on associated `deploymentID`.
 #' - Observations are filtered on associated `deploymentID`.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print
 #' @param ... Filtering conditions, see `dplyr::filter()`.
 #' @return `x` filtered.
 #' @family filter functions
