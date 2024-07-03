@@ -25,9 +25,12 @@
 #'
 #' # Filtering on observations also affects associated media, but not deployments
 #' x_vulpes_event <-
-#' x %>%
-#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "event")
-#'   media(x_vulpes_event)
+#'   x %>%
+#'   filter_observations(
+#'     scientificName == "Vulpes vulpes",
+#'     observationLevel == "event"
+#'   )
+#' media(x_vulpes_event)
 #'
 #' # Because update_taxonomic == TRUE, taxonomic metadata is updated
 #' x_vulpes_event$taxonomic

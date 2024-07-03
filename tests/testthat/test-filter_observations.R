@@ -97,7 +97,8 @@ test_that("filter_observations() does not update the taxonomic property when upd
     observationLevel == "media",
     update_metadata = FALSE
   )
-  remaining_taxa_tax <-
-    purrr::map_chr(x_vulpes_media$taxonomic, ~ purrr::pluck(.x, "scientificName"))
+  remaining_taxa_tax <- purrr::map_chr(
+    x_vulpes_media$taxonomic, ~ purrr::pluck(.x, "scientificName")
+  )
   expect_equal(original_taxa, remaining_taxa_tax)
 })
