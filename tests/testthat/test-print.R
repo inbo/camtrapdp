@@ -34,6 +34,12 @@ test_that("print() informs about the number of resources", {
 })
 
 test_that("print() informs about the number of rows for every resource", {
+  # Test that information is provided about the number of rows per resource
+  expect_output(
+    print(example_dataset()),
+    regexp = "deployments: [0-9]+",
+    fixed = FALSE
+  )
 
 })
 
