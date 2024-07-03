@@ -61,3 +61,43 @@ test_that("filter_observations() filters observations and media, but not deploym
   )
   expect_equal(nrow(media(x_filtered_event)), 10) # All media files in the event
 })
+
+test_that("filter_observations() updates the taxonomic property as default", {
+  skip_if_offline()
+  x <- example_dataset()
+  x_vulpes_media <- filter_observations(
+    x,
+    scientificName == "Vulpes vulpes",
+    observationLevel == "media"
+  )
+  remaining_taxa_obs <- unique(observations(x_vulpes_media)$scientificName)
+  remaining_taxa_tax <-
+    purrr::map_chr(x_vulpes_media$taxonomic, ~ purrr::pluck(.x, "scientificName"))
+  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+
+  x_animal <- filter_observations(x, observationType == "animal")
+  remaining_taxa_obs <-
+    unique(observations(x_animal)$scientificName) %>%
+    sort()
+  remaining_taxa_tax <-
+    purrr::map_chr(x_animal$taxonomic, ~ purrr::pluck(.x, "scientificName")) %>%
+    sort()
+  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+})
+
+test_that("filter_observations() does not update the taxonomic property when update_metadata == FALSE", {
+  skip_if_offline()
+  x <- example_dataset()
+  original_taxa <-
+    purrr::map_chr(x$taxonomic, ~ purrr::pluck(.x, "scientificName")) %>%
+    sort()
+  x_vulpes_media <- filter_observations(
+    x,
+    scientificName == "Vulpes vulpes",
+    observationLevel == "media",
+    update_metadata = FALSE
+  )
+  remaining_taxa_tax <-
+    purrr::map_chr(x_vulpes_media$taxonomic, ~ purrr::pluck(.x, "scientificName"))
+  expect_equal(original_taxa, remaining_taxa_tax)
+})
