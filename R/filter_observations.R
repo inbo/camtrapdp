@@ -45,7 +45,7 @@
 #'     eventEnd <= lubridate::as_datetime("2020-06-19 22:10:00")
 #'   ) %>%
 #'   observations()
-filter_observations <- function(x, ...) {
+filter_observations <- function(x, filter_metadata = TRUE, ...) {
   check_camtrapdp(x)
 
   # Filter observations
@@ -76,6 +76,15 @@ filter_observations <- function(x, ...) {
   # Assign filtered data
   media(x) <- media
   observations(x) <- observations
+
+  # Filter the taxonomic property in the metadata
+  if (filter_metadata) {
+    remaining_taxa <- unique(observations(x)$scientificName)
+    x$taxonomic <-
+      purrr::keep(
+        x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
+        )
+  }
 
   return(x)
 }
