@@ -10,7 +10,7 @@
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{...}{}
+\item{...}{Further arguments, they are ignored by this function.}
 }
 \value{
 \code{\link[=print]{print()}} with a summary of the Camera Trap Data Package object.

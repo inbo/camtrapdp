@@ -7,7 +7,7 @@
 #' - Observations are filtered on associated `mediaID` (for media-based
 #' observations) and `eventID` (for event-based observations).
 #'
-#' @inheritParams print
+#' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
 #' @return `x` filtered.
 #' @family filter functions
