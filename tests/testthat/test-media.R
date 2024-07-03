@@ -38,7 +38,7 @@ test_that("filter_media() updates the taxonomic property as default", {
   expect_equal(remaining_taxa_obs, remaining_taxa_tax)
 
   x_filtered <-
-    filter_media(captureMethod == "activityDetection", filePublic == FALSE)
+    filter_media(x, captureMethod == "activityDetection", filePublic == FALSE)
   remaining_taxa_obs <-
     unique(observations(x_filtered)$scientificName) %>%
     sort()
