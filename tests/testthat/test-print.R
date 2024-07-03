@@ -27,7 +27,7 @@ test_that("print() informs about the number of resources", {
   purrr::pluck(zero_resources, "resources") <- list()
 
   expect_output(
-    print(five_resources),
+    print(zero_resources),
     regexp = "A Data Package with 0 resources:",
     fixed = TRUE
   )
