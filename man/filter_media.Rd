@@ -10,8 +10,9 @@ filter_media(x, ..., update_metadata = TRUE)
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{...}{Filtering conditions, see \code{dplyr::filter()}.
-#' @param update_metadata If TRUE, the taxonomic information in the metadata
+\item{...}{Filtering conditions, see \code{dplyr::filter()}.}
+
+\item{update_metadata}{If TRUE, the taxonomic information in the metadata
 (\code{taxonomic}) is updated to match the filtered observations.}
 }
 \value{

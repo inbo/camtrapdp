@@ -9,7 +9,7 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
-#' #' @param update_metadata If TRUE, the taxonomic information in the metadata
+#' @param update_metadata If TRUE, the taxonomic information in the metadata
 #' (`taxonomic`) is updated to match the filtered observations.
 #' @return `x` filtered.
 #' @family filter functions
