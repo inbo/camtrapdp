@@ -9,6 +9,8 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
+#' #' @param update_metadata If TRUE, the taxonomic information in the metadata
+#' (`taxonomic`) is updated to match the filtered observations.
 #' @return `x` filtered.
 #' @family filter functions
 #' @export
@@ -37,7 +39,7 @@
 #'     timestamp <= lubridate::as_datetime("2020-08-02 05:02:00")
 #'   ) %>%
 #'   media()
-filter_media <- function(x, ...) {
+filter_media <- function(x, update_metadata = TRUE, ...) {
   check_camtrapdp(x)
 
   # Filter media
@@ -60,6 +62,15 @@ filter_media <- function(x, ...) {
   # Assign filtered data
   media(x) <- media
   observations(x) <- observations
+
+  # Filter the taxonomic property in the metadata
+  if (update_metadata) {
+    remaining_taxa <- unique(observations(x)$scientificName)
+    x$taxonomic <-
+      purrr::keep(
+        x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
+      )
+  }
 
   return(x)
 }

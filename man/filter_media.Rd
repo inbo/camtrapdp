@@ -4,13 +4,15 @@
 \alias{filter_media}
 \title{Filter media}
 \usage{
-filter_media(x, ...)
+filter_media(x, update_metadata = TRUE, ...)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{...}{Filtering conditions, see \code{dplyr::filter()}.}
+\item{...}{Filtering conditions, see \code{dplyr::filter()}.
+#' @param update_metadata If TRUE, the taxonomic information in the metadata
+(\code{taxonomic}) is updated to match the filtered observations.}
 }
 \value{
 \code{x} filtered.
