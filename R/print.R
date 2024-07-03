@@ -40,5 +40,14 @@ print.camtrapdp <- function(x, ...) {
     ~ cli::cat_bullet(cli::format_inline("{.x}: {.y}"))
   )
 
+  # Print out any resources that are not included in `x$data`
+  custom_resources <- resources[!resources %in% names(nrow_summary)]
+  purrr::walk(custom_resources, function(custom_resource)
+    cli::cat_bullet(
+      cli::format_inline(
+        "{custom_resource}: Custom table/resource not part of the Camtrap DP model"
+      )
+    ))
+
   invisible(x)
 }
