@@ -6,7 +6,7 @@
 #'
 #' @param x Camera Trap Data Package object, as returned by
 #'   `read_camtrapdp()`.
-#' @param ...
+#' @param ... Further arguments, they are ignored by this function.
 #'
 #' @return [print()] with a summary of the Camera Trap Data Package object.
 #' @export
