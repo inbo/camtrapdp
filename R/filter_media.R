@@ -26,6 +26,9 @@
 #' x_filtered <- filter_media(x, favorite == TRUE)
 #' observations(x_filtered)
 #'
+#' Because update_taxonomic == TRUE, taxonomic metadata is updated
+#' x_filtered$taxonomic
+#'
 #' # Filtering on multiple conditions (combined with &)
 #' x %>%
 #'   filter_media(captureMethod == "activityDetection", filePublic == FALSE) %>%
