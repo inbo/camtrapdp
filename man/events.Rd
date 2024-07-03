@@ -6,10 +6,6 @@
 \usage{
 events(x)
 }
-\arguments{
-\item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.}
-}
 \value{
 \code{\link[=tibble]{tibble()}} data frame with the events, containing the following
 columns:

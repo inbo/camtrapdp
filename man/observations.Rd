@@ -10,9 +10,6 @@ observations(x)
 observations(x) <- value
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.}
-
 \item{value}{A data frame to assign as observations.}
 }
 \value{

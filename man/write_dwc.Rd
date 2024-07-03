@@ -7,9 +7,6 @@
 write_dwc(x, directory)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.}
-
 \item{directory}{Path to local directory to write files to.}
 }
 \value{
