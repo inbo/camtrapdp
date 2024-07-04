@@ -9,9 +9,6 @@
 #' @param directory Path to local directory to write file to.
 #'   If `NULL`, then the EML object is returned instead, which can be useful
 #'   for extended/adapting the EML before writing with [EML::write_eml()].
-#' @param description Dataset description.
-#'   Will be added after an automatically generated paragraph.
-#'   Multiple paragraphs can be provided as a character vector.
 #' @param creators Dataset creators
 #' - If `NULL` then all `x$contributors` will be added as creators, in the
 #'   order as listed.
@@ -31,9 +28,8 @@
 #' Metadata is derived from what is provided in `x` and in the function
 #' parameters.
 #' The following properties are set:
-#' - **title**: Title as provided in `title` or `x$title`.
-#' - **description**: Description as provided in `description` or
-#'   `x$description`.
+#' - **title**: Title as provided in `x$title`.
+#' - **description**: Description as provided in `x$description`.
 #'   The description is preceded by an automatically generated paragraph
 #'   describing from which project and platform the dataset is derived, and
 #'   to which extend coordinates are rounded (`x$coordinatePrecision`).
@@ -65,7 +61,6 @@
 #' Not applicable: **collection data**.
 write_eml <- function(x,
                       directory = ".",
-                      description = x$description,
                       creators = NULL,
                       keywords = c("camera traps")) {
   # Check input
@@ -124,7 +119,7 @@ write_eml <- function(x,
   )
   eml$dataset$abstract$para <- append(
     paste0("<![CDATA[", first_para, "]]>"),
-    description
+    x$description
   )
 
   # Convert contributors to data frame
