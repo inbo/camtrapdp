@@ -28,7 +28,7 @@ test_that("print() informs about the number of resources", {
 
   expect_output(
     print(zero_resources),
-    regexp = "A Data Package with 0 resources:",
+    regexp = "A Data Package with 0 resources",
     fixed = TRUE
   )
 })
