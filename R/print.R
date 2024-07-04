@@ -18,39 +18,52 @@
 #' Print a summary after filtering
 #' filter_deployments(x, deploymentID == "62c200a9")
 print.camtrapdp <- function(x, ...) {
-  # Check if the Camera Trap Data Package object is valid
   check_camtrapdp(x)
 
-  # List the resources
-
-  # List resources
-  resources <- frictionless::resources(x)
-  cli::cat_line(
-    cli::format_inline(
-      "A Data Package with {length(resources)} resource{?s}{?./:/:}"
-    )
-  )
-
-  # Calculate the number of rows of every resource in `x$data`
-  nrow_summary <-
+  # Calculate number of rows for the tables (resources in x$data)
+  tables_rows <-
     purrr::pluck(x, "data") %>%
     purrr::map(nrow)
 
-  # Print out a summary of the Camera Trap Data Package object.
+  # List tables
+  tables <- names(tables_rows)
+  cli::cat_line(
+    cli::format_inline(
+      "A Camera Trap Data Package with {length(tables)} table{?s}{?./:/:}"
+    )
+  )
   purrr::walk2(
-    names(nrow_summary), # The names of the resources
-    nrow_summary, # The number of rows in these resource objects
-    ~ cli::cat_bullet(cli::format_inline("{.x}: {.y}"))
+    names(tables_rows),
+    tables_rows,
+    ~ cli::cat_bullet(cli::format_inline("{.x}: {.val {.y}} rows"))
   )
 
-  # Print out any resources that are not included in `x$data`
-  custom_resources <- resources[!resources %in% names(nrow_summary)]
-  purrr::walk(custom_resources, function(custom_resource)
-    cli::cat_bullet(
+  # List additional resources (not in x$data), if any
+  resources <- frictionless::resources(x)
+  extra_resources <- resources[!resources %in% tables]
+  if (length(extra_resources) > 0) {
+    cli::cat_line("")
+    cli::cat_line(
       cli::format_inline(
-        "{custom_resource}: Custom table/resource not part of the Camtrap DP model"
+        "And {length(extra_resources)} additional resource{?s}, which
+        can be loaded with {.fun frictionless::read_resource}:",
+        keep_whitespace = FALSE
       )
-    ))
+    )
+    purrr::walk(
+      extra_resources,
+      function(extra_resource)
+      cli::cat_bullet(cli::format_inline("{extra_resource}"))
+    )
+  }
+
+  # Provide help
+  cli::cat_line(
+    cli::format_inline(
+      "Use {.fun unclass} to print the Data Package as a list."
+    ),
+    col = "silver"
+  )
 
   invisible(x)
 }
