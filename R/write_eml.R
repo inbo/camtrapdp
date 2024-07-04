@@ -210,10 +210,9 @@ write_eml <- function(x, directory) {
     eml
   } else {
     eml_path <- file.path(directory, "eml.xml")
-    message(glue::glue(
-      "Writing metadata to:",
-      eml_path,
-      .sep = "\n"
+    cli::cli_h2("Writing file")
+    cli::cli_ul(c(
+      "{.file {eml_path}}"
     ))
     if (!dir.exists(directory)) {
       dir.create(directory, recursive = TRUE)
