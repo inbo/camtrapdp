@@ -70,11 +70,10 @@ write_eml <- function(x,
     system = "uuid",
     dataset = list()
   )
-  message("Please review generated metadata carefully before publishing.")
 
   # Get properties
   project <- x$project
-  platform <- x$platform
+  sources <- x$sources
 
   # Set title
   eml$dataset$title <- x$title
@@ -82,7 +81,7 @@ write_eml <- function(x,
   # Set abstract
   first_para <- glue::glue(
     # Add span to circumvent https://github.com/ropensci/EML/issues/342
-    "<span></span>This camera trap dataset is derived from the {platform} ",
+    "<span></span>This camera trap dataset is derived from the {sources} ",
     "project {project}. ",
     "Data have been standardized to Darwin Core using the ",
     "<a href=\"https://inbo.github.io/camtraptor/\">camtraptor</a> R package ",
@@ -96,10 +95,10 @@ write_eml <- function(x,
     } else {
       glue::glue("<a href=\"{project$path}\">{project$title}</a>")
     },
-    platform = if (is.null(platform$path)) {
-      platform$title
+    sources = if (is.null(sources$path)) {
+      sources$title
     } else {
-      glue::glue("<a href=\"{platform$path}\">{platform$title}</a>")
+      glue::glue("<a href=\"{sources$path}\">{sources$title}</a>")
     },
     rounded_coordinates = if (is.null(x$coordinatePrecision)) {
       "provided as is"
