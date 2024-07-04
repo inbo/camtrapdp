@@ -5,7 +5,7 @@
 #' file that can be uploaded to a [GBIF IPT](https://www.gbif.org/ipt) for
 #' publication.
 #'
-#' @param package A Camtrap DP, as read by [read_camtrap_dp()].
+#' @param x A Camtrap DP, as read by [read_camtrap_dp()].
 #' @param directory Path to local directory to write file to.
 #'   If `NULL`, then the EML object is returned instead, which can be useful
 #'   for extended/adapting the EML before writing with [EML::write_eml()].
@@ -14,12 +14,12 @@
 #'   Will be added after an automatically generated paragraph.
 #'   Multiple paragraphs can be provided as a character vector.
 #' @param creators Dataset creators
-#' - If `NULL` then all `package$contributors` will be added as creators, in the
+#' - If `NULL` then all `x$contributors` will be added as creators, in the
 #'   order as listed.
 #' - If e.g. `c("Emma Cartuyvels", "Jim Casaer", "...", "Peter Desmet")`, then
 #'   Emma Cartuyvels, Jim Casaer and Peter Desmet will be set as first, second
 #'   and last creators respectively, on the condition that their name (`title`)
-#'   is present in `package$contributors`.
+#'   is present in `x$contributors`.
 #'   All other contributors will be inserted at `"..."`, sorted on their last
 #'   name.
 #' @param keywords Dataset keywords.
@@ -29,34 +29,34 @@
 #' @export
 #' @importFrom dplyr %>% .data
 #' @section Transformation details:
-#' Metadata is derived from what is provided in `package` and in the function
+#' Metadata is derived from what is provided in `x` and in the function
 #' parameters.
 #' The following properties are set:
-#' - **title**: Title as provided in `title` or `package$title`.
+#' - **title**: Title as provided in `title` or `x$title`.
 #' - **description**: Description as provided in `description` or
-#'   `package$description`.
+#'   `x$description`.
 #'   The description is preceded by an automatically generated paragraph
 #'   describing from which project and platform the dataset is derived, and
-#'   to which extend coordinates are rounded (`package$coordinatePrecision`).
-#' - **license**: License with scope `data` as provided in `package$licenses`.
+#'   to which extend coordinates are rounded (`x$coordinatePrecision`).
+#' - **license**: License with scope `data` as provided in `x$licenses`.
 #' - **creators**: Contributors (all roles) as provided in
-#'   `package$contributors`, filtered/reordered based on `creators`.
+#'   `x$contributors`, filtered/reordered based on `creators`.
 #' - **contact**: First creator.
 #' - **metadata provider**: First creator.
 #' - **keywords**: Keywords as provided in `keywords`.
 #' - **associated parties**: Organizations as provided in
-#'   `package$organizations`.
-#' - **geographic coverage**: Bounding box as provided in `package$spatial`.
+#'   `x$organizations`.
+#' - **geographic coverage**: Bounding box as provided in `x$spatial`.
 #' - **taxonomic coverage**: Species (no other ranks) as provided in
-#'   `package$taxonomic`.
-#' - **temporal coverage**: Date range as provided in `package$temporal`.
+#'   `x$taxonomic`.
+#' - **temporal coverage**: Date range as provided in `x$temporal`.
 #' - **project data**: Title, acronym as identifier, description, and sampling
-#'   design as provided in `package$project`.
+#'   design as provided in `x$project`.
 #'   The first creator is set as project personnel.
-#' - **alternative identifier**: Identifier as provided in `package$id`.
+#' - **alternative identifier**: Identifier as provided in `x$id`.
 #'   If this is a DOI, no new DOI will be created when publishing to GBIF.
 #' - **external link**: URL of the project as provided in
-#'   `package$project$path`.
+#'   `x$project$path`.
 #'
 #' To be set manually in the GBIF IPT: **type**, **subtype**,
 #' **update frequency** and **publishing organization**.
@@ -64,10 +64,10 @@
 #' Not set: **sampling methods** and **citations**.
 #'
 #' Not applicable: **collection data**.
-write_eml <- function(package,
+write_eml <- function(x,
                       directory = ".",
-                      title = package$title,
-                      description = package$description,
+                      title = x$title,
+                      description = x$description,
                       creators = NULL,
                       keywords = c("camera traps")) {
   # Check input
@@ -89,8 +89,8 @@ write_eml <- function(package,
   message("Please review generated metadata carefully before publishing.")
 
   # Get properties
-  project <- package$project
-  platform <- package$platform
+  project <- x$project
+  platform <- x$platform
 
   # Set title
   eml$dataset$title <- title
@@ -117,10 +117,10 @@ write_eml <- function(package,
     } else {
       glue::glue("<a href=\"{platform$path}\">{platform$title}</a>")
     },
-    rounded_coordinates = if (is.null(package$coordinatePrecision)) {
+    rounded_coordinates = if (is.null(x$coordinatePrecision)) {
       "provided as is"
     } else {
-      glue::glue("rounded to {package$coordinatePrecision} degrees")
+      glue::glue("rounded to {x$coordinatePrecision} degrees")
     },
     .null = ""
   )
@@ -132,7 +132,7 @@ write_eml <- function(package,
   # Convert contributors to data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
   contributors <-
-    purrr::map_dfr(package$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)) %>%
+    purrr::map_dfr(x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
     tidyr::separate(
       title,
@@ -197,11 +197,11 @@ write_eml <- function(package,
 
   # Set license
   eml$dataset$intellectualRights$para <-
-    purrr::keep(package$licenses, ~ .$scope == "data")[[1]]$name
+    purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$name
 
   # Set coverage
-  bbox <- package$spatial$bbox
-  taxonomy <- get_species(package)
+  bbox <- x$spatial$bbox
+  taxonomy <- get_species(x)
   if ("taxonRank" %in% names(taxonomy)) {
     taxonomy <- dplyr::filter(taxonomy, .data$taxonRank == "species")
   }
@@ -210,8 +210,8 @@ write_eml <- function(package,
     dplyr::select("Species")
 
   eml$dataset$coverage <- EML::set_coverage(
-    begin = package$temporal$start,
-    end = package$temporal$end,
+    begin = x$temporal$start,
+    end = x$temporal$end,
     west = bbox[1],
     south = bbox[2],
     east = bbox[3],
@@ -221,7 +221,7 @@ write_eml <- function(package,
 
   # Set organizations as associated parties
   eml$dataset$associatedParty <-
-    purrr::map(package$organizations, ~ EML::set_responsibleParty(
+    purrr::map(x$organizations, ~ EML::set_responsibleParty(
       givenName = "", # Circumvent https://github.com/ropensci/EML/issues/345
       organizationName = .$title,
       onlineUrl = .$path
@@ -245,22 +245,22 @@ write_eml <- function(package,
 
   # Set bibliographic citation (can be NULL)
   eml$additionalMetadata$metadata$gbif$bibliography$citation <-
-    package$bibliographicCitation
+    x$bibliographicCitation
 
   # Set external link = project URL (can be NULL)
-  if (!is.null(package$project$path)) {
+  if (!is.null(x$project$path)) {
     eml$dataset$distribution <- list(
       scope = "document", online = list(
-        url = list("function" = "information", package$project$path)
+        url = list("function" = "information", x$project$path)
       )
     )
   }
 
   # Set publication date = created date
-  eml$dataset$pubDate <- as.Date(package$created)
+  eml$dataset$pubDate <- as.Date(x$created)
 
   # Set alternative identifier = package id (can be DOI)
-  eml$dataset$alternateIdentifier <- package$id
+  eml$dataset$alternateIdentifier <- x$id
 
   # Return object or write file
   if (is.null(directory)) {
