@@ -63,15 +63,6 @@ write_eml <- function(x,
                       directory = ".",
                       creators = NULL,
                       keywords = c("camera traps")) {
-  # Check input
-  assertthat::assert_that(
-    !is.null(x$title),
-    msg = "The dataset must have a `title`."
-  )
-  assertthat::assert_that(
-    is.character(keywords),
-    msg = "`keywords` should be a character (vector)."
-  )
 
   # Initiate EML
   eml <- list(
