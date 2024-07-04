@@ -50,6 +50,13 @@
 #' Not applicable: **collection data**.
 write_eml <- function(x, directory = ".") {
 
+  # Filter dataset on observations (also affects media)
+  x <- filter_observations(
+    x,
+    .data$observationLevel == "event",
+    .data$observationType == "animal"
+  )
+
   # Initiate EML
   eml <- list(
     packageId = uuid::UUIDgenerate(),
