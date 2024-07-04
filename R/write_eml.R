@@ -5,11 +5,9 @@
 #' file that can be uploaded to a [GBIF IPT](https://www.gbif.org/ipt) for
 #' publication.
 #'
-#' @param x A Camtrap DP, as read by [read_camtrap_dp()].
+#' @inheritParams check_camtrapdp
 #' @param directory Path to local directory to write file to.
-#'   If `NULL`, then the EML object is returned instead, which can be useful
-#'   for extended/adapting the EML before writing with [EML::write_eml()].
-#' @return `eml.xml` file written to disk or `EML` object when
+#' @return `eml.xml` file written to disk. And invisibly, an `EML` object.
 #'   `directory = NULL`.
 #' @family publication functions
 #' @export
@@ -205,18 +203,18 @@ write_eml <- function(x, directory) {
   # Set alternative identifier = package id (can be DOI)
   eml$dataset$alternateIdentifier <- x$id
 
-  # Return object or write file
-  if (is.null(directory)) {
-    eml
-  } else {
-    eml_path <- file.path(directory, "eml.xml")
-    cli::cli_h2("Writing file")
-    cli::cli_ul(c(
-      "{.file {eml_path}}"
-    ))
-    if (!dir.exists(directory)) {
-      dir.create(directory, recursive = TRUE)
-    }
-    EML::write_eml(eml, eml_path)
+  ######
+  # Write files
+  eml_path <- file.path(directory, "eml.xml")
+  cli::cli_h2("Writing file")
+  cli::cli_ul(c(
+    "{.file {eml_path}}"
+  ))
+  if (!dir.exists(directory)) {
+    dir.create(directory, recursive = TRUE)
   }
+  EML::write_eml(eml, eml_path)
+
+  # Return eml list invisibly
+  invisible(eml)
 }
