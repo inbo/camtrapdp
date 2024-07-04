@@ -80,7 +80,7 @@ round_coordinates <- function(x, digits = 3) {
     original_digits <-
       deployments(x) %>%
       dplyr::mutate(
-        lat_digits = nchar(stringr::str_extract(.data$latitude, "\\d+$"))
+        lat_digits = nchar(gsub("\\d+$", "", .data$latitude))
       ) %>%
       dplyr::summarize(max(.data$lat_digits)) %>%
       dplyr::pull()
