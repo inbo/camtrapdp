@@ -48,7 +48,7 @@
 #' Not set: **sampling methods** and **citations**.
 #'
 #' Not applicable: **collection data**.
-write_eml <- function(x, directory = ".") {
+write_eml <- function(x, directory) {
 
   # Filter dataset on observations (also affects media)
   x <- filter_observations(
