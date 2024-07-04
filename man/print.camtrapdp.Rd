@@ -21,10 +21,10 @@ extension of \code{\link[frictionless:print.datapackage]{frictionless::print.dat
 \examples{
 x <- example_dataset()
 
-Print a summary
+# Print a summary
 print(x)
 
-Print a summary after filtering
+# Print a summary after filtering
 filter_deployments(x, deploymentID == "62c200a9")
 }
 \concept{print functions}

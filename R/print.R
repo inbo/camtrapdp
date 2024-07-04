@@ -12,10 +12,10 @@
 #' @examples
 #' x <- example_dataset()
 #'
-#' Print a summary
+#' # Print a summary
 #' print(x)
 #'
-#' Print a summary after filtering
+#' # Print a summary after filtering
 #' filter_deployments(x, deploymentID == "62c200a9")
 print.camtrapdp <- function(x, ...) {
   # check_camtrapdp() not necessary: print only triggered for camtrapdp object
