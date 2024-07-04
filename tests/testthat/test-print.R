@@ -33,18 +33,14 @@ test_that("print() informs about the number of tables, their rows and unclass()"
   )
 })
 
-test_that("print() informs about additional resources and how to load these", {
+test_that("print() informs about additional resources", {
   expect_output(
     print(example_dataset()),
     regexp = paste(
-      "And 1 additional resource,",
-      "which can be loaded with `frictionless::read_resource()`:"
+      "And 1 additional resource:",
+      "* individuals",
+      sep = "\n"
     ),
-    fixed = TRUE
-  )
-  expect_output(
-    print(example_dataset()),
-    regexp = "* individuals",
     fixed = TRUE
   )
 

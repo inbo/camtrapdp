@@ -45,8 +45,7 @@ print.camtrapdp <- function(x, ...) {
     cli::cat_line("")
     cli::cat_line(
       cli::format_inline(
-        "And {length(extra_resources)} additional resource{?s}, which
-        can be loaded with {.fun frictionless::read_resource}:",
+        "And {length(extra_resources)} additional resource{?s}:",
         keep_whitespace = FALSE
       )
     )
