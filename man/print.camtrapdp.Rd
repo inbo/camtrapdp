@@ -16,11 +16,15 @@
 }
 \description{
 Prints a human-readable summary of a Camera Trap Data Package, as an
-extension of the printing provided by the frictionless package. This summary
-provides the most important aspects of a Camera Trap Data Package.
+extension of \code{\link[frictionless:print.datapackage]{frictionless::print.datapackage()}}.
 }
 \examples{
-dp <- example_dataset()
-print(example_dataset)
+x <- example_dataset()
+
+Print a summary
+print(x)
+
+Print a summary after filtering
+filter_deployments(x, deploymentID == "62c200a9")
 }
-\keyword{internal}
+\concept{print functions}

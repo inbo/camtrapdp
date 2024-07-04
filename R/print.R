@@ -1,19 +1,22 @@
 #' Print a Camera Trap Data Package
 #'
 #' Prints a human-readable summary of a Camera Trap Data Package, as an
-#' extension of the printing provided by the frictionless package. This summary
-#' provides the most important aspects of a Camera Trap Data Package.
+#' extension of [frictionless::print.datapackage()].
 #'
 #' @param x Camera Trap Data Package object, as returned by `read_camtrapdp()`.
 #' @param ... Further arguments, they are ignored by this function.
 #'
 #' @return [print()] with a summary of the Camera Trap Data Package object.
+#' @family print functions
 #' @export
-#'
-#' @keywords internal
 #' @examples
-#' dp <- example_dataset()
-#' print(example_dataset)
+#' x <- example_dataset()
+#'
+#' Print a summary
+#' print(x)
+#'
+#' Print a summary after filtering
+#' filter_deployments(x, deploymentID == "62c200a9")
 print.camtrapdp <- function(x, ...) {
   # Check if the Camera Trap Data Package object is valid
   check_camtrapdp(x)
