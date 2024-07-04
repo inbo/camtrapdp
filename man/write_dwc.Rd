@@ -67,4 +67,8 @@ write_dwc(x, directory = "my_directory")
 # Clean up (don't do this if you want to keep your files)
 unlink("my_directory", recursive = TRUE)
 }
+\seealso{
+Other transformation functions: 
+\code{\link{write_eml}()}
+}
 \concept{transformation functions}

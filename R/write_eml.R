@@ -7,34 +7,28 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param directory Path to local directory to write file to.
-#' @return `eml.xml` file written to disk. And invisibly, an `EML` object.
-#'   `directory = NULL`.
-#' @family publication functions
+#' @return `eml.xml` file written to disk. And invisibly, an `EML` object is
+#' returned.
+#' @family transformation functions
 #' @export
-#' @importFrom dplyr %>% .data
 #' @section Transformation details:
-#' Metadata is derived from what is provided in `x` and in the function
-#' parameters.
+#' Metadata is derived from what is provided in `x`.
 #' The following properties are set:
 #' - **title**: Title as provided in `x$title`.
 #' - **description**: Description as provided in `x$description`.
-#'   The description is preceded by an automatically generated paragraph
-#'   describing from which project and platform the dataset is derived, and
-#'   to which extend coordinates are rounded (`x$coordinatePrecision`).
+#'   The description is followed by paragraph how the data have been
+#'   standardized.
 #' - **license**: License with scope `data` as provided in `x$licenses`.
 #' - **creators**: Contributors (all roles) as provided in `x$contributors`.
 #' - **contact**: First creator.
 #' - **metadata provider**: First creator.
 #' - **keywords**: Keywords as provided in `keywords`.
-#' - **associated parties**: Organizations as provided in
-#'   `x$organizations`.
 #' - **geographic coverage**: Bounding box as provided in `x$spatial`.
 #' - **taxonomic coverage**: Species (no other ranks) as provided in
 #'   `x$taxonomic`.
 #' - **temporal coverage**: Date range as provided in `x$temporal`.
 #' - **project data**: Title, acronym as identifier, description, and sampling
 #'   design as provided in `x$project`.
-#'   The first creator is set as project personnel.
 #' - **alternative identifier**: Identifier as provided in `x$id`.
 #'   If this is a DOI, no new DOI will be created when publishing to GBIF.
 #' - **external link**: URL of the project as provided in
