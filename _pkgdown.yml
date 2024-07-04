@@ -26,6 +26,7 @@ reference:
   - has_concept("transformation functions")
 - title: "Miscellaneous functions"
   contents:
+  - has_concept("print functions")
   - has_concept("check functions")
   - has_concept("misc functions")
 - title: "Sample datasets"
