@@ -24,3 +24,4 @@ provides the most important aspects of a Camera Trap Data Package.
 dp <- example_dataset()
 print(example_dataset)
 }
+\keyword{internal}

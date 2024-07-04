@@ -11,6 +11,7 @@
 #' @return [print()] with a summary of the Camera Trap Data Package object.
 #' @export
 #'
+#' @keywords internal
 #' @examples
 #' dp <- example_dataset()
 #' print(example_dataset)
