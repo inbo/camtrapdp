@@ -17,3 +17,7 @@
 * New internal function `check_camtrapdp()` validates a camtrapdp object (#34).
 * New internal function `convert()` converts camtrapdp objects to the latest version. This function is currently not used, as the only supported version is Camtrap DP 1.0 (#9).
 * [dplyr](https://cran.r-project.org/package=dplyr)'s pipe (`%>%`) is included in NAMESPACE, so you don’t have to load dplyr (or magrittr) to use it (#56). `%>%` and `.data` are imported at package level, so they can be used in functions without namespace (#37).
+
+# camtrapdp 0.3.0
+
+* The taxonomic metadata is updated when observations are filtered with `filter_observation()` and `filter_media()` (#73)
