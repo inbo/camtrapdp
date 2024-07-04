@@ -73,7 +73,7 @@ write_eml <- function(x,
 
   # Get properties
   project <- x$project
-  sources <- x$sources
+  sources <- x$sources[[1]]
 
   # Set title
   eml$dataset$title <- x$title
@@ -84,7 +84,7 @@ write_eml <- function(x,
     "<span></span>This camera trap dataset is derived from the {sources} ",
     "project {project}. ",
     "Data have been standardized to Darwin Core using the ",
-    "<a href=\"https://inbo.github.io/camtraptor/\">camtraptor</a> R package ",
+    "<a href=\"https://inbo.github.io/camtrapdp/\">camtrapdp</a> R package ",
     "and only include observations (and associated media) of animals. ",
     "Excluded are records that document blank or unclassified media, ",
     "vehicles and observations of humans. ",
