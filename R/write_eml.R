@@ -9,7 +9,6 @@
 #' @param directory Path to local directory to write file to.
 #'   If `NULL`, then the EML object is returned instead, which can be useful
 #'   for extended/adapting the EML before writing with [EML::write_eml()].
-#' @param keywords Dataset keywords.
 #' @return `eml.xml` file written to disk or `EML` object when
 #'   `directory = NULL`.
 #' @family publication functions
@@ -49,9 +48,7 @@
 #' Not set: **sampling methods** and **citations**.
 #'
 #' Not applicable: **collection data**.
-write_eml <- function(x,
-                      directory = ".",
-                      keywords = c("camera traps")) {
+write_eml <- function(x, directory = ".") {
 
   # Initiate EML
   eml <- list(
@@ -119,7 +116,7 @@ write_eml <- function(x,
 
   # Set keywords
   eml$dataset$keywordSet <-
-    list(list(keywordThesaurus = "n/a", keyword = keywords))
+    list(list(keywordThesaurus = "n/a", keyword = c("camera traps")))
 
   # Set license
   eml$dataset$intellectualRights$para <-
