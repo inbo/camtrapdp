@@ -149,14 +149,6 @@ write_eml <- function(x, directory) {
     sci_names = sci_names
   )
 
-  # Set organizations as associated parties
-  eml$dataset$associatedParty <-
-    purrr::map(x$organizations, ~ EML::set_responsibleParty(
-      givenName = "", # Circumvent https://github.com/ropensci/EML/issues/345
-      organizationName = .$title,
-      onlineUrl = .$path
-    ))
-
   # Set project
   design_para <- glue::glue(
     "This project uses a {project$samplingDesign} sampling design. ",
