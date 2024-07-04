@@ -8,9 +8,10 @@
 #' and `eventID` (for event-based observations).
 #' Filter on `observationLevel == "media"` to only retain directly linked media.
 #'
+#' The taxonomic information in the metadata (`taxonomic`) is updated to match
+#' the filtered observations.
+#'
 #' @inheritParams check_camtrapdp
-#' @param update_metadata If TRUE, the taxonomic information in the metadata
-#' (`taxonomic`) is updated to match the filtered observations.
 #' @param ... Filtering conditions, see `dplyr::filter()`.
 #' @return `x` filtered.
 #' @family filter functions
@@ -51,7 +52,7 @@
 #'     eventEnd <= lubridate::as_datetime("2020-06-19 22:10:00")
 #'   ) %>%
 #'   observations()
-filter_observations <- function(x, ..., update_metadata = TRUE) {
+filter_observations <- function(x, ...) {
   check_camtrapdp(x)
 
   # Filter observations
@@ -84,13 +85,11 @@ filter_observations <- function(x, ..., update_metadata = TRUE) {
   observations(x) <- observations
 
   # Filter the taxonomic property in the metadata
-  if (update_metadata) {
-    remaining_taxa <- unique(observations(x)$scientificName)
-    x$taxonomic <-
-      purrr::keep(
-        x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
-        )
-  }
+  remaining_taxa <- unique(observations(x)$scientificName)
+  x$taxonomic <-
+    purrr::keep(
+      x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
+      )
 
   return(x)
 }
