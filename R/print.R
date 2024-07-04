@@ -18,7 +18,7 @@
 #' Print a summary after filtering
 #' filter_deployments(x, deploymentID == "62c200a9")
 print.camtrapdp <- function(x, ...) {
-  check_camtrapdp(x)
+  # check_camtrapdp() not necessary: print only triggered for camtrapdp object
 
   # Calculate number of rows for the tables (resources in x$data)
   tables_rows <-
