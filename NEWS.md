@@ -1,7 +1,5 @@
 # camtrapdp (development version)
 
-# camtrapdp 0.2.2
-
 * New function print() prints a human-readable summary of the Camera Trap Data Package (#8).
 
 # camtrapdp 0.2.1
