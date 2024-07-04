@@ -62,43 +62,17 @@ write_eml <- function(x,
 
   # Get properties
   project <- x$project
-  sources <- x$sources[[1]]
 
   # Set title
   eml$dataset$title <- x$title
 
   # Set abstract
-  first_para <- glue::glue(
+  last_para <-
     # Add span to circumvent https://github.com/ropensci/EML/issues/342
-    "<span></span>This camera trap dataset is derived from the {sources} ",
-    "project {project}. ",
-    "Data have been standardized to Darwin Core using the ",
-    "<a href=\"https://inbo.github.io/camtrapdp/\">camtrapdp</a> R package ",
-    "and only include observations (and associated media) of animals. ",
-    "Excluded are records that document blank or unclassified media, ",
-    "vehicles and observations of humans. ",
-    "Geospatial coordinates are {rounded_coordinates}. ",
-    "The original dataset description follows.",
-    project = if (is.null(project$path)) {
-      glue::glue("<em>{project$title}</em>")
-    } else {
-      glue::glue("<a href=\"{project$path}\">{project$title}</a>")
-    },
-    sources = if (is.null(sources$path)) {
-      sources$title
-    } else {
-      glue::glue("<a href=\"{sources$path}\">{sources$title}</a>")
-    },
-    rounded_coordinates = if (is.null(x$coordinatePrecision)) {
-      "provided as is"
-    } else {
-      glue::glue("rounded to {x$coordinatePrecision} degrees")
-    },
-    .null = ""
-  )
+    "<span></span>Data have been standardized to Darwin Core using the https://inbo.github.io/camtrapdp/\">camtrapdp</a> R package and only include observations (and associated media) of animals. Excluded are records that document blank or unclassified media, vehicles and observations of humans."
   eml$dataset$abstract$para <- append(
-    paste0("<![CDATA[", first_para, "]]>"),
-    x$description
+    x$description,
+    paste0("<![CDATA[", last_para, "]]>")
   )
 
   # Convert contributors to data frame
