@@ -4,8 +4,7 @@
 #' extension of the printing provided by the frictionless package. This summary
 #' provides the most important aspects of a Camera Trap Data Package.
 #'
-#' @param x Camera Trap Data Package object, as returned by
-#'   `read_camtrapdp()`.
+#' @param x Camera Trap Data Package object, as returned by `read_camtrapdp()`.
 #' @param ... Further arguments, they are ignored by this function.
 #'
 #' @return [print()] with a summary of the Camera Trap Data Package object.
