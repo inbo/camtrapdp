@@ -9,15 +9,6 @@
 #' @param directory Path to local directory to write file to.
 #'   If `NULL`, then the EML object is returned instead, which can be useful
 #'   for extended/adapting the EML before writing with [EML::write_eml()].
-#' @param creators Dataset creators
-#' - If `NULL` then all `x$contributors` will be added as creators, in the
-#'   order as listed.
-#' - If e.g. `c("Emma Cartuyvels", "Jim Casaer", "...", "Peter Desmet")`, then
-#'   Emma Cartuyvels, Jim Casaer and Peter Desmet will be set as first, second
-#'   and last creators respectively, on the condition that their name (`title`)
-#'   is present in `x$contributors`.
-#'   All other contributors will be inserted at `"..."`, sorted on their last
-#'   name.
 #' @param keywords Dataset keywords.
 #' @return `eml.xml` file written to disk or `EML` object when
 #'   `directory = NULL`.
@@ -34,8 +25,7 @@
 #'   describing from which project and platform the dataset is derived, and
 #'   to which extend coordinates are rounded (`x$coordinatePrecision`).
 #' - **license**: License with scope `data` as provided in `x$licenses`.
-#' - **creators**: Contributors (all roles) as provided in
-#'   `x$contributors`, filtered/reordered based on `creators`.
+#' - **creators**: Contributors (all roles) as provided in `x$contributors`.
 #' - **contact**: First creator.
 #' - **metadata provider**: First creator.
 #' - **keywords**: Keywords as provided in `keywords`.
@@ -61,7 +51,6 @@
 #' Not applicable: **collection data**.
 write_eml <- function(x,
                       directory = ".",
-                      creators = NULL,
                       keywords = c("camera traps")) {
 
   # Initiate EML
@@ -114,7 +103,7 @@ write_eml <- function(x,
 
   # Convert contributors to data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
-  contributors <-
+  creators <-
     purrr::map_dfr(x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
     tidyr::separate(
@@ -135,28 +124,8 @@ write_eml <- function(x,
     ) %>%
     dplyr::arrange(.data$last_name)
 
-  # Filter/sort contributors on creators param (or leave as is when NULL)
-  if (!is.null(creators)) {
-    ellipsis <- match("...", creators)
-    if (is.na(ellipsis)) {
-      # creators does not contain "...", reduce contributors to selected names
-      contributors <- dplyr::filter(contributors, title %in% creators)
-    } else {
-      # creators does contain "...", expand creators to full contributors
-      creators <- c(
-        utils::head(creators, ellipsis - 1),
-        dplyr::filter(contributors, !title %in% creators)$title,
-        utils::tail(creators, -ellipsis)
-      )
-    }
-    # Sort contributors on order in creators
-    contributors <- dplyr::arrange(contributors, factor(title, level = creators))
-  }
-  creator_list <- purrr::transpose(contributors) # Create list
-  message(glue::glue(
-    "Dataset creators: {creators}",
-    creators = paste(purrr::map_chr(creator_list, "title"), collapse = ", ")
-  ))
+  # Create creators list
+  creator_list <- purrr::transpose(creators)
 
   # Set creators
   eml$dataset$creator <- purrr::map(creator_list, ~ EML::set_responsibleParty(
