@@ -45,5 +45,18 @@ test_that("print() informs about the number of rows for every resource", {
 
 test_that("print() can handle an input with non standard numer of resources", {
 
+  # Create a test Camera Trap Data Package with 5 resources
+  five_resources <- example_dataset()
+  purrr::pluck(five_resources, "resources") <-
+    append(example_dataset()$resources,example_dataset()$resources[1])
+  purrr::pluck(five_resources, "data") <-
+    append(example_dataset()$data,example_dataset()$data[1])
+
+  print_message <- capture.output(print(five_resources))
+
+  # Expect one line per resource, and one for the line with the number of
+  # resources
+  expect_length(print_message, 5 + 1)
+
 })
 
