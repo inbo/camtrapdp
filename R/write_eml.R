@@ -124,7 +124,7 @@ write_eml <- function(x, directory = ".") {
 
   # Set coverage
   bbox <- x$spatial$bbox
-  taxonomy <- get_species(x)
+  taxonomy <- build_taxonomy(x)
   if ("taxonRank" %in% names(taxonomy)) {
     taxonomy <- dplyr::filter(taxonomy, .data$taxonRank == "species")
   }
