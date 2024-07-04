@@ -9,7 +9,6 @@
 #' @param directory Path to local directory to write file to.
 #'   If `NULL`, then the EML object is returned instead, which can be useful
 #'   for extended/adapting the EML before writing with [EML::write_eml()].
-#' @param title Dataset title.
 #' @param description Dataset description.
 #'   Will be added after an automatically generated paragraph.
 #'   Multiple paragraphs can be provided as a character vector.
@@ -66,13 +65,12 @@
 #' Not applicable: **collection data**.
 write_eml <- function(x,
                       directory = ".",
-                      title = x$title,
                       description = x$description,
                       creators = NULL,
                       keywords = c("camera traps")) {
   # Check input
   assertthat::assert_that(
-    !is.null(title),
+    !is.null(x$title),
     msg = "The dataset must have a `title`."
   )
   assertthat::assert_that(
@@ -93,7 +91,7 @@ write_eml <- function(x,
   platform <- x$platform
 
   # Set title
-  eml$dataset$title <- title
+  eml$dataset$title <- x$title
 
   # Set abstract
   first_para <- glue::glue(
