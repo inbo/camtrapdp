@@ -1,62 +1,52 @@
 test_that("print() returns output invisibly", {
-  # Test that there is any output at all
+  # No output
   expect_output(output <- withVisible(print(example_dataset())))
-  # Test that the value (the returned object) does not auto print
+  # Returned object does not auto print
   expect_false(output$visible)
 })
 
-test_that("print() informs about the number of resources", {
-  # Test that information is provided about the number of resources
-  expect_output(
-    print(example_dataset()),
-    regexp = "A Data Package with [0-9]+ resources:",
-    fixed = FALSE
-  )
-  # Test for 5 resources
-  five_resources <- example_dataset()
-  purrr::pluck(five_resources, "resources") <-
-    sample(five_resources$resources, 5, replace = TRUE)
+test_that("print() informs about the number of tables, their rows and unclass()", {
+  x_no_additional <-
+    example_dataset() %>%
+    frictionless::remove_resource("individuals")
 
+  # Default (additional resources removed)
   expect_output(
-    print(five_resources),
-    regexp = "A Data Package with 5 resources:",
+    print(x_no_additional),
+    regexp = paste(
+      "A Camera Trap Data Package with 3 tables:",
+      "* deployments: 4 rows",
+      "* media: 423 rows",
+      "* observations: 549 rows",
+      "Use `unclass()` to print the Data Package as a list.",
+      sep = "\n"
+    ),
     fixed = TRUE
   )
-  # Test 0 resources
-  zero_resources <- example_dataset()
-  purrr::pluck(zero_resources, "resources") <- list()
 
+  # Extra table added
+  x_no_additional$data$extra <- data.frame("col_1" = c(1, 2), "col_2" = c("a", "b"))
   expect_output(
-    print(zero_resources),
-    regexp = "A Data Package with 0 resources",
+    print(x_no_additional),
+    regexp = "* extra: 2 rows",
     fixed = TRUE
   )
 })
 
-test_that("print() informs about the number of rows for every resource", {
-  # Test that information is provided about the number of rows per resource
+test_that("print() informs about additional resources and how to load these", {
   expect_output(
     print(example_dataset()),
-    regexp = "deployments: [0-9]+",
-    fixed = FALSE
+    regexp = paste(
+      "And 1 additional resource,",
+      "which can be loaded with `frictionless::read_resource()`:"
+    ),
+    fixed = TRUE
+  )
+  expect_output(
+    print(example_dataset()),
+    regexp = "* individuals",
+    fixed = TRUE
   )
 
+  # See test above for no additional resources
 })
-
-test_that("print() can handle an input with non standard numer of resources", {
-
-  # Create a test Camera Trap Data Package with 5 resources
-  five_resources <- example_dataset()
-  purrr::pluck(five_resources, "resources") <-
-    append(example_dataset()$resources,example_dataset()$resources[1])
-  purrr::pluck(five_resources, "data") <-
-    append(example_dataset()$data,example_dataset()$data[1])
-
-  print_message <- capture.output(print(five_resources))
-
-  # Expect one line per resource, and one for the line with the number of
-  # resources
-  expect_length(print_message, 5 + 1)
-
-})
-
