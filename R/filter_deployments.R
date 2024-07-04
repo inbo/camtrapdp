@@ -60,5 +60,17 @@ filter_deployments <- function(x, ...) {
   media(x) <- media
   observations(x) <- observations
 
+  # Filter temporal metadata
+  x$temporal$start <-
+    deployments(x) %>%
+    dplyr::pull(deploymentStart) %>%
+    min() %>%
+    format(format = "%Y-%m-%d")
+  x$temporal$end <-
+    deployments(x) %>%
+    dplyr::pull(deploymentEnd) %>%
+    max() %>%
+    format(format = "%Y-%m-%d")
+
   return(x)
 }
