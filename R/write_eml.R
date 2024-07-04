@@ -157,6 +157,27 @@ write_eml <- function(x, directory) {
     "{glue::glue_collapse(project$captureMethod, last = ' and ')}. ",
     "Media are classified at {project$classificationLevel} level."
   )
+  # Add extra paragraph to description
+  type_samplingDesign <-
+    dplyr::case_when(
+      project$samplingDesign == "simpleRandom" ~ "simple random",
+      project$samplingDesign == "systematicRandom" ~ "systematic random",
+      project$samplingDesign == "clusteredRandom" ~ "clustered random",
+      .default = project$samplingDesign
+    )
+  marked_or_unmarked <-
+    ifelse(project$individualAnimals, "marked", "unmarked")
+  mapped_captureMethod <-
+    dplyr::case_when(
+      project$captureMethod == "activityDetection" ~ "activity detection",
+      project$captureMethod == "timeLapse" ~ "time lapse"
+    )
+  captureMethod <- paste(mapped_captureMethod, collapse = " and ")
+  design_para <- paste0(
+    "This project uses a ", type_samplingDesign, " sampling design. ",
+    "Animals are ", marked_or_unmarked, " and camera traps are triggered with ",
+    captureMethod, "."
+  )
   eml$dataset$project <- list(
     id = project$acronym, # Can be NULL, assigned as <project id="id">
     title = project$title,
