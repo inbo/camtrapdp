@@ -64,16 +64,20 @@ filter_deployments <- function(x, ...) {
   observations(x) <- observations
 
   # Filter temporal metadata
-  x$temporal$start <-
-    deployments(x) %>%
-    dplyr::pull(deploymentStart) %>%
-    min() %>%
-    format(format = "%Y-%m-%d")
-  x$temporal$end <-
-    deployments(x) %>%
-    dplyr::pull(deploymentEnd) %>%
-    max() %>%
-    format(format = "%Y-%m-%d")
+  if (nrow(deployments(x)) == 0) {
+    x$temporal <- NULL
+  } else {
+    x$temporal$start <-
+      deployments(x) %>%
+      dplyr::pull(deploymentStart) %>%
+      min() %>%
+      format(format = "%Y-%m-%d")
+    x$temporal$end <-
+      deployments(x) %>%
+      dplyr::pull(deploymentEnd) %>%
+      max() %>%
+      format(format = "%Y-%m-%d")
+  }
 
   # Filter spatial metadata
   x <- build_spatial(x)
