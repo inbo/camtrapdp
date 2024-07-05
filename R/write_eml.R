@@ -77,7 +77,7 @@ write_eml <- function(x, directory) {
     purrr::map_dfr(x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
     tidyr::separate(
-      title,
+      .data$title,
       c("first_name", "last_name"),
       sep = " ",
       extra = "merge",
