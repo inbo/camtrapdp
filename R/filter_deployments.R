@@ -72,5 +72,8 @@ filter_deployments <- function(x, ...) {
     max() %>%
     format(format = "%Y-%m-%d")
 
+  # Filter spatial metadata
+  x <- build_spatial(x)
+
   return(x)
 }
