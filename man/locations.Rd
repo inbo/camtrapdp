@@ -7,8 +7,7 @@
 locations(x)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 }
 \value{
 \code{\link[=tibble]{tibble()}} data frame with the locations, containing the following

@@ -1,4 +1,8 @@
-# camtrapdp (development version)
+# camtrapdp 0.3.0
+
+* New function `print()` prints a human-readable summary of the Camera Trap Data Package (#8).
+* Fix `fieldsEnclosedBy` issue in `meta.xml`, so GBIF occurrence processing correctly handles commas in fields (#95).
+* Fix CRAN note (#94).
 
 # camtrapdp 0.2.1
 
