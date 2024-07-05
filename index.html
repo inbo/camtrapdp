@@ -92,10 +92,12 @@
 <span><span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_camtrapdp.html">read_camtrapdp</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
-<span><span class="co">#&gt; A Data Package with 4 resources:</span></span>
-<span><span class="co">#&gt; • deployments</span></span>
-<span><span class="co">#&gt; • media</span></span>
-<span><span class="co">#&gt; • observations</span></span>
+<span><span class="co">#&gt; A Camera Trap Data Package with 3 tables:</span></span>
+<span><span class="co">#&gt; • deployments: 4 rows</span></span>
+<span><span class="co">#&gt; • media: 423 rows</span></span>
+<span><span class="co">#&gt; • observations: 549 rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; And 1 additional resource:</span></span>
 <span><span class="co">#&gt; • individuals</span></span>
 <span><span class="co">#&gt; Use `unclass()` to print the Data Package as a list.</span></span></code></pre></div>
 <p><code><a href="reference/read_camtrapdp.html">read_camtrapdp()</a></code> will automatically <strong>convert</strong> an older version of Camtrap DP to the latest version. It will also make the data easier to use, by assigning taxonomic information (found in the metadata) to the observations and <code>eventID</code>s (found in the observations) to the media.</p>
