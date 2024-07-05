@@ -57,10 +57,12 @@ library(camtrapdp)
 file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
 x <- read_camtrapdp(file)
 x
-#> A Data Package with 4 resources:
-#> • deployments
-#> • media
-#> • observations
+#> A Camera Trap Data Package with 3 tables:
+#> • deployments: 4 rows
+#> • media: 423 rows
+#> • observations: 549 rows
+#> 
+#> And 1 additional resource:
 #> • individuals
 #> Use `unclass()` to print the Data Package as a list.
 ```
