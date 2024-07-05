@@ -1,6 +1,6 @@
 Package: camtrapdp
 Title: Read and Manipulate Camera Trap Data Packages
-Version: 0.3.1
+Version: 0.3.1.9000
 Date: 2024-07-05
 Authors@R: c(
     person("Peter", "Desmet", , "peter.desmet@inbo.be", role = c("aut", "cre"),
