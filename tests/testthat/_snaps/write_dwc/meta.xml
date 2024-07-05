@@ -1,5 +1,5 @@
 <archive xmlns="http://rs.tdwg.org/dwc/text/">
-  <core encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/dwc/terms/Occurrence">
+  <core encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="&quot;" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/dwc/terms/Occurrence">
     <files>
       <location>occurrence.csv</location>
     </files>
@@ -45,7 +45,7 @@
     <field index="38" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
     <field index="39" term="http://rs.tdwg.org/dwc/terms/kingdom"/>
   </core>
-  <extension encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/ac/terms/Multimedia">
+  <extension encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="&quot;" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/ac/terms/Multimedia">
     <files>
       <location>multimedia.csv</location>
     </files>
