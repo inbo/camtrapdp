@@ -8,18 +8,18 @@
 #' @noRd
 build_spatial <- function(x) {
   # get bounding box data
-  x_east <- max(deployments(x)$longitude)
-  x_west <- min(deployments(x)$longitude)
-  y_north <- max(deployments(x)$latitude)
-  y_south <- min(deployments(x)$latitude)
+  long_max <- max(deployments(x)$longitude)
+  long_min <- min(deployments(x)$longitude)
+  lat_max <- max(deployments(x)$latitude)
+  lat_min <- min(deployments(x)$latitude)
 
-  x$bbox <- c(x_west, y_south, x_east, y_north)
+  x$spatial$bbox <- c(long_min, lat_min, long_max, lat_max)
 
-  x$coordinates <-
+  x$spatial$coordinates <-
     array(
       c(
-        x_west, x_east, x_east, x_west, x_west,
-        y_south, y_south, y_north, y_north, y_south
+        long_min, long_max, long_max, long_min, long_min,
+        lat_min, lat_min, lat_max, lat_max, lat_min
       ),
       dim = c(1, 5, 2)
     )
