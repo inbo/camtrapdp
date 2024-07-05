@@ -24,6 +24,9 @@ rows that satisfy the conditions.
 \item Media are filtered on associated \code{deploymentID}.
 \item Observations are filtered on associated \code{deploymentID}.
 }
+
+The spatial information in the metadata (\code{spatial}) is updated to match
+the filtered deployments.
 }
 \examples{
 x <- example_dataset()

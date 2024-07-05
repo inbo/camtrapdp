@@ -6,6 +6,9 @@
 #' - Media are filtered on associated `deploymentID`.
 #' - Observations are filtered on associated `deploymentID`.
 #'
+#' The spatial information in the metadata (`spatial`) is updated to match
+#' the filtered deployments.
+#'
 #' @inheritParams check_camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
 #' @return `x` filtered.
