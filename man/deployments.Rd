@@ -15,7 +15,7 @@ deployments(x) <- value
 \item{value}{A data frame to assign as deployments.}
 }
 \value{
-\code{\link[=tibble]{tibble()}} data frame with deployments.
+\code{\link[tibble:tibble]{tibble::tibble()}} data frame with deployments.
 }
 \description{
 \code{deployments()} gets the deployments from a Camera Trap Data Package object.
