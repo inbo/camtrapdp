@@ -1,14 +1,14 @@
-# -----------------------------------------------------------
-# CITATION file created with {cffr} R package, v0.5.0
+# --------------------------------------------
+# CITATION file created with {cffr} R package
 # See also: https://docs.ropensci.org/cffr/
-# -----------------------------------------------------------
+# --------------------------------------------
  
 cff-version: 1.2.0
 message: 'To cite package "camtrapdp" in publications use:'
 type: software
 license: MIT
 title: 'camtrapdp: Read and Manipulate Camera Trap Data Packages'
-version: 0.2.1.9000
+version: 0.3.0
 abstract: Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP'
   (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data.
   With 'camtrapdp' you can read, filter and transform data (including to Darwin Core)
@@ -37,7 +37,7 @@ authors:
 repository: https://CRAN.R-project.org/package=camtrapdp
 repository-code: https://github.com/inbo/camtrapdp
 url: https://inbo.github.io/camtrapdp/
-date-released: '2024-06-05'
+date-released: '2024-07-05'
 contact:
 - family-names: Desmet
   given-names: Peter
@@ -203,3 +203,4 @@ references:
   - family-names: Ooms
     given-names: Jeroen
   year: '2024'
+
