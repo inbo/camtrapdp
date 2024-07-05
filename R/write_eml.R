@@ -142,14 +142,6 @@ write_eml <- function(x, directory) {
       sci_names = sci_names
     )
 
-  # Set project
-  design_para <- glue::glue(
-    "This project uses a {project$samplingDesign} sampling design. ",
-    "Animals are {glue::glue_collapse(project$animalTypes, last = ' and ')} ",
-    "and camera traps are triggered with ",
-    "{glue::glue_collapse(project$captureMethod, last = ' and ')}. ",
-    "Media are classified at {project$classificationLevel} level."
-  )
   # Add extra paragraph to description
   type_samplingDesign <-
     dplyr::case_when(
