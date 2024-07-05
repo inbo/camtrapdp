@@ -131,15 +131,16 @@ write_eml <- function(x, directory) {
     dplyr::rename(taxonomy, Species = "scientificName") %>%
     dplyr::select("Species")
 
-  eml$dataset$coverage <- EML::set_coverage(
-    begin = x$temporal$start,
-    end = x$temporal$end,
-    west = bbox[1],
-    south = bbox[2],
-    east = bbox[3],
-    north = bbox[4],
-    sci_names = sci_names
-  )
+  eml$dataset$coverage <-
+    EML::set_coverage(
+      begin = x$temporal$start,
+      end = x$temporal$end,
+      west = bbox[1],
+      south = bbox[2],
+      east = bbox[3],
+      north = bbox[4],
+      sci_names = sci_names
+    )
 
   # Set project
   design_para <- glue::glue(
