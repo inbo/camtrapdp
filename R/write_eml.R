@@ -75,6 +75,7 @@ write_eml <- function(x, directory) {
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
   creators <-
     purrr::map_dfr(x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)) %>%
+    dplyr::filter(!role %in% c("rightsHolder", "publisher")) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
     tidyr::separate(
       .data$title,
@@ -85,6 +86,7 @@ write_eml <- function(x, directory) {
     ) %>%
     # Move ORCID from path to separate column
     dplyr::mutate(
+      # orcid = regmatches(.data$path, regexpr(orcid_regex, .data$path)),
       orcid = stringr::str_extract(.data$path, orcid_regex),
       path = ifelse(
         grepl(orcid_regex, .data$path),
