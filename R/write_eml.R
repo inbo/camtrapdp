@@ -40,6 +40,14 @@
 #' Not set: **sampling methods** and **citations**.
 #'
 #' Not applicable: **collection data**.
+#' @examples
+#' \dontrun{
+#' x <- example_dataset()
+#' write_eml(x, directory = "my_directory")
+#'
+#' # Clean up (don't do this if you want to keep your files)
+#' unlink("my_directory", recursive = TRUE)
+#' }
 write_eml <- function(x, directory) {
 
   # Filter dataset on observations (also affects media)
