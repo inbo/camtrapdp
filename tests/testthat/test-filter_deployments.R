@@ -70,6 +70,20 @@ test_that("filter_deployments() filters temporal and spatial metadata", {
     )
   expect_equal(x_filtered$spatial$coordinates, coordinates_array)
 
+  x_multiple <- filter_deployments(x, cameraHeight >= 1.0)
+  expect_equal(x_multiple$temporal$start, "2020-05-30")
+  expect_equal(x_multiple$temporal$end, "2021-04-18")
+  expect_equal(x_multiple$spatial$bbox, c(4.013, 50.699, 4.774, 51.496))
+  coordinates_array <-
+    array(
+      c(
+        4.013, 4.774, 4.774, 4.013, 4.013,
+        50.699, 50.699, 51.496, 51.496, 50.699
+      ),
+      dim = c(1, 5, 2)
+    )
+  expect_equal(x_multiple$spatial$coordinates, coordinates_array)
+
   x_empty <- filter_deployments(x, latitude < 0, longitude < 0)
   expect_null(x_empty$spatial)
   expect_null(x_empty$temporal)
