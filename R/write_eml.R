@@ -87,7 +87,7 @@ write_eml <- function(x, directory) {
     dplyr::mutate(
       orcid = stringr::str_extract(.data$path, orcid_regex),
       path = ifelse(
-        stringr::str_detect(.data$path, orcid_regex),
+        grepl(orcid_regex, .data$path),
         NA_character_,
         .data$path
       )
