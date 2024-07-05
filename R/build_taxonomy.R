@@ -3,7 +3,7 @@
 #' Builds a data frame from the `taxonomy` property in a Camera Trap Data
 #' Package object.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print.camtrapdp
 #' @return Data frame with the taxonomic information.
 #' @noRd
 build_taxonomy <- function(x) {

@@ -7,8 +7,7 @@
 filter_observations(x, ...)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 
 \item{...}{Filtering conditions, see \code{dplyr::filter()}.}
 }

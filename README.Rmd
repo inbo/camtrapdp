@@ -34,13 +34,13 @@ To get started, see:
 
 Install the latest released version from CRAN:
 
-```R
+```{r, eval = FALSE}
 install.packages("camtrapdp")
 ```
 
 Or the development version from [GitHub](https://github.com/inbo/camtrapdp):
 
-```r
+```{r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("inbo/camtrapdp")
 ```
