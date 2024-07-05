@@ -48,13 +48,15 @@ test_that("filter_deployments() filters deployments, media and observations", {
   expect_lt(nrow(deployments(x_filtered)), nrow(deployments(x)))
   expect_lt(nrow(media(x_filtered)), nrow(media(x)))
   expect_lt(nrow(observations(x_filtered)), nrow(observations(x)))
+
+  x_empty <- filter_deployments(x, latitude < 0, longitude < 0)
 })
 
 test_that("filter_deployments() filters temporal and spatial metadata", {
   skip_if_offline()
   x <- example_dataset()
-  x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
 
+  x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
   expect_equal(x_filtered$temporal$start, "2021-03-27")
   expect_equal(x_filtered$temporal$end, "2021-04-18")
   expect_equal(x_filtered$spatial$bbox, c(4.013, 50.699, 4.013, 50.699))
@@ -67,4 +69,8 @@ test_that("filter_deployments() filters temporal and spatial metadata", {
       dim = c(1, 5, 2)
     )
   expect_equal(x_filtered$spatial$coordinates, coordinates_array)
+
+  x_empty <- filter_deployments(x, latitude < 0, longitude < 0)
+  expect_null(x_empty$spatial)
+  expect_null(x_empty$temporal)
 })
