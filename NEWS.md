@@ -1,3 +1,7 @@
+# camtrapdp 0.3.1
+
+* Fix CRAN note (#102).
+
 # camtrapdp 0.3.0
 
 * New function `print()` prints a human-readable summary of the Camera Trap Data Package (#8).
