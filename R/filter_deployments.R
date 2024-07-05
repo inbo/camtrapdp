@@ -9,7 +9,7 @@
 #' The spatial information in the metadata (`spatial`) is updated to match
 #' the filtered deployments.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
 #' @return `x` filtered.
 #' @family filter functions
