@@ -1,3 +1,11 @@
+# camtrapdp (development version)
+
+* New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` in the metadata (#85).
+
+# camtrapdp 0.3.1
+
+* Fix CRAN note (#102).
+
 # camtrapdp 0.3.0
 
 * New function `print()` prints a human-readable summary of the Camera Trap Data Package (#8).
