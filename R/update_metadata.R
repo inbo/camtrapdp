@@ -1,5 +1,3 @@
-# HELPER FUNCTIONS
-
 #' Updates spatial metadata, that is, the bounding box of polygon coordinates.
 #'
 #' @inheritParams check_camtrapdp
