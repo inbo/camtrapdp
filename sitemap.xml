@@ -1,81 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/404.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/index.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/camtrapdp-package.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/check_camtrapdp.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/deployments.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/events.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/example_dataset.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/filter_deployments.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/filter_media.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/filter_observations.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/locations.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/media.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/observations.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/print.camtrapdp.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/read_camtrapdp.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/taxa.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/version.html</loc>
-  </url>
-  <url>
-    <loc>https://inbo.github.io/camtrapdp/reference/write_dwc.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://inbo.github.io/camtrapdp/404.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/CONTRIBUTING.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/LICENSE-text.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/LICENSE.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/authors.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/index.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/news/index.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/camtrapdp-package.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/check_camtrapdp.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/deployments.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/events.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/example_dataset.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/filter_deployments.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/filter_media.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/filter_observations.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/index.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/locations.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/media.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/observations.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/pipe.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/print.camtrapdp.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/read_camtrapdp.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/round_coordinates.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/taxa.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/version.html</loc></url>
+<url><loc>https://inbo.github.io/camtrapdp/reference/write_dwc.html</loc></url>
 </urlset>
+
