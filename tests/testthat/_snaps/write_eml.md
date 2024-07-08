@@ -1,4 +1,4 @@
-# write_eml() can write an eml
+# write_eml() writes an eml to the given directory
 
     Code
       eml
