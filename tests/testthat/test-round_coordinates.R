@@ -1,14 +1,21 @@
-test_that("round_coordinates() returns error on invalid digits", {
+test_that("round_coordinates() returns error on empty or invalid digits", {
   x <- example_dataset()
   expect_error(
+    round_coordinates(x, digits = NULL),
+    class = "camtrapdp_error_digits_invalid"
+  )
+  expect_error(
     round_coordinates(x, digits = 0),
-    class = "camtrapdp_error_digits")
+    class = "camtrapdp_error_digits_invalid"
+  )
   expect_error(
     round_coordinates(x, digits = 4),
-    class = "camtrapdp_error_digits")
+    class = "camtrapdp_error_digits_invalid"
+  )
   expect_error(
     round_coordinates(x, digits = 1.5),
-    class = "camtrapdp_error_digits")
+    class = "camtrapdp_error_digits_invalid"
+  )
 })
 
 test_that("round_coordinates() sets lat, long, uncertainty and precision", {
