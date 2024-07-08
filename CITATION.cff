@@ -8,7 +8,7 @@ message: 'To cite package "camtrapdp" in publications use:'
 type: software
 license: MIT
 title: 'camtrapdp: Read and Manipulate Camera Trap Data Packages'
-version: 0.3.0
+version: 0.3.1
 abstract: Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP'
   (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data.
   With 'camtrapdp' you can read, filter and transform data (including to Darwin Core)
@@ -188,6 +188,21 @@ references:
     email: hadley@posit.co
   year: '2024'
   version: '>= 3.0.0'
+- type: software
+  title: tibble
+  abstract: 'tibble: Simple Data Frames'
+  notes: Suggests
+  url: https://tibble.tidyverse.org/
+  repository: https://CRAN.R-project.org/package=tibble
+  authors:
+  - family-names: Müller
+    given-names: Kirill
+    email: kirill@cynkra.com
+    orcid: https://orcid.org/0000-0002-1416-3412
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  year: '2024'
 - type: software
   title: xml2
   abstract: 'xml2: Parse XML'
