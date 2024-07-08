@@ -4,7 +4,7 @@
 #' @return `x` with updated spatial metadata
 #' @family helper functions
 #' @noRd
-build_spatial <- function(x) {
+update_spatial <- function(x) {
   if (nrow(deployments(x)) == 0) {
     x$spatial <- NULL
   } else { # otherwise get bounding box data

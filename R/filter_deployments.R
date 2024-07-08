@@ -80,7 +80,7 @@ filter_deployments <- function(x, ...) {
   }
 
   # Filter spatial metadata
-  x <- build_spatial(x)
+  x <- update_spatial(x)
 
   return(x)
 }
