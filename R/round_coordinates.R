@@ -134,7 +134,7 @@ round_coordinates <- function(x, digits = 3) {
   )
 
   # Update longitude, latitude and coordinateUncertainty
-  x$data$deployments <-
+  deployments(x) <-
     deployments(x) %>%
     dplyr::mutate(
       latitudeGroup = dplyr::case_when(
