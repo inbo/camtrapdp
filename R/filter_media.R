@@ -7,6 +7,9 @@
 #' - Observations are filtered on associated `mediaID` (for media-based
 #' observations) and `eventID` (for event-based observations).
 #'
+#' The taxonomic information in the metadata (`taxonomic`) is updated to match
+#' the filtered observations.
+#'
 #' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
 #' @return `x` filtered.
@@ -23,6 +26,9 @@
 #' # Filtering on media also affects associated observations, but not deployments
 #' x_filtered <- filter_media(x, favorite == TRUE)
 #' observations(x_filtered)
+#'
+#' # Because update_taxonomic == TRUE, taxonomic metadata is updated
+#' x_filtered$taxonomic
 #'
 #' # Filtering on multiple conditions (combined with &)
 #' x %>%
@@ -60,6 +66,13 @@ filter_media <- function(x, ...) {
   # Assign filtered data
   media(x) <- media
   observations(x) <- observations
+
+  # Filter the taxonomic property in the metadata
+  remaining_taxa <- unique(observations(x)$scientificName)
+  x$taxonomic <-
+    purrr::keep(
+      x$taxonomic, ~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
+      )
 
   return(x)
 }

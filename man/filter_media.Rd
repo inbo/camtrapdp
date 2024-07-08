@@ -24,6 +24,9 @@ satisfy the conditions.
 \item Observations are filtered on associated \code{mediaID} (for media-based
 observations) and \code{eventID} (for event-based observations).
 }
+
+The taxonomic information in the metadata (\code{taxonomic}) is updated to match
+the filtered observations.
 }
 \examples{
 x <- example_dataset()
@@ -36,6 +39,9 @@ x \%>\%
 # Filtering on media also affects associated observations, but not deployments
 x_filtered <- filter_media(x, favorite == TRUE)
 observations(x_filtered)
+
+# Because update_taxonomic == TRUE, taxonomic metadata is updated
+x_filtered$taxonomic
 
 # Filtering on multiple conditions (combined with &)
 x \%>\%

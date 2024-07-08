@@ -1,5 +1,6 @@
 # camtrapdp (development version)
 
+* `filter_observation()` and `filter_media()` now update the taxonomic scope in the metadata (#73).
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` in the metadata (#85).
 
 # camtrapdp 0.3.1

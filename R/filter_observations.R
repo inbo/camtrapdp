@@ -8,6 +8,9 @@
 #' and `eventID` (for event-based observations).
 #' Filter on `observationLevel == "media"` to only retain directly linked media.
 #'
+#' The taxonomic information in the metadata (`taxonomic`) is updated to match
+#' the filtered observations.
+#'
 #' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
 #' @return `x` filtered.
@@ -22,12 +25,16 @@
 #'   observations()
 #'
 #' # Filtering on observations also affects associated media, but not deployments
-#' x %>%
-#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "event") %>%
-#'   media()
-#' x %>%
-#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "media") %>%
-#'   media()
+#' x_vulpes_event <-
+#'   x %>%
+#'   filter_observations(
+#'     scientificName == "Vulpes vulpes",
+#'     observationLevel == "event"
+#'   )
+#' media(x_vulpes_event)
+#'
+#' # Because update_taxonomic == TRUE, taxonomic metadata is updated
+#' x_vulpes_event$taxonomic
 #'
 #' # Filtering on multiple conditions (combined with &)
 #' x %>%
@@ -76,6 +83,13 @@ filter_observations <- function(x, ...) {
   # Assign filtered data
   media(x) <- media
   observations(x) <- observations
+
+  # Filter the taxonomic property in the metadata
+  remaining_taxa <- unique(observations(x)$scientificName)
+  x$taxonomic <-
+    purrr::keep(
+      x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
+      )
 
   return(x)
 }

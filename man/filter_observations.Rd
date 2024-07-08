@@ -25,6 +25,9 @@ that satisfy the conditions.
 and \code{eventID} (for event-based observations).
 Filter on \code{observationLevel == "media"} to only retain directly linked media.
 }
+
+The taxonomic information in the metadata (\code{taxonomic}) is updated to match
+the filtered observations.
 }
 \examples{
 x <- example_dataset()
@@ -35,12 +38,16 @@ x \%>\%
   observations()
 
 # Filtering on observations also affects associated media, but not deployments
-x \%>\%
-  filter_observations(scientificName == "Vulpes vulpes", observationLevel == "event") \%>\%
-  media()
-x \%>\%
-  filter_observations(scientificName == "Vulpes vulpes", observationLevel == "media") \%>\%
-  media()
+x_vulpes_event <-
+  x \%>\%
+  filter_observations(
+    scientificName == "Vulpes vulpes",
+    observationLevel == "event"
+  )
+media(x_vulpes_event)
+
+# Because update_taxonomic == TRUE, taxonomic metadata is updated
+x_vulpes_event$taxonomic
 
 # Filtering on multiple conditions (combined with &)
 x \%>\%
