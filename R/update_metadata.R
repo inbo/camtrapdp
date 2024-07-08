@@ -26,3 +26,26 @@ update_spatial <- function(x) {
   }
   return(x)
 }
+
+#' Updates temporal metadata, that is, the start and end date.
+#'
+#' @inheritParams check_camtrapdp
+#' @return `x` with updated temporal metadata
+#' @family helper functions
+#' @noRd
+update_temporal <- function(x) {
+  if (nrow(deployments(x)) == 0) {
+    x$temporal <- NULL
+  } else {
+    x$temporal$start <-
+      deployments(x) %>%
+      dplyr::pull(deploymentStart) %>%
+      min() %>%
+      format(format = "%Y-%m-%d")
+    x$temporal$end <-
+      deployments(x) %>%
+      dplyr::pull(deploymentEnd) %>%
+      max() %>%
+      format(format = "%Y-%m-%d")
+  }
+}
