@@ -4,7 +4,7 @@
 \alias{round_coordinates}
 \title{Round coordinates to generalize camera trap locations}
 \usage{
-round_coordinates(x, digits = 3)
+round_coordinates(x, digits)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by

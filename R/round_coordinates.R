@@ -77,7 +77,7 @@
 #'
 #' # Updated coordinates and uncertainty (original 187 - 147 + 14697 = 14737)
 #' deployments(x_rounded)[c("latitude", "longitude", "coordinateUncertainty")]
-round_coordinates <- function(x, digits = 3) {
+round_coordinates <- function(x, digits) {
   if (is.null(digits) || !(digits %in% c(1, 2, 3))) {
     cli::cli_abort(
       c("{.arg digits} must be {.val 1}, {.val 2} or {.val 3}."),
