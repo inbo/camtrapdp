@@ -6,10 +6,10 @@
 #' sensitive species and/or prevent theft of active cameras.
 #'
 #' @inheritParams check_camtrapdp
-#' @param digits Number of decimal places to round coordinates to (`1`,
-#'   `2` or `3`).
-#' @return `x` with rounded coordinates, updated `coordinatePrecision` in
-#'   metadata and updated `coordinateUncertainty` in deployments.
+#' @param digits Number of decimal places to round coordinates to (`1`, `2` or
+#'   `3`).
+#' @return `x` with chosen `coordinatePrecision` in metadata and rounded
+#'   coordinates and calculated `coordinateUncertainty` in deployments.
 #' @family transformation functions
 #' @export
 #' @section Details:
@@ -26,14 +26,12 @@
 #' category 1 | extreme | (do not publish)
 #' category 2 | high | 1
 #' category 3 | medium | 2
-#' category 4 | low | 3 | 0.001
+#' category 4 | low | 3
 #' not sensitive | not sensitive | all (do not use this function)
 #'
-#' The function will then:
+#' The function will:
 #'
-#' 1. Round all coordinates in the deployments to the selected number of digits.
-#'
-#' 2. Set the `coordinatePrecision` in the metadata (original values will be
+#' 1. Set the `coordinatePrecision` in the metadata (original values will be
 #'     overwritten):
 #'
 #'     digits | coordinatePrecision
@@ -41,6 +39,8 @@
 #'     1 | 0.1
 #'     2 | 0.01
 #'     3 | 0.001
+#'
+#' 2. Round all coordinates in the deployments to the selected number of digits.
 #'
 #' 3. Update the `coordinateUncertainy` (in meters) in the deployments.
 #'     This uncertainty is based on the number of digits and the latitude,
@@ -67,7 +67,7 @@
 #' x$coordinatePrecision
 #'
 #' # Original coordinates and uncertainty
-#' deployments(x)[c("latitude","longitude","coordinateUncertainty")]
+#' deployments(x)[c("latitude", "longitude", "coordinateUncertainty")]
 #'
 #' # Round coordinates to 1 digit
 #' x_rounded <- round_coordinates(x, 1)
@@ -76,7 +76,7 @@
 #' x_rounded$coordinatePrecision
 #'
 #' # Updated coordinates and uncertainty (original 187 - 147 + 14697 = 14737)
-#' deployments(x_rounded)[c("latitude","longitude","coordinateUncertainty")]
+#' deployments(x_rounded)[c("latitude", "longitude", "coordinateUncertainty")]
 round_coordinates <- function(x, digits = 3) {
   if (is.null(digits) || !(digits %in% c(1, 2, 3))) {
     cli::cli_abort(

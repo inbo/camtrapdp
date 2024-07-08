@@ -10,12 +10,12 @@ round_coordinates(x, digits = 3)
 \item{x}{Camera Trap Data Package object, as returned by
 \code{read_camtrapdp()}.}
 
-\item{digits}{Number of decimal places to round coordinates to (\code{1},
-\code{2} or \code{3}).}
+\item{digits}{Number of decimal places to round coordinates to (\code{1}, \code{2} or
+\code{3}).}
 }
 \value{
-\code{x} with rounded coordinates, updated \code{coordinatePrecision} in
-metadata and updated \code{coordinateUncertainty} in deployments.
+\code{x} with chosen \code{coordinatePrecision} in metadata and rounded
+coordinates and calculated \code{coordinateUncertainty} in deployments.
 }
 \description{
 Rounds deployment coordinates to a certain number of digits to
@@ -39,9 +39,8 @@ in Chapman 2020) and choose the associated number of digits :\tabular{lll}{
 }
 
 
-The function will then:
+The function will:
 \enumerate{
-\item Round all coordinates in the deployments to the selected number of digits.
 \item Set the \code{coordinatePrecision} in the metadata (original values will be
 overwritten):\tabular{ll}{
    digits \tab coordinatePrecision \cr
@@ -50,6 +49,7 @@ overwritten):\tabular{ll}{
    3 \tab 0.001 \cr
 }
 
+\item Round all coordinates in the deployments to the selected number of digits.
 \item Update the \code{coordinateUncertainy} (in meters) in the deployments.
 This uncertainty is based on the number of digits and the latitude,
 following \href{https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty}{Table 3} in Chapman &
@@ -76,7 +76,7 @@ x <- example_dataset()
 x$coordinatePrecision
 
 # Original coordinates and uncertainty
-deployments(x)[c("latitude","longitude","coordinateUncertainty")]
+deployments(x)[c("latitude", "longitude", "coordinateUncertainty")]
 
 # Round coordinates to 1 digit
 x_rounded <- round_coordinates(x, 1)
@@ -85,7 +85,7 @@ x_rounded <- round_coordinates(x, 1)
 x_rounded$coordinatePrecision
 
 # Updated coordinates and uncertainty (original 187 - 147 + 14697 = 14737)
-deployments(x_rounded)[c("latitude","longitude","coordinateUncertainty")]
+deployments(x_rounded)[c("latitude", "longitude", "coordinateUncertainty")]
 }
 \seealso{
 Other transformation functions: 
