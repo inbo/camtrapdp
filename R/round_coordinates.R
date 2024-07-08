@@ -169,7 +169,7 @@ round_coordinates <- function(x, digits) {
       )
 
   # Filter spatial metadata
-  x <- build_spatial(x)
+  x <- update_spatial(x)
 
   return(x)
 }

@@ -49,3 +49,17 @@ update_temporal <- function(x) {
       format(format = "%Y-%m-%d")
   }
 }
+
+#' Updates taxonomic metadata, that is, the list of species observed.
+#'
+#' @inheritParams check_camtrapdp
+#' @return `x` with updated taxonomic metadata
+#' @family helper functions
+#' @noRd
+update_taxonomic(x) {
+  remaining_taxa <- unique(observations(x)$scientificName)
+  x$taxonomic <-
+    purrr::keep(
+      x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
+    )
+}

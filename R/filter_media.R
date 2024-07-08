@@ -68,11 +68,7 @@ filter_media <- function(x, ...) {
   observations(x) <- observations
 
   # Filter the taxonomic property in the metadata
-  remaining_taxa <- unique(observations(x)$scientificName)
-  x$taxonomic <-
-    purrr::keep(
-      x$taxonomic, ~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
-      )
+  x <- update_taxonomic(x)
 
   return(x)
 }
