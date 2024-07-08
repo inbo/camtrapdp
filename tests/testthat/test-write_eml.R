@@ -3,7 +3,7 @@ test_that("write_eml() writes an eml to the given directory", {
   x <- example_dataset()
   # compare against known good result
   eml <-
-    suppressMessages(write_eml(x, directory = NULL))
+    suppressMessages(write_eml(x, directory = tempdir()))
   ## don't compare the packageId because it's a random guid
   purrr::pluck(eml, "packageId") <- NULL
   expect_snapshot(eml)
