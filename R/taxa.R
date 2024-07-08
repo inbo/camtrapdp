@@ -4,7 +4,7 @@
 #' the observations of a Camera Trap Data Package object.
 #'
 #' @inheritParams print.camtrapdp
-#' @return [tibble()] data frame with the taxonomic information, containing at
+#' @return [tibble::tibble()] data frame with the taxonomic information, containing at
 #'   least a `scientificName` column.
 #' @family accessor functions
 #' @export
