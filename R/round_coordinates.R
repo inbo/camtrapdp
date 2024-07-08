@@ -97,7 +97,7 @@ round_coordinates <- function(x, digits = 3) {
                  {.field x$coordinatePrecision} = {.val {original_precision}}).",
           "i" = "Requested precision: {.val {digits}} digits."
         ),
-        class = "camtrapdp_error_precision"
+        class = "camtrapdp_error_precision_metadata"
       )
     }
   } else {
@@ -117,7 +117,7 @@ round_coordinates <- function(x, digits = 3) {
                  deployments).",
           "i" = "Requested precision: {.val {digits}} digits."
         ),
-        class = "camtrapdp_error_precision_max"
+        class = "camtrapdp_error_precision_data"
       )
     }
   }

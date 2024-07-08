@@ -66,18 +66,21 @@ test_that("round_coordinates() sets lat, lon, uncertainty and precision", {
   expect_equal(deployments(x2)$coordinateUncertainty[[4]], 30 + 1121)
 })
 
-test_that("round_coordinates() does not allow to round to higher precision", {
-  x <- example_dataset()
-  x2 <- round_coordinates(x, 2)
+test_that("round_coordinates() forbids rounding to equal or higher precision", {
+  x2 <- round_coordinates(example_dataset(), 2)
 
-  # Based on package$coordinatePrecision
-  expect_error(round_coordinates(x2, 3), class = "camtrapdp_error_precision")
+  # Try setting from 2 to 3, blocked by x$coordinatePrecision = 0.01
+  expect_error(
+    round_coordinates(x2, 3),
+    class = "camtrapdp_error_precision_metadata"
+  )
 
-  # Based on data
+  # Try setting from 2 to 3, blocked by (max 2) decimals found in deployments
   x2$coordinatePrecision <- NULL
   expect_error(
     round_coordinates(x2, 3),
-    class = "camtrapdp_error_precision_max")
+    class = "camtrapdp_error_precision_data"
+  )
 })
 
 test_that("round_coordinates() doesn't overestimate uncertainty on multiple runs", {
