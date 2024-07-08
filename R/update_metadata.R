@@ -56,7 +56,7 @@ update_temporal <- function(x) {
 #' @return `x` with updated taxonomic metadata
 #' @family helper functions
 #' @noRd
-update_taxonomic(x) {
+update_taxonomic <- function(x) {
   remaining_taxa <- unique(observations(x)$scientificName)
   x$taxonomic <-
     purrr::keep(
