@@ -6,7 +6,7 @@
 #' @inheritParams print.camtrapdp
 #' @return Data frame with the taxonomic information.
 #' @noRd
-build_taxonomy <- function(x) {
+build_taxa <- function(x) {
   # Extract the taxonomic information
   taxonomic_list <- purrr::pluck(x, "taxonomic")
 
