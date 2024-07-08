@@ -146,6 +146,9 @@ round_coordinates <- function(x, digits = 3) {
       roundingUncertainty = purrr::map_dbl(
         .data$latitudeGroup, ~ uncertainty[[.x]][digits]
       ),
+      oldRoundingUncertainty = purrr::map_dbl(
+        .data$latitudeGroup, ~ uncertainty[[.x]][original_digits]
+        ),
       longitude = round(.data$longitude, digits),
       latitude = round(.data$latitude, digits),
       coordinateUncertainty =
@@ -157,11 +160,13 @@ round_coordinates <- function(x, digits = 3) {
           # Otherwise: subtract old rounding uncertainty, add new rounding
           # uncertainty
           TRUE ~ .data$coordinateUncertainty
-            - purrr::map_dbl(.data$latitudeGroup, ~ uncertainty[[.x]][original_digits])
+            - .data$oldRoundingUncertainty
             + .data$roundingUncertainty
         )
     ) %>%
-    dplyr::select(-"latitudeGroup", -"roundingUncertainty")
+    dplyr::select(
+      -"latitudeGroup", -"roundingUncertainty", "oldRoundingUncertainty"
+      )
 
   return(x)
 }
