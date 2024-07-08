@@ -50,3 +50,26 @@ test_that("filter_media() filters media and observations, but not deployments", 
   expect_lt(nrow(observations(x_filtered)), nrow(observations(x)))
   expect_equal(nrow(observations(x_filtered)), 4) # 1 event, 3 media observations
 })
+
+
+test_that("filter_media() updates the taxonomic property", {
+  skip_if_offline()
+  x <- example_dataset()
+  x_favorite <- filter_media(x, favorite == TRUE)
+  remaining_taxa_obs <- unique(observations(x_favorite)$scientificName)
+  remaining_taxa_tax <-
+    purrr::map_chr(x_favorite$taxonomic, ~ purrr::pluck(.x, "scientificName"))
+  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+
+  x_filtered <-
+    filter_media(x, captureMethod == "activityDetection", filePublic == FALSE)
+  remaining_taxa_obs <-
+    unique(observations(x_filtered)$scientificName) %>%
+    sort()
+  remaining_taxa_tax <-
+    purrr::map_chr(
+      x_filtered$taxonomic, ~ purrr::pluck(.x, "scientificName")
+    ) %>%
+    sort()
+  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+})

@@ -61,3 +61,26 @@ test_that("filter_observations() filters observations and media, but not deploym
   )
   expect_equal(nrow(media(x_filtered_event)), 10) # All media files in the event
 })
+
+test_that("filter_observations() updates the taxonomic propertyt", {
+  skip_if_offline()
+  x <- example_dataset()
+  x_vulpes_media <- filter_observations(
+    x,
+    scientificName == "Vulpes vulpes",
+    observationLevel == "media"
+  )
+  remaining_taxa_obs <- unique(observations(x_vulpes_media)$scientificName)
+  remaining_taxa_tax <-
+    purrr::map_chr(x_vulpes_media$taxonomic, ~ purrr::pluck(.x, "scientificName"))
+  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+
+  x_animal <- filter_observations(x, observationType == "animal")
+  remaining_taxa_obs <-
+    unique(observations(x_animal)$scientificName) %>%
+    sort()
+  remaining_taxa_tax <-
+    purrr::map_chr(x_animal$taxonomic, ~ purrr::pluck(.x, "scientificName")) %>%
+    sort()
+  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+})
