@@ -14,9 +14,8 @@ round_coordinates(x, digits = 3)
 \code{2} or \code{3}).}
 }
 \value{
-\code{x} with rounded coordinates as well as updated
-\code{coordinateUncertainty} (in deployments) and \code{coordinatePrecision} (in
-metadata).
+\code{x} with rounded coordinates, updated \code{coordinatePrecision} in
+metadata and updated \code{coordinateUncertainty} in deployments.
 }
 \description{
 Rounds deployment coordinates to a certain number of digits to
@@ -27,45 +26,66 @@ sensitive species and/or prevent theft of active cameras.
 \section{Details}{
 
 Rounding coordinates is a recommended method to generalize sensitive
-biodiversity information (see
-\href{https://doi.org/10.15468/doc-5jp4-5g10#s-generalization}{Section 4.2}
-in Chapman 2020).
-Choose a number of digits that aligns with the sensitivity of the data and
-notice the effect on precision and uncertainty.
-Publish the coordinates as is (i.e. do not use this function) if the data
-are not sensitive.\tabular{lll}{
-   sensitivity \tab digits \tab coordinatePrecision \cr
-   high \tab 1 \tab 0.1 \cr
-   medium \tab 2 \tab 0.01 \cr
-   low \tab 3 \tab 0.001 \cr
+biodiversity information (see \href{https://doi.org/10.15468/doc-5jp4-5g10#s-generalization}{Section 4.2} in Chapman 2020).
+Use this function to do so for your data.
+Determine the category of sensitivity (see \href{https://docs.gbif.org/sensitive-species-best-practices/master/en/#table-06}{Section 2.2}
+in Chapman 2020) and choose the associated number of digits :\tabular{lll}{
+   category \tab sensitivity \tab digits \cr
+   category 1 \tab extreme \tab (do not publish) \cr
+   category 2 \tab high \tab 1 \cr
+   category 3 \tab medium \tab 2 \cr
+   category 4 \tab low \tab 3 \cr
+   not sensitive \tab not sensitive \tab all (do not use this function) \cr
 }
 
 
-For records with \code{coordinateUncertainty = NA} the function will assume the
-coordinates were obtained by GPS and use \verb{30 m} as original uncertainty,
-before adding uncertainty caused by rounding.
-The added rounding uncertainty is dependent on latitude and follows the
-categories in
-\href{https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty}{Table 3} in
-Chapman & Wieczorek 2020.\tabular{llll}{
-   latitude \tab 0.1 degree \tab 0.01 degree \tab 0.001 degree \cr
-   0° \tab 15691 m \tab 1570 m \tab 157 m \cr
-   30° \tab 14697 m \tab 1470 m \tab 147 m \cr
-   60° \tab 12461 m \tab 1246 m \tab 125 m \cr
-   85° \tab 11211 m \tab 1121 m \tab 112 m \cr
+The function will then:
+\enumerate{
+\item Round all coordinates in the deployments to the selected number of digits.
+\item Set the \code{coordinatePrecision} in the metadata (original values will be
+overwritten):\tabular{ll}{
+   digits \tab coordinatePrecision \cr
+   1 \tab 0.1 \cr
+   2 \tab 0.01 \cr
+   3 \tab 0.001 \cr
+}
+
+\item Update the \code{coordinateUncertainy} (in meters) in the deployments.
+This uncertainty is based on the number of digits and the latitude,
+following \href{https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty}{Table 3} in Chapman &
+Wieczorek 2020:\tabular{lllll}{
+   digits \tab 0° latitude \tab 30° latitude \tab 60° latitude \tab 85° latitude \cr
+   1 \tab 15691 m \tab 14697 m \tab 12461 m \tab 11211 m \cr
+   2 \tab 1570 m \tab 1470 m \tab 1246 m \tab 1121 m \cr
+   3 \tab 157 m \tab 147 m \tab 125 m \tab 112 m \cr
+}
+
+
+If a \code{coordinatePrecision} is already present, the function will subtract
+the \code{coordinateUncertainty} associated with it before setting a new
+uncertainty (e.g. \code{0.001} to \code{0.01} = \verb{original value - 157 + 1570 m}).
+If \verb{original value} is \code{NA}, the function will assume the coordinates
+were obtained by GPS and set \verb{original value = 30}.
 }
 }
 
 \examples{
-# Round coordinates of example package to 3 digits
 x <- example_dataset()
-x_rounded2 <- round_coordinates(x, 2)
 
-# coordinatePrecision is set in metadata
-x_rounded2$coordinatePrecision
+# Original precision
+x$coordinatePrecision
 
-# coordinateUncertainty is set in data: original uncertainty (or 30) + 1470 m
-x_rounded2$data$deployments$coordinateUncertainty
+# Original coordinates and uncertainty
+deployments(x)[c("latitude","longitude","coordinateUncertainty")]
+
+# Round coordinates to 1 digit
+x_rounded <- round_coordinates(x, 1)
+
+# Updated coordinatePrecision
+x_rounded$coordinatePrecision
+
+# Updated coordinates and uncertainty (original 187 - 147 + 14697 = 14737)
+deployments(x_rounded)[c("latitude","longitude","coordinateUncertainty")]
 }
 \seealso{
 Other transformation functions: 

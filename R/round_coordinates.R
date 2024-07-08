@@ -7,53 +7,76 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param digits Number of decimal places to round coordinates to (`1`,
-#' `2` or `3`).
-#' @return `x` with rounded coordinates as well as updated
-#'   `coordinateUncertainty` (in deployments) and `coordinatePrecision` (in
-#'   metadata).
+#'   `2` or `3`).
+#' @return `x` with rounded coordinates, updated `coordinatePrecision` in
+#'   metadata and updated `coordinateUncertainty` in deployments.
 #' @family transformation functions
 #' @export
 #' @section Details:
 #' Rounding coordinates is a recommended method to generalize sensitive
-#' biodiversity information (see
-#' [Section 4.2](https://doi.org/10.15468/doc-5jp4-5g10#s-generalization)
-#' in Chapman 2020).
-#' Choose a number of digits that aligns with the sensitivity of the data and
-#' notice the effect on precision and uncertainty.
-#' Publish the coordinates as is (i.e. do not use this function) if the data
-#' are not sensitive.
+#' biodiversity information (see [Section 4.2](
+#' https://doi.org/10.15468/doc-5jp4-5g10#s-generalization) in Chapman 2020).
+#' Use this function to do so for your data.
+#' Determine the category of sensitivity (see [Section 2.2](
+#' https://docs.gbif.org/sensitive-species-best-practices/master/en/#table-06)
+#' in Chapman 2020) and choose the associated number of digits :
 #'
-#' sensitivity | digits | coordinatePrecision
+#' category | sensitivity | digits
 #' --- | --- | ---
-#' high | 1 | 0.1
-#' medium | 2 | 0.01
-#' low | 3 | 0.001
+#' category 1 | extreme | (do not publish)
+#' category 2 | high | 1
+#' category 3 | medium | 2
+#' category 4 | low | 3 | 0.001
+#' not sensitive | not sensitive | all (do not use this function)
 #'
-#' For records with `coordinateUncertainty = NA` the function will assume the
-#' coordinates were obtained by GPS and use `30 m` as original uncertainty,
-#' before adding uncertainty caused by rounding.
-#' The added rounding uncertainty is dependent on latitude and follows the
-#' categories in
-#' [Table 3](https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty) in
-#' Chapman & Wieczorek 2020.
+#' The function will then:
 #'
-#' latitude | 0.1 degree | 0.01 degree | 0.001 degree
-#' --- | --- | --- | ---
-#' 0° | 15691 m | 1570 m | 157 m
-#' 30° | 14697 m | 1470 m | 147 m
-#' 60° | 12461 m | 1246 m | 125 m
-#' 85° | 11211 m | 1121 m | 112 m
+#' 1. Round all coordinates in the deployments to the selected number of digits.
+#'
+#' 2. Set the `coordinatePrecision` in the metadata (original values will be
+#'     overwritten):
+#'
+#'     digits | coordinatePrecision
+#'     --- | ---
+#'     1 | 0.1
+#'     2 | 0.01
+#'     3 | 0.001
+#'
+#' 3. Update the `coordinateUncertainy` (in meters) in the deployments.
+#'     This uncertainty is based on the number of digits and the latitude,
+#'     following [Table 3](
+#'     https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty) in Chapman &
+#'     Wieczorek 2020:
+#'
+#'     digits | 0° latitude | 30° latitude | 60° latitude | 85° latitude
+#'     --- | --- | --- | --- | ---
+#'     1 | 15691 m | 14697 m | 12461 m | 11211 m
+#'     2 | 1570 m | 1470 m | 1246 m | 1121 m
+#'     3 | 157 m | 147 m | 125 m | 112 m
+#'
+#'     If a `coordinatePrecision` is already present, the function will subtract
+#'     the `coordinateUncertainty` associated with it before setting a new
+#'     uncertainty (e.g. `0.001` to `0.01` = `original value - 157 + 1570 m`).
+#'     If `original value` is `NA`, the function will assume the coordinates
+#'     were obtained by GPS and set `original value = 30`.
 #'
 #' @examples
-#' # Round coordinates of example package to 3 digits
 #' x <- example_dataset()
-#' x_rounded2 <- round_coordinates(x, 2)
 #'
-#' # coordinatePrecision is set in metadata
-#' x_rounded2$coordinatePrecision
+#' # Original precision
+#' x$coordinatePrecision
 #'
-#' # coordinateUncertainty is set in data: original uncertainty (or 30) + 1470 m
-#' x_rounded2$data$deployments$coordinateUncertainty
+#' # Original coordinates and uncertainty
+#' deployments(x)[c("latitude","longitude","coordinateUncertainty")]
+#'
+#' # Round coordinates to 1 digit
+#' x_rounded <- round_coordinates(x, 1)
+#'
+#' # Updated coordinatePrecision
+#' x_rounded$coordinatePrecision
+#'
+#' # Updated coordinates and uncertainty (original 187 - 147 + 14697 = 14737)
+#' deployments(x_rounded)[c("latitude","longitude","coordinateUncertainty")]
 round_coordinates <- function(x, digits = 3) {
   if (!(digits %in% c(1, 2, 3))) {
     cli::cli_abort(
