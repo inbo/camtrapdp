@@ -1,7 +1,8 @@
 # camtrapdp (development version)
 
-* `filter_observation()` and `filter_media()` now update the taxonomic scope in the metadata (#73).
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` in the metadata (#85).
+* `filter_deployments()` now updates the spatial and temporal scope in the metadata (#72).
+* `filter_observations()` and `filter_media()` now update the taxonomic scope in the metadata (#73).
 
 # camtrapdp 0.3.1
 
@@ -12,7 +13,6 @@
 * New function `print()` prints a human-readable summary of the Camera Trap Data Package (#8).
 * Fix `fieldsEnclosedBy` issue in `meta.xml`, so GBIF occurrence processing correctly handles commas in fields (#95).
 * Fix CRAN note (#94).
-* Spatial and temporal metadata are updated in `filter_deployments()` (#72).
 
 # camtrapdp 0.2.1
 
