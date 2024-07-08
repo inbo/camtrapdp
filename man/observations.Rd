@@ -15,7 +15,7 @@ observations(x) <- value
 \item{value}{A data frame to assign as observations.}
 }
 \value{
-\code{\link[=tibble]{tibble()}} data frame with observations.
+\code{\link[tibble:tibble]{tibble::tibble()}} data frame with observations.
 }
 \description{
 \code{observations()} gets the observations from a Camera Trap Data Package
