@@ -92,9 +92,10 @@ round_coordinates <- function(x, digits = 3) {
     if (digits >= original_digits) {
       cli::cli_abort(
         c(
-          "Can't round from {original_digits} to {digits} digits. ",
-          "`{original_digits}` is derived from the ",
-          "`x$coordinatePrecision={original_precision}`."
+          "Can't round to equal or higher precision:",
+          "i" = "Original precision: {.val {original_digits}} digits (based on
+                 {.field x$coordinatePrecision} = {.val {original_precision}}).",
+          "i" = "Requested precision: {.val {digits}} digits."
         ),
         class = "camtrapdp_error_precision"
       )
@@ -110,9 +111,11 @@ round_coordinates <- function(x, digits = 3) {
     if (digits >= original_digits) {
       cli::cli_abort(
         c(
-          "Can't round from {original_digits} to {digits} digits. ",
-          "`{original_digits}` is the maximum number of decimals for latitude ",
-          "in the data."
+          "Can't round to equal or higher precision:",
+          "i" = "Original precision: {.val {original_digits}} digits (based on
+                 maximum number of decimals found in {.field latitude} in
+                 deployments).",
+          "i" = "Requested precision: {.val {digits}} digits."
         ),
         class = "camtrapdp_error_precision_max"
       )
