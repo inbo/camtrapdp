@@ -39,12 +39,12 @@ update_temporal <- function(x) {
   } else {
     x$temporal$start <-
       deployments(x) %>%
-      dplyr::pull(deploymentStart) %>%
+      dplyr::pull(.data$deploymentStart) %>%
       min() %>%
       format(format = "%Y-%m-%d")
     x$temporal$end <-
       deployments(x) %>%
-      dplyr::pull(deploymentEnd) %>%
+      dplyr::pull(.data$deploymentEnd) %>%
       max() %>%
       format(format = "%Y-%m-%d")
   }
