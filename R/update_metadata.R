@@ -48,6 +48,7 @@ update_temporal <- function(x) {
       max() %>%
       format(format = "%Y-%m-%d")
   }
+  return(x)
 }
 
 #' Updates taxonomic metadata, that is, the list of species observed.
@@ -68,4 +69,5 @@ update_taxonomic <- function(x) {
         x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
       )
   }
+  return(x)
 }
