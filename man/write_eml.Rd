@@ -2,24 +2,22 @@
 % Please edit documentation in R/write_eml.R
 \name{write_eml}
 \alias{write_eml}
-\title{Transform Camtrap DP metadata to EML}
+\title{Transform a Camera Trap Data Package to EML}
 \usage{
 write_eml(x, directory)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 
 \item{directory}{Path to local directory to write file to.}
 }
 \value{
-\code{eml.xml} file written to disk. And invisibly, an \code{EML} object is
-returned.
+\code{eml.xml} file written to disk.
+And invisibly, an \link[EML:eml]{EML::eml} object.
 }
 \description{
-Transforms the metadata of a \href{https://camtrap-dp.tdwg.org}{Camera Trap Data Package} to an \href{https://eml.ecoinformatics.org/}{EML}
-file that can be uploaded to a \href{https://www.gbif.org/ipt}{GBIF IPT} for
-publication.
+Transforms the metadata of a Camera Trap Data Package object to an
+\href{https://eml.ecoinformatics.org/}{Ecological Metadata Language (EML)} file.
 }
 \section{Transformation details}{
 
@@ -56,13 +54,11 @@ Not applicable: \strong{collection data}.
 }
 
 \examples{
-\dontrun{
 x <- example_dataset()
 write_eml(x, directory = "my_directory")
 
 # Clean up (don't do this if you want to keep your files)
 unlink("my_directory", recursive = TRUE)
-}
 }
 \seealso{
 Other transformation functions: 

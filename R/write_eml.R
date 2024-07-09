@@ -1,14 +1,12 @@
-#' Transform Camtrap DP metadata to EML
+#' Transform a Camera Trap Data Package to EML
 #'
-#' Transforms the metadata of a [Camera Trap Data Package](
-#' https://camtrap-dp.tdwg.org) to an [EML](https://eml.ecoinformatics.org/)
-#' file that can be uploaded to a [GBIF IPT](https://www.gbif.org/ipt) for
-#' publication.
+#' Transforms the metadata of a Camera Trap Data Package object to an
+#' [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/) file.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print.camtrapdp
 #' @param directory Path to local directory to write file to.
-#' @return `eml.xml` file written to disk. And invisibly, an `EML` object is
-#' returned.
+#' @return `eml.xml` file written to disk.
+#'   And invisibly, an [EML::eml] object.
 #' @family transformation functions
 #' @export
 #' @section Transformation details:
@@ -41,13 +39,11 @@
 #'
 #' Not applicable: **collection data**.
 #' @examples
-#' \dontrun{
 #' x <- example_dataset()
 #' write_eml(x, directory = "my_directory")
 #'
 #' # Clean up (don't do this if you want to keep your files)
 #' unlink("my_directory", recursive = TRUE)
-#' }
 write_eml <- function(x, directory) {
 
   # Filter dataset on observations (also affects media)
