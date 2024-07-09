@@ -57,9 +57,15 @@ update_temporal <- function(x) {
 #' @family helper functions
 #' @noRd
 update_taxonomic <- function(x) {
-  remaining_taxa <- unique(observations(x)$scientificName)
-  x$taxonomic <-
-    purrr::keep(
-      x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
-    )
+  remaining_taxa <-
+    observations(x) %>%
+    unique(observations(x)$scientificName)
+  if (is.null(x$taxonomic)) {
+    x$taxonomic <- remaining_taxa
+  } else {
+    x$taxonomic <-
+      purrr::keep(
+        x$taxonomic,~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
+      )
+  }
 }
