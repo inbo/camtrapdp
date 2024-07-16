@@ -18,6 +18,13 @@ test_that("round_coordinates() returns error on empty or invalid digits", {
   )
 })
 
+test_that("round_coordinates() does not change the variable names of
+           deployments", {
+  x <- example_dataset()
+  x_rounded <- round_coordinates(x, 2)
+  expect_equal(names(deployments(x)), names(deployments(x_rounded)))
+})
+
 test_that("round_coordinates() sets lat, lon, uncertainty and precision", {
   x <- example_dataset()
 
@@ -67,7 +74,25 @@ test_that("round_coordinates() sets lat, lon, uncertainty and precision", {
 })
 
 test_that("round_coordinates() forbids rounding to equal or higher precision", {
+  x1 <- example_dataset()
+  deployments(x1)$latitude[[1]] <- 4.1
+  deployments(x1)$latitude[[2]] <- 4.0
+  deployments(x1)$latitude[[3]] <- 4.1
+  deployments(x1)$latitude[[4]] <- 4.3
+  x1$coordinatePrecision <- NULL
   x2 <- round_coordinates(example_dataset(), 2)
+
+  # Try setting from 1 to 3, blocked by (max 1) decimals found in deployments
+  expect_error(
+    round_coordinates(x1, 3),
+    class = "camtrapdp_error_precision_data"
+  )
+
+  # Try setting from 1 to 1, blocked by (max 1) decimals found in deployments
+  expect_error(
+    round_coordinates(x1, 1),
+    class = "camtrapdp_error_precision_data"
+  )
 
   # Try setting from 2 to 3, blocked by x$coordinatePrecision = 0.01
   expect_error(
@@ -75,15 +100,15 @@ test_that("round_coordinates() forbids rounding to equal or higher precision", {
     class = "camtrapdp_error_precision_metadata"
   )
 
-  # Try setting from 2 to 3, blocked by (max 2) decimals found in deployments
-  x2$coordinatePrecision <- NULL
+  # Try setting from 2 to 2, blocked by x$coordinatePrecision = 0.01
   expect_error(
-    round_coordinates(x2, 3),
-    class = "camtrapdp_error_precision_data"
+    round_coordinates(x2, 2),
+    class = "camtrapdp_error_precision_metadata"
   )
 })
 
-test_that("round_coordinates() doesn't overestimate uncertainty on multiple runs", {
+test_that("round_coordinates() doesn't overestimate uncertainty on multiple
+           runs", {
   # Set uncertainty of first 2 deployments
   x <- example_dataset()
   deployments(x)$coordinateUncertainty[[1]] <- 10
