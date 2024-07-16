@@ -59,7 +59,7 @@ test_that("filter_media() updates the taxonomic property", {
   remaining_taxa_obs <- unique(observations(x_favorite)$scientificName)
   remaining_taxa_tax <-
     purrr::map_chr(x_favorite$taxonomic, ~ purrr::pluck(.x, "scientificName"))
-  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+  expect_identical(remaining_taxa_obs, remaining_taxa_tax)
 
   x_filtered <-
     filter_media(x, captureMethod == "activityDetection", filePublic == FALSE)
@@ -71,7 +71,7 @@ test_that("filter_media() updates the taxonomic property", {
       x_filtered$taxonomic, ~ purrr::pluck(.x, "scientificName")
     ) %>%
     sort()
-  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+  expect_identical(remaining_taxa_obs, remaining_taxa_tax)
 
   # package without taxonomic metadata
   x$taxonomic <- NULL

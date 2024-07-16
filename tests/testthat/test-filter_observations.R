@@ -73,7 +73,7 @@ test_that("filter_observations() updates the taxonomic propertyt", {
   remaining_taxa_obs <- unique(observations(x_vulpes_media)$scientificName)
   remaining_taxa_tax <-
     purrr::map_chr(x_vulpes_media$taxonomic, ~ purrr::pluck(.x, "scientificName"))
-  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+  expect_identical(remaining_taxa_obs, remaining_taxa_tax)
 
   x_animal <- filter_observations(x, observationType == "animal")
   remaining_taxa_obs <-
@@ -82,7 +82,7 @@ test_that("filter_observations() updates the taxonomic propertyt", {
   remaining_taxa_tax <-
     purrr::map_chr(x_animal$taxonomic, ~ purrr::pluck(.x, "scientificName")) %>%
     sort()
-  expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+  expect_identical(remaining_taxa_obs, remaining_taxa_tax)
 
   # package without taxonomic metadata
   x$taxonomic <- NULL
