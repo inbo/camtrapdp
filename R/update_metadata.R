@@ -65,7 +65,7 @@ update_taxonomic <- function(x) {
     unique()
 
   if (is.null(x$taxonomic)) {
-    x$taxonomic <- remaining_taxa
+    x$taxonomic <- purrr::map(remaining_taxa, ~ list(scientificName = .x))
   } else {
     x$taxonomic <-
       purrr::keep(
