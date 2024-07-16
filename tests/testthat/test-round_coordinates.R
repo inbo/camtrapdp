@@ -109,7 +109,8 @@ test_that("round_coordinates() forbids rounding to equal or higher precision", {
   )
 })
 
-test_that("round_coordinates() doesn't overestimate uncertainty on multiple runs", {
+test_that("round_coordinates() doesn't overestimate uncertainty on multiple
+          runs", {
   # Set uncertainty of first 2 deployments
   x <- example_dataset()
   deployments(x)$coordinateUncertainty[[1]] <- 10
