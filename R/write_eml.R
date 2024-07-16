@@ -94,8 +94,11 @@ write_eml <- function(x, directory) {
     ) %>%
     # Move ORCID from path to separate column
     dplyr::mutate(
-      # orcid = regmatches(.data$path, regexpr(orcid_regex, .data$path)),
-      orcid = stringr::str_extract(.data$path, orcid_regex),
+      orcid = ifelse(
+        !is.na(regexpr(orcid_regex, .data$path)),
+        regmatches(.data$path, regexpr(orcid_regex, .data$path)),
+        NA_character_
+      ),
       path = ifelse(
         grepl(orcid_regex, .data$path),
         NA_character_,
