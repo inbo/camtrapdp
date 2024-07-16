@@ -165,7 +165,7 @@ round_coordinates <- function(x, digits) {
         )
     ) %>%
     dplyr::select(
-      -"latitudeGroup", -"roundingUncertainty", "oldRoundingUncertainty"
+      -"latitudeGroup", -"roundingUncertainty", -"oldRoundingUncertainty"
       )
 
   return(x)
