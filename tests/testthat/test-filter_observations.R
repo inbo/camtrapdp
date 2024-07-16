@@ -83,4 +83,19 @@ test_that("filter_observations() updates the taxonomic propertyt", {
     purrr::map_chr(x_animal$taxonomic, ~ purrr::pluck(.x, "scientificName")) %>%
     sort()
   expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+
+  # package without taxonomic metadata
+  x$taxonomic <- NULL
+  x_time <-
+    filter_observations(
+      x,
+      eventStart >= lubridate::as_datetime("2020-05-30 00:00:00"),
+      eventEnd <= lubridate::as_datetime("2020-05-31 23:59:59")
+      )
+  remaining_taxa_time <-
+    list(
+      list(scientificName = "Anas platyrhynchos"),
+      list(scientificName = "Rattus norvegicus")
+    )
+  expect_identical(x_time$taxonomic, remaining_taxa_time)
 })

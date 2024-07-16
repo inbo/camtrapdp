@@ -72,4 +72,13 @@ test_that("filter_media() updates the taxonomic property", {
     ) %>%
     sort()
   expect_equal(remaining_taxa_obs, remaining_taxa_tax)
+
+  # package without taxonomic metadata
+  x$taxonomic <- NULL
+  x_notpublic <- filter_media(x, filePublic == FALSE)
+  remaining_taxa_notpublic <-
+    list(
+      list(scientificName = "Homo sapiens")
+    )
+  expect_identical(x_notpublic$taxonomic, remaining_taxa_notpublic)
 })
