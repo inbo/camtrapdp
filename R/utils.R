@@ -1,4 +1,4 @@
-#' Create columns, but only if they don't exist yet!
+#' Creates columns, but only if they don't exist yet
 #'
 #' Using dplyr::mutate(), add a new column, but only if it's missing
 #'
@@ -25,16 +25,10 @@ mutate_when_missing <- function(.data,...){
 #' @return Part of the string.
 #' @noRd
 #'
-#' @examples
+#' \dontrun{
 #' split_first_space("Danny Van der beeck", 1)
 #' split_first_space("Danny Van der beeck", 2)
 split_first_space <- function(string, part) {
-  if (!part %in% c(1, 2)) {
-    cli::cli_abort(
-      c("{.arg part} must be {.val 1} or {.val 2}."),
-      class = "split_error_digits_invalid"
-    )
-  }
   parts <- strsplit(string, " ", fixed = TRUE)[[1]]
   part1 <- parts[1]
   part2 <- paste(parts[-1], collapse = " ")
