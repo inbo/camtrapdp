@@ -24,7 +24,7 @@ mutate_when_missing <- function(.data,...){
 #' @param part Which part to return (`1`or `2`)
 #' @return Part of the string.
 #' @noRd
-#'
+#' @examples
 #' \dontrun{
 #' split_first_space("Danny Van der beeck", 1)
 #' split_first_space("Danny Van der beeck", 2)
