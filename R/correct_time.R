@@ -18,6 +18,7 @@
 #' wrong <- ymd_hms("2024-04-01T00:00:00", tz = "UTC")
 #' right <- ymd_hms("2024-04-01T02:00:00", tz = "UTC")
 #' duration <- as.duration(interval(wrong, right))
+#' duration <- 5
 #' # correct time
 #' x_corrected <- correct_time(x, deploymentID, duration)
 #' # inspect results
@@ -36,6 +37,18 @@ correct_time <- function(x, deploymentID, duration) {
               "{.val {deployments(x)$deploymentID}}.")
       ),
       class = "camtrapdp_error_deploymentID_invalid"
+    )
+  }
+
+  # duration is valid
+  if (!class(duration) %in% c("Duration", "POSIXct", "POSIXt")) {
+    cli::cli_abort(
+      c(
+        "{.arg duration} is not a valid datetime object:",
+        "i" = "{.arg duration} has class {.val {class(duration)}}.",
+        "i" = "The class of {.arg duration} must be Duration, POSIXct or POSIXt."
+      ),
+      class = "camtrapdp_error_duration_invalid"
     )
   }
 
