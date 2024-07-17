@@ -1,13 +1,13 @@
-#' Corrects date-time
+#' Corrects datetime
 #'
-#' Corrects date-times in a Camera Trap Data package object. This function can
+#' Corrects datetimes in a Camera Trap Data package object. This function can
 #' be used when the time settings of one or more deployments were wrong and need
 #' to be corrected afterwards.
 #'
 #' @inheritParams print.camtrapdp
 #' @param deploymentID One or more deploymentID's.
-#' @param duration Date-time difference between the wrong and right time.
-#' @return `x` with all date-times corrected.
+#' @param duration Datetime difference between the wrong and right time.
+#' @return `x` with all datetimes corrected.
 #' @family transformation functions
 #' @export
 #' @examples
