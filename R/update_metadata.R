@@ -1,6 +1,6 @@
 #' Updates spatial metadata, that is, the bounding box of polygon coordinates.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print.camtrapdp
 #' @return `x` with updated spatial metadata
 #' @family helper functions
 #' @noRd
@@ -29,7 +29,7 @@ update_spatial <- function(x) {
 
 #' Updates temporal metadata, that is, the start and end date.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print.camtrapdp
 #' @return `x` with updated temporal metadata
 #' @family helper functions
 #' @noRd
@@ -53,7 +53,7 @@ update_temporal <- function(x) {
 
 #' Updates taxonomic metadata, that is, the list of species observed.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print.camtrapdp
 #' @return `x` with updated taxonomic metadata
 #' @family helper functions
 #' @noRd
