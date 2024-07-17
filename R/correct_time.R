@@ -32,15 +32,15 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::mutate(
       deploymentStart =
         dplyr::if_else(
-          deploymentID %in% deploymentID,
-          deploymentStart + duration,
-          deploymentStart
+          .data$deploymentID %in% deploymentID,
+          .data$deploymentStart + duration,
+          .data$deploymentStart
         ),
       deploymentEnd =
         dplyr::if_else(
-          deploymentID %in% deploymentID,
-          deploymentEnd + duration,
-          deploymentEnd
+          .data$deploymentID %in% deploymentID,
+          .data$deploymentEnd + duration,
+          .data$deploymentEnd
         )
     )
 
@@ -50,15 +50,15 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::mutate(
       eventStart =
         dplyr::if_else(
-          deploymentID %in% deploymentID,
-          eventStart + duration,
-          eventStart
+          .data$deploymentID %in% deploymentID,
+          .data$eventStart + duration,
+          .data$eventStart
         ),
       eventEnd =
         dplyr::if_else(
-          deploymentID %in% deploymentID,
-          eventEnd + duration,
-          eventEnd
+          .data$deploymentID %in% deploymentID,
+          .data$eventEnd + duration,
+          .data$eventEnd
         )
     )
 
@@ -68,9 +68,9 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::mutate(
       timestamp =
         dplyr::if_else(
-          deploymentID %in% deploymentID,
-          timestamp + duration,
-          timestamp
+          .data$deploymentID %in% deploymentID,
+          .data$timestamp + duration,
+          .data$timestamp
         )
     )
 
