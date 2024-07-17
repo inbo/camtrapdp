@@ -26,19 +26,22 @@
 correct_time <- function(x, deploymentID, duration) {
   check_camtrapdp(x)
 
+  # hack to solve name problem with deploymentID in mutate
+  depID <- deploymentID
+
   # correct deploymentStart and deploymentEnd of selected deployments
   deployments(x) <-
     deployments(x) %>%
     dplyr::mutate(
       deploymentStart =
         dplyr::if_else(
-          .data$deploymentID %in% deploymentID,
+          .data$deploymentID %in% depID,
           .data$deploymentStart + duration,
           .data$deploymentStart
         ),
       deploymentEnd =
         dplyr::if_else(
-          .data$deploymentID %in% deploymentID,
+          .data$deploymentID %in% depID,
           .data$deploymentEnd + duration,
           .data$deploymentEnd
         )
@@ -50,13 +53,13 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::mutate(
       eventStart =
         dplyr::if_else(
-          .data$deploymentID %in% deploymentID,
+          .data$deploymentID %in% depID,
           .data$eventStart + duration,
           .data$eventStart
         ),
       eventEnd =
         dplyr::if_else(
-          .data$deploymentID %in% deploymentID,
+          .data$deploymentID %in% depID,
           .data$eventEnd + duration,
           .data$eventEnd
         )
@@ -68,7 +71,7 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::mutate(
       timestamp =
         dplyr::if_else(
-          .data$deploymentID %in% deploymentID,
+          .data$deploymentID %in% depID,
           .data$timestamp + duration,
           .data$timestamp
         )
