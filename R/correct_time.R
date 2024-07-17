@@ -18,7 +18,6 @@
 #' wrong <- ymd_hms("2024-04-01T00:00:00", tz = "UTC")
 #' right <- ymd_hms("2024-04-01T02:00:00", tz = "UTC")
 #' duration <- as.duration(interval(wrong, right))
-#' duration <- 5
 #' # correct time
 #' x_corrected <- correct_time(x, deploymentID, duration)
 #' # inspect results
