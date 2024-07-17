@@ -7,7 +7,7 @@
 #' @inheritParams print.camtrapdp
 #' @param deploymentID One or more deploymentID's.
 #' @param duration Date-time difference between the wrong and right time.
-#' @return `x` with date-times corrected.
+#' @return `x` with all date-times corrected.
 #' @family transformation functions
 #' @export
 #' @examples
@@ -21,12 +21,13 @@
 #' # correct time
 #' x_corrected <- correct_time(x, deploymentID, duration)
 #' # inspect results
+#' deployments(x)
 #' deployments(x_corrected)
 correct_time <- function(x, deploymentID, duration) {
   check_camtrapdp(x)
 
   # correct deploymentStart and deploymentEnd of selected deployments
-  x$data$deployments <-
+  deployments(x) <-
     deployments(x) %>%
     dplyr::mutate(
       deploymentStart =
@@ -38,15 +39,13 @@ correct_time <- function(x, deploymentID, duration) {
       deploymentEnd =
         dplyr::if_else(
           deploymentID %in% deploymentID,
-          as.POSIXct(deploymentEnd + duration),
-          as.POSIXct(deploymentEnd)
+          deploymentEnd + duration,
+          deploymentEnd
         )
     )
 
-  x$data$deployments
-
   # correct eventStart and eventEnd of associated observations
-  x$data$observations <-
+  observations(x) <-
     observations(x) %>%
     dplyr::mutate(
       eventStart =
@@ -64,7 +63,7 @@ correct_time <- function(x, deploymentID, duration) {
     )
 
   # correct timestamp of associated media
-  x$data$media <-
+  media(x) <-
     media(x) %>%
     dplyr::mutate(
       timestamp =
