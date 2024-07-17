@@ -26,6 +26,19 @@
 correct_time <- function(x, deploymentID, duration) {
   check_camtrapdp(x)
 
+  # deploymentID is valid
+  if (any(!deploymentID %in% c(deployments(x)$deploymentID))) {
+    cli::cli_abort(
+      c(
+        "{.arg deploymentID} is not a valid deploymentID of {.arg x}:",
+        "i" = "{.arg deploymentID} is {.val {deploymentID}}",
+        "i" = paste("Valid deploymentIDs of {.arg x} are ",
+              "{.val {deployments(x)$deploymentID}}.")
+      ),
+      class = "camtrapdp_error_deploymentID_invalid"
+    )
+  }
+
   # hack to solve name problem with deploymentID in mutate
   depID <- deploymentID
 
