@@ -30,13 +30,13 @@ correct_time <- function(x, deploymentID, duration) {
     deployments(x) %>%
     dplyr::mutate(
       deploymentStart =
-        ifelse(
+        dplyr::if_else(
           deploymentID %in% deploymentID,
           deploymentStart + duration,
           deploymentStart
         ),
       deploymentEnd =
-        ifelse(
+        dplyr::if_else(
           deploymentID %in% deploymentID,
           as.POSIXct(deploymentEnd + duration),
           as.POSIXct(deploymentEnd)
@@ -50,13 +50,13 @@ correct_time <- function(x, deploymentID, duration) {
     observations(x) %>%
     dplyr::mutate(
       eventStart =
-        ifelse(
+        dplyr::if_else(
           deploymentID %in% deploymentID,
           eventStart + duration,
           eventStart
         ),
       eventEnd =
-        ifelse(
+        dplyr::if_else(
           deploymentID %in% deploymentID,
           eventEnd + duration,
           eventEnd
@@ -68,7 +68,7 @@ correct_time <- function(x, deploymentID, duration) {
     media(x) %>%
     dplyr::mutate(
       timestamp =
-        ifelse(
+        dplyr::if_else(
           deploymentID %in% deploymentID,
           timestamp + duration,
           timestamp
