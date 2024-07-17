@@ -7,7 +7,7 @@
 #'
 #' @inheritParams check_camtrapdp
 #' @param directory Path to local directory to write file to.
-#' @return `eml.xml` file written to disk. And invisibly, an `EML` object is
+#' @return `eml.xml` File written to disk. And invisibly, an `EML` object is
 #' returned.
 #' @family transformation functions
 #' @export
