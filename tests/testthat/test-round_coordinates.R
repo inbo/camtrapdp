@@ -1,3 +1,11 @@
+test_that("round_coordinates() returns a valid camtrapdp object", {
+  skip_if_offline()
+  x <- example_dataset()
+  expect_no_error(
+    check_camtrapdp(round_coordinates(x, 2))
+  )
+})
+
 test_that("round_coordinates() returns error on empty or invalid digits", {
   x <- example_dataset()
   expect_error(
@@ -128,4 +136,17 @@ test_that("round_coordinates() doesn't overestimate uncertainty on multiple
     deployments(x1_via_2)$coordinateUncertainty[[2]],
     deployments(x1)$coordinateUncertainty[[2]]
   )
+})
+
+test_that("round_coordinates() updates the spatial metadata", {
+  x <- example_dataset()
+  x2 <- round_coordinates(x, 2)
+  x1 <- round_coordinates(x, 1)
+
+  # The number of digits in spatial is updated
+  expect_equal(max(nchar(gsub("^\\d*.", "", x2$spatial$coordinates))), 2)
+  expect_equal(max(nchar(gsub("^\\d*.", "", x2$spatial$bbox))), 2)
+
+  expect_equal(max(nchar(gsub("^\\d*.", "", x1$spatial$coordinates))), 1)
+  expect_equal(max(nchar(gsub("^\\d*.", "", x1$spatial$bbox))), 1)
 })
