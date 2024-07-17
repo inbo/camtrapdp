@@ -104,7 +104,7 @@ round_coordinates <- function(x, digits) {
     original_digits <-
       deployments(x) %>%
       dplyr::mutate(
-        lat_digits = nchar(gsub("\\..*", "", .data$latitude))
+        lat_digits = nchar(gsub("^\\d*.", "", .data$latitude))
       ) %>%
       dplyr::summarize(max(.data$lat_digits)) %>%
       dplyr::pull()
@@ -165,7 +165,7 @@ round_coordinates <- function(x, digits) {
         )
     ) %>%
     dplyr::select(
-      -"latitudeGroup", -"roundingUncertainty", "oldRoundingUncertainty"
+      -"latitudeGroup", -"roundingUncertainty", -"oldRoundingUncertainty"
       )
 
   return(x)
