@@ -18,3 +18,31 @@ mutate_when_missing <- function(.data,...){
   if(!rlang::is_empty(columns_to_add)){.data <- dplyr::mutate(.data,...)}
   return(.data)
 }
+#' Splits at the first space
+#'
+#' @param string Character vector to be split.
+#' @param part Which part to return (`1`or `2`)
+#' @return Part of the string.
+#' @noRd
+#'
+#' @examples
+#' split_first_space("Danny Van der beeck", 1)
+#' split_first_space("Danny Van der beeck", 2)
+split_first_space <- function(string, part) {
+  if (!part %in% c(1, 2)) {
+    cli::cli_abort(
+      c("{.arg part} must be {.val 1} or {.val 2}."),
+      class = "split_error_digits_invalid"
+    )
+  }
+  parts <- strsplit(string, " ", fixed = TRUE)[[1]]
+  part1 <- parts[1]
+  part2 <- paste(parts[-1], collapse = " ")
+
+  if (part == 1) {
+    return(part1)
+  }
+  if (part == 2) {
+    return(part2)
+  }
+}

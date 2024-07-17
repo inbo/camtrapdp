@@ -85,16 +85,10 @@ write_eml <- function(x, directory) {
     purrr::map_dfr(x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)) %>%
     dplyr::filter(!role %in% c("rightsHolder", "publisher")) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
-    tidyr::separate(
-      .data$title,
-      c("first_name", "last_name"),
-      sep = " ",
-      extra = "merge",
-      remove = FALSE
-    ) %>%
-    # Move ORCID from path to separate column
     dplyr::mutate(
-      orcid = ifelse(
+      first_name = purrr::map_chr(.data$title, ~ split_first_space(.x, 1)),
+      last_name = purrr::map_chr(.data$title, ~ split_first_space(.x, 2)),
+      orcid = ifelse( # Move ORCID from path to separate column
         !is.na(regexpr(orcid_regex, .data$path)),
         regmatches(.data$path, regexpr(orcid_regex, .data$path)),
         NA_character_

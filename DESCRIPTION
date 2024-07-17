@@ -33,7 +33,6 @@ Imports:
     purrr,
     readr,
     rlang,
-    tidyr,
     uuid
 Suggests:
     lubridate,
