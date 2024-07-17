@@ -59,10 +59,8 @@ update_temporal <- function(x) {
 #' @noRd
 update_taxonomic <- function(x) {
   remaining_taxa <-
-    observations(x) %>%
-    dplyr::filter(!is.na(.data$scientificName)) %>%
-    purrr::pluck("scientificName") %>%
-    unique()
+    taxa(x) %>%
+    purrr::pluck("scientificName")
 
   if (is.null(x$taxonomic)) {
     x$taxonomic <- purrr::map(remaining_taxa, ~ list(scientificName = .x))
