@@ -3,6 +3,7 @@
 #' Using dplyr::mutate(), add a new column, but only if it's missing
 #'
 #' @inherit dplyr::mutate
+#' @family helper functions
 #' @noRd
 #' @examples
 #' \dontrun{
@@ -23,6 +24,7 @@ mutate_when_missing <- function(.data,...){
 #' @param string Character vector to be split.
 #' @param part Which part to return (`1`or `2`)
 #' @return Part of the string.
+#' @family helper functions
 #' @noRd
 #' @examples
 #' \dontrun{
