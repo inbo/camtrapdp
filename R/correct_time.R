@@ -90,5 +90,8 @@ correct_time <- function(x, deploymentID, duration) {
         )
     )
 
+  # set timestamIssues to FALSE
+  deployments(x)$timestampIssues <- FALSE
+
   return(x)
 }
