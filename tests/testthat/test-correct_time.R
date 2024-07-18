@@ -49,6 +49,12 @@ test_that("correct_time() returns error on invalid duration", {
     correct_time(x, deploymentID, as.Date('1915-6-16')),
     class = "camtrapdp_error_duration_invalid"
   )
+  expect_error(
+    correct_time(
+      x, deploymentID, as.POSIXct("2024-04-01 00:00:00", tz = "UTC")
+      ),
+    class = "camtrapdp_error_duration_invalid"
+  )
 })
 
 test_that("correct_time() returns warning on duplicated deploymentID's", {
@@ -76,3 +82,92 @@ test_that("correct_time() returns no error on valid deploymentID", {
     correct_time(x, c("00a2c20d", "29b7d356", "577b543a", "62c200a9"), duration)
   )
 })
+
+test_that("correct_time() returns no error and corrects deploymentStart when
+          deploymentID has class Duration", {
+  skip_if_offline()
+  x <- example_dataset()
+  depID <- "00a2c20d"
+
+  # wrong deploymentStart
+  deploymentStart <-
+    deployments(x) %>%
+    dplyr::filter(.data$deploymentID == depID) %>%
+    dplyr::pull(deploymentStart)
+
+  # set parameters
+  wrong_Duration <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
+  right_Duration <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
+  duration_Duration <-
+    lubridate::as.duration(lubridate::interval(wrong_Duration, right_Duration))
+
+  # no error test
+  expect_no_error(correct_time(x, depID, duration_Duration))
+
+  x_Duration <- correct_time(x, depID, duration_Duration)
+
+  # new deploymentStart
+  deploymentStart_Duration <-
+    deployments(x_Duration) %>%
+    dplyr::filter(.data$deploymentID == depID) %>%
+    dplyr::pull(deploymentStart)
+
+  # tests
+  expect_identical(
+    deploymentStart_Duration,
+    deploymentStart + duration_Duration
+    )
+  expect_identical(
+    deploymentStart_Duration,
+    as.POSIXct("2020-05-30 04:57:37", tz = "UTC")
+    )
+})
+
+test_that("correct_time() returns no error and corrects deploymentStart when
+          deploymentID has class difftime", {
+  skip_if_offline()
+  x <- example_dataset()
+  depID <- "00a2c20d"
+
+  # wrong deploymentStart
+  deploymentStart <-
+    deployments(x) %>%
+    dplyr::filter(.data$deploymentID == depID) %>%
+    dplyr::pull(deploymentStart)
+
+  # Option 1 to obtain a difftime object
+  wrong_POSIXct <- as.POSIXct("2024-04-01 00:00:00", tz = "UTC")
+  right_POSIXct <- as.POSIXct("2024-04-01 02:00:00", tz = "UTC")
+  duration_difftime1 <- right_POSIXct - wrong_POSIXct
+
+  # option 2 to obtain a difftime object
+  wrong <- "2024-04-01 00:00:00"
+  right <- "2024-04-01 02:00:00"
+  duration_difftime2 <- difftime(right, wrong, tz = "UTC")
+
+  # test if both yield the same result
+  expect_identical(duration_difftime1, duration_difftime2)
+
+  # test further with only duration_difftime1
+  # no error test
+  expect_no_error(correct_time(x, depID, duration_difftime1))
+
+  x_difftime <- correct_time(x, depID, duration_difftime1)
+
+  # new deploymentStart
+  deploymentStart_difftime <-
+    deployments(x_difftime) %>%
+    dplyr::filter(.data$deploymentID == depID) %>%
+    dplyr::pull(deploymentStart)
+
+  # tests
+  expect_identical(
+    deploymentStart_difftime,
+    deploymentStart + duration_difftime1
+  )
+  expect_identical(
+    deploymentStart_difftime,
+    as.POSIXct("2020-05-30 04:57:37", tz = "UTC")
+  )
+})
+

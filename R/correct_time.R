@@ -42,12 +42,12 @@ correct_time <- function(x, deploymentID, duration) {
   }
 
   # duration is valid
-  if (!inherits(duration, c("Duration", "POSIXct", "POSIXt"))) {
+  if (!inherits(duration, c("Duration", "difftime"))) {
     cli::cli_abort(
       c(
         "{.arg duration} is not a valid datetime object:",
         "i" = "{.arg duration} has class {.val {class(duration)}}.",
-        "i" = "The class of {.arg duration} must be Duration, POSIXct or POSIXt."
+        "i" = "The class of {.arg duration} must be Duration or difftime."
       ),
       class = "camtrapdp_error_duration_invalid"
     )
