@@ -13,7 +13,7 @@ write_eml(x, directory)
 \item{directory}{Path to local directory to write file to.}
 }
 \value{
-\code{eml.xml} file written to disk. And invisibly, an \code{EML} object is
+\code{eml.xml} File written to disk. And invisibly, an \code{EML} object is
 returned.
 }
 \description{
@@ -66,6 +66,7 @@ unlink("my_directory", recursive = TRUE)
 }
 \seealso{
 Other transformation functions: 
+\code{\link{round_coordinates}()},
 \code{\link{write_dwc}()}
 }
 \concept{transformation functions}
