@@ -28,6 +28,10 @@ test_that("correct_time() returns error on empty or invalid deploymentID", {
     correct_time(x, c("00a2c20d", "not an id"), duration),
     class = "camtrapdp_error_deploymentID_invalid"
   )
+  expect_error(
+    correct_time(x, c("00a2c20d", 00220), duration),
+    class = "camtrapdp_error_deploymentID_invalid"
+  )
 })
 
 test_that("correct_time() returns error on invalid duration", {
