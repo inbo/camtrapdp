@@ -1,4 +1,5 @@
 test_that("correct_time() returns a valid camtrapdp object", {
+  skip_if_offline()
   x <- example_dataset()
   deploymentID <- c("00a2c20d", "29b7d356")
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
@@ -10,6 +11,7 @@ test_that("correct_time() returns a valid camtrapdp object", {
 })
 
 test_that("correct_time() returns error on empty or invalid deploymentID", {
+  skip_if_offline()
   x <- example_dataset()
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
   right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
@@ -29,6 +31,7 @@ test_that("correct_time() returns error on empty or invalid deploymentID", {
 })
 
 test_that("correct_time() returns error on invalid duration", {
+  skip_if_offline()
   x <- example_dataset()
   deploymentID <- c("00a2c20d", "29b7d356")
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
@@ -49,6 +52,7 @@ test_that("correct_time() returns error on invalid duration", {
 })
 
 test_that("correct_time() returns warning on duplicated deploymentID's", {
+  skip_if_offline()
   x <- example_dataset()
   deploymentID <- c("00a2c20d", "00a2c20d", "29b7d356")
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
@@ -61,6 +65,7 @@ test_that("correct_time() returns warning on duplicated deploymentID's", {
 })
 
 test_that("correct_time() returns no error on valid deploymentID", {
+  skip_if_offline()
   x <- example_dataset()
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
   right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
