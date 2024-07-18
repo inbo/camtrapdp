@@ -1,8 +1,8 @@
 #' Corrects datetime
 #'
-#' Corrects datetimes in a Camera Trap Data package object. This function can
-#' be used when the time settings of one or more deployments were wrong and need
-#' to be corrected afterwards.
+#' Corrects all datetimes in a Camera Trap Data package object. This function
+#' can be used when the time settings of one or more deployments were wrong and
+#' need to be corrected afterwards.
 #'
 #' @inheritParams print.camtrapdp
 #' @param deploymentID One or more deploymentID's.
@@ -39,6 +39,7 @@ correct_time <- function(x, deploymentID, duration) {
     )
   }
 
+  # duration is valid
   if (!inherits(duration, c("Duration", "POSIXct", "POSIXt"))) {
     cli::cli_abort(
       c(
