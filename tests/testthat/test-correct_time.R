@@ -51,3 +51,15 @@ test_that("correct_time() returns error on invalid duration", {
     class = "camtrapdp_error_duration_invalid"
   )
 })
+
+test_that("correct_time() returns no error on valid deploymentID", {
+  x <- example_dataset()
+  wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
+  right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
+  duration <- lubridate::as.duration(lubridate::interval(wrong, right))
+  expect_no_error(correct_time(x, "62c200a9", duration))
+  expect_no_error(correct_time(x, c("62c200a9", "29b7d356"), duration))
+  expect_no_error(
+    correct_time(x, c("00a2c20d", "29b7d356", "577b543a", "62c200a9"), duration)
+  )
+})
