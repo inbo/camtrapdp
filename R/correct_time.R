@@ -39,8 +39,7 @@ correct_time <- function(x, deploymentID, duration) {
     )
   }
 
-  # duration is valid
-  if (!class(duration) %in% c("Duration", "POSIXct", "POSIXt")) {
+  if (!inherits(duration, c("Duration", "POSIXct", "POSIXt"))) {
     cli::cli_abort(
       c(
         "{.arg duration} is not a valid datetime object:",
