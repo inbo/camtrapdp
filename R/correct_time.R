@@ -51,6 +51,19 @@ correct_time <- function(x, deploymentID, duration) {
     )
   }
 
+  # warning: duplicated deploymentID's
+  if (any(duplicated(deploymentID))) {
+    cli::cli_warn(
+      c(
+        paste(
+          "{.arg deploymentID} has duplicated values:",
+          "{.val {deploymentID[duplicated(deploymentID)]}}"
+        )
+      ),
+      class = "camtrapdp_warning_deploymentID_duplicated"
+    )
+  }
+
   # hack to solve name problem with deploymentID in mutate
   depID <- deploymentID
 

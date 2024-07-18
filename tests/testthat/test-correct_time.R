@@ -48,6 +48,18 @@ test_that("correct_time() returns error on invalid duration", {
   )
 })
 
+test_that("correct_time() returns warning on duplicated deploymentID's", {
+  x <- example_dataset()
+  deploymentID <- c("00a2c20d", "00a2c20d", "29b7d356")
+  wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
+  right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
+  duration <- lubridate::as.duration(lubridate::interval(wrong, right))
+  expect_warning(
+    correct_time(x, deploymentID, duration),
+    class = "camtrapdp_warning_deploymentID_duplicated"
+  )
+})
+
 test_that("correct_time() returns no error on valid deploymentID", {
   x <- example_dataset()
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
