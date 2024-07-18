@@ -15,19 +15,15 @@ test_that("correct_time() returns error on empty or invalid deploymentID", {
   right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
   duration <- lubridate::as.duration(lubridate::interval(wrong, right))
   expect_error(
-    correct_time(x = x, deploymentID = 123, duration = duration),
+    correct_time(x, 123, duration),
     class = "camtrapdp_error_deploymentID_invalid"
   )
   expect_error(
-    correct_time(x = x, deploymentID = "not an id", duration = duration),
+    correct_time(x, "not an id", duration),
     class = "camtrapdp_error_deploymentID_invalid"
   )
   expect_error(
-    correct_time(x = x, deploymentID = c("not an id"), duration = duration),
-    class = "camtrapdp_error_deploymentID_invalid"
-  )
-  expect_error(
-    correct_time(x = x, deploymentID = c("00a2c20d", "not an id"), duration),
+    correct_time(x, c("00a2c20d", "not an id"), duration),
     class = "camtrapdp_error_deploymentID_invalid"
   )
 })
