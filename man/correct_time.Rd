@@ -2,7 +2,7 @@
 % Please edit documentation in R/correct_time.R
 \name{correct_time}
 \alias{correct_time}
-\title{Corrects date-time}
+\title{Corrects datetime}
 \usage{
 correct_time(x, deploymentID, duration)
 }
@@ -11,15 +11,17 @@ correct_time(x, deploymentID, duration)
 
 \item{deploymentID}{One or more deploymentID's.}
 
-\item{duration}{Date-time difference between the wrong and right time.}
+\item{duration}{Datetime difference between the wrong and right time.}
 }
 \value{
-\code{x} with date-times corrected.
+\code{x} with datetimes corrected.
 }
 \description{
-Corrects date-times in a Camera Trap Data package object. This function can
-be used when the time settings of one or more deployments were wrong and need
-to be corrected afterwards.
+Corrects datetimes in a Camera Trap Data package object. Datetimes in
+resources and metadata for the provided deploymentIDs and duration are
+corrected.
+This function can be used when the time settings of one or more deployments
+were wrong and need to be corrected afterwards.
 }
 \examples{
 x <- example_dataset()
@@ -32,6 +34,7 @@ duration <- as.duration(interval(wrong, right))
 # correct time
 x_corrected <- correct_time(x, deploymentID, duration)
 # inspect results
+deployments(x)
 deployments(x_corrected)
 }
 \seealso{
