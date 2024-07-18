@@ -1,13 +1,14 @@
-#' Corrects datetime
+#' Correct datetime
 #'
 #' Corrects datetimes in a Camera Trap Data package object. Datetimes in
-#' resources and metadata for the provided deploymentIDs and duration are
-#' corrected.
+#' deployments, associated resources and metadata are corrected for the
+#' the provided deploymentIDs and duration.
 #' This function can be used when the time settings of one or more deployments
 #' were wrong and need to be corrected afterwards.
 #'
 #' @inheritParams print.camtrapdp
-#' @param deploymentID One or more deploymentID's.
+#' @param deploymentID One or more deploymentID's, either as a character string
+#' or a vector of character strings.
 #' @param duration Datetime difference between the wrong and right time.
 #' @return `x` with datetimes corrected.
 #' @family transformation functions
@@ -15,13 +16,16 @@
 #' @examples
 #' x <- example_dataset()
 #' deploymentID <- c("00a2c20d", "29b7d356")
+#'
 #' # calculate duration
 #' library(lubridate)
 #' wrong <- ymd_hms("2024-04-01T00:00:00", tz = "UTC")
 #' right <- ymd_hms("2024-04-01T02:00:00", tz = "UTC")
 #' duration <- as.duration(interval(wrong, right))
+#'
 #' # correct time
 #' x_corrected <- correct_time(x, deploymentID, duration)
+#'
 #' # inspect results
 #' deployments(x)
 #' deployments(x_corrected)
@@ -45,9 +49,9 @@ correct_time <- function(x, deploymentID, duration) {
   if (!inherits(duration, c("Duration", "difftime"))) {
     cli::cli_abort(
       c(
-        "{.arg duration} is not a valid datetime object:",
+        "{.arg duration} is not a valid datetime interval object:",
         "i" = "{.arg duration} has class {.val {class(duration)}}.",
-        "i" = "The class of {.arg duration} must be Duration or difftime."
+        "i" = "The class of {.arg duration} must be `Duration` or `difftime`."
       ),
       class = "camtrapdp_error_duration_invalid"
     )
