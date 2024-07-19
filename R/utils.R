@@ -30,6 +30,7 @@ mutate_when_missing <- function(.data,...){
 #' \dontrun{
 #' split_first_space("Danny Van der beeck", 1)
 #' split_first_space("Danny Van der beeck", 2)
+#' }
 split_first_space <- function(string, part) {
   parts <- strsplit(string, " ", fixed = TRUE)[[1]]
   part1 <- parts[1]
