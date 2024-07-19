@@ -7,8 +7,7 @@
 round_coordinates(x, digits)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 
 \item{digits}{Number of decimal places to round coordinates to (\code{1}, \code{2} or
 \code{3}).}
