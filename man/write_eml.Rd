@@ -62,6 +62,7 @@ unlink("my_directory", recursive = TRUE)
 }
 \seealso{
 Other transformation functions: 
+\code{\link{round_coordinates}()},
 \code{\link{write_dwc}()}
 }
 \concept{transformation functions}
