@@ -1,20 +1,33 @@
-test_that("write_eml() writes an eml to the given directory", {
+test_that("write_dwc() writes an eml.xml to a directory and returns eml
+           invisibly", {
   skip_if_offline()
   x <- example_dataset()
-  # compare against known good result
-  eml <-
-    suppressMessages(write_eml(x, directory = tempdir()))
-  ## don't compare the packageId because it's a random guid
-  purrr::pluck(eml, "packageId") <- NULL
-  expect_snapshot(eml)
+  temp_dir <- file.path(tempdir(), "eml")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  result <- suppressMessages(write_eml(x, temp_dir))
 
-  # write to temp dir
-  suppressMessages(expect_no_error(write_eml(x, directory = tempdir())))
-  ## read from file, and remove packageID because it's a random guid
-  eml_from_file <- EML::read_eml(file.path(tempdir(), "eml.xml"))
-  purrr::pluck(eml_from_file, "packageId") <- NULL
-  ## compare to known output
-  expect_snapshot(eml_from_file)
-  ## remove temp file
-  unlink(file.path(tempdir(), "eml.xml"))
+  expect_identical(list.files(temp_dir), c("eml.xml"))
+  expect_identical(
+    result$dataset$title,
+    paste(
+      "Sample from: MICA - Muskrat and coypu camera trap observations in",
+      "Belgium, the Netherlands and Germany"
+    )
+  )
+  expect_type(result, "list")
+})
+
+test_that("write_dwc() returns the expected Darwin Core mapping for the example
+           dataset", {
+  skip_if_offline()
+  x <- example_dataset()
+  temp_dir <- file.path(tempdir(), "eml")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  result <- suppressMessages(write_eml(x, temp_dir))
+  result$packageId <- "random_uuid" # Overwrite generated UUID
+
+  expect_snapshot_file(
+    file.path(temp_dir, "eml.xml"),
+    transform = remove_uuid
+  )
 })
