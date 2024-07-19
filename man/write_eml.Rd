@@ -10,6 +10,9 @@ write_eml(x, directory, derived_paragraph = TRUE)
 \item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 
 \item{directory}{Path to local directory to write files to.}
+
+\item{derived_paragraph}{If \code{TRUE}, a paragraph will be added to the
+abstract, indicating that data have been transformed using \code{write_dwc()}.}
 }
 \value{
 \code{eml.xml} file written to disk.

@@ -5,6 +5,8 @@
 #'
 #' @inheritParams print.camtrapdp
 #' @param directory Path to local directory to write files to.
+#' @param derived_paragraph If `TRUE`, a paragraph will be added to the
+#'   abstract, indicating that data have been transformed using `write_dwc()`.
 #' @return `eml.xml` file written to disk.
 #'   And invisibly, an [EML::eml] object.
 #' @family transformation functions
@@ -97,7 +99,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     purrr::map_dfr(
       x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)
     ) %>%
-    dplyr::filter(!role %in% c("rightsHolder", "publisher")) %>%
+    dplyr::filter(!.data$role %in% c("rightsHolder", "publisher")) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
     dplyr::mutate(
       first_name = purrr::map_chr(
