@@ -175,3 +175,25 @@ test_that("correct_time() returns no error and corrects deploymentStart when
   )
 })
 
+test_that("correct_time() returns message", {
+  skip_if_offline()
+  x <- example_dataset()
+  deploymentID <- c("00a2c20d", "29b7d356")
+  wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
+  right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
+  duration <- lubridate::as.duration(lubridate::interval(wrong, right))
+
+  expect_message(
+    correct_time(x, deploymentID, duration),
+  #   regexp = paste(
+  #     "Timestamps in selected deployments, media and observations were shifted by 7200s (~2 hours) (e.g. 2020-05-30 02:57:37 is now 2020-05-30 04:57:37).",
+  #     "A Camera Trap Data Package with 3 tables:",
+  #     "* deployments: 4 rows",
+  #     "* media: 423 rows",
+  #     "* observations: 549 rows",
+  #     "Use `unclass()` to print the Data Package as a list.",
+  #     sep = "\n"
+  #   ),
+  #   fixed = TRUE
+  )
+})

@@ -1,15 +1,16 @@
 #' Correct datetime
 #'
 #' Corrects datetimes in a Camera Trap Data package object. Datetimes in
-#' deployments, associated resources and metadata are corrected for the
-#' the provided deploymentIDs and duration.
+#' deployments and associated resources and metadata are corrected for the
+#' the selected deploymentIDs. `timestamIssues` is set to FALSE.
 #' This function can be used when the time settings of one or more deployments
 #' were wrong and need to be corrected afterwards.
 #'
 #' @inheritParams print.camtrapdp
 #' @param deploymentID One or more deploymentID's, either as a character string
-#' or a vector of character strings.
-#' @param duration Datetime difference between the wrong and right time.
+#' or as a vector of character strings.
+#' @param duration Datetime difference between the wrong and right time, with
+#' class Duration or difftime.
 #' @return `x` with datetimes corrected.
 #' @family transformation functions
 #' @export
@@ -73,6 +74,12 @@ correct_time <- function(x, deploymentID, duration) {
   # hack to solve name problem with deploymentID in mutate
   depID <- deploymentID
 
+  # get wrong eventStart of the first deploymentID
+  wrong_deploymentStart <-
+    deployments(x) %>%
+    dplyr::filter(.data$deploymentID == depID[1]) %>%
+    dplyr::pull(.data$deploymentStart)
+
   # correct deploymentStart and deploymentEnd of selected deployments
   deployments(x) <-
     deployments(x) %>%
@@ -123,6 +130,18 @@ correct_time <- function(x, deploymentID, duration) {
 
   # set timestamIssues to FALSE
   deployments(x)$timestampIssues <- FALSE
+
+  # get updated eventStart of the first deploymentID
+  updated_deploymentStart <-
+    deployments(x) %>%
+    dplyr::filter(.data$deploymentID == depID[1]) %>%
+    dplyr::pull(.data$deploymentStart)
+
+  cli::cli_text(
+    "Timestamps in selected deployments, media and observations were shifted by
+    {.val {duration}} (e.g. {.val {wrong_deploymentStart}} is now
+    {.val {updated_deploymentStart}})."
+  )
 
   return(x)
 }
