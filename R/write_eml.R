@@ -94,12 +94,20 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Convert contributors to a data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
   creators <-
-    purrr::map_dfr(x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)) %>%
+    purrr::map_dfr(
+      x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)
+    ) %>%
     dplyr::filter(!role %in% c("rightsHolder", "publisher")) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
     dplyr::mutate(
-      first_name = purrr::map_chr(.data$title, ~ split_first_space(.x, 1)),
-      last_name = purrr::map_chr(.data$title, ~ split_first_space(.x, 2)),
+      first_name = purrr::map_chr(
+        .data$title,
+        ~ strsplit(.x, " ", fixed = TRUE)[[1]][1] # First string before space
+      ),
+      last_name = purrr::map_chr(
+        .data$title,
+        ~ sub("^\\S* ", "", .x) # Remove string up until first space
+      ),
       orcid = ifelse( # Move ORCID from path to separate column
         !is.na(regexpr(orcid_regex, .data$path)),
         regmatches(.data$path, regexpr(orcid_regex, .data$path)),
