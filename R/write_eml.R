@@ -4,23 +4,27 @@
 #' [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/) file.
 #'
 #' @inheritParams print.camtrapdp
-#' @param directory Path to local directory to write file to.
+#' @param directory Path to local directory to write files to.
 #' @return `eml.xml` file written to disk.
 #'   And invisibly, an [EML::eml] object.
 #' @family transformation functions
 #' @export
 #' @section Transformation details:
-#' Metadata is derived from what is provided in `x`.
+#' Metadata are derived from what is provided in `x`.
 #' The following properties are set:
 #' - **title**: Title as provided in `x$title`.
 #' - **description**: Description as provided in `x$description`.
-#'   The description is followed by paragraph how the data have been
-#'   standardized.
+#'   If `derived_paragraph = TRUE` a generated paragraph is added, e.g.:
+#'
+#'   Data have been standardized to Darwin Core using the [camtrapdp](
+#'   https://inbo.github.io/camtrapdp/) R package and only include observations
+#'   (and associated media) of animals. Excluded are records that document blank
+#'   or unclassified media, vehicles and observations of humans.
 #' - **license**: License with scope `data` as provided in `x$licenses`.
 #' - **creators**: Contributors (all roles) as provided in `x$contributors`.
 #' - **contact**: First creator.
 #' - **metadata provider**: First creator.
-#' - **keywords**: Keywords as provided in `keywords`.
+#' - **keywords**: Keywords as provided in `x$keywords`.
 #' - **geographic coverage**: Bounding box as provided in `x$spatial`.
 #' - **taxonomic coverage**: Species (no other ranks) as provided in
 #'   `x$taxonomic`.
@@ -32,20 +36,22 @@
 #' - **external link**: URL of the project as provided in
 #'   `x$project$path`.
 #'
-#' To be set manually in the GBIF IPT: **type**, **subtype**,
-#' **update frequency** and **publishing organization**.
-#'
-#' Not set: **sampling methods** and **citations**.
-#'
-#' Not applicable: **collection data**.
+#' The following properties are not set:
+#' - **type**
+#' - **subtype**
+#' - **update frequency**
+#' - **publishing organization**
+#' - **associated parties**
+#' - **sampling methods**
+#' - **citations**
+#' - **collection data**: not applicable.
 #' @examples
 #' x <- example_dataset()
-#' write_eml(x, directory = "my_directory")
+#' (write_eml(x, directory = "my_directory"))
 #'
 #' # Clean up (don't do this if you want to keep your files)
 #' unlink("my_directory", recursive = TRUE)
-write_eml <- function(x, directory) {
-
+write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Filter dataset on observations (also affects media)
   x <- filter_observations(
     x,
@@ -66,16 +72,23 @@ write_eml <- function(x, directory) {
   # Set title
   eml$dataset$title <- x$title
 
-  # Set abstract
-  last_para <-
-    # Add span to circumvent https://github.com/ropensci/EML/issues/342
-    "<span></span>Data have been standardized to Darwin Core using the https://inbo.github.io/camtrapdp/\">camtrapdp</a> R package and only include observations (and associated media) of animals. Excluded are records that document blank or unclassified media, vehicles and observations of humans."
-  eml$dataset$abstract$para <- append(
-    x$description,
-    paste0("<![CDATA[", last_para, "]]>")
-  )
+  # Add extra paragraph to description
+  if (derived_paragraph) {
+    last_para <- paste0(
+      # Add span to circumvent https://github.com/ropensci/EML/issues/342
+      "<span></span>Data have been standardized to Darwin Core using the ",
+      "<a href=\"https://inbo.github.io/camtrapdp/\">camtrapdp</a> R package ",
+      "and only include observations (and associated media) of animals. ",
+      "Excluded are records that document blank or unclassified media, ",
+      "vehicles and observations of humans."
+    )
+    eml$dataset$abstract$para <- append(
+      x$description,
+      paste0("<![CDATA[", last_para, "]]>")
+    )
+  }
 
-  # Convert contributors to data frame
+  # Convert contributors to a data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
   creators <-
     purrr::map_dfr(x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)) %>%
@@ -133,7 +146,6 @@ write_eml <- function(x, directory) {
   sci_names <-
     dplyr::rename(taxonomy, Species = "scientificName") %>%
     dplyr::select("Species")
-
   eml$dataset$coverage <-
     EML::set_coverage(
       begin = x$temporal$start,
@@ -145,7 +157,7 @@ write_eml <- function(x, directory) {
       sci_names = sci_names
     )
 
-  # Add extra paragraph to description
+  # Set project
   type_samplingDesign <-
     dplyr::case_when(
       project$samplingDesign == "simpleRandom" ~ "simple random",
@@ -193,8 +205,7 @@ write_eml <- function(x, directory) {
   # Set alternative identifier = package id (can be DOI)
   eml$dataset$alternateIdentifier <- x$id
 
-  ######
-  # Write files
+  # Write filess
   eml_path <- file.path(directory, "eml.xml")
   cli::cli_h2("Writing file")
   cli::cli_ul(c(
@@ -205,6 +216,6 @@ write_eml <- function(x, directory) {
   }
   EML::write_eml(eml, eml_path)
 
-  # Return eml list invisibly
+  # Return EML list invisibly
   invisible(eml)
 }

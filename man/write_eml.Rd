@@ -4,12 +4,12 @@
 \alias{write_eml}
 \title{Transform a Camera Trap Data Package to EML}
 \usage{
-write_eml(x, directory)
+write_eml(x, directory, derived_paragraph = TRUE)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 
-\item{directory}{Path to local directory to write file to.}
+\item{directory}{Path to local directory to write files to.}
 }
 \value{
 \code{eml.xml} file written to disk.
@@ -21,18 +21,21 @@ Transforms the metadata of a Camera Trap Data Package object to an
 }
 \section{Transformation details}{
 
-Metadata is derived from what is provided in \code{x}.
+Metadata are derived from what is provided in \code{x}.
 The following properties are set:
 \itemize{
 \item \strong{title}: Title as provided in \code{x$title}.
 \item \strong{description}: Description as provided in \code{x$description}.
-The description is followed by paragraph how the data have been
-standardized.
+If \code{derived_paragraph = TRUE} a generated paragraph is added, e.g.:
+
+Data have been standardized to Darwin Core using the \href{https://inbo.github.io/camtrapdp/}{camtrapdp} R package and only include observations
+(and associated media) of animals. Excluded are records that document blank
+or unclassified media, vehicles and observations of humans.
 \item \strong{license}: License with scope \code{data} as provided in \code{x$licenses}.
 \item \strong{creators}: Contributors (all roles) as provided in \code{x$contributors}.
 \item \strong{contact}: First creator.
 \item \strong{metadata provider}: First creator.
-\item \strong{keywords}: Keywords as provided in \code{keywords}.
+\item \strong{keywords}: Keywords as provided in \code{x$keywords}.
 \item \strong{geographic coverage}: Bounding box as provided in \code{x$spatial}.
 \item \strong{taxonomic coverage}: Species (no other ranks) as provided in
 \code{x$taxonomic}.
@@ -45,17 +48,22 @@ If this is a DOI, no new DOI will be created when publishing to GBIF.
 \code{x$project$path}.
 }
 
-To be set manually in the GBIF IPT: \strong{type}, \strong{subtype},
-\strong{update frequency} and \strong{publishing organization}.
-
-Not set: \strong{sampling methods} and \strong{citations}.
-
-Not applicable: \strong{collection data}.
+The following properties are not set:
+\itemize{
+\item \strong{type}
+\item \strong{subtype}
+\item \strong{update frequency}
+\item \strong{publishing organization}
+\item \strong{associated parties}
+\item \strong{sampling methods}
+\item \strong{citations}
+\item \strong{collection data}: not applicable.
+}
 }
 
 \examples{
 x <- example_dataset()
-write_eml(x, directory = "my_directory")
+(write_eml(x, directory = "my_directory"))
 
 # Clean up (don't do this if you want to keep your files)
 unlink("my_directory", recursive = TRUE)
