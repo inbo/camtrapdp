@@ -1,4 +1,4 @@
-test_that("write_dwc() writes an eml.xml to a directory and returns eml
+test_that("write_eml() writes an eml.xml to a directory and returns eml
            invisibly", {
   skip_if_offline()
   x <- example_dataset()
@@ -17,7 +17,7 @@ test_that("write_dwc() writes an eml.xml to a directory and returns eml
   expect_type(result, "list")
 })
 
-test_that("write_dwc() returns the expected Darwin Core mapping for the example
+test_that("write_eml() returns the expected eml.xml file for the example
            dataset", {
   skip_if_offline()
   x <- example_dataset()
