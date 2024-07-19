@@ -31,3 +31,13 @@ test_that("write_dwc() returns the expected Darwin Core mapping for the example
     transform = remove_uuid
   )
 })
+
+test_that("write_eml() supports disabling the derived paragraph", {
+  skip_if_offline()
+  x <- example_dataset()
+  temp_dir <- file.path(tempdir(), "eml")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  result <- suppressMessages(write_eml(x, temp_dir, derived_paragraph = FALSE))
+
+  expect_error(result$dataset$abstract$para[[2]]) # Subscript out of bounds
+})

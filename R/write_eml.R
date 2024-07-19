@@ -72,6 +72,9 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Set title
   eml$dataset$title <- x$title
 
+  # Set description
+  eml$dataset$abstract$para <- x$description
+
   # Add extra paragraph to description
   if (derived_paragraph) {
     last_para <- paste0(
@@ -83,7 +86,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
       "vehicles and observations of humans."
     )
     eml$dataset$abstract$para <- append(
-      x$description,
+      eml$dataset$abstract$para,
       paste0("<![CDATA[", last_para, "]]>")
     )
   }
