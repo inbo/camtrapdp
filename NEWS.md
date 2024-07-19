@@ -1,5 +1,6 @@
 # camtrapdp (development version)
 
+* New function `write_eml()` transforms Camtrap DP metadata to EML (#61).
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` in the metadata (#85).
 
 # camtrapdp 0.3.1
@@ -11,7 +12,6 @@
 * New function `print()` prints a human-readable summary of the Camera Trap Data Package (#8).
 * Fix `fieldsEnclosedBy` issue in `meta.xml`, so GBIF occurrence processing correctly handles commas in fields (#95).
 * Fix CRAN note (#94).
-* New function `write_eml()` transforms Camtrap DP metadata to EML (#61).
 
 # camtrapdp 0.2.1
 
