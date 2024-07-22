@@ -28,10 +28,7 @@ version <- function(x) {
   }
 
   # Get version from profile
-  profile <- x$profile
-  if (is.null(profile)) {
-    return(NA)
-  }
+  profile <- purrr::pluck(x, "profile", .default = NA)
 
   # Find pattern "camtrap-dp/<version>/" in e.g.
   # https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/camtrap-dp-profile.json

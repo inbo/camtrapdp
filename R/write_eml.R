@@ -74,10 +74,8 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Set title
   eml$dataset$title <- x$title
 
-  # Set description
-  eml$dataset$abstract$para <- x$description
-
-  # Add extra paragraph to description
+  # Set abstract, with optional extra paragraph
+  para <- x$description
   if (derived_paragraph) {
     last_para <- paste0(
       # Add span to circumvent https://github.com/ropensci/EML/issues/342
@@ -87,17 +85,16 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
       "Excluded are records that document blank or unclassified media, ",
       "vehicles and observations of humans."
     )
-    eml$dataset$abstract$para <- append(
-      eml$dataset$abstract$para,
-      paste0("<![CDATA[", last_para, "]]>")
-    )
+    para <- append(para, paste0("<![CDATA[", last_para, "]]>"))
   }
+  eml$dataset$abstract$para <- para
 
   # Convert contributors to a data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
   creators <-
     purrr::map_dfr(
-      x$contributors, ~ as.data.frame(., stringsAsFactors = FALSE)
+      x$contributors,
+      ~ as.data.frame(., stringsAsFactors = FALSE)
     ) %>%
     dplyr::filter(!.data$role %in% c("rightsHolder", "publisher")) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
@@ -127,20 +124,22 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   creator_list <- purrr::transpose(creators)
 
   # Set creators
-  eml$dataset$creator <- purrr::map(creator_list, ~ EML::set_responsibleParty(
-    givenName = .$first_name,
-    surName = .$last_name,
-    organizationName = .$organization, # Discouraged by EML, but used by IPT
-    email = .$email,
-    userId = if (!is.na(.$orcid)) {
-      list(directory = "https://orcid.org/", .$orcid)
-    } else {
-      NULL
-    },
-    onlineUrl = .$path
-  ))
-  eml$dataset$contact <- eml$dataset$creator[[1]]
-  eml$dataset$metadataProvider <- eml$dataset$creator[[1]]
+  eml$dataset$creator <-
+    purrr::map(creator_list, ~ EML::set_responsibleParty(
+      givenName = .$first_name,
+      surName = .$last_name,
+      organizationName = .$organization, # Discouraged by EML, but used by IPT
+      email = .$email,
+      userId = if (!is.na(.$orcid)) {
+        list(directory = "https://orcid.org/", .$orcid)
+      } else {
+        NULL
+      },
+      onlineUrl = .$path
+    ))
+  first_creator <- purrr::pluck(eml, "dataset", "creator", 1)
+  eml$dataset$contact <- first_creator
+  eml$dataset$metadataProvider <- first_creator
 
   # Set keywords
   eml$dataset$keywordSet <-
@@ -204,10 +203,11 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     x$bibliographicCitation
 
   # Set external link = project URL (can be NULL)
-  if (!is.null(x$project$path)) {
+  project_url <- x$project$path
+  if (!is.null(project_url)) {
     eml$dataset$distribution <- list(
       scope = "document", online = list(
-        url = list("function" = "information", x$project$path)
+        url = list("function" = "information", project_url)
       )
     )
   }
