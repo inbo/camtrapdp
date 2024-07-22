@@ -17,11 +17,11 @@ filter_deployments(x, ...)
 \description{
 Subsets deployments in a Camera Trap Data Package object, retaining all
 rows that satisfy the conditions.
-}
-\details{
 \itemize{
 \item Media are filtered on associated \code{deploymentID}.
 \item Observations are filtered on associated \code{deploymentID}.
+\item Metadata (\code{x$temporal} and \code{x$spatial}) are updated to match the filtered
+deployments.
 }
 }
 \examples{
