@@ -10,12 +10,12 @@
 update_spatial <- function(x) {
   if (nrow(deployments(x)) == 0) {
     x$spatial <- NULL
-  } else { # otherwise get bounding box data
+  } else {
     deployments <- deployments(x)
-    long_max <- max(deployments$longitude)
-    long_min <- min(deployments$longitude)
-    lat_max <- max(deployments$latitude)
     lat_min <- min(deployments$latitude)
+    lat_max <- max(deployments$latitude)
+    long_min <- min(deployments$longitude)
+    long_max <- max(deployments$longitude)
 
     x$spatial$bbox <- c(long_min, lat_min, long_max, lat_max)
 
@@ -69,18 +69,16 @@ update_temporal <- function(x) {
 #' @family helper functions
 #' @noRd
 update_taxonomic <- function(x) {
-  remaining_taxa <-
-    taxa(x) %>%
-    purrr::pluck("scientificName")
-
+  current_taxa <- purrr::pluck(taxa(x), "scientificName")
+  # Set taxonomic
   if (is.null(x$taxonomic)) {
-    x$taxonomic <- purrr::map(remaining_taxa, ~ list(scientificName = .x))
-  } else {
-    x$taxonomic <-
-      purrr::keep(
-        x$taxonomic, ~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
-      )
-  }
+    x$taxonomic <- purrr::map(current_taxa, ~ list(scientificName = .x))
 
+  # Update taxonomic
+  } else {
+    x$taxonomic <- purrr::keep(
+      x$taxonomic, ~ purrr::pluck(.x, "scientificName") %in% current_taxa
+    )
+  }
   return(x)
 }
