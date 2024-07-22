@@ -1,13 +1,13 @@
 #' Filter deployments
 #'
+#' @description
 #' Subsets deployments in a Camera Trap Data Package object, retaining all
 #' rows that satisfy the conditions.
 #'
 #' - Media are filtered on associated `deploymentID`.
 #' - Observations are filtered on associated `deploymentID`.
-#'
-#' The spatial information in the metadata (`spatial`) is updated to match
-#' the filtered deployments.
+#' - Metadata (`x$temporal` and `x$spatial`) are updated to match the filtered
+#' deployments.
 #'
 #' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.

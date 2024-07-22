@@ -17,16 +17,12 @@ filter_media(x, ...)
 \description{
 Subsets media in a Camera Trap Data Package object, retaining all rows that
 satisfy the conditions.
-}
-\details{
 \itemize{
 \item Deployments are not filtered.
 \item Observations are filtered on associated \code{mediaID} (for media-based
 observations) and \code{eventID} (for event-based observations).
+\item Metadata (\code{x$taxonomic}) are updated to match the filtered observations.
 }
-
-The taxonomic information in the metadata (\code{taxonomic}) is updated to match
-the filtered observations.
 }
 \examples{
 x <- example_dataset()
