@@ -51,34 +51,28 @@ test_that("filter_media() filters media and observations, but not deployments", 
   expect_equal(nrow(observations(x_filtered)), 4) # 1 event, 3 media observations
 })
 
-
-test_that("filter_media() updates the taxonomic property", {
+test_that("filter_media() updates taxonomic scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
-  x_favorite <- filter_media(x, favorite == TRUE)
-  remaining_taxa_obs <- unique(observations(x_favorite)$scientificName)
-  remaining_taxa_tax <-
-    purrr::map_chr(x_favorite$taxonomic, ~ purrr::pluck(.x, "scientificName"))
-  expect_identical(remaining_taxa_obs, remaining_taxa_tax)
+  x_1_taxon <- filter_media(x, mediaID == "e8b8e44c")
+  expect_identical(
+    purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "scientificName")),
+    "Anas platyrhynchos"
+  )
+  expect_identical(
+    purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "vernacularNames", "eng")),
+    "mallard" # Original data is still present
+  )
 
-  x_filtered <-
-    filter_media(x, captureMethod == "activityDetection", filePublic == FALSE)
-  remaining_taxa_obs <-
-    unique(observations(x_filtered)$scientificName) %>%
-    sort()
-  remaining_taxa_tax <-
-    purrr::map_chr(
-      x_filtered$taxonomic, ~ purrr::pluck(.x, "scientificName")
-    ) %>%
-    sort()
-  expect_identical(remaining_taxa_obs, remaining_taxa_tax)
+  x_empty <- filter_media(x, favorite == TRUE, filePublic == FALSE)
+  expect_null(x_empty$taxonomic)
 
-  # package without taxonomic metadata
+  # Taxonomic scope is created when not present, names are alphabetical
   x$taxonomic <- NULL
-  x_notpublic <- filter_media(x, filePublic == FALSE)
-  remaining_taxa_notpublic <-
-    list(
-      list(scientificName = "Homo sapiens")
-    )
-  expect_identical(x_notpublic$taxonomic, remaining_taxa_notpublic)
+  x_multiple <- filter_media(x, mediaID == "8263e85b")
+  expected_taxonomic <-  list(
+    list(scientificName = "Anas platyrhynchos"),
+    list(scientificName = "Anas strepera")
+  )
+  expect_identical(x_multiple$taxonomic, expected_taxonomic)
 })

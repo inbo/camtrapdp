@@ -143,13 +143,13 @@ test_that("round_coordinates() doesn't overestimate uncertainty on multiple
   )
 })
 
-test_that("round_coordinates() updates the spatial metadata", {
+test_that("round_coordinates() updates spatial scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
   x2 <- round_coordinates(x, 2)
   x1 <- round_coordinates(x, 1)
 
-  # The number of digits in spatial is updated
+  # The number of digits in spatial scope is updated
   expect_equal(max(nchar(gsub("^\\d*.", "", x2$spatial$coordinates))), 2)
   expect_equal(max(nchar(gsub("^\\d*.", "", x1$spatial$coordinates))), 1)
 })

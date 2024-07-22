@@ -52,39 +52,35 @@ test_that("filter_deployments() filters deployments, media and observations", {
   x_empty <- filter_deployments(x, latitude < 0, longitude < 0)
 })
 
-test_that("filter_deployments() filters temporal and spatial metadata", {
+test_that("filter_deployments() updates temporal and spatial scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
 
   x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
   expect_identical(x_filtered$temporal$start, "2021-03-27")
   expect_identical(x_filtered$temporal$end, "2021-04-18")
-  expect_identical(x_filtered$spatial$bbox, c(4.013, 50.699, 4.013, 50.699))
-  coordinates_array <-
-    array(
-      c(
-        4.013, 4.013, 4.013, 4.013, 4.013,
-        50.699, 50.699, 50.699, 50.699, 50.699
-      ),
-      dim = c(1, 5, 2)
-    )
+  coordinates_array <- array(
+    c(
+      4.013, 4.013, 4.013, 4.013, 4.013,
+      50.699, 50.699, 50.699, 50.699, 50.699
+    ),
+    dim = c(1, 5, 2)
+  )
   expect_identical(x_filtered$spatial$coordinates, coordinates_array)
 
   x_multiple <- filter_deployments(x, cameraHeight >= 1.0)
   expect_identical(x_multiple$temporal$start, "2020-05-30")
   expect_identical(x_multiple$temporal$end, "2021-04-18")
-  expect_identical(x_multiple$spatial$bbox, c(4.013, 50.699, 4.774, 51.496))
-  coordinates_array <-
-    array(
-      c(
-        4.013, 4.774, 4.774, 4.013, 4.013,
-        50.699, 50.699, 51.496, 51.496, 50.699
-      ),
-      dim = c(1, 5, 2)
-    )
+  coordinates_array <- array(
+    c(
+      4.013, 4.774, 4.774, 4.013, 4.013,
+      50.699, 50.699, 51.496, 51.496, 50.699
+    ),
+    dim = c(1, 5, 2)
+  )
   expect_identical(x_multiple$spatial$coordinates, coordinates_array)
 
   x_empty <- filter_deployments(x, latitude < 0, longitude < 0)
-  expect_null(x_empty$spatial)
   expect_null(x_empty$temporal)
+  expect_null(x_empty$spatial)
 })

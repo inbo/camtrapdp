@@ -10,29 +10,30 @@
 update_spatial <- function(x) {
   if (nrow(deployments(x)) == 0) {
     x$spatial <- NULL
-  } else {
-    deployments <- deployments(x)
-    lat_min <- min(deployments$latitude)
-    lat_max <- max(deployments$latitude)
-    long_min <- min(deployments$longitude)
-    long_max <- max(deployments$longitude)
-
-    x$spatial$coordinates <- array(
-      c(
-        long_min, long_max, long_max, long_min, long_min,
-        lat_min, lat_min, lat_max, lat_max, lat_min
-      ),
-      dim = c(1, 5, 2)
-    )
+    return(x)
   }
+
+  deployments <- deployments(x)
+  lat_min <- min(deployments$latitude)
+  lat_max <- max(deployments$latitude)
+  long_min <- min(deployments$longitude)
+  long_max <- max(deployments$longitude)
+
+  x$spatial$coordinates <- array(
+    c(
+      long_min, long_max, long_max, long_min, long_min,
+      lat_min, lat_min, lat_max, lat_max, lat_min
+    ),
+    dim = c(1, 5, 2)
+  )
   return(x)
 }
 
 #' Update temporal metadata
 #'
 #' Sets `x$temporal$start` to the earliest deployment start date,
-#' `x$temporal$end` to the latest deployment end date date or `NULL` for both if
-#' there are no deployments.
+#' `x$temporal$end` to the latest deployment end date.
+#' Sets `x$temporal` to `NULL` if there are no deployments.
 #'
 #' @inheritParams print.camtrapdp
 #' @return `x` with updated temporal metadata.
@@ -41,33 +42,41 @@ update_spatial <- function(x) {
 update_temporal <- function(x) {
   if (nrow(deployments(x)) == 0) {
     x$temporal <- NULL
-  } else {
-    deployments <- deployments(x)
-    x$temporal$start <-
-      deployments %>%
-      dplyr::pull(.data$deploymentStart) %>%
-      min() %>%
-      format(format = "%Y-%m-%d")
-    x$temporal$end <-
-      deployments %>%
-      dplyr::pull(.data$deploymentEnd) %>%
-      max() %>%
-      format(format = "%Y-%m-%d")
+    return(x)
   }
+
+  deployments <- deployments(x)
+  x$temporal$start <-
+    deployments %>%
+    dplyr::pull(.data$deploymentStart) %>%
+    min() %>%
+    format(format = "%Y-%m-%d")
+  x$temporal$end <-
+    deployments %>%
+    dplyr::pull(.data$deploymentEnd) %>%
+    max() %>%
+    format(format = "%Y-%m-%d")
   return(x)
 }
 
 #' Update taxonomic metadata
 #'
-#' Filters `x$taxonomic` on the scientific names found in observations or (if
-#' empty) sets `x$taxonomic` to a unique list of those scientific names.
+#' Filters existing taxa in `x$taxonomic` on the scientific names found in the
+#' observations or creates a `x$taxonomic` with a unique list of those
+#' scientific names.
+#' Sets `x$taxonomic` to `NULL` if there are no observations.
 #'
 #' @inheritParams print.camtrapdp
 #' @return `x` with updated taxonomic metadata.
 #' @family helper functions
 #' @noRd
 update_taxonomic <- function(x) {
-  current_taxa <- purrr::pluck(taxa(x), "scientificName")
+  if (nrow(observations(x)) == 0) {
+    x$taxonomic <- NULL
+    return(x)
+  }
+
+  current_taxa <- purrr::pluck(taxa(x), "scientificName") %>% sort()
   # Set taxonomic
   if (is.null(x$taxonomic)) {
     x$taxonomic <- purrr::map(current_taxa, ~ list(scientificName = .x))

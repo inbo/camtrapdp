@@ -62,40 +62,35 @@ test_that("filter_observations() filters observations and media, but not deploym
   expect_equal(nrow(media(x_filtered_event)), 10) # All media files in the event
 })
 
-test_that("filter_observations() updates the taxonomic propertyt", {
+test_that("filter_observations() updates taxonomic scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
-  x_vulpes_media <- filter_observations(
+  x_1_taxon <- filter_observations(
     x,
     scientificName == "Vulpes vulpes",
     observationLevel == "media"
   )
-  remaining_taxa_obs <- unique(observations(x_vulpes_media)$scientificName)
-  remaining_taxa_tax <-
-    purrr::map_chr(x_vulpes_media$taxonomic, ~ purrr::pluck(.x, "scientificName"))
-  expect_identical(remaining_taxa_obs, remaining_taxa_tax)
+  expect_identical(
+    purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "scientificName")),
+    "Vulpes vulpes"
+  )
+  expect_identical(
+    purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "vernacularNames", "eng")),
+    "red fox" # Original data is still present
+  )
 
-  x_animal <- filter_observations(x, observationType == "animal")
-  remaining_taxa_obs <-
-    unique(observations(x_animal)$scientificName) %>%
-    sort()
-  remaining_taxa_tax <-
-    purrr::map_chr(x_animal$taxonomic, ~ purrr::pluck(.x, "scientificName")) %>%
-    sort()
-  expect_identical(remaining_taxa_obs, remaining_taxa_tax)
+  x_empty <- filter_observations(x, count == 5, behavior == "not_a_behavior")
+  expect_null(x_empty$taxonomic)
 
-  # package without taxonomic metadata
+  # Taxonomic scope is created when not present, names are alphabetical
   x$taxonomic <- NULL
-  x_time <-
-    filter_observations(
-      x,
-      eventStart >= lubridate::as_datetime("2020-05-30 00:00:00"),
-      eventEnd <= lubridate::as_datetime("2020-05-31 23:59:59")
-      )
-  remaining_taxa_time <-
-    list(
-      list(scientificName = "Anas platyrhynchos"),
-      list(scientificName = "Rattus norvegicus")
-    )
-  expect_identical(x_time$taxonomic, remaining_taxa_time)
+  x_2_taxa <- filter_observations(
+    x,
+    scientificName %in% c("Mustela putorius", "Martes foina")
+  )
+  expected_taxononic <-  list(
+    list(scientificName = "Martes foina"),
+    list(scientificName = "Mustela putorius")
+  )
+  expect_identical(x_2_taxa$taxonomic, expected_taxononic)
 })
