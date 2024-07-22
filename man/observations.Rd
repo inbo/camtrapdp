@@ -3,7 +3,7 @@
 \name{observations}
 \alias{observations}
 \alias{observations<-}
-\title{Get observations}
+\title{Get or set observations}
 \usage{
 observations(x)
 
