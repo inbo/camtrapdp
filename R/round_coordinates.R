@@ -168,7 +168,7 @@ round_coordinates <- function(x, digits) {
       -"latitudeGroup", -"roundingUncertainty", -"oldRoundingUncertainty"
       )
 
-  # Filter spatial metadata
+  # Update spatial scope in metadata
   x <- update_spatial(x)
 
   return(x)

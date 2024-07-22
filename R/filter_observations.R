@@ -24,16 +24,18 @@
 #'   observations()
 #'
 #' # Filtering on observations also affects associated media, but not deployments
-#' x_vulpes_event <-
-#'   x %>%
+#' x %>%
 #'   filter_observations(
 #'     scientificName == "Vulpes vulpes",
 #'     observationLevel == "event"
-#'   )
-#' media(x_vulpes_event)
-#'
-#' # Because update_taxonomic == TRUE, taxonomic metadata is updated
-#' x_vulpes_event$taxonomic
+#'   ) %>%
+#'   media()
+#' x %>%
+#'   filter_observations(
+#'     scientificName == "Vulpes vulpes",
+#'     observationLevel == "media"
+#'   ) %>%
+#'   media()
 #'
 #' # Filtering on multiple conditions (combined with &)
 #' x %>%
@@ -83,7 +85,7 @@ filter_observations <- function(x, ...) {
   media(x) <- media
   observations(x) <- observations
 
-  # Filter the taxonomic property in the metadata
+  # Update taxonomic scope in metadata
   x <- update_taxonomic(x)
 
   return(x)

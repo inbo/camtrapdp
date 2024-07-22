@@ -63,7 +63,7 @@ filter_deployments <- function(x, ...) {
   media(x) <- media
   observations(x) <- observations
 
-  # Filter temporal and spatial metadata
+  # Update temporal and spatial scope in metadata
   x <-
     x %>%
     update_temporal() %>%
