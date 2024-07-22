@@ -1,7 +1,10 @@
-#' Updates spatial metadata, that is, the bounding box of polygon coordinates.
+#' Update spatial metadata
+#'
+#' Sets `x$spatial` to a bounding box (expressed as geojson) that encompasses
+#' the deployment coordinates or `NULL` if there are no deployments.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated spatial metadata
+#' @return `x` with updated spatial metadata.
 #' @family helper functions
 #' @noRd
 update_spatial <- function(x) {
@@ -27,10 +30,14 @@ update_spatial <- function(x) {
   return(x)
 }
 
-#' Updates temporal metadata, that is, the start and end date.
+#' Update temporal metadata
+#'
+#' Sets `x$temporal$start` to the earliest deployment start date,
+#' `x$temporal$end` to the latest deployment end date date or `NULL` for both if
+#' there are no deployments.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated temporal metadata
+#' @return `x` with updated temporal metadata.
 #' @family helper functions
 #' @noRd
 update_temporal <- function(x) {
@@ -52,10 +59,13 @@ update_temporal <- function(x) {
   return(x)
 }
 
-#' Updates taxonomic metadata, that is, the list of species observed.
+#' Update taxonomic metadata
+#'
+#' Filters `x$taxonomic` on the scientific names found in observations or (if
+#' empty) sets `x$taxonomic` to a unique list of those scientific names.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated taxonomic metadata
+#' @return `x` with updated taxonomic metadata.
 #' @family helper functions
 #' @noRd
 update_taxonomic <- function(x) {
