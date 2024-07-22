@@ -1,18 +1,21 @@
-#' Updates spatial metadata, that is, the bounding box of polygon coordinates.
+#' Update spatial metadata
+#'
+#' Sets `x$spatial` to a bounding box (expressed as geojson) that encompasses
+#' the deployment coordinates or `NULL` if there are no deployments.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated spatial metadata
+#' @return `x` with updated spatial metadata.
 #' @family helper functions
 #' @noRd
 update_spatial <- function(x) {
   if (nrow(deployments(x)) == 0) {
     x$spatial <- NULL
-  } else { # otherwise get bounding box data
+  } else {
     deployments <- deployments(x)
-    long_max <- max(deployments$longitude)
-    long_min <- min(deployments$longitude)
-    lat_max <- max(deployments$latitude)
     lat_min <- min(deployments$latitude)
+    lat_max <- max(deployments$latitude)
+    long_min <- min(deployments$longitude)
+    long_max <- max(deployments$longitude)
 
     x$spatial$bbox <- c(long_min, lat_min, long_max, lat_max)
 
@@ -27,10 +30,14 @@ update_spatial <- function(x) {
   return(x)
 }
 
-#' Updates temporal metadata, that is, the start and end date.
+#' Update temporal metadata
+#'
+#' Sets `x$temporal$start` to the earliest deployment start date,
+#' `x$temporal$end` to the latest deployment end date date or `NULL` for both if
+#' there are no deployments.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated temporal metadata
+#' @return `x` with updated temporal metadata.
 #' @family helper functions
 #' @noRd
 update_temporal <- function(x) {
@@ -52,25 +59,26 @@ update_temporal <- function(x) {
   return(x)
 }
 
-#' Updates taxonomic metadata, that is, the list of species observed.
+#' Update taxonomic metadata
+#'
+#' Filters `x$taxonomic` on the scientific names found in observations or (if
+#' empty) sets `x$taxonomic` to a unique list of those scientific names.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated taxonomic metadata
+#' @return `x` with updated taxonomic metadata.
 #' @family helper functions
 #' @noRd
 update_taxonomic <- function(x) {
-  remaining_taxa <-
-    taxa(x) %>%
-    purrr::pluck("scientificName")
-
+  current_taxa <- purrr::pluck(taxa(x), "scientificName")
+  # Set taxonomic
   if (is.null(x$taxonomic)) {
-    x$taxonomic <- purrr::map(remaining_taxa, ~ list(scientificName = .x))
-  } else {
-    x$taxonomic <-
-      purrr::keep(
-        x$taxonomic, ~ purrr::pluck(.x, "scientificName") %in% remaining_taxa
-      )
-  }
+    x$taxonomic <- purrr::map(current_taxa, ~ list(scientificName = .x))
 
+  # Update taxonomic
+  } else {
+    x$taxonomic <- purrr::keep(
+      x$taxonomic, ~ purrr::pluck(.x, "scientificName") %in% current_taxa
+    )
+  }
   return(x)
 }
