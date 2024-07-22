@@ -1,2 +1,3 @@
-# Declare files that will always have LF line endings on checkout.
-tests/testthat/_snaps/*/*.csv text eol=lf
+# Use LF for csv and xml to allow cross-platform comparison of tests/testthat/_snaps
+*.csv eol=lf
+*.xml eol=lf
