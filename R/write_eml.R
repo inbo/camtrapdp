@@ -152,13 +152,13 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
 
   # Set coverage
   bbox <- x$spatial$bbox
-  taxonomy <- build_taxonomy(x)
-  if ("taxonRank" %in% names(taxonomy)) {
-    taxonomy <- dplyr::filter(taxonomy, .data$taxonRank == "species")
+  taxa <- taxa(x)
+  if ("taxonRank" %in% names(taxa)) {
+    taxa <- dplyr::filter(taxa, .data$taxonRank == "species")
   }
   sci_names <-
-    dplyr::rename(taxonomy, Species = "scientificName") %>%
-    dplyr::select("Species")
+    dplyr::select(taxa, "scientificName") %>%
+    dplyr::rename(Species = "scientificName") # Column name should be rank
   eml$dataset$coverage <-
     EML::set_coverage(
       begin = x$temporal$start,
