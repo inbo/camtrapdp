@@ -151,8 +151,5 @@ test_that("round_coordinates() updates the spatial metadata", {
 
   # The number of digits in spatial is updated
   expect_equal(max(nchar(gsub("^\\d*.", "", x2$spatial$coordinates))), 2)
-  expect_equal(max(nchar(gsub("^\\d*.", "", x2$spatial$bbox))), 2)
-
   expect_equal(max(nchar(gsub("^\\d*.", "", x1$spatial$coordinates))), 1)
-  expect_equal(max(nchar(gsub("^\\d*.", "", x1$spatial$bbox))), 1)
 })

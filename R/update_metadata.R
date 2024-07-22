@@ -17,8 +17,6 @@ update_spatial <- function(x) {
     long_min <- min(deployments$longitude)
     long_max <- max(deployments$longitude)
 
-    x$spatial$bbox <- c(long_min, lat_min, long_max, lat_max)
-
     x$spatial$coordinates <- array(
       c(
         long_min, long_max, long_max, long_min, long_min,

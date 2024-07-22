@@ -150,8 +150,8 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$name
 
   # Set coverage
-  bbox <- x$spatial$bbox
-  taxa <- taxa(x)
+  taxa <- build_taxa(x)
+  coordinates <- x$spatial$coordinates
   if ("taxonRank" %in% names(taxa)) {
     taxa <- dplyr::filter(taxa, .data$taxonRank == "species")
   }
@@ -162,10 +162,10 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     EML::set_coverage(
       begin = x$temporal$start,
       end = x$temporal$end,
-      west = bbox[1],
-      south = bbox[2],
-      east = bbox[3],
-      north = bbox[4],
+      west = coordinates[1,1,1], # long_min
+      south = coordinates[1,1,2], # lat_min
+      east = coordinates[1,3,1], # long_max
+      north = coordinates[1,3,2], # lat_max
       sci_names = sci_names
     )
 
