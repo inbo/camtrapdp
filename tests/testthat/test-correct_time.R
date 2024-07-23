@@ -208,15 +208,7 @@ test_that("correct_time() returns message", {
 
   expect_message(
     correct_time(x, deploymentID, duration),
-  #   regexp = paste(
-  #     "Timestamps in selected deployments, media and observations were shifted by 7200s (~2 hours) (e.g. 2020-05-30 02:57:37 is now 2020-05-30 04:57:37).",
-  #     "A Camera Trap Data Package with 3 tables:",
-  #     "* deployments: 4 rows",
-  #     "* media: 423 rows",
-  #     "* observations: 549 rows",
-  #     "Use `unclass()` to print the Data Package as a list.",
-  #     sep = "\n"
-  #   ),
-  #   fixed = TRUE
+    regexp = "v Timestamps in selected deployments, media and observations were shifted by\n7200s (~2 hours) (e.g. 2020-05-30 02:57:37 is now\n2020-05-30 04:57:37).\n",
+    fixed = TRUE
   )
 })
