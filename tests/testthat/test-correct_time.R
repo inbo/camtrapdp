@@ -6,7 +6,9 @@ test_that("correct_time() returns a valid camtrapdp object", {
   right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
   duration <- lubridate::as.duration(lubridate::interval(wrong, right))
   expect_no_error(
-    check_camtrapdp(correct_time(x, deploymentID, duration))
+    check_camtrapdp(
+      suppressMessages(correct_time(x, deploymentID, duration))
+    )
   )
 })
 
@@ -69,7 +71,7 @@ test_that("correct_time() returns warning on duplicated deploymentID's", {
   right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
   duration <- lubridate::as.duration(lubridate::interval(wrong, right))
   expect_warning(
-    correct_time(x, deploymentID, duration),
+    suppressMessages(correct_time(x, deploymentID, duration)),
     class = "camtrapdp_warning_deploymentID_duplicated"
   )
 })
@@ -80,10 +82,17 @@ test_that("correct_time() returns no error on valid deploymentID", {
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
   right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
   duration <- lubridate::as.duration(lubridate::interval(wrong, right))
-  expect_no_error(correct_time(x, "62c200a9", duration))
-  expect_no_error(correct_time(x, c("62c200a9", "29b7d356"), duration))
+  expect_no_error(suppressMessages(correct_time(x, "62c200a9", duration)))
   expect_no_error(
-    correct_time(x, c("00a2c20d", "29b7d356", "577b543a", "62c200a9"), duration)
+    suppressMessages(correct_time(x, c("62c200a9", "29b7d356"), duration))
+  )
+  # `deploymentID`contains all the deploymentIDs
+  expect_no_error(
+    suppressMessages(
+      correct_time(
+        x, c("00a2c20d", "29b7d356", "577b543a", "62c200a9"), duration
+      )
+    )
   )
 })
 
@@ -105,10 +114,10 @@ test_that("correct_time() returns no error and corrects deploymentStart when
   duration_Duration <-
     lubridate::as.duration(lubridate::interval(wrong_Duration, right_Duration))
 
-  expect_no_error(correct_time(x, depID, duration_Duration))
   # No error test
+  expect_no_error(suppressMessages(correct_time(x, depID, duration_Duration)))
 
-  x_Duration <- correct_time(x, depID, duration_Duration)
+  x_Duration <- suppressMessages(correct_time(x, depID, duration_Duration))
 
   # New deploymentStart
   deploymentStart_Duration <-
@@ -152,11 +161,11 @@ test_that("correct_time() returns no error and corrects deploymentStart when
   # Test if both yield the same result
   expect_identical(duration_difftime1, duration_difftime2)
 
-  expect_no_error(correct_time(x, depID, duration_difftime1))
   # Test further with only duration_difftime1
   # No error test
+  expect_no_error(suppressMessages(correct_time(x, depID, duration_difftime1)))
 
-  x_difftime <- correct_time(x, depID, duration_difftime1)
+  x_difftime <- suppressMessages(correct_time(x, depID, duration_difftime1))
 
   # New deploymentStart
   deploymentStart_difftime <-
@@ -182,7 +191,7 @@ test_that("correct_time() updates temporal scope in metadata", {
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
   right <- lubridate::ymd_hms("2024-04-03T02:00:00", tz = "UTC")
   duration <- lubridate::as.duration(lubridate::interval(wrong, right))
-  x_corrected <- correct_time(x, deploymentID, duration)
+  x_corrected <- suppressMessages(correct_time(x, deploymentID, duration))
   expect_identical(x_corrected$temporal$start, "2020-06-01")
   expect_identical(x_corrected$temporal$end, "2021-04-20")
 })
