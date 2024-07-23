@@ -9,8 +9,8 @@
 #' @inheritParams print.camtrapdp
 #' @param deploymentID One or more deploymentID's, either as a character string
 #' or as a vector of character strings.
-#' @param duration Datetime difference between the wrong and right time, with
-#' class Duration or difftime.
+#' @param duration Datetime difference between the wrong and right time. An
+#'   object of class [lubridate::Duration-class] or [difftime].
 #' @return `x` with datetimes corrected.
 #' @family transformation functions
 #' @export
