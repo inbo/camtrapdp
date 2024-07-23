@@ -16,6 +16,8 @@
 #' @export
 #' @examples
 #' x <- example_dataset()
+#'
+#' # Deployment IDs with wrong timestamps
 #' deploymentID <- c("00a2c20d", "29b7d356")
 #'
 #' # Calculate duration between wrong and right time
