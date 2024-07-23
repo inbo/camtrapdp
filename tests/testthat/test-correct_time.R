@@ -82,7 +82,9 @@ test_that("correct_time() returns no error on valid deploymentID", {
   wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
   right <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
   duration <- lubridate::as.duration(lubridate::interval(wrong, right))
+  # `deploymentID` has length 1
   expect_no_error(suppressMessages(correct_time(x, "62c200a9", duration)))
+  # `deploymentID` has length 2
   expect_no_error(
     suppressMessages(correct_time(x, c("62c200a9", "29b7d356"), duration))
   )
