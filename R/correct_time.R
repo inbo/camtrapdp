@@ -35,14 +35,16 @@
 correct_time <- function(x, deploymentID, duration) {
   check_camtrapdp(x)
 
+  deployment_ids <- purrr::pluck(deployments(x), "deploymentID")
+
   # deploymentID is valid
-  if (any(!deploymentID %in% c(deployments(x)$deploymentID))) {
+  if (any(!deploymentID %in% deployment_ids)) {
     cli::cli_abort(
       c(
         "{.arg deploymentID} is not a valid deploymentID of {.arg x}:",
         "i" = "{.arg deploymentID} is {.val {deploymentID}}",
         "i" = paste("Valid deploymentIDs of {.arg x} are ",
-              "{.val {deployments(x)$deploymentID}}.")
+              "{.val {deployment_ids}}.")
       ),
       class = "camtrapdp_error_deploymentID_invalid"
     )
