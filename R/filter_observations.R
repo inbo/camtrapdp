@@ -1,5 +1,6 @@
 #' Filter observations
 #'
+#' @description
 #' Subsets observations in a Camera Trap Data Package object, retaining all rows
 #' that satisfy the conditions.
 #'
@@ -7,6 +8,7 @@
 #' - Media are filtered on associated `mediaID` (for media-based observations)
 #' and `eventID` (for event-based observations).
 #' Filter on `observationLevel == "media"` to only retain directly linked media.
+#' - Metadata (`x$taxonomic`) are updated to match the filtered observations.
 #'
 #' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
@@ -23,10 +25,16 @@
 #'
 #' # Filtering on observations also affects associated media, but not deployments
 #' x %>%
-#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "event") %>%
+#'   filter_observations(
+#'     scientificName == "Vulpes vulpes",
+#'     observationLevel == "event"
+#'   ) %>%
 #'   media()
 #' x %>%
-#'   filter_observations(scientificName == "Vulpes vulpes", observationLevel == "media") %>%
+#'   filter_observations(
+#'     scientificName == "Vulpes vulpes",
+#'     observationLevel == "media"
+#'   ) %>%
 #'   media()
 #'
 #' # Filtering on multiple conditions (combined with &)
@@ -76,6 +84,9 @@ filter_observations <- function(x, ...) {
   # Assign filtered data
   media(x) <- media
   observations(x) <- observations
+
+  # Update taxonomic scope in metadata
+  x <- update_taxonomic(x)
 
   return(x)
 }

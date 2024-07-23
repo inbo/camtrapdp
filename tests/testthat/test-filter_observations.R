@@ -61,3 +61,36 @@ test_that("filter_observations() filters observations and media, but not deploym
   )
   expect_equal(nrow(media(x_filtered_event)), 10) # All media files in the event
 })
+
+test_that("filter_observations() updates taxonomic scope in metadata", {
+  skip_if_offline()
+  x <- example_dataset()
+  x_1_taxon <- filter_observations(
+    x,
+    scientificName == "Vulpes vulpes",
+    observationLevel == "media"
+  )
+  expect_identical(
+    purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "scientificName")),
+    "Vulpes vulpes"
+  )
+  expect_identical(
+    purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "vernacularNames", "eng")),
+    "red fox" # Original data is still present
+  )
+
+  x_empty <- filter_observations(x, count == 5, behavior == "not_a_behavior")
+  expect_null(x_empty$taxonomic)
+
+  # Taxonomic scope is created when not present, names are alphabetical
+  x$taxonomic <- NULL
+  x_2_taxa <- filter_observations(
+    x,
+    scientificName %in% c("Mustela putorius", "Martes foina")
+  )
+  expected_taxononic <-  list(
+    list(scientificName = "Martes foina"),
+    list(scientificName = "Mustela putorius")
+  )
+  expect_identical(x_2_taxa$taxonomic, expected_taxononic)
+})

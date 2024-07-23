@@ -1,3 +1,28 @@
+#' Helper function to remove UUID
+#'
+#' Removes a pattern matching a UUID from a character.
+#' This allows the output from write_eml() - which generates a different UUID
+#' for every run - to be compared against a snapshot.
+#' @param character Character vector from which UUID should be removed.
+#' @param replacement Optional replacement character.
+#' @return A character vector with the UUIDs removed.
+#' @examples
+#' to_clean <- paste(
+#'   'encoding=\"UTF-8\"?>",',
+#'   '"<eml:eml xmlns:eml=\"https://eml.ecoinformatics.org/eml-2.2.0\"',
+#'   'packageId=\"39272b1c-4174-4a86-a2d2-f48c4f29e6de\"',
+#'   'system=\"uuid\"',
+#'   collapse = " "
+#' )
+#' remove_uuid(to_clean)
+remove_uuid <- function(character, replacement = "RANDOM_UUID") {
+  gsub(
+    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}", # nolint: line_length_linter
+    replacement,
+    character
+  )
+}
+
 #' Helper function to compare a CSV file against the meta.xml file
 #'
 #' Compares the file name and column headers (without namespace) in a CSV file

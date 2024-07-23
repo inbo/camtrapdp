@@ -1,4 +1,13 @@
+test_that("round_coordinates() returns a valid camtrapdp object", {
+  skip_if_offline()
+  x <- example_dataset()
+  expect_no_error(
+    check_camtrapdp(round_coordinates(x, 2))
+  )
+})
+
 test_that("round_coordinates() returns error on empty or invalid digits", {
+  skip_if_offline()
   x <- example_dataset()
   expect_error(
     round_coordinates(x, digits = NULL),
@@ -20,12 +29,14 @@ test_that("round_coordinates() returns error on empty or invalid digits", {
 
 test_that("round_coordinates() does not change the variable names of
            deployments", {
+  skip_if_offline()
   x <- example_dataset()
   x_rounded <- round_coordinates(x, 2)
   expect_equal(names(deployments(x)), names(deployments(x_rounded)))
 })
 
 test_that("round_coordinates() sets lat, lon, uncertainty and precision", {
+  skip_if_offline()
   x <- example_dataset()
 
   # Set coordinates and uncertainty of deployments along latitude gradients
@@ -74,6 +85,7 @@ test_that("round_coordinates() sets lat, lon, uncertainty and precision", {
 })
 
 test_that("round_coordinates() forbids rounding to equal or higher precision", {
+  skip_if_offline()
   x1 <- example_dataset()
   deployments(x1)$latitude[[1]] <- 4.1
   deployments(x1)$latitude[[2]] <- 4.0
@@ -109,6 +121,7 @@ test_that("round_coordinates() forbids rounding to equal or higher precision", {
 
 test_that("round_coordinates() doesn't overestimate uncertainty on multiple
            runs", {
+  skip_if_offline()
   # Set uncertainty of first 2 deployments
   x <- example_dataset()
   deployments(x)$coordinateUncertainty[[1]] <- 10
@@ -128,4 +141,15 @@ test_that("round_coordinates() doesn't overestimate uncertainty on multiple
     deployments(x1_via_2)$coordinateUncertainty[[2]],
     deployments(x1)$coordinateUncertainty[[2]]
   )
+})
+
+test_that("round_coordinates() updates spatial scope in metadata", {
+  skip_if_offline()
+  x <- example_dataset()
+  x2 <- round_coordinates(x, 2)
+  x1 <- round_coordinates(x, 1)
+
+  # The number of digits in spatial scope is updated
+  expect_equal(max(nchar(gsub("^\\d*.", "", x2$spatial$coordinates))), 2)
+  expect_equal(max(nchar(gsub("^\\d*.", "", x1$spatial$coordinates))), 1)
 })

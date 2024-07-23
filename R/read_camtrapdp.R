@@ -73,7 +73,7 @@ read_camtrapdp <- function(file) {
   x <- convert(x, convert_to = "1.0")
 
   # Add taxonomic info to observations
-  taxonomy <- build_taxonomy(x)
+  taxonomy <- build_taxa(x)
   if (!is.null(taxonomy)) {
     # Add taxon. as column suffix
     colnames(taxonomy) <- paste("taxon", colnames(taxonomy), sep = ".")

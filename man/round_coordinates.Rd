@@ -7,8 +7,7 @@
 round_coordinates(x, digits)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 
 \item{digits}{Number of decimal places to round coordinates to (\code{1}, \code{2} or
 \code{3}).}
@@ -88,8 +87,9 @@ x_rounded$coordinatePrecision
 deployments(x_rounded)[c("latitude", "longitude", "coordinateUncertainty")]
 }
 \seealso{
-Other transformation functions: 
+Other transformation functions:
 \code{\link{correct_time}()},
 \code{\link{write_dwc}()}
+\code{\link{write_eml}()}
 }
 \concept{transformation functions}

@@ -5,7 +5,7 @@
 #' This function can be used before publishing data in order to protect
 #' sensitive species and/or prevent theft of active cameras.
 #'
-#' @inheritParams check_camtrapdp
+#' @inheritParams print.camtrapdp
 #' @param digits Number of decimal places to round coordinates to (`1`, `2` or
 #'   `3`).
 #' @return `x` with chosen `coordinatePrecision` in metadata and rounded
@@ -167,6 +167,9 @@ round_coordinates <- function(x, digits) {
     dplyr::select(
       -"latitudeGroup", -"roundingUncertainty", -"oldRoundingUncertainty"
       )
+
+  # Update spatial scope in metadata
+  x <- update_spatial(x)
 
   return(x)
 }

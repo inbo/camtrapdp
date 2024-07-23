@@ -1,4 +1,5 @@
 test_that("print() returns output invisibly", {
+  skip_if_offline()
   # No output
   expect_output(output <- withVisible(print(example_dataset())))
   # Returned object does not auto print
@@ -6,6 +7,7 @@ test_that("print() returns output invisibly", {
 })
 
 test_that("print() informs about the number of tables, their rows and unclass()", {
+  skip_if_offline()
   x_no_additional <-
     example_dataset() %>%
     frictionless::remove_resource("individuals")
@@ -34,6 +36,7 @@ test_that("print() informs about the number of tables, their rows and unclass()"
 })
 
 test_that("print() informs about additional resources", {
+  skip_if_offline()
   expect_output(
     print(example_dataset()),
     regexp = paste(

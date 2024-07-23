@@ -1,4 +1,4 @@
-#' Get observations
+#' Get or set observations
 #'
 #' @description
 #' `observations()` gets the observations from a Camera Trap Data Package

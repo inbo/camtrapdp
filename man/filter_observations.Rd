@@ -17,13 +17,12 @@ filter_observations(x, ...)
 \description{
 Subsets observations in a Camera Trap Data Package object, retaining all rows
 that satisfy the conditions.
-}
-\details{
 \itemize{
 \item Deployments are not filtered.
 \item Media are filtered on associated \code{mediaID} (for media-based observations)
 and \code{eventID} (for event-based observations).
 Filter on \code{observationLevel == "media"} to only retain directly linked media.
+\item Metadata (\code{x$taxonomic}) are updated to match the filtered observations.
 }
 }
 \examples{
@@ -36,10 +35,16 @@ x \%>\%
 
 # Filtering on observations also affects associated media, but not deployments
 x \%>\%
-  filter_observations(scientificName == "Vulpes vulpes", observationLevel == "event") \%>\%
+  filter_observations(
+    scientificName == "Vulpes vulpes",
+    observationLevel == "event"
+  ) \%>\%
   media()
 x \%>\%
-  filter_observations(scientificName == "Vulpes vulpes", observationLevel == "media") \%>\%
+  filter_observations(
+    scientificName == "Vulpes vulpes",
+    observationLevel == "media"
+  ) \%>\%
   media()
 
 # Filtering on multiple conditions (combined with &)

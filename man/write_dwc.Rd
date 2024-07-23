@@ -67,8 +67,9 @@ write_dwc(x, directory = "my_directory")
 unlink("my_directory", recursive = TRUE)
 }
 \seealso{
-Other transformation functions: 
+Other transformation functions:
 \code{\link{correct_time}()},
-\code{\link{round_coordinates}()}
+\code{\link{round_coordinates}()},
+\code{\link{write_eml}()}
 }
 \concept{transformation functions}
