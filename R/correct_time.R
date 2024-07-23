@@ -18,7 +18,7 @@
 #' x <- example_dataset()
 #' deploymentID <- c("00a2c20d", "29b7d356")
 #'
-#' # calculate duration
+#' # Calculate duration between wrong and right time
 #' library(lubridate)
 #' wrong <- ymd_hms("2024-04-01T00:00:00", tz = "UTC")
 #' right <- ymd_hms("2024-04-01T02:00:00", tz = "UTC")
