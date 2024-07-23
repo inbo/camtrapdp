@@ -2,7 +2,7 @@
 #'
 #' Corrects datetimes in a Camera Trap Data package object. Datetimes in
 #' deployments and associated resources and metadata are corrected for the
-#' the selected deploymentIDs. `timestamIssues` is set to FALSE.
+#' the selected deploymentIDs. `timestampIssues` is set to FALSE.
 #' This function can be used when the time settings of one or more deployments
 #' were wrong and need to be corrected afterwards.
 #'
