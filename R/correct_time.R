@@ -131,6 +131,9 @@ correct_time <- function(x, deploymentID, duration) {
   # set timestamIssues to FALSE
   deployments(x)$timestampIssues <- FALSE
 
+  # update temporal scope
+  x <- update_temporal(x)
+
   # get updated eventStart of the first deploymentID
   updated_deploymentStart <-
     deployments(x) %>%

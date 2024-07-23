@@ -175,6 +175,18 @@ test_that("correct_time() returns no error and corrects deploymentStart when
   )
 })
 
+test_that("correct_time() updates temporal scope in metadata", {
+  skip_if_offline()
+  x <- example_dataset()
+  deploymentID <- c("00a2c20d", "62c200a9")
+  wrong <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
+  right <- lubridate::ymd_hms("2024-04-03T02:00:00", tz = "UTC")
+  duration <- lubridate::as.duration(lubridate::interval(wrong, right))
+  x_corrected <- correct_time(x, deploymentID, duration)
+  expect_identical(x_corrected$temporal$start, "2020-06-01")
+  expect_identical(x_corrected$temporal$end, "2021-04-20")
+})
+
 test_that("correct_time() returns message", {
   skip_if_offline()
   x <- example_dataset()
