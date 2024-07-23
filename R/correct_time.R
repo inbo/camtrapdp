@@ -4,7 +4,7 @@
 #' deployments and associated resources and metadata are corrected for the
 #' the selected deploymentIDs. `timestampIssues` is set to FALSE.
 #' This function can be used when the time settings of one or more deployments
-#' were wrong and need to be corrected afterwards.
+#' are wrong and need to be corrected.
 #'
 #' @inheritParams print.camtrapdp
 #' @param deploymentID One or more deploymentID's, either as a character string
