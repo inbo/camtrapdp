@@ -26,10 +26,10 @@
 #' right <- ymd_hms("2024-04-01T02:00:00", tz = "UTC")
 #' duration <- as.duration(interval(wrong, right))
 #'
-#' # correct time
+#' # Correct time
 #' x_corrected <- correct_time(x, deploymentID, duration)
 #'
-#' # inspect results
+#' # Inspect results
 #' deployments(x)
 #' deployments(x_corrected)
 correct_time <- function(x, deploymentID, duration) {
@@ -100,7 +100,7 @@ correct_time <- function(x, deploymentID, duration) {
         )
     )
 
-  # correct eventStart and eventEnd of associated observations
+  # Correct eventStart and eventEnd of associated observations
   observations(x) <-
     observations(x) %>%
     dplyr::mutate(
@@ -130,13 +130,13 @@ correct_time <- function(x, deploymentID, duration) {
         )
     )
 
-  # set timestamIssues to FALSE
   deployments(x)$timestampIssues <- FALSE
+  # Set timestamIssues to FALSE
 
-  # update temporal scope
+  # Update temporal scope
   x <- update_temporal(x)
 
-  # get updated eventStart of the first deploymentID
+  # Get updated eventStart of the first deploymentID (used in final message)
   updated_deploymentStart <-
     deployments(x) %>%
     dplyr::filter(.data$deploymentID == depID[1]) %>%

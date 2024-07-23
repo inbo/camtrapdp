@@ -93,30 +93,30 @@ test_that("correct_time() returns no error and corrects deploymentStart when
   x <- example_dataset()
   depID <- "00a2c20d"
 
-  # wrong deploymentStart
+  # Wrong deploymentStart
   deploymentStart <-
     deployments(x) %>%
     dplyr::filter(.data$deploymentID == depID) %>%
     dplyr::pull(deploymentStart)
 
-  # set parameters
+  # Set parameters
   wrong_Duration <- lubridate::ymd_hms("2024-04-01T00:00:00", tz = "UTC")
   right_Duration <- lubridate::ymd_hms("2024-04-01T02:00:00", tz = "UTC")
   duration_Duration <-
     lubridate::as.duration(lubridate::interval(wrong_Duration, right_Duration))
 
-  # no error test
   expect_no_error(correct_time(x, depID, duration_Duration))
+  # No error test
 
   x_Duration <- correct_time(x, depID, duration_Duration)
 
-  # new deploymentStart
+  # New deploymentStart
   deploymentStart_Duration <-
     deployments(x_Duration) %>%
     dplyr::filter(.data$deploymentID == depID) %>%
     dplyr::pull(deploymentStart)
 
-  # tests
+  # Tests
   expect_identical(
     deploymentStart_Duration,
     deploymentStart + duration_Duration
@@ -144,27 +144,27 @@ test_that("correct_time() returns no error and corrects deploymentStart when
   right_POSIXct <- as.POSIXct("2024-04-01 02:00:00", tz = "UTC")
   duration_difftime1 <- right_POSIXct - wrong_POSIXct
 
-  # option 2 to obtain a difftime object
+  # Option 2 to obtain a difftime object
   wrong <- "2024-04-01 00:00:00"
   right <- "2024-04-01 02:00:00"
   duration_difftime2 <- difftime(right, wrong, tz = "UTC")
 
-  # test if both yield the same result
+  # Test if both yield the same result
   expect_identical(duration_difftime1, duration_difftime2)
 
-  # test further with only duration_difftime1
-  # no error test
   expect_no_error(correct_time(x, depID, duration_difftime1))
+  # Test further with only duration_difftime1
+  # No error test
 
   x_difftime <- correct_time(x, depID, duration_difftime1)
 
-  # new deploymentStart
+  # New deploymentStart
   deploymentStart_difftime <-
     deployments(x_difftime) %>%
     dplyr::filter(.data$deploymentID == depID) %>%
     dplyr::pull(deploymentStart)
 
-  # tests
+  # Tests
   expect_identical(
     deploymentStart_difftime,
     deploymentStart + duration_difftime1
