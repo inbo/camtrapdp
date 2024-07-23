@@ -75,13 +75,10 @@ correct_time <- function(x, deploymentID, duration) {
     )
   }
 
-  # hack to solve name problem with deploymentID in mutate
-  depID <- deploymentID
-
-  # get wrong eventStart of the first deploymentID
+  # Get wrong deploymentStart of the first deploymentID (used in final message)
   wrong_deploymentStart <-
     deployments(x) %>%
-    dplyr::filter(.data$deploymentID == depID[1]) %>%
+    dplyr::filter(.data$deploymentID == {{ deploymentID }}[1]) %>%
     dplyr::pull(.data$deploymentStart)
 
   # Correct deploymentStart and deploymentEnd of selected deployments
@@ -90,13 +87,13 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::mutate(
       deploymentStart =
         dplyr::if_else(
-          .data$deploymentID %in% depID,
+          .data$deploymentID %in% {{ deploymentID }},
           .data$deploymentStart + duration,
           .data$deploymentStart
         ),
       deploymentEnd =
         dplyr::if_else(
-          .data$deploymentID %in% depID,
+          .data$deploymentID %in% {{ deploymentID }},
           .data$deploymentEnd + duration,
           .data$deploymentEnd
         )
@@ -108,13 +105,13 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::mutate(
       eventStart =
         dplyr::if_else(
-          .data$deploymentID %in% depID,
+          .data$deploymentID %in% {{ deploymentID }},
           .data$eventStart + duration,
           .data$eventStart
         ),
       eventEnd =
         dplyr::if_else(
-          .data$deploymentID %in% depID,
+          .data$deploymentID %in% {{ deploymentID }},
           .data$eventEnd + duration,
           .data$eventEnd
         )
@@ -126,7 +123,7 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::mutate(
       timestamp =
         dplyr::if_else(
-          .data$deploymentID %in% depID,
+          .data$deploymentID %in% {{ deploymentID }},
           .data$timestamp + duration,
           .data$timestamp
         )
@@ -141,7 +138,7 @@ correct_time <- function(x, deploymentID, duration) {
   # Get updated eventStart of the first deploymentID (used in final message)
   updated_deploymentStart <-
     deployments(x) %>%
-    dplyr::filter(.data$deploymentID == depID[1]) %>%
+    dplyr::filter(.data$deploymentID == {{ deploymentID }}[1]) %>%
     dplyr::pull(.data$deploymentStart)
 
   cli::cli_alert_success(
