@@ -2,44 +2,52 @@
 % Please edit documentation in R/correct_time.R
 \name{correct_time}
 \alias{correct_time}
-\title{Corrects datetime}
+\title{Correct datetime}
 \usage{
 correct_time(x, deploymentID, duration)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 
-\item{deploymentID}{One or more deploymentID's.}
+\item{deploymentID}{One or more deploymentID's, either as a character string
+or as a vector of character strings.}
 
-\item{duration}{Datetime difference between the wrong and right time.}
+\item{duration}{Datetime difference between the wrong and right time. An
+object of class \link[lubridate:Duration-class]{lubridate::Duration} or \link{difftime}.}
 }
 \value{
 \code{x} with datetimes corrected.
 }
 \description{
 Corrects datetimes in a Camera Trap Data package object. Datetimes in
-resources and metadata for the provided deploymentIDs and duration are
-corrected.
+deployments and associated resources and metadata are corrected for the
+the selected deploymentIDs. \code{timestampIssues} is set to FALSE.
 This function can be used when the time settings of one or more deployments
-were wrong and need to be corrected afterwards.
+are wrong and need to be corrected.
 }
 \examples{
 x <- example_dataset()
+
+# Deployment IDs with wrong timestamps
 deploymentID <- c("00a2c20d", "29b7d356")
-# calculate duration
+
+# Calculate duration between wrong and right time
 library(lubridate)
 wrong <- ymd_hms("2024-04-01T00:00:00", tz = "UTC")
 right <- ymd_hms("2024-04-01T02:00:00", tz = "UTC")
 duration <- as.duration(interval(wrong, right))
-# correct time
+
+# Correct time
 x_corrected <- correct_time(x, deploymentID, duration)
-# inspect results
+
+# Inspect results
 deployments(x)
 deployments(x_corrected)
 }
 \seealso{
 Other transformation functions: 
 \code{\link{round_coordinates}()},
-\code{\link{write_dwc}()}
+\code{\link{write_dwc}()},
+\code{\link{write_eml}()}
 }
 \concept{transformation functions}
