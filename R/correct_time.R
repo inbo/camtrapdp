@@ -142,10 +142,11 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::filter(.data$deploymentID == depID[1]) %>%
     dplyr::pull(.data$deploymentStart)
 
-  cli::cli_text(
+  cli::cli_alert_success(
     "Timestamps in selected deployments, media and observations were shifted by
     {.val {duration}} (e.g. {.val {wrong_deploymentStart}} is now
-    {.val {updated_deploymentStart}})."
+    {.val {updated_deploymentStart}}).",
+    class = "camtrapdp_info_correct_time"
   )
 
   return(x)
