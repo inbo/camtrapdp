@@ -56,7 +56,7 @@ correct_time <- function(x, deploymentID, duration) {
       c(
         "{.arg duration} is not a valid datetime interval object:",
         "i" = "{.arg duration} has class {.val {class(duration)}}.",
-        "i" = "The class of {.arg duration} must be `Duration` or `difftime`."
+        "i" = "The class of {.arg duration} must be `Duration` (lubridate) or `difftime` (base)."
       ),
       class = "camtrapdp_error_duration_invalid"
     )
