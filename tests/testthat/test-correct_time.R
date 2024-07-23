@@ -97,7 +97,7 @@ test_that("correct_time() returns no error on valid deploymentID", {
 })
 
 test_that("correct_time() returns no error and corrects deploymentStart when
-          deploymentID has class Duration", {
+          duration has class Duration", {
   skip_if_offline()
   x <- example_dataset()
   depID <- "00a2c20d"
