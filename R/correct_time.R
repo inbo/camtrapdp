@@ -82,7 +82,7 @@ correct_time <- function(x, deploymentID, duration) {
     dplyr::filter(.data$deploymentID == depID[1]) %>%
     dplyr::pull(.data$deploymentStart)
 
-  # correct deploymentStart and deploymentEnd of selected deployments
+  # Correct deploymentStart and deploymentEnd of selected deployments
   deployments(x) <-
     deployments(x) %>%
     dplyr::mutate(
@@ -118,7 +118,7 @@ correct_time <- function(x, deploymentID, duration) {
         )
     )
 
-  # correct timestamp of associated media
+  # Correct timestamp of associated media
   media(x) <-
     media(x) %>%
     dplyr::mutate(
