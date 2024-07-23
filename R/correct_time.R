@@ -129,8 +129,8 @@ correct_time <- function(x, deploymentID, duration) {
         )
     )
 
-  deployments(x)$timestampIssues <- FALSE
   # Set timestamIssues to FALSE
+  purrr::pluck(deployments(x), "timestampIssues") <- FALSE
 
   # Update temporal scope
   x <- update_temporal(x)
