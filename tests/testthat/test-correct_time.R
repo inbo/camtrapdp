@@ -243,7 +243,7 @@ test_that("correct_time() does not correct datetimes of a deploymentID that is
 })
 
 test_that("correct_time() returns no error and corrects datetimes of given
-           deploymentID when duration has class dofftime", {
+           deploymentID when duration has class difftime", {
   skip_if_offline()
   x <- example_dataset()
   depID <- "00a2c20d"
