@@ -73,6 +73,7 @@ unlink("my_directory", recursive = TRUE)
 }
 \seealso{
 Other transformation functions: 
+\code{\link{correct_time}()},
 \code{\link{round_coordinates}()},
 \code{\link{write_dwc}()}
 }

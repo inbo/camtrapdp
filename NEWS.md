@@ -4,6 +4,7 @@
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` and spatial scope in the metadata (#85).
 * `filter_deployments()` now updates the spatial and temporal scope in the metadata (#72).
 * `filter_observations()` and `filter_media()` now update the taxonomic scope in the metadata (#73).
+* New function `correct_time()` corrects datetimes in the resources and metadata for given deploymentIDs and duration (time difference) (#105).
 
 # camtrapdp 0.3.1
 
