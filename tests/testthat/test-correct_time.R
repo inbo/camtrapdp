@@ -88,7 +88,7 @@ test_that("correct_time() returns no error on valid deploymentID", {
   expect_no_error(
     suppressMessages(correct_time(x, c("62c200a9", "29b7d356"), duration))
   )
-  # `deploymentID`contains all the deploymentIDs
+  # `deploymentID` contains all the deploymentIDs
   expect_no_error(
     suppressMessages(
       correct_time(
