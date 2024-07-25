@@ -27,7 +27,7 @@ x1 <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("00a2c20d", "29b7d356"))
 x2 <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("577b543a", "62c200a9"))
-x_merged <- merge_camtrapdp(x1, x2, "new package name", "new title")
+x_merged <- merge_camtrapdp(x1, x2, "new_package_name", "New title")
 }
 \seealso{
 Other transformation functions: 
