@@ -2,15 +2,25 @@
 % Please edit documentation in R/merge_camtrapdp.R
 \name{merge_camtrapdp}
 \alias{merge_camtrapdp}
-\title{Merge camtrapdp packages}
+\title{Merge Camera Trap Data packages}
 \usage{
 merge_camtrapdp(x1, x2, name, title)
+}
+\arguments{
+\item{x1, x2}{Camera Trap Data Package objects (as returned by
+\code{read_camtrapdp()}), to be coerced to one.}
+
+\item{name}{A short url-usable (and preferably human-readable) name for this
+merged package.}
+
+\item{title}{A string providing a title or one sentence description for this
+merged package.}
 }
 \value{
 \code{x}
 }
 \description{
-Merge camtrapdp packages
+Merge Camera Trap Data packages
 }
 \examples{
 x1 <- example_dataset() \%>\%
@@ -19,3 +29,10 @@ x2 <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("577b543a", "62c200a9"))
 x_merged <- merge_camtrapdp(x1, x2, "new package name", "new title")
 }
+\seealso{
+Other transformation functions: 
+\code{\link{round_coordinates}()},
+\code{\link{write_dwc}()},
+\code{\link{write_eml}()}
+}
+\concept{transformation functions}

@@ -1,10 +1,13 @@
-#' Merge camtrapdp packages
+#' Merge Camera Trap Data packages
 #'
-#' @param x1
-#' @param x2
-#' @param name
-#' @param title
+#' @param x1,x2 Camera Trap Data Package objects (as returned by
+#' `read_camtrapdp()`), to be coerced to one.
+#' @param name A short url-usable (and preferably human-readable) name for this
+#' merged package.
+#' @param title A string providing a title or one sentence description for this
+#' merged package.
 #' @return `x`
+#' @family transformation functions
 #' @export
 #' @examples
 #' x1 <- example_dataset() %>%
