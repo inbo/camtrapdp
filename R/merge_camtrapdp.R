@@ -86,7 +86,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
           "{.arg x1} and {.arg x2} must have unique deploymentID's.\n",
           "{.arg x1} and {.arg x2} have duplicated deploymentID's:",
           "{.val {duplicated_deploymentID}}.\n",
-          "Duplicated deploymentID's of {.arg x2} are now replaced by ",
+          "Duplicated deploymentID's of {.arg x2} are now replaced by",
           "{.val {new_deploymentIDs}} respectively."
         )
       ),
@@ -134,7 +134,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
           "{.arg x1} and {.arg x2} must have unique mediaID's.\n",
           "{.arg x1} and {.arg x2} have duplicated mediaID's:",
           "{.val {duplicated_mediaID}}.\n",
-          "Duplicated mediaID's of {.arg x2} are now replaced by ",
+          "Duplicated mediaID's of {.arg x2} are now replaced by",
           "{.val {new_mediaIDs}} respectively."
         )
       ),
@@ -169,7 +169,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
           "{.arg x1} and {.arg x2} must have unique observationID's.\n",
           "{.arg x1} and {.arg x2} have duplicated observationID's:",
           "{.val {duplicated_observationID}}.\n",
-          "Duplicated observationID's of {.arg x2} are now replaced by ",
+          "Duplicated observationID's of {.arg x2} are now replaced by",
           "{.val {new_observationIDs}} respectively."
         )
       ),
