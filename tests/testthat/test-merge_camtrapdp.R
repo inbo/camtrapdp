@@ -18,8 +18,7 @@ test_that("merge_camtrapdp() returns no duplicated deploymentID's", {
     purrr::pluck(deployments(x1), "deploymentID"),
     purrr::pluck(deployments(x2), "deploymentID")
   )
-  x_merged <-
-    check_camtrapdp(merge_camtrapdp(x1, x1, "new package name", "new title"))
+  x_merged <- merge_camtrapdp(x1, x1, "new package name", "new title")
   new_deploymentIDs <- purrr::pluck(deployments(x_merged), "deploymentID")
 
   expect_true(any(duplicated(original_deploymentIDs)))
