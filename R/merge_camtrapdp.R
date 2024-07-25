@@ -22,29 +22,30 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   media(x) <- dplyr::bind_rows(media(x1), media(x2))
   observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
 
-  # check duplicated ID's
+  # get ID's
   deploymentIDs <- purrr::pluck(deployments(x), "deploymentID")
-  observationIDs <- purrr::pluck(observations(x), "observationsID")
   mediaIDs <- purrr::pluck(media(x), "mediaID")
+  observationIDs <- purrr::pluck(observations(x), "observationID")
 
   # set a vectorised function for creating hash function digests
   vdigest_algo_crc32 <- digest::getVDigest(algo = "crc32")
 
   # assume duplicates are between packages, not within
+  # set unique deploymentID's
   if (any(duplicated(deploymentIDs))) {
-    duplicatedID <- deploymentIDs[duplicated(deploymentIDs)]
+    duplicated_deploymentID <- deploymentIDs[duplicated(deploymentIDs)]
 
     # give unique deploymentIDs to deployments
     deployments(x2) <-
       deployments(x2) %>%
-        dplyr::mutate(
-          deploymentID =
-            dplyr::if_else(
-              .data$deploymentID %in% duplicatedID,
-              vdigest_algo_crc32(.data$deploymentID),
-              .data$deploymentID
-            )
-        )
+      dplyr::mutate(
+        deploymentID =
+          dplyr::if_else(
+            .data$deploymentID %in% duplicated_deploymentID,
+            vdigest_algo_crc32(.data$deploymentID),
+            .data$deploymentID
+          )
+      )
 
     # give unique deploymentIDs to observations
     observations(x2) <-
@@ -52,7 +53,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
       dplyr::mutate(
         deploymentID =
           dplyr::if_else(
-            .data$deploymentID %in% duplicatedID,
+            .data$deploymentID %in% duplicated_deploymentID,
             vdigest_algo_crc32(.data$deploymentID),
             .data$deploymentID
           )
@@ -64,13 +65,11 @@ merge_camtrapdp <- function(x1, x2, name, title) {
       dplyr::mutate(
         deploymentID =
           dplyr::if_else(
-            .data$deploymentID %in% duplicatedID,
+            .data$deploymentID %in% duplicated_deploymentID,
             vdigest_algo_crc32(.data$deploymentID),
             .data$deploymentID
           )
       )
-
-    new_deploymentIDs <- purrr::pluck(deployments(x), "deploymentID")
 
     # new merge with unique deploymentID's
     deployments(x) <- dplyr::bind_rows(deployments(x1), deployments(x2))
@@ -78,37 +77,101 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
 
     # inform user
+    new_deploymentIDs <- vdigest_algo_crc32(duplicated_deploymentID)
     cli::cli_alert_warning(
       c(
-        paste0(
+        paste(
+          "{.arg x1} and {.arg x2} must have unique deploymentID's.\n",
           "{.arg x1} and {.arg x2} have duplicated deploymentID's:",
-          "{.val {duplicatedID}}"
-        ),
-        "v" = paste0(
-          "Duplicated deploymentID's of {.arg x2} now have new uniqe",
-          "deploymentID's: {.val {new_deploymentIDs}}"
+          "{.val {duplicated_deploymentID}}.\n",
+          "Duplicated deploymentID's of {.arg x2} are now replaced by ",
+          "{.val {new_deploymentIDs}} respectively."
         )
       ),
       class = "camtrapdp_warning_unique_deploymentID"
     )
-
   }
 
-  if (any(duplicated(observationIDs))) {
-    duplicatedID <- observationIDs[duplicated(observationIDs)]
+  # set unique mediaID's
+  if (any(duplicated(mediaIDs))) {
+    duplicated_mediaID <- mediaIDs[duplicated(mediaIDs)]
 
+    # give unique mediaDs to media
+    media(x2) <-
+      media(x2) %>%
+      dplyr::mutate(
+        mediaID =
+          dplyr::if_else(
+            .data$mediaID %in% duplicated_mediaID,
+            vdigest_algo_crc32(.data$mediaID),
+            .data$mediaID
+          )
+      )
+
+    # give unique mediaDs to observations
+    observations(x2) <-
+      observations(x2) %>%
+      dplyr::mutate(
+        mediaID =
+          dplyr::if_else(
+            .data$mediaID %in% duplicated_mediaID,
+            vdigest_algo_crc32(.data$mediaID),
+            .data$mediaID
+          )
+      )
+
+    # new merge with unique mediaID's
+    media(x) <- dplyr::bind_rows(media(x1), media(x2))
+    observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
+
+    # inform user
+    new_mediaIDs <- vdigest_algo_crc32(duplicated_mediaID)
     cli::cli_alert_warning(
-      "message",
-      class = "camtrapdp_warning_unique_observationID"
+      c(
+        paste(
+          "{.arg x1} and {.arg x2} must have unique mediaID's.\n",
+          "{.arg x1} and {.arg x2} have duplicated mediaID's:",
+          "{.val {duplicated_mediaID}}.\n",
+          "Duplicated observationID's of {.arg x2} are now replaced by ",
+          "{.val {new_mediaIDs}} respectively."
+        )
+      ),
+      class = "camtrapdp_warning_unique_mediaID"
     )
   }
 
-  if (any(duplicated(mediaIDs))) {
-    duplicatedID <- mediaIDs[duplicated(mediaIDs)]
+  # set unique observationID's
+  if (any(duplicated(observationIDs))) {
+    duplicated_observationID <- observationIDs[duplicated(observationIDs)]
 
+    # give unique observationIDs to observations
+    observations(x2) <-
+      observations(x2) %>%
+      dplyr::mutate(
+        observationID =
+          dplyr::if_else(
+            .data$observationID %in% duplicated_observationID,
+            vdigest_algo_crc32(.data$observationID),
+            .data$observationID
+          )
+      )
+
+    # new merge with unique observationID's
+    observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
+
+    # inform user
+    new_observationIDs <- vdigest_algo_crc32(duplicated_observationID)
     cli::cli_alert_warning(
-      "message",
-      class = "camtrapdp_warning_unique_mediaID"
+      c(
+        paste(
+          "{.arg x1} and {.arg x2} must have unique observationID's.\n",
+          "{.arg x1} and {.arg x2} have duplicated observationID's:",
+          "{.val {duplicated_observationID}}.\n",
+          "Duplicated observationID's of {.arg x2} are now replaced by ",
+          "{.val {new_observationIDs}} respectively."
+        )
+      ),
+      class = "camtrapdp_warning_unique_observationID"
     )
   }
 
