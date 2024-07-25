@@ -134,7 +134,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
           "{.arg x1} and {.arg x2} must have unique mediaID's.\n",
           "{.arg x1} and {.arg x2} have duplicated mediaID's:",
           "{.val {duplicated_mediaID}}.\n",
-          "Duplicated observationID's of {.arg x2} are now replaced by ",
+          "Duplicated mediaID's of {.arg x2} are now replaced by ",
           "{.val {new_mediaIDs}} respectively."
         )
       ),
