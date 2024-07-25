@@ -11,9 +11,10 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
 
 test_that("merge_camtrapdp() returns no duplicated deploymentID's", {
   skip_if_offline()
-  x1 <- example_dataset()
+  x1 <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356", "577b543a"))
   x2 <- example_dataset() %>%
-    filter_deployments(deploymentID %in% c("00a2c20d"))
+    filter_deployments(deploymentID %in% c("00a2c20d", "577b543a", "62c200a9"))
   original_deploymentIDs <- c(
     purrr::pluck(deployments(x1), "deploymentID"),
     purrr::pluck(deployments(x2), "deploymentID")
