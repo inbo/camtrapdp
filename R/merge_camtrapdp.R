@@ -30,7 +30,6 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   # set a vectorised function for creating hash function digests
   vdigest_algo_crc32 <- digest::getVDigest(algo = "crc32")
 
-  # assume duplicates are between packages, not within
   # set unique deploymentID's
   if (any(duplicated(deploymentIDs))) {
     duplicated_deploymentID <- deploymentIDs[duplicated(deploymentIDs)]
