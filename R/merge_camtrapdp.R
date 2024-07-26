@@ -33,45 +33,10 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   # set a vectorised function for creating hash function digests
   vdigest_algo_crc32 <- digest::getVDigest(algo = "crc32")
 
-  # set unique deploymentID's
+  # replace duplicated deploymentID's in x2
   if (any(duplicated(deploymentIDs))) {
     duplicated_deploymentID <- deploymentIDs[duplicated(deploymentIDs)]
-
-    # give unique deploymentIDs to deployments
-    deployments(x2) <-
-      deployments(x2) %>%
-      dplyr::mutate(
-        deploymentID =
-          dplyr::if_else(
-            .data$deploymentID %in% duplicated_deploymentID,
-            vdigest_algo_crc32(.data$deploymentID),
-            .data$deploymentID
-          )
-      )
-
-    # give unique deploymentIDs to observations
-    observations(x2) <-
-      observations(x2) %>%
-      dplyr::mutate(
-        deploymentID =
-          dplyr::if_else(
-            .data$deploymentID %in% duplicated_deploymentID,
-            vdigest_algo_crc32(.data$deploymentID),
-            .data$deploymentID
-          )
-      )
-
-    # give unique deploymentIDs to media
-    media(x2) <-
-      media(x2) %>%
-      dplyr::mutate(
-        deploymentID =
-          dplyr::if_else(
-            .data$deploymentID %in% duplicated_deploymentID,
-            vdigest_algo_crc32(.data$deploymentID),
-            .data$deploymentID
-          )
-      )
+    x2 <- replace_duplicated_deploymentID(x2, duplicated_deploymentID)
 
     # new merge with unique deploymentID's
     deployments(x) <- dplyr::bind_rows(deployments(x1), deployments(x2))
