@@ -55,7 +55,7 @@ vdigest_crc32 <- function(object) {
 #' deployments(x_replaced)$deploymentID
 generate_deploymentID <- function(x, deploymentID) {
 
-  # unique deploymentIDs to deployments
+  # replace deploymentIDs in deployments
   deployments(x) <-
     deployments(x) %>%
     dplyr::mutate(
@@ -67,7 +67,7 @@ generate_deploymentID <- function(x, deploymentID) {
         )
     )
 
-  # unique deploymentIDs in observations
+  # replace deploymentIDs in observations
   observations(x) <-
     observations(x) %>%
     dplyr::mutate(
@@ -79,7 +79,7 @@ generate_deploymentID <- function(x, deploymentID) {
         )
     )
 
-  # unique deploymentIDs in media
+  # replace deploymentIDs in media
   media(x) <-
     media(x) %>%
     dplyr::mutate(
