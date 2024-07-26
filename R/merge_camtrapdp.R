@@ -84,13 +84,17 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   if (any(duplicated(observationIDs))) {
     # replace duplicated deploymentID's in `x2`
     duplicated_observationID <- observationIDs[duplicated(observationIDs)]
-    x2 <- generate_observationID(x2, duplicated_observationID)
+    replacement_observationID <- vdigest_crc32(duplicated_observationID)
+    x2 <- replace_observationID(
+      x2,
+      old_observationID = duplicated_observationID,
+      new_observationID = replacement_observationID
+      )
 
     # new merge with unique observationID's
     observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
-
     # inform user
-    new_observationIDs <- vdigest_crc32(duplicated_observationID)
+
     cli::cli_alert_warning(
       c(
         paste(
@@ -98,7 +102,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
           "{.arg x1} and {.arg x2} have duplicated observationID's:",
           "{.val {duplicated_observationID}}.\n",
           "Duplicated observationID's of {.arg x2} are now replaced by",
-          "{.val {new_observationIDs}} respectively."
+          "{.val {replacement_observationID}} respectively."
         )
       ),
       class = "camtrapdp_warning_unique_observationID"
