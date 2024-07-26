@@ -33,7 +33,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   # replace duplicated deploymentID's in x2
   if (any(duplicated(deploymentIDs))) {
     duplicated_deploymentID <- deploymentIDs[duplicated(deploymentIDs)]
-    x2 <- replace_duplicated_deploymentID(x2, duplicated_deploymentID)
+    x2 <- generate_deploymentID(x2, duplicated_deploymentID)
 
     # new merge with unique deploymentID's
     deployments(x) <- dplyr::bind_rows(deployments(x1), deployments(x2))
