@@ -21,7 +21,9 @@ test_that("merge_camtrapdp() returns unique deplpymentID's, mediaID's and
   x1 <- example_dataset() %>%
     filter_deployments(deploymentID %in% c(duplicated_deploymentID, "29b7d356"))
   x2 <- example_dataset() %>%
-    filter_deployments(deploymentID %in% c(duplicated_deploymentID, "62c200a9")) %>%
+    filter_deployments(
+      deploymentID %in% c(duplicated_deploymentID, "62c200a9")
+      ) %>%
     filter_media(mediaID %in% c(duplicated_mediaID, "bf610120"))
 
   # get original IDs
@@ -56,7 +58,9 @@ test_that("merge_camtrapdp() returns unique deplpymentID's, mediaID's and
   # tests
   expect_true(any(duplicated(original_deploymentIDs)))
   expect_false(any(duplicated(new_deploymentIDs)))
-  expect_true(vdigest_algo_crc32(duplicated_deploymentID) %in% new_deploymentIDs)
+  expect_true(
+    vdigest_algo_crc32(duplicated_deploymentID) %in% new_deploymentIDs
+    )
   expect_identical(
     c(duplicated_deploymentID, "29b7d356", "77b0e58b", "62c200a9"),
     new_deploymentIDs
