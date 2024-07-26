@@ -13,23 +13,64 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   )
 })
 
-test_that("merge_camtrapdp() returns no duplicated deploymentID's", {
+test_that("merge_camtrapdp() returns unique deplpymentID's, mediaID's and
+          observationID's", {
   skip_if_offline()
+  duplicated_deploymentID <- "00a2c20d"
+  duplicated_mediaID <- "ca3ff293"
   x1 <- example_dataset() %>%
-    filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356", "577b543a"))
+    filter_deployments(deploymentID %in% c(duplicated_deploymentID, "29b7d356"))
   x2 <- example_dataset() %>%
-    filter_deployments(deploymentID %in% c("00a2c20d", "577b543a", "62c200a9"))
+    filter_deployments(deploymentID %in% c(duplicated_deploymentID, "62c200a9")) %>%
+    filter_media(mediaID %in% c(duplicated_mediaID, "bf610120"))
+
+  # get original IDs
   original_deploymentIDs <- c(
     purrr::pluck(deployments(x1), "deploymentID"),
     purrr::pluck(deployments(x2), "deploymentID")
   )
+  original_mediaIDs <- c(
+    purrr::pluck(media(x1), "mediaID"),
+    purrr::pluck(media(x2), "mediaID")
+  )
+  original_observationIDs <- c(
+    purrr::pluck(observations(x1), "observationID"),
+    purrr::pluck(observations(x2), "observationID")
+  )
+  duplicated_observationID <-
+    original_observationIDs[duplicated(original_observationIDs)]
+
+  # merge
   x_merged <- suppressMessages(
     merge_camtrapdp(x1, x2, "new_package_name", "new title")
   )
-  new_deploymentIDs <- purrr::pluck(deployments(x_merged), "deploymentID")
 
+  # get new IDs
+  new_deploymentIDs <- purrr::pluck(deployments(x_merged), "deploymentID")
+  new_mediaIDs <- purrr::pluck(media(x_merged), "mediaID")
+  new_observationIDs <- purrr::pluck(observations(x_merged), "observationID")
+
+  # set a vectorised function for creating hash function digests
+  vdigest_algo_crc32 <- digest::getVDigest(algo = "crc32")
+
+  # tests
   expect_true(any(duplicated(original_deploymentIDs)))
   expect_false(any(duplicated(new_deploymentIDs)))
+  expect_true(vdigest_algo_crc32(duplicated_deploymentID) %in% new_deploymentIDs)
+  expect_identical(
+    c(duplicated_deploymentID, "29b7d356", "77b0e58b", "62c200a9"),
+    new_deploymentIDs
+  )
+
+  expect_true(any(duplicated(original_mediaIDs)))
+  expect_false(any(duplicated(new_mediaIDs)))
+  expect_true(vdigest_algo_crc32(duplicated_mediaID) %in% new_mediaIDs)
+
+  expect_true(any(duplicated(original_observationIDs)))
+  expect_false(any(duplicated(new_observationIDs)))
+  expect_true(
+    all(vdigest_algo_crc32(duplicated_observationID) %in% new_observationIDs)
+    )
 })
 
 test_that("merge_camtrapdp() returns message when ID's are replaced", {
@@ -40,7 +81,7 @@ test_that("merge_camtrapdp() returns message when ID's are replaced", {
     filter_media(mediaID %in% c("fb58a2b9", "0bb2566e", "a6a7a04c"))
 
   expect_message(
-    merge_camtrapdp(x1, x2, "new_package_name", "new title")
+    merge_camtrapdp(x1, x2, "new_package_name", "new title") #,
     # regexp =  paste(
     #   "! `x1` and `x2` must have unique deploymentID's.",
     #   "`x1` and `x2` have duplicated deploymentID's: \"62c200a9\".",
