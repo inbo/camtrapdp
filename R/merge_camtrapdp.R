@@ -30,7 +30,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   mediaIDs <- purrr::pluck(media(x), "mediaID")
   observationIDs <- purrr::pluck(observations(x), "observationID")
 
-  # replace duplicated deploymentID's in x2
+  # replace duplicated deploymentID's in `x2`
   if (any(duplicated(deploymentIDs))) {
     duplicated_deploymentID <- deploymentIDs[duplicated(deploymentIDs)]
     x2 <- generate_deploymentID(x2, duplicated_deploymentID)
@@ -56,33 +56,10 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     )
   }
 
-  # set unique mediaID's
+  # replace duplicated mediaID's in `x2`
   if (any(duplicated(mediaIDs))) {
     duplicated_mediaID <- mediaIDs[duplicated(mediaIDs)]
-
-    # give unique mediaDs to media
-    media(x2) <-
-      media(x2) %>%
-      dplyr::mutate(
-        mediaID =
-          dplyr::if_else(
-            .data$mediaID %in% duplicated_mediaID,
-            vdigest_crc32(.data$mediaID),
-            .data$mediaID
-          )
-      )
-
-    # give unique mediaDs to observations
-    observations(x2) <-
-      observations(x2) %>%
-      dplyr::mutate(
-        mediaID =
-          dplyr::if_else(
-            .data$mediaID %in% duplicated_mediaID,
-            vdigest_crc32(.data$mediaID),
-            .data$mediaID
-          )
-      )
+    x2 <- generate_mediaID(x2, duplicated_mediaID)
 
     # new merge with unique mediaID's
     media(x) <- dplyr::bind_rows(media(x1), media(x2))
