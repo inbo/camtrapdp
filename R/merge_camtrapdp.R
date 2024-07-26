@@ -30,9 +30,6 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   mediaIDs <- purrr::pluck(media(x), "mediaID")
   observationIDs <- purrr::pluck(observations(x), "observationID")
 
-  # set a vectorised function for creating hash function digests
-  vdigest_algo_crc32 <- digest::getVDigest(algo = "crc32")
-
   # replace duplicated deploymentID's in x2
   if (any(duplicated(deploymentIDs))) {
     duplicated_deploymentID <- deploymentIDs[duplicated(deploymentIDs)]
@@ -44,7 +41,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
 
     # inform user
-    new_deploymentIDs <- vdigest_algo_crc32(duplicated_deploymentID)
+    new_deploymentIDs <- vdigest_crc32(duplicated_deploymentID)
     cli::cli_alert_warning(
       c(
         paste(
@@ -70,7 +67,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
         mediaID =
           dplyr::if_else(
             .data$mediaID %in% duplicated_mediaID,
-            vdigest_algo_crc32(.data$mediaID),
+            vdigest_crc32(.data$mediaID),
             .data$mediaID
           )
       )
@@ -82,7 +79,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
         mediaID =
           dplyr::if_else(
             .data$mediaID %in% duplicated_mediaID,
-            vdigest_algo_crc32(.data$mediaID),
+            vdigest_crc32(.data$mediaID),
             .data$mediaID
           )
       )
@@ -92,7 +89,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
 
     # inform user
-    new_mediaIDs <- vdigest_algo_crc32(duplicated_mediaID)
+    new_mediaIDs <- vdigest_crc32(duplicated_mediaID)
     cli::cli_alert_warning(
       c(
         paste(
@@ -118,7 +115,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
         observationID =
           dplyr::if_else(
             .data$observationID %in% duplicated_observationID,
-            vdigest_algo_crc32(.data$observationID),
+            vdigest_crc32(.data$observationID),
             .data$observationID
           )
       )
@@ -127,7 +124,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
 
     # inform user
-    new_observationIDs <- vdigest_algo_crc32(duplicated_observationID)
+    new_observationIDs <- vdigest_crc32(duplicated_observationID)
     cli::cli_alert_warning(
       c(
         paste(

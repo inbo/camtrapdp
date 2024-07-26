@@ -52,14 +52,11 @@ test_that("merge_camtrapdp() returns unique deplpymentID's, mediaID's and
   new_mediaIDs <- purrr::pluck(media(x_merged), "mediaID")
   new_observationIDs <- purrr::pluck(observations(x_merged), "observationID")
 
-  # set a vectorised function for creating hash function digests
-  vdigest_algo_crc32 <- digest::getVDigest(algo = "crc32")
-
   # tests
   expect_true(any(duplicated(original_deploymentIDs)))
   expect_false(any(duplicated(new_deploymentIDs)))
   expect_true(
-    vdigest_algo_crc32(duplicated_deploymentID) %in% new_deploymentIDs
+    vdigest_crc32(duplicated_deploymentID) %in% new_deploymentIDs
     )
   expect_identical(
     c(duplicated_deploymentID, "29b7d356", "77b0e58b", "62c200a9"),
@@ -68,12 +65,12 @@ test_that("merge_camtrapdp() returns unique deplpymentID's, mediaID's and
 
   expect_true(any(duplicated(original_mediaIDs)))
   expect_false(any(duplicated(new_mediaIDs)))
-  expect_true(vdigest_algo_crc32(duplicated_mediaID) %in% new_mediaIDs)
+  expect_true(vdigest_crc32(duplicated_mediaID) %in% new_mediaIDs)
 
   expect_true(any(duplicated(original_observationIDs)))
   expect_false(any(duplicated(new_observationIDs)))
   expect_true(
-    all(vdigest_algo_crc32(duplicated_observationID) %in% new_observationIDs)
+    all(vdigest_crc32(duplicated_observationID) %in% new_observationIDs)
     )
 })
 
