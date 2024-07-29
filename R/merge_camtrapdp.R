@@ -19,7 +19,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
 
-  # replace duplicated ID's between `x1` and `x2` in `x2`
+  # replace duplicated ID's between `x1` and `x2` in `x2` with hashes
   x2 <- replace_duplicatedIDs(x1, x2)
 
   # merge resources
