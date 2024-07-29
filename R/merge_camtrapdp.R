@@ -59,7 +59,8 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   if (any(duplicated(mediaIDs))) {
     # replace duplicated mediaID's in `x2`
     duplicated_mediaID <- mediaIDs[duplicated(mediaIDs)]
-    x2 <- generate_mediaID(x2, duplicated_mediaID)
+    replacement_mediaID <- vdigest_crc32(duplicated_mediaID)
+    x2 <- replace_mediaID(x2, duplicated_mediaID, replacement_mediaID)
 
     # new merge with unique mediaID's
     media(x) <- dplyr::bind_rows(media(x1), media(x2))
@@ -74,7 +75,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
           "{.arg x1} and {.arg x2} have duplicated mediaID's:",
           "{.val {duplicated_mediaID}}.\n",
           "Duplicated mediaID's of {.arg x2} are now replaced by",
-          "{.val {new_mediaIDs}} respectively."
+          "{.val {replacement_mediaID}} respectively."
         )
       ),
       class = "camtrapdp_warning_unique_mediaID"
@@ -86,9 +87,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     duplicated_observationID <- observationIDs[duplicated(observationIDs)]
     replacement_observationID <- vdigest_crc32(duplicated_observationID)
     x2 <- replace_observationID(
-      x2,
-      old_observationID = duplicated_observationID,
-      new_observationID = replacement_observationID
+      x2, duplicated_observationID, replacement_observationID
       )
 
     # new merge with unique observationID's
