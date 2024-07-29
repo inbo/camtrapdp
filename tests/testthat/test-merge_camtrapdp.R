@@ -1,3 +1,41 @@
+test_that("merge_camtrapdp() returns error on invalid name", {
+  skip_if_offline()
+  x1 <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
+  x2 <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
+
+  expect_error(merge_camtrapdp(x1, x2, "Name", "new title"))
+  expect_error(merge_camtrapdp(x1, x2, "package name", "new title"))
+  expect_error(merge_camtrapdp(x1, x2, "name?", "new title"))
+  expect_error(merge_camtrapdp(x1, x2, "new/name", "new title"))
+})
+
+test_that("merge_camtrapdp() returns error on invalid title", {
+  skip_if_offline()
+  x1 <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
+  x2 <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
+
+  #invalid
+  expect_error(merge_camtrapdp(x1, x2, "new_name", "Period.in the middle"))
+  expect_error(merge_camtrapdp(x1, x2, "new_name", "start with lowercase"))
+  expect_error(merge_camtrapdp(x1, x2, "new_name", "Invalid_character"))
+  expect_error(
+    merge_camtrapdp(x1, x2, "new_name", "Hello! Second sentence.")
+    )
+
+  # valid
+  expect_no_error(merge_camtrapdp(x1, x2, "new_name", "This is a title"))
+  expect_no_error(merge_camtrapdp(x1, x2, "new_name", "Title with punctuation."))
+  expect_no_error(merge_camtrapdp(x1, x2, "new_name", "Title: with a colon"))
+  expect_no_error(merge_camtrapdp(x1, x2, "new_name", "Title - with a hyphen."))
+  expect_no_error(
+    merge_camtrapdp(x1, x2, "new_name", "A bit of a longer sentence is ok!")
+    )
+})
+
 test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   skip_if_offline()
   x1 <- example_dataset() %>%
@@ -7,7 +45,7 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   expect_no_error(
     suppressMessages(
       check_camtrapdp(
-        merge_camtrapdp(x1, x2, "new_package_name", "new title")
+        merge_camtrapdp(x1, x2, "new_package_name", "New title")
         )
     )
   )
@@ -44,7 +82,7 @@ test_that("merge_camtrapdp() returns unique deplpymentID's, mediaID's and
 
   # merge
   x_merged <- suppressMessages(
-    merge_camtrapdp(x1, x2, "new_package_name", "new title")
+    merge_camtrapdp(x1, x2, "new_package_name", "New title")
   )
 
   # get new IDs
@@ -82,7 +120,7 @@ test_that("merge_camtrapdp() returns message when ID's are replaced", {
     filter_media(mediaID %in% c("fb58a2b9", "0bb2566e", "a6a7a04c"))
 
   expect_message(
-    merge_camtrapdp(x1, x2, "new_package_name", "new title") #,
+    merge_camtrapdp(x1, x2, "new_package_name", "New title") #,
     # regexp =  paste(
     #   "! `x1` and `x2` must have unique deploymentID's.",
     #   "`x1` and `x2` have duplicated deploymentID's: \"62c200a9\".",

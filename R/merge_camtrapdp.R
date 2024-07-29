@@ -2,10 +2,12 @@
 #'
 #' @param x1,x2 Camera Trap Data Package objects (as returned by
 #' `read_camtrapdp()`), to be coerced to one.
-#' @param name A short url-usable (and preferably human-readable) name for this
+#' @param name A short url-usable (and preferably human-readable)
+#' [name](https://specs.frictionlessdata.io/data-package/#name) for the
 #' merged package.
-#' @param title A string providing a title or one sentence description for this
-#' merged package.
+#' @param title A string providing a
+#' [title](https://specs.frictionlessdata.io/data-package/#title) or one
+#' sentence description for the merged package.
 #' @return `x`
 #' @family transformation functions
 #' @export
@@ -18,6 +20,31 @@
 merge_camtrapdp <- function(x1, x2, name, title) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
+
+  # valid name
+  regex_name <- "^[a-z0-9._-]+$"
+  if (!grepl(regex_name, name)) {
+    cli::cli_abort(
+      c(
+      "{.arg name} must be lower-case and contain only alphanumeric characters
+      along with “.”, “_” or “-” characters."
+        ),
+      class = "camtrapdp_error_invalid_name"
+    )
+  }
+
+  # valid title
+  regex_title <- "^[A-Z][a-zA-Z0-9 :\\-]*[.!?]?$"
+
+  if (!(grepl(regex_title, title))) {
+    cli::cli_abort(
+      c(
+      "{.arg title} must be a string providing a title or one sentence
+      description for this package."
+      ),
+      class = "camtrapdp_error_invalid_title"
+    )
+  }
 
   # replace duplicated ID's between `x1` and `x2` in `x2` with hashes
   x2 <- replace_duplicatedIDs(x1, x2)
