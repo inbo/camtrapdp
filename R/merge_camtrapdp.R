@@ -33,7 +33,10 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   if (any(duplicated(deploymentIDs))) {
     # replace duplicated deploymentID's in `x2`
     duplicated_deploymentID <- deploymentIDs[duplicated(deploymentIDs)]
-    x2 <- generate_deploymentID(x2, duplicated_deploymentID)
+    replacement_deploymentID <- vdigest_crc32(duplicated_deploymentID)
+    x2 <- replace_deploymentID(
+      x2, duplicated_deploymentID, replacement_deploymentID
+      )
 
     # new merge with unique deploymentID's
     deployments(x) <- dplyr::bind_rows(deployments(x1), deployments(x2))
@@ -49,7 +52,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
           "{.arg x1} and {.arg x2} have duplicated deploymentID's:",
           "{.val {duplicated_deploymentID}}.\n",
           "Duplicated deploymentID's of {.arg x2} are now replaced by",
-          "{.val {new_deploymentIDs}} respectively."
+          "{.val {replacement_deploymentID}} respectively."
         )
       ),
       class = "camtrapdp_warning_unique_deploymentID"
