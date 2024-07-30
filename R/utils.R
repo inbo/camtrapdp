@@ -170,8 +170,8 @@ replace_mediaID <- function(x, old_mediaID, new_mediaID) {
 #' @param old_observationID observationID's to be replaced. Either a single ID
 #' or a vector of ID's.
 #' @param new_observationID replacement observationID's. Must be of the same
-#' length as `old_observationID`
-#' @return `x` with replaced observationID's
+#' length as `old_observationID`.
+#' @return `x` with replaced observationID's.
 #' @family helper functions
 #' @noRd
 #' @examples
@@ -223,8 +223,9 @@ replace_observationID <- function(x, old_observationID, new_observationID) {
 #' Set a vectorised function for creating hash function digests, using algorithm
 #' "crc32".
 #'
-#' @param object vector or character string
-#' @return hash summary as a character vector of the same length as the input
+#' @param object The object to be digested. This can be any R object that can be
+#' serialized into a raw vector.
+#' @return Hash summary as a character vector of the same length as the input
 #' @family helper functions
 #' @noRd
 #' @examples
@@ -348,9 +349,9 @@ replace_duplicatedIDs <- function(x1, x2) {
 #' Converts each list element to a named vector with consistent handling of
 #' missing values (NA), using determined `unique_names`.
 #'
-#' @param data_list list to be normalized
-#' @param unique_names the names that the list must have
-#' @return named vector with all `unique_names` present
+#' @param data_list list to be normalized.
+#' @param unique_names the names that the list must have.
+#' @return named vector with all `unique_names` present.
 #' @family helper functions
 #' @noRd
 #' @examples
@@ -360,7 +361,7 @@ replace_duplicatedIDs <- function(x1, x2) {
 #' organization = "Research Institute for Nature and Forest (INBO)"
 #' )
 #' unique_names <- c("title", "email", "path", "role", "organization")
-#' normalize_list(data_list, all_fields)
+#' normalize_list(data_list, unique_names)
 normalize_list <- function(data_list, unique_names) {
   vector <- purrr::map_vec(
     unique_names,
@@ -373,8 +374,8 @@ normalize_list <- function(data_list, unique_names) {
 #' Check if one element is equal to or a subset of another and vice versa
 #'
 #'
-#' @param element1,element2 elements to compare
-#' @return logical
+#' @param element1,element2 elements to compare.
+#' @return logical.
 #' @family helper functions
 #' @noRd
 #' @examples
@@ -403,4 +404,106 @@ is_subset <- function(element1, element2) {
       }
     })
   )
+}
+
+#' Update a list of unique elements
+#'
+#' Updates a list of unique elements by adding a new element if it is not a
+#' subset of any existing element in the list. It also removes any elements that
+#' are subsets of the new element.
+#'
+#' @param unique_data A list of elements. Each element must be a vector or
+#' list.
+#' @param current_element A vector or list representing the current element to
+#' be added to the list.
+#' @return `unique_data`, a list of unique elements updated with the current
+#' element, ensuring no element is a subset of another.
+#' @family helper functions
+#' @noRd
+#' @examples
+#' unique_data <- list(c(1, 2, 3), c(4, 5), c(1, 2, 3, 4, 5))
+#' current_element <- c(2, 3)
+#' update_unique(unique_data, current_element)
+update_unique <- function(unique_data, current_element) {
+  # Check if current element is already a subset of any element in unique_data
+  is_already_present <-
+    any(
+      purrr::map_lgl(unique_data, ~ is_subset(current_element, .x))
+    )
+  if (!is_already_present) {
+    # Remove subsets from unique_data
+    subsets_to_remove <-
+      purrr::map_lgl(unique_data, ~ is_subset(.x, current_element))
+    unique_data <-
+      unique_data[!subsets_to_remove] %>%
+      c(list(current_element))
+  }
+  return(unique_data)
+}
+
+#' Remove duplicates and subsets
+#'
+#' Removes duplicate and subset elements from a list of lists. Elements are
+#' considered subsets if all their non-NA fields match.
+#'
+#' @param data_list List of lists, where each inner list represents an element
+#' with named fields.
+#' @return List of lists with duplicates and subsets removed.
+#' @family helper functions
+#' @noRd
+#' @examples
+#' data_list <- list(
+#' list(
+#'   title = "Axel Neukermans",
+#'   email = "axel.neukermans@inbo.be",
+#'   path = "https://orcid.org/0000-0003-0272-9180",
+#'   role = "contributor",
+#'   organization = "Research Institute for Nature and Forest (INBO)"
+#' ),
+#' list(
+#'   title = "Peter Desmet",
+#'   email = "peter.desmet@inbo.be",
+#'   path = "https://orcid.org/0000-0002-8442-8025",
+#'   role = "principalInvestigator",
+#'   organization = "Research Institute for Nature and Forest (INBO)"
+#' ),
+#' list(
+#'   title = "Research Institute for Nature and Forest (INBO)",
+#'   path = "https://inbo.be",
+#'   role = "rightsHolder"
+#' ),
+#' list(
+#'   title = "Peter Desmet",
+#'   email = "peter.desmet@inbo.be",
+#'   organization = "Research Institute for Nature and Forest (INBO)"
+#' ),
+#' list(
+#'   title = "Research Institute for Nature and Forest (INBO)",
+#'   path = "https://inbo.be",
+#'   role = "rightsHolder"
+#' )
+#' )
+#' remove_duplicates(data_list)
+remove_duplicates <- function(data_list) {
+  # Find all unique field names
+  unique_names <-
+    purrr::map(data_list, names) %>%
+    unlist() %>%
+    unique()
+
+  # Normalize all elements
+  normalized_data <-
+    purrr::map(data_list, ~ normalize_list(.x, unique_names))
+
+  # Reduce the list to unique elements using update_unique()
+  unique_data <- Reduce(update_unique, normalized_data, init = list())
+
+  # Convert back to original list format and remove NA's
+  unique_data_list <-
+    purrr::map(unique_data, function(x) {
+      x <- as.list(x)
+      x[!sapply(x, is.na)]
+    })
+
+  return(unique_data_list)
 }

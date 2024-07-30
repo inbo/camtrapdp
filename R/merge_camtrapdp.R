@@ -61,7 +61,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   x$id <- digest::digest(paste(x$title, x2$title), algo = "md5")
   x$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   x$title <- title
-  x$contributors <- c(x1$contributors, x2$contributors)
+  x$contributors <- remove_duplicates(c(x1$contributors, x2$contributors))
   paragraph <- paste0(
     "This dataset is a combination of 2 datasets: ", x1$title, "and", x2$title,
     ".")
@@ -69,8 +69,8 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   x$keywords <- unique(x1$keywords, x2$keywords)
   x$image <- NULL
   x$homepage <- NULL
-  x$sources <- c(x1$sources, x2$sources)
-  x$licenses <- c(x1$licenses, x2$licences)
+  x$sources <- remove_duplicates(c(x1$sources, x2$sources))
+  x$licenses <- remove_duplicates(c(x1$licenses, x2$licenses))
   x$bibliographicCitation <- NULL
   x$coordinatePrecision <-
     max(x1$coordinatePrecision, x2$coordinatePrecision, na.rm = TRUE)
@@ -88,10 +88,11 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     relatedIdentifierType = "id"
   )
   new_relatedIdentifiers <- list(relatedIdentifiers_x1, relatedIdentifiers_x2)
-  x$relatedIdentifiers <-
+  x$relatedIdentifiers <- remove_duplicates(
     c(x1$relatedIdentifiers, x2$relatedIdentifiers, new_relatedIdentifiers)
+  )
 
-  x$references <- c(x1$references, x2$references)
+  x$references <- remove_duplicates(c(x1$references, x2$references))
 
   x <-
     update_spatial(x) %>%
