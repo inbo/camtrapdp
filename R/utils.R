@@ -342,3 +342,31 @@ replace_duplicatedIDs <- function(x1, x2) {
 
   return(x2)
 }
+
+#' Normalize list elements
+#'
+#' Converts each list element to a named vector with consistent handling of
+#' missing values (NA), using determined `unique_names`.
+#'
+#' @param data_list list to be normalized
+#' @param unique_names the names that the list must have
+#'
+#' @return named vector with all `unique_names` present
+#' @family helper functions
+#' @noRd
+#' @examples
+#' data_list <- list(
+#' title = "Peter Desmet",
+#' email = "peter.desmet@inbo.be",
+#' organization = "Research Institute for Nature and Forest (INBO)"
+#' )
+#' unique_names <- c("title", "email", "path", "role", "organization")
+#' normalize_list(data_list, all_fields)
+normalize_list <- function(data_list, unique_names) {
+  vector <- purrr::map_vec(
+    unique_names,
+    ~ ifelse(!is.null(data_list[[.x]]), data_list[[.x]], NA)
+  )
+  names(vector) <- unique_names
+  return(vector)
+}
