@@ -21,7 +21,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
 
-  # valid name
+  # Valid name
   regex_name <- "^[a-z0-9._-]+$"
   if (!grepl(regex_name, name)) {
     cli::cli_abort(
@@ -33,7 +33,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     )
   }
 
-  # valid title
+  # Valid title
   regex_title <- "^[A-Z][a-zA-Z0-9 :\\-]*[.!?]?$"
 
   if (!(grepl(regex_title, title))) {
@@ -46,17 +46,18 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     )
   }
 
-  # replace duplicated ID's between `x1` and `x2` in `x2` with hashes
+  # Replace duplicated ID's between `x1` and `x2` in `x2` with hashes
   x2 <- replace_duplicatedIDs(x1, x2)
 
-  # merge resources
+  # Merge resources
   x <- x1
   deployments(x) <- dplyr::bind_rows(deployments(x1), deployments(x2))
   media(x) <- dplyr::bind_rows(media(x1), media(x2))
   observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
 
-  # merge/update metadata
+  # Merge/update metadata
   x$name <- name
+  # Create new ID
   x$id <- digest::digest(paste(x$title, x2$title), algo = "md5")
   x$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   x$title <- title
