@@ -350,7 +350,6 @@ replace_duplicatedIDs <- function(x1, x2) {
 #'
 #' @param data_list list to be normalized
 #' @param unique_names the names that the list must have
-#'
 #' @return named vector with all `unique_names` present
 #' @family helper functions
 #' @noRd
@@ -369,4 +368,39 @@ normalize_list <- function(data_list, unique_names) {
   )
   names(vector) <- unique_names
   return(vector)
+}
+
+#' Check if one element is equal to or a subset of another and vice versa
+#'
+#'
+#' @param element1,element2 elements to compare
+#' @return logical
+#' @family helper functions
+#' @noRd
+#' @examples
+#' element1 <- list(
+#'   title = "Peter Desmet",
+#'   email = "peter.desmet@inbo.be",
+#'   organization = "Research Institute for Nature and Forest (INBO)"
+#' )
+#' element2 <- list(
+#'   title = "Peter Desmet",
+#'   email = "peter.desmet@inbo.be",
+#'   path = "https://orcid.org/0000-0002-8442-8025",
+#'   role = "principalInvestigator",
+#'   organization = "Research Institute for Nature and Forest (INBO)"
+#' )
+#' is.subset(element1, element2)
+is_subset <- function(element1, element2) {
+  all(
+    purrr::map_vec(names(element1), function(field) {
+      if (is.na(element1[[field]])) {
+        TRUE
+      } else if (is.na(element2[[field]])) {
+        TRUE
+      } else {
+        element1[[field]] == element2[[field]]
+      }
+    })
+  )
 }
