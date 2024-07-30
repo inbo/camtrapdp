@@ -133,7 +133,8 @@ replace_mediaID <- function(x, old_mediaID, new_mediaID) {
   # }
 
   # Create a named vector for replacements
-  replacement_map <- setNames(new_mediaID, old_mediaID)
+  replacement_map <- new_mediaID
+  names(replacement_map) <- old_mediaID
 
   # replace mediaIDs in media
   media(x) <-
