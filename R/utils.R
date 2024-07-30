@@ -42,20 +42,20 @@ mutate_when_missing <- function(.data, ...) {
 #' deployments(x_replaced)$deploymentID
 replace_deploymentID <- function(x, old_deploymentID, new_deploymentID) {
 
-  # Check length
-  length_old <- length(old_deploymentID)
-  length_new <- length(new_deploymentID)
-  if (length_old != length_new) {
-    cli::cli_abort(
-      c(
-        "{.arg old_deploymentID} and {.arg new_deploymentID} must have the same
-        length.",
-        "x" = "Length of {.arg old_deploymentID}({.val {length_old}}) is not
-        equal to length of {.arg new_deploymentID}({.val {length_new}})."
-      ),
-      class = "camtrapdp_error_length_deploymentID"
-    )
-  }
+  # # Check length
+  # length_old <- length(old_deploymentID)
+  # length_new <- length(new_deploymentID)
+  # if (length_old != length_new) {
+  #   cli::cli_abort(
+  #     c(
+  #       "{.arg old_deploymentID} and {.arg new_deploymentID} must have the same
+  #       length.",
+  #       "x" = "Length of {.arg old_deploymentID}({.val {length_old}}) is not
+  #       equal to length of {.arg new_deploymentID}({.val {length_new}})."
+  #     ),
+  #     class = "camtrapdp_error_length_deploymentID"
+  #   )
+  # }
 
   # Create a named vector for replacements
   replacement_map <- setNames(new_deploymentID, old_deploymentID)
@@ -118,19 +118,19 @@ replace_deploymentID <- function(x, old_deploymentID, new_deploymentID) {
 #' c("new_mediaID1", "new_mediaID2"))
 replace_mediaID <- function(x, old_mediaID, new_mediaID) {
 
-  # Check length
-  length_old <- length(old_mediaID)
-  length_new <- length(new_mediaID)
-  if (length_old != length_new) {
-    cli::cli_abort(
-      c(
-        "{.arg old_mediaID} and {.arg new_mediaID} must have the same length.",
-        "x" = "Length of {.arg old_mediaID}({.val {length_old}}) is not equal to
-        length of {.arg new_mediaID}({.val {length_new}})."
-      ),
-      class = "camtrapdp_error_length_mediaID"
-    )
-  }
+  # # Check length
+  # length_old <- length(old_mediaID)
+  # length_new <- length(new_mediaID)
+  # if (length_old != length_new) {
+  #   cli::cli_abort(
+  #     c(
+  #       "{.arg old_mediaID} and {.arg new_mediaID} must have the same length.",
+  #       "x" = "Length of {.arg old_mediaID}({.val {length_old}}) is not equal to
+  #       length of {.arg new_mediaID}({.val {length_new}})."
+  #     ),
+  #     class = "camtrapdp_error_length_mediaID"
+  #   )
+  # }
 
   # Create a named vector for replacements
   replacement_map <- setNames(new_mediaID, old_mediaID)
@@ -185,20 +185,20 @@ replace_mediaID <- function(x, old_mediaID, new_mediaID) {
 #' observations(x_replaced)$observationID
 replace_observationID <- function(x, old_observationID, new_observationID) {
 
-  # Check length
-  length_old <- length(old_observationID)
-  length_new <- length(new_observationID)
-  if (length_old != length_new) {
-    cli::cli_abort(
-      c(
-        "{.arg old_observationID} and {.arg new_observationID} must have the
-        same length.",
-        "x" = "Length of {.arg old_observationID}({.val {length_old}}) is not
-        equal to length of {.arg new_observationID}({.val {length_new}})."
-      ),
-      class = "camtrapdp_error_length_observationID"
-    )
-  }
+  # # Check length
+  # length_old <- length(old_observationID)
+  # length_new <- length(new_observationID)
+  # if (length_old != length_new) {
+  #   cli::cli_abort(
+  #     c(
+  #       "{.arg old_observationID} and {.arg new_observationID} must have the
+  #       same length.",
+  #       "x" = "Length of {.arg old_observationID}({.val {length_old}}) is not
+  #       equal to length of {.arg new_observationID}({.val {length_new}})."
+  #     ),
+  #     class = "camtrapdp_error_length_observationID"
+  #   )
+  # }
 
   # Create a named vector for replacements
   replacement_map <- setNames(new_observationID, old_observationID)
