@@ -27,7 +27,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     cli::cli_abort(
       c(
       "{.arg name} must be lower-case and contain only alphanumeric characters
-      along with “.”, “_” or “-” characters."
+      along with \".\", \"_\" or \"-\" characters."
         ),
       class = "camtrapdp_error_invalid_name"
     )
