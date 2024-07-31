@@ -51,8 +51,8 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   )
 })
 
-test_that("merge_camtrapdp() returns unique deplpymentID's, mediaID's and
-          observationID's", {
+test_that("merge_camtrapdp() returns unique deplpymentIDs, mediaIDs and
+          observationIDs", {
   skip_if_offline()
   duplicated_deploymentID <- "00a2c20d"
   duplicated_mediaID <- "ca3ff293"
@@ -112,7 +112,7 @@ test_that("merge_camtrapdp() returns unique deplpymentID's, mediaID's and
     )
 })
 
-test_that("merge_camtrapdp() returns message when ID's are replaced", {
+test_that("merge_camtrapdp() returns message when IDs are replaced", {
   skip_if_offline()
   x1 <- example_dataset()
   x2 <- example_dataset() %>%
@@ -122,15 +122,15 @@ test_that("merge_camtrapdp() returns message when ID's are replaced", {
   expect_message(
     merge_camtrapdp(x1, x2, "new_package_name", "New title") #,
     # regexp =  paste(
-    #   "! `x1` and `x2` must have unique deploymentID's.",
-    #   "`x1` and `x2` have duplicated deploymentID's: \"62c200a9\".",
-    #   "Duplicated deploymentID's of `x2` are now replaced by \"07ce6950\" respectively.",
-    #   "! `x1` and `x2` must have unique mediaID's.",
-    #   "`x1` and `x2` have duplicated mediaID's: \"fb58a2b9\", \"0bb2566e\", and \"a6a7a04c\".",
-    #   "Duplicated mediaID's of `x2` are now replaced by \"ba426f00\", \"8d5c0009\", and \"1689e0db\" respectively.",
-    #   "! `x1` and `x2` must have unique observationID's.",
-    #   "`x1` and `x2` have duplicated observationID's: \"a0431321\", \"fb58a2b9_1\", \"0bb2566e_1\", and \"a6a7a04c_1\".",
-    #   "Duplicated observationID's of `x2` are now replaced by \"c6eeccc0\", \"a8452c14\", \"a48adc8a\", and \"b78e02ba\" respectively."
+    #   "! `x1` and `x2` must have unique deploymentIDs.",
+    #   "`x1` and `x2` have duplicated deploymentIDs: \"62c200a9\".",
+    #   "Duplicated deploymentIDs of `x2` are now replaced by \"07ce6950\" respectively.",
+    #   "! `x1` and `x2` must have unique mediaIDs.",
+    #   "`x1` and `x2` have duplicated mediaIDs: \"fb58a2b9\", \"0bb2566e\", and \"a6a7a04c\".",
+    #   "Duplicated mediaIDs of `x2` are now replaced by \"ba426f00\", \"8d5c0009\", and \"1689e0db\" respectively.",
+    #   "! `x1` and `x2` must have unique observationIDs.",
+    #   "`x1` and `x2` have duplicated observationIDs: \"a0431321\", \"fb58a2b9_1\", \"0bb2566e_1\", and \"a6a7a04c_1\".",
+    #   "Duplicated observationIDs of `x2` are now replaced by \"c6eeccc0\", \"a8452c14\", \"a48adc8a\", and \"b78e02ba\" respectively."
     #   )
   )
 })

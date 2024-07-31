@@ -46,7 +46,7 @@ merge_camtrapdp <- function(x1, x2, name, title) {
     )
   }
 
-  # Replace duplicated ID's between `x1` and `x2` in `x2` with hashes
+  # Replace duplicated IDs between `x1` and `x2` in `x2` with hashes
   x2 <- replace_duplicatedIDs(x1, x2)
 
   # Merge resources
