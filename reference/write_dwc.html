@@ -82,15 +82,16 @@ identifier.</p></li>
 <li><p>Media files are included in the Audubon/Audiovisual Media Description
 extension, with a foreign key to the observation.
 A media file that is used for more than one observation is repeated.</p></li>
-<li><p>Metadata is used to set the following record-level terms:</p><ul><li><p><code>dwc:datasetID = id</code>.</p></li>
-<li><p><code>dwc:datasetName = title</code>.</p></li>
-<li><p><code>dwc:collectionCode</code>: first source in <code>sources</code>.</p></li>
-<li><p><code>dcterms:license</code>: license (<code>name</code>) in <code>licenses</code> with scope <code>data</code>.
-The license (<code>name</code>) with scope <code>media</code> is used as <code>dcterms:rights</code> in
-the Audubon Media Description extension.</p></li>
-<li><p><code>dcterms:rightsHolder</code>: first contributor in <code>contributors</code> with role
+<li><p>Metadata are used to set the following record-level terms:</p><ul><li><p><code>dwc:datasetID</code>: <code>x$id</code>.</p></li>
+<li><p><code>dwc:datasetName</code>: <code>x$title</code>.</p></li>
+<li><p><code>dwc:collectionCode</code>: first source in <code>x$sources</code>.</p></li>
+<li><p><code>dcterms:license</code>: license <code>name</code> (e.g. <code>CC0-1.0</code>) in <code>x$licenses</code> with
+scope <code>data</code>.
+The license <code>name</code> with scope <code>media</code> is used as <code>dcterms:rights</code> in the
+Audubon Media Description extension.</p></li>
+<li><p><code>dcterms:rightsHolder</code>: first contributor in <code>x$contributors</code> with role
 <code>rightsHolder</code>.</p></li>
-<li><p><code>dwc:dataGeneralizations</code>: set if <code>coordinatePrecision</code> is defined.</p></li>
+<li><p><code>dwc:dataGeneralizations</code>: set if <code>x$coordinatePrecision</code> is defined.</p></li>
 </ul></li>
 </ul></div>
     <div class="section level2">
