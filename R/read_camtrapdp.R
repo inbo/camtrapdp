@@ -45,7 +45,7 @@ read_camtrapdp <- function(file) {
 
   # Check version
   version <- version(package)
-  supported_versions <- c("1.0")
+  supported_versions <- c("1.0", "1.0.1")
   if (!version %in% supported_versions) {
     cli::cli_abort(
       c(
@@ -70,7 +70,7 @@ read_camtrapdp <- function(file) {
     frictionless::read_resource(package, "observations")
 
   # Convert
-  x <- convert(x, convert_to = "1.0")
+  x <- convert(x, convert_to = "1.0.1")
 
   # Add taxonomic info to observations
   taxonomy <- build_taxa(x)
