@@ -33,16 +33,17 @@
 #' - Media files are included in the Audubon/Audiovisual Media Description
 #'   extension, with a foreign key to the observation.
 #'   A media file that is used for more than one observation is repeated.
-#' - Metadata is used to set the following record-level terms:
-#'   - `dwc:datasetID = id`.
-#'   - `dwc:datasetName = title`.
-#'   - `dwc:collectionCode`: first source in `sources`.
-#'   - `dcterms:license`: license (`name`) in `licenses` with scope `data`.
-#'     The license (`name`) with scope `media` is used as `dcterms:rights` in
-#'     the Audubon Media Description extension.
-#'   - `dcterms:rightsHolder`: first contributor in `contributors` with role
+#' - Metadata are used to set the following record-level terms:
+#'   - `dwc:datasetID`: `x$id`.
+#'   - `dwc:datasetName`: `x$title`.
+#'   - `dwc:collectionCode`: first source in `x$sources`.
+#'   - `dcterms:license`: license `name` (e.g. `CC0-1.0`) in `x$licenses` with
+#'     scope `data`.
+#'     The license `name` with scope `media` is used as `dcterms:rights` in the
+#'     Audubon Media Description extension.
+#'   - `dcterms:rightsHolder`: first contributor in `x$contributors` with role
 #'     `rightsHolder`.
-#'   - `dwc:dataGeneralizations`: set if `coordinatePrecision` is defined.
+#'   - `dwc:dataGeneralizations`: set if `x$coordinatePrecision` is defined.
 #' @examples
 #' x <- example_dataset()
 #' write_dwc(x, directory = "my_directory")
@@ -53,22 +54,24 @@ write_dwc <- function(x, directory) {
   check_camtrapdp(x)
 
   # Set properties from metadata or default to NA when missing
-  dataset_name <- purrr::pluck(x, "title", .default = NA)
-  dataset_id <- purrr::pluck(x, "id", .default = NA)
-  collection_code <- purrr::pluck(x, "sources", 1, "title", .default = NA)
+  dataset_name <- purrr::pluck(x, "title", .default = NA_character_)
+  dataset_id <- purrr::pluck(x, "id", .default = NA_character_)
+  collection_code <-
+    purrr::pluck(x, "sources", 1, "title", .default = NA_character_)
   license <-
     purrr::pluck(x, "licenses") %>%
     purrr::detect(~ !is.null(.x$scope) && .x$scope == "data") %>%
-    purrr::pluck("name", .default = NA)
+    purrr::pluck("name", .default = NA_character_)
   media_license <-
     purrr::pluck(x, "licenses") %>%
     purrr::detect(~ !is.null(.x$scope) && .x$scope == "media") %>%
-    purrr::pluck("name", .default = NA)
+    purrr::pluck("name", .default = NA_character_)
   rights_holder <-
     purrr::pluck(x, "contributors") %>%
     purrr::detect(~ !is.null(.x$role) && .x$role == "rightsHolder") %>%
-    purrr::pluck("title", .default = NA)
-  coordinate_precision <- purrr::pluck(x, "coordinatePrecision", .default = NA)
+    purrr::pluck("title", .default = NA_character_)
+  coordinate_precision <-
+    purrr::pluck(x, "coordinatePrecision", .default = NA_character_)
 
   # Filter dataset on observations (also affects media)
   x <- filter_observations(
