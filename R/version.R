@@ -43,3 +43,17 @@ version <- function(x) {
     profile
   }
 }
+
+#' @rdname version
+#' @param value Version number to assign to `x`.
+#' @noRd
+"version<-" <- function(x, value) {
+  old <- version(x)
+  new <- value
+  x$profile <- sub(old, new, x$profile, fixed = TRUE)
+  x$resources[[1]]$schema <- sub(old, new, x$resources[[1]]$schema, fixed = TRUE)
+  x$resources[[2]]$schema <- sub(old, new, x$resources[[1]]$schema, fixed = TRUE)
+  x$resources[[3]]$schema <- sub(old, new, x$resources[[1]]$schema, fixed = TRUE)
+  attr(x, "version") <- new
+  return(x)
+}
