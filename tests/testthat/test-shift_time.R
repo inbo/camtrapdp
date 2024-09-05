@@ -152,8 +152,8 @@ test_that("shift_time() supports duration() and difftime()", {
   deployment_id <- "00a2c20d"
   duration <- lubridate::duration(-4, units = "hours")
   difftime <- difftime("2024-04-01 00:00:00", "2024-04-01 04:00:00", tz = "UTC")
-  x_duration <- suppressWarnings(shift_time(x, deployment_id, duration))
-  x_difftime <- suppressWarnings(shift_time(x, deployment_id, difftime))
+  x_duration <- suppressMessages(shift_time(x, deployment_id, duration))
+  x_difftime <- suppressMessages(shift_time(x, deployment_id, difftime))
 
   expect_identical(deployments(x_duration), deployments(x_difftime))
   expect_identical(media(x_duration), media(x_difftime))
