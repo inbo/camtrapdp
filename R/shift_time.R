@@ -68,7 +68,7 @@ shift_time <- function(x, deployment_id, duration) {
   # Get current deploymentStart of first selected deployment (used in message)
   current_datetime <-
     deployments(x) %>%
-    dplyr::filter(.data$deploymentID == {{ deployment_id }}[1]) %>%
+    dplyr::filter(.data$deploymentID == deployment_id[1]) %>%
     dplyr::pull(.data$deploymentStart)
 
   # Shift deploymentStart and deploymentEnd of selected deployments
@@ -77,17 +77,17 @@ shift_time <- function(x, deployment_id, duration) {
     deployments(x) %>%
     dplyr::mutate(
       deploymentStart = dplyr::if_else(
-        .data$deploymentID %in% {{ deployment_id }},
+        .data$deploymentID %in% deployment_id,
         .data$deploymentStart + duration,
         .data$deploymentStart
       ),
       deploymentEnd = dplyr::if_else(
-        .data$deploymentID %in% {{ deployment_id }},
+        .data$deploymentID %in% deployment_id,
         .data$deploymentEnd + duration,
         .data$deploymentEnd
       ),
       timestampIssues = dplyr::if_else(
-        .data$deploymentID %in% {{ deployment_id }},
+        .data$deploymentID %in% deployment_id,
         FALSE,
         .data$timestampIssues
       )
@@ -98,7 +98,7 @@ shift_time <- function(x, deployment_id, duration) {
     media(x) %>%
     dplyr::mutate(
       timestamp = dplyr::if_else(
-        .data$deploymentID %in% {{ deployment_id }},
+        .data$deploymentID %in% deployment_id,
         .data$timestamp + duration,
         .data$timestamp
       )
@@ -109,12 +109,12 @@ shift_time <- function(x, deployment_id, duration) {
     observations(x) %>%
     dplyr::mutate(
       eventStart = dplyr::if_else(
-        .data$deploymentID %in% {{ deployment_id }},
+        .data$deploymentID %in% deployment_id,
         .data$eventStart + duration,
         .data$eventStart
       ),
       eventEnd = dplyr::if_else(
-        .data$deploymentID %in% {{ deployment_id }},
+        .data$deploymentID %in% deployment_id,
         .data$eventEnd + duration,
         .data$eventEnd
       )
@@ -126,7 +126,7 @@ shift_time <- function(x, deployment_id, duration) {
   # Get new deploymentStart of first selected deployment (used in message)
   new_datetime <-
     deployments(x) %>%
-    dplyr::filter(.data$deploymentID == {{ deployment_id }}[1]) %>%
+    dplyr::filter(.data$deploymentID == deployment_id[1]) %>%
     dplyr::pull(.data$deploymentStart)
 
   # Return message
