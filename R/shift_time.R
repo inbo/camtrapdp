@@ -130,11 +130,10 @@ shift_time <- function(x, deployment_id, duration) {
     dplyr::pull(.data$deploymentStart)
 
   # Return message
-  cli::cli_alert_success(
+  cli::cli_inform(
     "Date-times in selected deployments, media and observations were shifted by
      {.val {duration}}. E.g. {.val {current_datetime}} is now
      {.val {new_datetime}}.",
-    wrap = TRUE,
     class = "camtrapdp_message_shift_time"
   )
 

@@ -184,7 +184,7 @@ test_that("shift_time() returns message", {
   expect_message(
     shift_time(x, deployment_id, duration),
     regexp = paste(
-      "v Date-times in selected deployments, media and observations were",
+      "Date-times in selected deployments, media and observations were",
       "shifted by -14400s (~-4 hours). E.g. 2020-05-30 02:57:37 is now",
       "2020-05-29 22:57:37."
     ),
