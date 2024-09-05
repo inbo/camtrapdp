@@ -1,29 +1,29 @@
-#' Convert a Camera Trap Data Package
+#' Upgrade a Camera Trap Data Package
 #'
-#' Converts a Camera Trap Data Package object that uses an older version of
+#' Upgrades a Camera Trap Data Package object that uses an older version of
 #' the Camtrap DP standard to a newer version.
 #'
 #' @inheritParams print.camtrapdp
-#' @param convert_to Version to convert to.
-#' @return `x` converted.
-#' @family convert functions
+#' @param upgrade_to Version to upgrade to.
+#' @return `x` upgraded.
+#' @family upgrade functions
 #' @noRd
-convert <- function(x, convert_to = "1.0.1") {
-  # Convert until the version number matches the expected version
-  while (version(x) != convert_to) {
+upgrade <- function(x, upgrade_to = "1.0.1") {
+  # Upgrade until the version number matches the expected version
+  while (version(x) != upgrade_to) {
     x <- switch(version(x),
-      "1.0" = convert_1.0_to_1.0.1(x),
+      "1.0" = upgrade_1.0_to_1.0.1(x),
       "1.0.1" = x
     )
   }
   return(x)
 }
 
-#' Convert a Camtrap DP 1.0 to 1.0.1
+#' Upgrade a Camtrap DP 1.0 to 1.0.1
 #'
 #' This is a patch version, no changes are made to the standard.
 #' @noRd
-convert_1.0_to_1.0.1 <- function(x) {
+upgrade_1.0_to_1.0.1 <- function(x) {
   version(x) <- "1.0.1"
   return(x)
 }

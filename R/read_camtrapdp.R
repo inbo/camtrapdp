@@ -69,8 +69,8 @@ read_camtrapdp <- function(file) {
   observations(x) <-
     frictionless::read_resource(package, "observations")
 
-  # Convert
-  x <- convert(x, convert_to = "1.0.1")
+  # Upgrade
+  x <- upgrade(x, upgrade_to = "1.0.1")
 
   # Add taxonomic info to observations
   taxonomy <- build_taxa(x)

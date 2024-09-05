@@ -25,7 +25,7 @@ test_that("read_camtrapdp() returns error on unsupported Camtrap DP version", {
   )
 })
 
-test_that("read_camtrapdp() converts 1.0", {
+test_that("read_camtrapdp() upgrades 1.0", {
   skip_if_offline()
   camtrapdp_1.0 <-
     "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
@@ -33,7 +33,7 @@ test_that("read_camtrapdp() converts 1.0", {
   expect_identical(version(x), "1.0.1")
 })
 
-test_that("read_camtrapdp() does not convert 1.0.1", {
+test_that("read_camtrapdp() does not upgrade 1.0.1", {
   skip_if_offline()
   camtrapdp_1.0.1 <-
     "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/example/datapackage.json"

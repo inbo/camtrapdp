@@ -67,7 +67,7 @@ x
 #> Use `unclass()` to print the Data Package as a list.
 ```
 
-`read_camtrapdp()` will automatically **convert** an older version of
+`read_camtrapdp()` will automatically **upgrade** an older version of
 Camtrap DP to the latest version. It will also make the data easier to
 use, by assigning taxonomic information (found in the metadata) to the
 observations and `eventID`s (found in the observations) to the media.
