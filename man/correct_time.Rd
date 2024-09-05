@@ -2,47 +2,51 @@
 % Please edit documentation in R/correct_time.R
 \name{correct_time}
 \alias{correct_time}
-\title{Correct datetime}
+\title{Shift date-times}
 \usage{
-correct_time(x, deploymentID, duration)
+correct_time(x, deployment_id, duration)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
 
-\item{deploymentID}{One or more deploymentID's, either as a character string
-or as a vector of character strings.}
+\item{deployment_id}{One or more deploymentIDs.}
 
-\item{duration}{Datetime difference between the wrong and right time. An
-object of class \link[lubridate:Duration-class]{lubridate::Duration} or \link{difftime}.}
+\item{duration}{Difference between the current and new date-times.
+Provide as a \code{\link[lubridate:duration]{lubridate::duration()}} or \link{difftime}.}
 }
 \value{
-\code{x} with datetimes corrected.
+\code{x} with shifted date-times.
 }
 \description{
-Corrects datetimes in a Camera Trap Data package object. Datetimes in
-deployments and associated resources and metadata are corrected for the
-the selected deploymentIDs. \code{timestampIssues} is set to FALSE.
-This function can be used when the time settings of one or more deployments
-are wrong and need to be corrected.
+Shifts date-times for selected deployments (and associated media and
+observations) by a specified duration.
+This function can be used to correct date-time issues such as incorrectly
+set time zones.
+\itemize{
+\item Deployments: \code{deploymentStart} and \code{deploymentEnd} are updated and
+\code{timestampIssues} is set to \code{FALSE}.
+\item Media: \code{timestamp} is updated.
+\item Observations: \code{eventStart} and \code{eventEnd} are updated.
+\item Metadata (\code{x$temporal}) are updated to match the new temporal scope.
+}
 }
 \examples{
+# Set desired duration between current and new date-times (e.g. 4 hours earlier)
+library(lubridate, warn.conflicts = FALSE)
+duration(-4, units = "hours")
+
+# Or calculate one based on two date-times
+current <- ymd_hms("2024-04-01T04:00:00", tz = "UTC")
+new <- ymd_hms("2024-04-01T00:00:00", tz = "UTC")
+duration <- as.duration(interval(current, new))
+
+# Shift date-times for 2 deployments
 x <- example_dataset()
-
-# Deployment IDs with wrong timestamps
-deploymentID <- c("00a2c20d", "29b7d356")
-
-# Calculate duration between wrong and right time
-library(lubridate)
-wrong <- ymd_hms("2024-04-01T00:00:00", tz = "UTC")
-right <- ymd_hms("2024-04-01T02:00:00", tz = "UTC")
-duration <- as.duration(interval(wrong, right))
-
-# Correct time
-x_corrected <- correct_time(x, deploymentID, duration)
+x_shifted <- correct_time(x, c("00a2c20d", "29b7d356"), duration)
 
 # Inspect results
-deployments(x)
-deployments(x_corrected)
+deployments(x)[, c("deploymentID", "deploymentStart", "deploymentEnd")]
+deployments(x_shifted)[, c("deploymentID", "deploymentStart", "deploymentEnd")]
 }
 \seealso{
 Other transformation functions: 
