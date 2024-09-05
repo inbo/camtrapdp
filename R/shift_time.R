@@ -31,12 +31,12 @@
 #'
 #' # Shift date-times for 2 deployments
 #' x <- example_dataset()
-#' x_shifted <- correct_time(x, c("00a2c20d", "29b7d356"), duration)
+#' x_shifted <- shift_time(x, c("00a2c20d", "29b7d356"), duration)
 #'
 #' # Inspect results
 #' deployments(x)[, c("deploymentID", "deploymentStart", "deploymentEnd")]
 #' deployments(x_shifted)[, c("deploymentID", "deploymentStart", "deploymentEnd")]
-correct_time <- function(x, deployment_id, duration) {
+shift_time <- function(x, deployment_id, duration) {
   check_camtrapdp(x)
 
   # Remove duplicate values in deployment_id

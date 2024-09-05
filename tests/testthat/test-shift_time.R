@@ -1,70 +1,70 @@
-test_that("correct_time() returns a valid camtrapdp object", {
+test_that("shift_time() returns a valid camtrapdp object", {
   skip_if_offline()
   x <- example_dataset()
   duration <- lubridate::duration(-4, units = "hours")
   expect_no_error(
     check_camtrapdp(
-      suppressMessages(correct_time(x, c("00a2c20d", "29b7d356"), duration))
+      suppressMessages(shift_time(x, c("00a2c20d", "29b7d356"), duration))
     )
   )
 })
 
-test_that("correct_time() returns error on empty or invalid deployment_id", {
+test_that("shift_time() returns error on empty or invalid deployment_id", {
   skip_if_offline()
   x <- example_dataset()
   duration <- lubridate::duration(-4, units = "hours")
 
   expect_error(
-    correct_time(x, 123, duration),
+    shift_time(x, 123, duration),
     class = "camtrapdp_error_deployment_id_invalid"
   )
   expect_error(
-    correct_time(x, "not_an_id", duration),
+    shift_time(x, "not_an_id", duration),
     class = "camtrapdp_error_deployment_id_invalid"
   )
   expect_error(
-    correct_time(x, c("00a2c20d", "not_an_id"), duration),
+    shift_time(x, c("00a2c20d", "not_an_id"), duration),
     class = "camtrapdp_error_deployment_id_invalid"
   )
   expect_error(
-    correct_time(x, c("00a2c20d", 00220), duration),
+    shift_time(x, c("00a2c20d", 00220), duration),
     class = "camtrapdp_error_deployment_id_invalid"
   )
 
   # Duplicate IDs are removed (error message only lists them once)
   expect_error(
-    correct_time(x, c("not_an_id", "not_an_id"), duration),
+    shift_time(x, c("not_an_id", "not_an_id"), duration),
     regex = "Can't find deployment with deploymentID \"not_an_id\".",
     fixed = TRUE
   )
 })
 
-test_that("correct_time() returns error on invalid duration", {
+test_that("shift_time() returns error on invalid duration", {
   skip_if_offline()
   x <- example_dataset()
   deployment_id <- "00a2c20d"
 
   expect_error(
-    correct_time(x, deployment_id, "02:00:00"),
+    shift_time(x, deployment_id, "02:00:00"),
     class = "camtrapdp_error_duration_invalid"
   )
   expect_error(
-    correct_time(x, deployment_id, 1),
+    shift_time(x, deployment_id, 1),
     class = "camtrapdp_error_duration_invalid"
   )
   expect_error(
-    correct_time(x, deployment_id, as.Date('1915-06-16')),
+    shift_time(x, deployment_id, as.Date('1915-06-16')),
     class = "camtrapdp_error_duration_invalid"
   )
   expect_error(
-    correct_time(
+    shift_time(
       x, deployment_id, as.POSIXct("2024-04-01 00:00:00", tz = "UTC")
       ),
     class = "camtrapdp_error_duration_invalid"
   )
 })
 
-test_that("correct_time() shifts datetime for selected deployments, media and
+test_that("shift_time() shifts datetime for selected deployments, media and
            observations", {
   skip_if_offline()
   x <- example_dataset()
@@ -77,7 +77,7 @@ test_that("correct_time() shifts datetime for selected deployments, media and
   x_unselected <- filter_deployments(x, .data$deploymentID != deployment_id)
 
   # Shift date-time
-  x_new <- suppressMessages(correct_time(x, deployment_id, duration))
+  x_new <- suppressMessages(shift_time(x, deployment_id, duration))
   x_new_selected <- filter_deployments(x_new, .data$deploymentID == deployment_id)
   x_new_unselected <- filter_deployments(x_new, .data$deploymentID != deployment_id)
 
@@ -146,43 +146,43 @@ test_that("correct_time() shifts datetime for selected deployments, media and
   )
 })
 
-test_that("correct_time() supports duration() and difftime()", {
+test_that("shift_time() supports duration() and difftime()", {
   skip_if_offline()
   x <- example_dataset()
   deployment_id <- "00a2c20d"
   duration <- lubridate::duration(-4, units = "hours")
   difftime <- difftime("2024-04-01 00:00:00", "2024-04-01 04:00:00", tz = "UTC")
-  x_duration <- suppressWarnings(correct_time(x, deployment_id, duration))
-  x_difftime <- suppressWarnings(correct_time(x, deployment_id, difftime))
+  x_duration <- suppressWarnings(shift_time(x, deployment_id, duration))
+  x_difftime <- suppressWarnings(shift_time(x, deployment_id, difftime))
 
   expect_identical(deployments(x_duration), deployments(x_difftime))
   expect_identical(media(x_duration), media(x_difftime))
   expect_identical(observations(x_duration), observations(x_difftime))
 })
 
-test_that("correct_time() updates temporal scope in metadata", {
+test_that("shift_time() updates temporal scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
   deployment_id <- c("00a2c20d", "62c200a9") # first and last
   duration <- lubridate::duration(24, units = "hours") # 24h later
-  x_new <- suppressMessages(correct_time(x, deployment_id, duration))
+  x_new <- suppressMessages(shift_time(x, deployment_id, duration))
 
   expect_identical(x_new$temporal$start, "2020-05-31") # Orig 2020-05-30
   expect_identical(x_new$temporal$end, "2021-04-19") # Orig 2021-04-18
 })
 
-test_that("correct_time() returns message", {
+test_that("shift_time() returns message", {
   skip_if_offline()
   x <- example_dataset()
   deployment_id <- "00a2c20d"
   duration <- lubridate::duration(-4, units = "hours")
 
   expect_message(
-    correct_time(x, deployment_id, duration),
+    shift_time(x, deployment_id, duration),
     class = "camtrapdp_message_shift_time"
   )
   expect_message(
-    correct_time(x, deployment_id, duration),
+    shift_time(x, deployment_id, duration),
     regexp = paste(
       "v Date-times in selected deployments, media and observations were",
       "shifted by -14400s (~-4 hours). E.g. 2020-05-30 02:57:37 is now",

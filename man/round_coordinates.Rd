@@ -88,7 +88,7 @@ deployments(x_rounded)[c("latitude", "longitude", "coordinateUncertainty")]
 }
 \seealso{
 Other transformation functions: 
-\code{\link{correct_time}()},
+\code{\link{shift_time}()},
 \code{\link{write_dwc}()},
 \code{\link{write_eml}()}
 }
