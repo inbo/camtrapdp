@@ -134,7 +134,7 @@ shift_time <- function(x, deployment_id, duration) {
     "Date-times in selected deployments, media and observations were shifted by
      {.val {duration}}. E.g. {.val {current_datetime}} is now
      {.val {new_datetime}}.",
-    # wrap = TRUE,
+    wrap = TRUE,
     class = "camtrapdp_message_shift_time"
   )
 
