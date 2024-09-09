@@ -44,17 +44,18 @@ identifier.
 \item Media files are included in the Audubon/Audiovisual Media Description
 extension, with a foreign key to the observation.
 A media file that is used for more than one observation is repeated.
-\item Metadata is used to set the following record-level terms:
+\item Metadata are used to set the following record-level terms:
 \itemize{
-\item \code{dwc:datasetID = id}.
-\item \code{dwc:datasetName = title}.
-\item \code{dwc:collectionCode}: first source in \code{sources}.
-\item \code{dcterms:license}: license (\code{name}) in \code{licenses} with scope \code{data}.
-The license (\code{name}) with scope \code{media} is used as \code{dcterms:rights} in
-the Audubon Media Description extension.
-\item \code{dcterms:rightsHolder}: first contributor in \code{contributors} with role
+\item \code{dwc:datasetID}: \code{x$id}.
+\item \code{dwc:datasetName}: \code{x$title}.
+\item \code{dwc:collectionCode}: first source in \code{x$sources}.
+\item \code{dcterms:license}: license \code{name} (e.g. \code{CC0-1.0}) in \code{x$licenses} with
+scope \code{data}.
+The license \code{name} with scope \code{media} is used as \code{dcterms:rights} in the
+Audubon Media Description extension.
+\item \code{dcterms:rightsHolder}: first contributor in \code{x$contributors} with role
 \code{rightsHolder}.
-\item \code{dwc:dataGeneralizations}: set if \code{coordinatePrecision} is defined.
+\item \code{dwc:dataGeneralizations}: set if \code{x$coordinatePrecision} is defined.
 }
 }
 }
@@ -70,6 +71,7 @@ unlink("my_directory", recursive = TRUE)
 Other transformation functions: 
 \code{\link{merge_camtrapdp}()},
 \code{\link{round_coordinates}()},
+\code{\link{shift_time}()},
 \code{\link{write_eml}()}
 }
 \concept{transformation functions}

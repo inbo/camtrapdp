@@ -75,6 +75,7 @@ unlink("my_directory", recursive = TRUE)
 Other transformation functions: 
 \code{\link{merge_camtrapdp}()},
 \code{\link{round_coordinates}()},
+\code{\link{shift_time}()},
 \code{\link{write_dwc}()}
 }
 \concept{transformation functions}
