@@ -3,7 +3,7 @@ name: Check CRAN status
 on:
   schedule:
     # Runs daily at 4:00 PM UTC (9:00 AM PST)
-    - cron: '0 16 * * *'
+    - cron: '0 8 * * *'
   # allows for manually running of the check
   workflow_dispatch:
 
