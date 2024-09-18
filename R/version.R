@@ -43,3 +43,18 @@ version <- function(x) {
     profile
   }
 }
+
+#' @rdname version
+#' @param value Version number to assign to `x`.
+#' @noRd
+"version<-" <- function(x, value) {
+  old <- version(x)
+  new <- value
+  x$profile <- sub(old, new, x$profile, fixed = TRUE)
+  x$resources <- purrr::map(x$resources, function(resource) {
+    resource$schema <- sub(old, new, resource$schema, fixed = TRUE)
+    resource
+  })
+  attr(x, "version") <- new
+  return(x)
+}

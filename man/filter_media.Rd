@@ -7,7 +7,7 @@
 filter_media(x, ...)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
 \item{...}{Filtering conditions, see \code{dplyr::filter()}.}
 }

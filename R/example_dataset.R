@@ -12,7 +12,7 @@
 example_dataset <- function() {
   url <- file.path(
     "https://raw.githubusercontent.com/tdwg/camtrap-dp",
-    "1.0/example/datapackage.json"
+    "1.0.1/example/datapackage.json"
   )
   read_camtrapdp_cache(url)
 }

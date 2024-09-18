@@ -7,7 +7,7 @@
 \method{print}{camtrapdp}(x, ...)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
 \item{...}{Further arguments, they are ignored by this function.}
 }
