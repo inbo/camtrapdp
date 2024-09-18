@@ -3,7 +3,7 @@
 #' Prints a human-readable summary of a Camera Trap Data Package, as an
 #' extension of [frictionless::print.datapackage()].
 #'
-#' @param x Camera Trap Data Package object, as returned by `read_camtrapdp()`.
+#' @param x Camera Trap Data Package object, as returned by [read_camtrapdp()].
 #' @param ... Further arguments, they are ignored by this function.
 #'
 #' @return [print()] with a summary of the Camera Trap Data Package object.
