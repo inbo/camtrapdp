@@ -117,8 +117,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
         NA_character_,
         .data$path
       )
-    ) %>%
-    dplyr::arrange(.data$last_name)
+    )
 
   # Create creators list
   creator_list <- purrr::transpose(creators)
