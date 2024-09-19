@@ -142,7 +142,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
 
   # Set keywords
   eml$dataset$keywordSet <-
-    list(list(keywordThesaurus = "n/a", keyword = c("camera traps")))
+    list(list(keywordThesaurus = "n/a", keyword = x$keywords))
 
   # Set license
   eml$dataset$intellectualRights$para <-
