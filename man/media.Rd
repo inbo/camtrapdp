@@ -15,7 +15,7 @@ media(x) <- value
 \item{value}{A data frame to assign as media.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} data frame with media.
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with media.
 }
 \description{
 \code{media()} gets the media from a Camera Trap Data Package object.

@@ -10,8 +10,8 @@ taxa(x)
 \item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} data frame with the taxonomic information, containing at
-least a \code{scientificName} column.
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the taxonomic information,
+containing at least a \code{scientificName} column.
 }
 \description{
 Gets the (unique) scientific names and associated taxonomic information from

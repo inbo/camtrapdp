@@ -4,7 +4,7 @@
 #' Package object.
 #'
 #' @inheritParams print.camtrapdp
-#' @return Data frame with the taxonomic information.
+#' @return A data frame with the taxonomic information.
 #' @noRd
 build_taxa <- function(x) {
   # Extract the taxonomic information

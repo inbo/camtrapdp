@@ -5,8 +5,8 @@
 #' Only observations with `observationLevel == "event"` are considered.
 #'
 #' @inheritParams print.camtrapdp
-#' @return [tibble::tibble()] data frame with the events, containing the following
-#'   columns:
+#' @return A [tibble::tibble()] data frame with the events, containing the
+#'   following columns:
 #'   - `deploymentID`
 #'   - `eventID`
 #'   - `eventStart`

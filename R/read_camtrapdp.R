@@ -32,7 +32,7 @@
 #' being duplicated), for example when events and sub-events were defined.
 #'
 #' @param file Path or URL to a `datapackage.json` file.
-#' @return Camera Trap Data Package object.
+#' @return A Camera Trap Data Package object.
 #' @family read functions
 #' @export
 #' @examples

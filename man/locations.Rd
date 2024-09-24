@@ -10,8 +10,8 @@ locations(x)
 \item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} data frame with the locations, containing the following
-columns:
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the locations, containing the
+following columns:
 \itemize{
 \item \code{locationID}
 \item \code{locationName}
