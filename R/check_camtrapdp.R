@@ -3,8 +3,7 @@
 #' Checks if an object is a Camera Trap Data Package object with the required
 #' properties.
 #'
-#' @param x Camera Trap Data Package object, as returned by
-#'   `read_camtrapdp()`.
+#' @inheritParams print.camtrapdp
 #' @return `x` invisibly or error.
 #' @family check functions
 #' @export

@@ -8,9 +8,9 @@ version(x)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by
-\code{read_camtrapdp()}.
+\code{\link[=read_camtrapdp]{read_camtrapdp()}}.
 Also works on a Frictionless Data Package, as returned by
-\code{frictionless::read_package()}.}
+\code{\link[frictionless:read_package]{frictionless::read_package()}}.}
 }
 \value{
 Camtrap DP version number (e.g. \code{1.0}).
