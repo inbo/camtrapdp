@@ -146,7 +146,7 @@ write_dwc <- function(x, directory) {
       eventRemarks = paste0(
         # E.g. "camera trap with bait near burrow | tags: <t1, t2> | <comment>"
         dplyr::if_else(
-          .data$baitUse,
+          as.logical(.data$baitUse),
           "camera trap with bait",
           "camera trap without bait"
         ),
@@ -210,7 +210,10 @@ write_dwc <- function(x, directory) {
         dplyr::if_else(
           is.na(.data$classificationProbability),
           "",
-          paste0(" with ", .data$classificationProbability * 100, "% certainty")
+          paste0(
+            " with ", as.numeric(.data$classificationProbability) * 100,
+            "% certainty"
+          )
         )
       ),
       taxonID = .data$taxon.taxonID,
@@ -270,7 +273,7 @@ write_dwc <- function(x, directory) {
       accessURI = .data$filePath,
       `dc:format` = .data$fileMediatype,
       serviceExpectation = dplyr::if_else(
-        .data$filePublic,
+        as.logical(.data$filePublic),
         "online",
         "authenticate"
       )
