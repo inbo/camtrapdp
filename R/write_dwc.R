@@ -83,10 +83,16 @@ write_dwc <- function(x, directory) {
   # Start transformation
   cli::cli_h2("Transforming data to Darwin Core")
 
+  # Read data and add optional columns that are used in transformation
+ deployments <- deployments(x)
+ media <- media(x)
+ observations_cols <- c("taxon.taxonID")
+ observations <- expand_cols(observations(x), observations_cols)
+
   # Create Darwin Core Occurrence core
   occurrence <-
-    observations(x) %>%
-    dplyr::left_join(deployments(x), by = "deploymentID") %>%
+    observations %>%
+    dplyr::left_join(deployments, by = "deploymentID") %>%
     dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
     dplyr::mutate(
       .keep = "none",
@@ -227,15 +233,15 @@ write_dwc <- function(x, directory) {
 
   # Create Audubon/Audiovisual Media Description extension
   multimedia <-
-    observations(x) %>%
+    observations %>%
     dplyr::select(-"mediaID") %>%
     dplyr::left_join(
-      media(x),
+      media,
       by = c("deploymentID", "eventID"),
       relationship = "many-to-many" # Silence warning
     ) %>%
     dplyr::left_join(
-      deployments(x),
+      deployments,
       by = "deploymentID"
     ) %>%
     dplyr::arrange(.data$deploymentID, .data$timestamp, .data$fileName) %>%
