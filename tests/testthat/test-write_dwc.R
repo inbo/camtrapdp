@@ -109,3 +109,15 @@ test_that("write_dwc() returns files that comply with the info in meta.xml", {
   expect_meta_match(file.path(temp_dir, "occurrence.csv"))
   expect_meta_match(file.path(temp_dir, "multimedia.csv"))
 })
+
+test_that("write_dwc() returns output when taxonID is missing", {
+  skip_if_offline()
+  x <- example_dataset()
+  optional_cols <- c("taxon.taxonID")
+  observations(x) <-
+    dplyr::select(observations(x), -dplyr::all_of(optional_cols))
+  temp_dir <- file.path(tempdir(), "dwc")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+
+  expect_no_error(suppressMessages(write_dwc(x, temp_dir)))
+})
