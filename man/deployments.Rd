@@ -10,12 +10,12 @@ deployments(x)
 deployments(x) <- value
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
 \item{value}{A data frame to assign as deployments.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} data frame with deployments.
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with deployments.
 }
 \description{
 \code{deployments()} gets the deployments from a Camera Trap Data Package object.

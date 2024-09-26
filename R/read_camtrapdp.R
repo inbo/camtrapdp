@@ -32,7 +32,7 @@
 #' being duplicated), for example when events and sub-events were defined.
 #'
 #' @param file Path or URL to a `datapackage.json` file.
-#' @return Camera Trap Data Package object.
+#' @return A Camera Trap Data Package object.
 #' @family read functions
 #' @export
 #' @examples
@@ -45,7 +45,7 @@ read_camtrapdp <- function(file) {
 
   # Check version
   version <- version(package)
-  supported_versions <- c("1.0")
+  supported_versions <- c("1.0", "1.0.1")
   if (!version %in% supported_versions) {
     cli::cli_abort(
       c(
@@ -69,8 +69,8 @@ read_camtrapdp <- function(file) {
   observations(x) <-
     frictionless::read_resource(package, "observations")
 
-  # Convert
-  x <- convert(x, convert_to = "1.0")
+  # Upgrade
+  x <- upgrade(x, upgrade_to = "1.0.1")
 
   # Add taxonomic info to observations
   taxonomy <- build_taxa(x)

@@ -7,7 +7,7 @@
 shift_time(x, deployment_id, duration)
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
 \item{deployment_id}{One or more deploymentIDs.}
 

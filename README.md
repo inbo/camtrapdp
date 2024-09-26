@@ -67,7 +67,7 @@ x
 #> Use `unclass()` to print the Data Package as a list.
 ```
 
-`read_camtrapdp()` will automatically **convert** an older version of
+`read_camtrapdp()` will automatically **upgrade** an older version of
 Camtrap DP to the latest version. It will also make the data easier to
 use, by assigning taxonomic information (found in the metadata) to the
 observations and `eventID`s (found in the observations) to the media.
@@ -110,6 +110,17 @@ x %>%
 
 For more functionality, see the [function
 reference](https://inbo.github.io/camtrapdp/reference/index.html).
+
+## GBIF pipeline
+
+The Global Biodiversity Information Facility
+([GBIF](https://www.gbif.org/)) uses camtrapdp to process Camera Trap
+Data Packages published with the Integrated Publishing Toolkit
+([IPT](https://www.gbif.org/ipt)). Datasets are first read with
+`read_camtrapdp()` and then converted to Darwin Core with `write_dwc()`
+and EML with `write_eml()`. See the [Camtrap DP pipeline
+repository](https://github.com/gbif/camtrap-dp-pipeline/tree/master/docker)
+for details.
 
 ## Meta
 

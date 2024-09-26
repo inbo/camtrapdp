@@ -33,3 +33,26 @@ test_that("version() returns x$profile when no match is found", {
   x$profile <- "foo/2.30/foo" # Must contain camtrap-dp/<version>
   expect_identical(version(x), "foo/2.30/foo")
 })
+
+test_that("version()<- assigns a version to a package and its resources", {
+  skip_if_offline()
+  x <- example_dataset()
+  version(x) <- "6.6.6"
+  expect_identical(version(x), "6.6.6")
+  expect_identical(
+    x$profile,
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/6.6.6/camtrap-dp-profile.json"
+  )
+  expect_identical(
+    x$resources[[1]]$schema,
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/6.6.6/deployments-table-schema.json"
+  )
+  expect_identical(
+    x$resources[[2]]$schema,
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/6.6.6/media-table-schema.json"
+  )
+  expect_identical(
+    x$resources[[3]]$schema,
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/6.6.6/observations-table-schema.json"
+  )
+})

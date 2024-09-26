@@ -10,12 +10,12 @@ observations(x)
 observations(x) <- value
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
 \item{value}{A data frame to assign as observations.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} data frame with observations.
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with observations.
 }
 \description{
 \code{observations()} gets the observations from a Camera Trap Data Package

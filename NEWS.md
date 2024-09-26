@@ -5,6 +5,7 @@
 * New function `shift_time()` allows to shift/correct date-times in data and metadata for specified deploymentIDs and duration (#105).
 * `filter_deployments()` now updates the spatial and temporal scope in the metadata (#72).
 * `filter_observations()` and `filter_media()` now update the taxonomic scope in the metadata (#73).
+* `read_camtrap_dp()` now upgrades datasets to Camtrap DP 1.0.1. The internal function `convert()` has been renamed to `upgrade()` (#113).
 
 # camtrapdp 0.3.1
 

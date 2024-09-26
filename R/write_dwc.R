@@ -83,10 +83,16 @@ write_dwc <- function(x, directory) {
   # Start transformation
   cli::cli_h2("Transforming data to Darwin Core")
 
+  # Read data and add optional columns that are used in transformation
+ deployments <- deployments(x)
+ media <- media(x)
+ observations_cols <- c("taxon.taxonID")
+ observations <- expand_cols(observations(x), observations_cols)
+
   # Create Darwin Core Occurrence core
   occurrence <-
-    observations(x) %>%
-    dplyr::left_join(deployments(x), by = "deploymentID") %>%
+    observations %>%
+    dplyr::left_join(deployments, by = "deploymentID") %>%
     dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
     dplyr::mutate(
       .keep = "none",
@@ -140,7 +146,7 @@ write_dwc <- function(x, directory) {
       eventRemarks = paste0(
         # E.g. "camera trap with bait near burrow | tags: <t1, t2> | <comment>"
         dplyr::if_else(
-          .data$baitUse,
+          as.logical(.data$baitUse),
           "camera trap with bait",
           "camera trap without bait"
         ),
@@ -204,7 +210,10 @@ write_dwc <- function(x, directory) {
         dplyr::if_else(
           is.na(.data$classificationProbability),
           "",
-          paste0(" with ", .data$classificationProbability * 100, "% certainty")
+          paste0(
+            " with ", as.numeric(.data$classificationProbability) * 100,
+            "% certainty"
+          )
         )
       ),
       taxonID = .data$taxon.taxonID,
@@ -227,15 +236,15 @@ write_dwc <- function(x, directory) {
 
   # Create Audubon/Audiovisual Media Description extension
   multimedia <-
-    observations(x) %>%
+    observations %>%
     dplyr::select(-"mediaID") %>%
     dplyr::left_join(
-      media(x),
+      media,
       by = c("deploymentID", "eventID"),
       relationship = "many-to-many" # Silence warning
     ) %>%
     dplyr::left_join(
-      deployments(x),
+      deployments,
       by = "deploymentID"
     ) %>%
     dplyr::arrange(.data$deploymentID, .data$timestamp, .data$fileName) %>%
@@ -264,7 +273,7 @@ write_dwc <- function(x, directory) {
       accessURI = .data$filePath,
       `dc:format` = .data$fileMediatype,
       serviceExpectation = dplyr::if_else(
-        .data$filePublic,
+        as.logical(.data$filePublic),
         "online",
         "authenticate"
       )

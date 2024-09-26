@@ -5,6 +5,22 @@
     <title>Sample from: MICA - Muskrat and coypu camera trap observations in Belgium, the Netherlands and Germany</title>
     <creator>
       <individualName>
+        <givenName>Axel</givenName>
+        <surName>Neukermans</surName>
+      </individualName>
+      <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+      <electronicMailAddress>axel.neukermans@inbo.be</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0003-0272-9180</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Danny</givenName>
+        <surName>Van der beeck</surName>
+      </individualName>
+      <electronicMailAddress>daniel.vanderbeeck@gmail.com</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
         <givenName>Emma</givenName>
         <surName>Cartuyvels</surName>
       </individualName>
@@ -20,7 +36,7 @@
       <electronicMailAddress>peter.desmet@inbo.be</electronicMailAddress>
       <userId directory="https://orcid.org/">0000-0002-8442-8025</userId>
     </creator>
-    <creator>
+    <metadataProvider>
       <individualName>
         <givenName>Axel</givenName>
         <surName>Neukermans</surName>
@@ -28,21 +44,6 @@
       <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
       <electronicMailAddress>axel.neukermans@inbo.be</electronicMailAddress>
       <userId directory="https://orcid.org/">0000-0003-0272-9180</userId>
-    </creator>
-    <creator>
-      <individualName>
-        <givenName>Danny</givenName>
-        <surName>Van der beeck</surName>
-      </individualName>
-      <electronicMailAddress>daniel.vanderbeeck@gmail.com</electronicMailAddress>
-    </creator>
-    <metadataProvider>
-      <individualName>
-        <givenName>Emma</givenName>
-        <surName>Cartuyvels</surName>
-      </individualName>
-      <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
-      <electronicMailAddress>emma.cartuyvels@inbo.be</electronicMailAddress>
     </metadataProvider>
     <pubDate>2023-02-06</pubDate>
     <abstract>
@@ -51,6 +52,15 @@
     </abstract>
     <keywordSet>
       <keyword>camera traps</keyword>
+      <keyword>public awareness campaign</keyword>
+      <keyword>flood protection</keyword>
+      <keyword>flood control</keyword>
+      <keyword>damage prevention</keyword>
+      <keyword>animal damage</keyword>
+      <keyword>pest control</keyword>
+      <keyword>invasive alien species</keyword>
+      <keyword>muskrat</keyword>
+      <keyword>coypu</keyword>
       <keywordThesaurus>n/a</keywordThesaurus>
     </keywordSet>
     <intellectualRights>
@@ -113,21 +123,23 @@
     </coverage>
     <contact>
       <individualName>
-        <givenName>Emma</givenName>
-        <surName>Cartuyvels</surName>
+        <givenName>Axel</givenName>
+        <surName>Neukermans</surName>
       </individualName>
       <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
-      <electronicMailAddress>emma.cartuyvels@inbo.be</electronicMailAddress>
+      <electronicMailAddress>axel.neukermans@inbo.be</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0003-0272-9180</userId>
     </contact>
     <project id="MICA">
       <title>Management of Invasive Coypu and muskrAt in Europe</title>
       <personnel>
         <individualName>
-          <givenName>Emma</givenName>
-          <surName>Cartuyvels</surName>
+          <givenName>Axel</givenName>
+          <surName>Neukermans</surName>
         </individualName>
         <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
-        <electronicMailAddress>emma.cartuyvels@inbo.be</electronicMailAddress>
+        <electronicMailAddress>axel.neukermans@inbo.be</electronicMailAddress>
+        <userId directory="https://orcid.org/">0000-0003-0272-9180</userId>
       </personnel>
       <abstract>
         <para>Invasive alien species such as the coypu and muskrat pose a major threat to biodiversity and cost millions of euros annually. By feeding on rushes and reeds, these animals cause serious damage to the environment in which they live and endangered species suffer from habitat loss. The disappearance of reeds and digging in dikes represents a safety risk for humans in the lowland areas. With the LIFE project MICA (&lt;https://lifemica.eu&gt;), the partners from the participating countries want to develop a transnational plan for the management of coypu and muskrat populations in Europe and aim to reduce their population. The objective of an effective population control of coypu and muskrat is to protect lowlands from flooding, to prevent crop damage and loss of biodiversity. The objective of the project is to serve as a pilot and demonstration project in which ‘best practices’ are tested and new techniques are developed for a more efficient control of muskrat and coypu populations. By involving organisations from Belgium, Germany and the Netherlands, the project also promotes international cooperation and knowledge exchange in the field of muskrat and coypu management.</para>
@@ -143,7 +155,7 @@
     <metadata>
       <gbif>
         <bibliography>
-          <citation>Desmet P, Neukermans A, Van der beeck D, Cartuyvels E (2022). Sample from: MICA - Muskrat and coypu camera trap observations in Belgium, the Netherlands and Germany. Version 1.0. Research Institute for Nature and Forest (INBO). Dataset. https://camtrap-dp.tdwg.org/example/</citation>
+          <citation>Desmet P, Neukermans A, Van der beeck D, Cartuyvels E (2022). Sample from: MICA - Muskrat and coypu camera trap observations in Belgium, the Netherlands and Germany. Version 1.0.1. Research Institute for Nature and Forest (INBO). Dataset. https://camtrap-dp.tdwg.org/example/</citation>
         </bibliography>
       </gbif>
     </metadata>

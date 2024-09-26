@@ -10,12 +10,12 @@ media(x)
 media(x) <- value
 }
 \arguments{
-\item{x}{Camera Trap Data Package object, as returned by \code{read_camtrapdp()}.}
+\item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
 \item{value}{A data frame to assign as media.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} data frame with media.
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with media.
 }
 \description{
 \code{media()} gets the media from a Camera Trap Data Package object.

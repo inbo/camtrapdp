@@ -8,7 +8,7 @@
 #'   structure can be guaranteed.
 #'
 #' @inheritParams print.camtrapdp
-#' @return [tibble::tibble()] data frame with media.
+#' @return A [tibble::tibble()] data frame with media.
 #' @family accessor functions
 #' @export
 #' @examples

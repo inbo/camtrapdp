@@ -9,7 +9,7 @@
 #'   structure can be guaranteed.
 #'
 #' @inheritParams print.camtrapdp
-#' @return [tibble::tibble()] data frame with observations.
+#' @return A [tibble::tibble()] data frame with observations.
 #' @family accessor functions
 #' @export
 #' @examples
