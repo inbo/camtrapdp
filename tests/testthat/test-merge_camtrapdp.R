@@ -7,7 +7,7 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   expect_no_error(
     suppressMessages(
       check_camtrapdp(
-        merge_camtrapdp(x1, x2, "new_package_name", "New title")
+        merge_camtrapdp(x1, x2)
         )
     )
   )
@@ -44,7 +44,7 @@ test_that("merge_camtrapdp() returns unique deplpymentIDs, mediaIDs and
 
   # merge
   x_merged <- suppressMessages(
-    merge_camtrapdp(x1, x2, "new_package_name", "New title")
+    merge_camtrapdp(x1, x2)
   )
 
   # get new IDs
@@ -82,7 +82,7 @@ test_that("merge_camtrapdp() returns message when IDs are replaced", {
     filter_media(mediaID %in% c("fb58a2b9", "0bb2566e", "a6a7a04c"))
 
   expect_message(
-    merge_camtrapdp(x1, x2, "new_package_name", "New title") #,
+    merge_camtrapdp(x1, x2) #,
     # regexp =  paste(
     #   "! `x1` and `x2` must have unique deploymentIDs.",
     #   "`x1` and `x2` have duplicated deploymentIDs: \"62c200a9\".",
