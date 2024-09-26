@@ -111,6 +111,17 @@ x %>%
 For more functionality, see the [function
 reference](https://inbo.github.io/camtrapdp/reference/index.html).
 
+## GBIF pipeline
+
+The Global Biodiversity Information Facility
+([GBIF](https://www.gbif.org/)) uses camtrapdp to process Camera Trap
+Data Packages published with the Integrated Publishing Toolkit
+([IPT](https://www.gbif.org/ipt)). Datasets are first read with
+`read_camtrapdp()` and then converted to Darwin Core with `write_dwc()`
+and EML with `write_eml()`. See the [Camtrap DP pipeline
+repository](https://github.com/gbif/camtrap-dp-pipeline/tree/master/docker)
+for details.
+
 ## Meta
 
 - We welcome
