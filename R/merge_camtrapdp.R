@@ -33,7 +33,7 @@ merge_camtrapdp <- function(x1, x2) {
   # Merge/update metadata
   x$name <- NA
   # Create new ID
-  x$id <- digest::digest(paste(x$title, x2$title), algo = "md5")
+  x$id <- NA
   x$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   x$title <- NA
   x$contributors <- remove_duplicates(c(x1$contributors, x2$contributors))
@@ -49,19 +49,26 @@ merge_camtrapdp <- function(x1, x2) {
   x$bibliographicCitation <- NULL
   x$coordinatePrecision <-
     max(x1$coordinatePrecision, x2$coordinatePrecision, na.rm = TRUE)
-
-  relatedIdentifiers_x1 <- list(
-    relationType = "IsDerivedFrom",
-    relatedIdentifier = x1$id,
-    resourceTypeGeneral = "Data package",
-    relatedIdentifierType = "id"
-  )
-  relatedIdentifiers_x2 <- list(
-    relationType = "IsDerivedFrom",
-    relatedIdentifier = x2$id,
-    resourceTypeGeneral = "Data package",
-    relatedIdentifierType = "id"
-  )
+  if (!is.null(x1$id)) {
+    relatedIdentifiers_x1 <- list(
+      relationType = "IsDerivedFrom",
+      relatedIdentifier = x1$id,
+      resourceTypeGeneral = "Data package",
+      relatedIdentifierType = "id"
+    )
+  } else {
+    relatedIdentifiers_x1 <- list()
+  }
+  if (!is.null(x2$id)) {
+    relatedIdentifiers_x2 <- list(
+      relationType = "IsDerivedFrom",
+      relatedIdentifier = x2$id,
+      resourceTypeGeneral = "Data package",
+      relatedIdentifierType = "id"
+    )
+  } else {
+    relatedIdentifiers_x2 <- list()
+  }
   new_relatedIdentifiers <- list(relatedIdentifiers_x1, relatedIdentifiers_x2)
   x$relatedIdentifiers <- remove_duplicates(
     c(x1$relatedIdentifiers, x2$relatedIdentifiers, new_relatedIdentifiers)
