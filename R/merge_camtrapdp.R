@@ -16,35 +16,10 @@
 #'   filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
 #' x2 <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
-#' x_merged <- merge_camtrapdp(x1, x2, "new_package_name", "New title")
-merge_camtrapdp <- function(x1, x2, name, title) {
+#' x_merged <- merge_camtrapdp(x1, x2)
+merge_camtrapdp <- function(x1, x2) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
-
-  # Valid name
-  regex_name <- "^[a-z0-9._-]+$"
-  if (!grepl(regex_name, name)) {
-    cli::cli_abort(
-      c(
-      "{.arg name} must be lower-case and contain only alphanumeric characters
-      along with \".\", \"_\" or \"-\" characters."
-        ),
-      class = "camtrapdp_error_invalid_name"
-    )
-  }
-
-  # Valid title
-  regex_title <- "^[A-Z][a-zA-Z0-9 :\\-]*[.!?]?$"
-
-  if (!(grepl(regex_title, title))) {
-    cli::cli_abort(
-      c(
-      "{.arg title} must be a string providing a title or one sentence
-      description for this package."
-      ),
-      class = "camtrapdp_error_invalid_title"
-    )
-  }
 
   # Replace duplicated IDs between `x1` and `x2` in `x2` with hashes
   x2 <- replace_duplicatedIDs(x1, x2)
@@ -56,11 +31,11 @@ merge_camtrapdp <- function(x1, x2, name, title) {
   observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
 
   # Merge/update metadata
-  x$name <- name
+  x$name <- NA
   # Create new ID
   x$id <- digest::digest(paste(x$title, x2$title), algo = "md5")
   x$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-  x$title <- title
+  x$title <- NA
   x$contributors <- remove_duplicates(c(x1$contributors, x2$contributors))
   paragraph <- paste0(
     "This dataset is a combination of 2 datasets: ", x1$title, "and", x2$title,
