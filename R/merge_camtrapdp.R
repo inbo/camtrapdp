@@ -2,12 +2,6 @@
 #'
 #' @param x1,x2 Camera Trap Data Package objects (as returned by
 #' `read_camtrapdp()`), to be coerced to one.
-#' @param name A short url-usable (and preferably human-readable)
-#' [name](https://specs.frictionlessdata.io/data-package/#name) for the
-#' merged package.
-#' @param title A string providing a
-#' [title](https://specs.frictionlessdata.io/data-package/#title) or one
-#' sentence description for the merged package.
 #' @return `x`
 #' @family transformation functions
 #' @export
