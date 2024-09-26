@@ -40,6 +40,8 @@ merge_camtrapdp <- function(x1, x2) {
   x$homepage <- NULL
   x$sources <- remove_duplicates(c(x1$sources, x2$sources))
   x$licenses <- remove_duplicates(c(x1$licenses, x2$licenses))
+  x$project <- NULL
+  x$projects <- list(x1$project, x2$project)
   x$bibliographicCitation <- NULL
   x$coordinatePrecision <-
     max(x1$coordinatePrecision, x2$coordinatePrecision, na.rm = TRUE)
