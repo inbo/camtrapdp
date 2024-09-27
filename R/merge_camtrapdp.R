@@ -20,13 +20,6 @@ merge_camtrapdp <- function(x1, x2) {
 
   # Add suffix to identifiers with duplicates
 
-
-  ##########
-
-  # Replace duplicated IDs between `x1` and `x2` in `x2` with hashes
-  x2 <- replace_duplicatedIDs(x1, x2)
-  ###############
-
   # Merge resources
   x <- x1
   deployments(x) <- dplyr::bind_rows(deployments(x1), deployments(x2))
