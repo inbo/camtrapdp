@@ -37,6 +37,16 @@ expand_cols <- function(df, colnames) {
   return(df)
 }
 
+#' Check for duplicated IDs
+#'
+#' Checks for duplicated IDs in two Camera Trap Data Package objects combined.
+#'
+#' @param x1,x2 Camera Trap Data Package objects (as returned by
+#' `read_camtrapdp()`), to be coerced to one.
+#' @return List with logical for each type of ID, that indicates whether that
+#' ID type has duplicates.
+#' @family helper functions
+#' @noRd
 check_duplicate_ids <- function(x1, x2) {
   x <- x1
   result = list(deploymentID = FALSE, mediaID = FALSE, observationID = FALSE)
