@@ -13,27 +13,40 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   )
 })
 
-test_that("merge_camtrapdp() returns no duplicated deploymentIDs, mediaIDs
-          and observationIDs", {
+test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
+          observationIDs", {
   skip_if_offline()
   x1 <- example_dataset()
-
-  # Merge
   x_merged <- merge_camtrapdp(x1, x1)
 
-  # Check for duplicates
   deploymentIDs <- purrr::pluck(deployments(x1), "deploymentID")
   mediaIDs <- purrr::pluck(media(x1), "mediaID")
   observationIDs <- purrr::pluck(observations(x1), "observationID")
 
-  # Tests
   expect_false(any(duplicated(deploymentIDs)))
   expect_false(any(duplicated(mediaIDs)))
   expect_false(any(duplicated(observationIDs)))
 })
 
-test_that("merge_camtrapdp() adds prefix to duplicated IDs but not if mediaID = NA", {
+test_that("merge_camtrapdp() adds prefixes to all values of identifiers
+          (deploymentID, mediaID, observationID and eventID) with duplicates
+          between packages, but not for mediaID = NA", {
+  skip_if_offline()
+  x <- example_dataset()
+  x_merged <- merge_camtrapdp(x, x, prefix = c("project1-", "project2-"))
 
+  expect_true("project1-00a2c20d" %in% deployments(x_merged)$deploymentID)
+  expect_true("project2-00a2c20d" %in% deployments(x_merged)$deploymentID)
+  expect_true("project1-00a2c20d" %in% media(x_merged)$deploymentID)
+  expect_true("project1-00a2c20d" %in% observations(x_merged)$deploymentID)
+
+  expect_true("project1-07840dcc" %in% media(x_merged)$mediaID)
+  expect_true("project1-07840dcc" %in% observations(x_merged)$mediaID)
+  expect_false("project1-NA" %in% observations(x_merged)$mediaID)
+  expect_true(NA %in% observations(x_merged)$mediaID)
+
+  expect_true("project1-705e6036" %in% observations(x_merged)$observationID)
+
+  expect_true("project1-4bb69c45" %in% media(x_merged)$eventID)
+  expect_true("project1-4bb69c45" %in% observations(x_merged)$eventID)
 })
-
-
