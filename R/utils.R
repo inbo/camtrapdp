@@ -235,21 +235,26 @@ replace_observationID <- function(x, old_observationID, new_observationID) {
   return(x)
 }
 
-#' Create hashes
-#'
-#' Set a vectorised function for creating hash function digests, using algorithm
-#' "crc32".
-#'
-#' @param object The object to be digested. This can be any R object that can be
-#' serialized into a raw vector.
-#' @return Hash summary as a character vector of the same length as the input
-#' @family helper functions
-#' @noRd
-#' @examples
-#' vdigest_crc32(c("00a2c20d", "29b7d356"))
-vdigest_crc32 <- function(object) {
-  vdigest_crc32 <- digest::getVDigest(algo = "crc32")
-  return(vdigest_crc32(object))
+check_duplicate_ids <- function(x1, x2) {
+  x <- x1
+  result = list(deploymentID = FALSE, mediaID = FALSE, observationID = FALSE)
+
+  # Merge resources
+  deployments(x) <- dplyr::bind_rows(deployments(x1), deployments(x2))
+  media(x) <- dplyr::bind_rows(media(x1), media(x2))
+  observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
+
+  # Get IDs
+  deploymentIDs <- purrr::pluck(deployments(x), "deploymentID")
+  mediaIDs <- purrr::pluck(media(x), "mediaID")
+  observationIDs <- purrr::pluck(observations(x), "observationID")
+
+  # Check for duplicates
+  if (any(duplicated(deploymentIDs))) {result$deploymentID <- TRUE}
+  if (any(duplicated(mediaIDs))) {result$mediaID <- TRUE}
+  if (any(duplicated(observationIDs))) {result$observationID <- TRUE}
+
+  return(result)
 }
 
 #' Replace duplicated IDs when merging Camera Trap Data packages

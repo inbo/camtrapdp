@@ -15,8 +15,17 @@ merge_camtrapdp <- function(x1, x2) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
 
+  # check if identifiers have duplicates
+  results_duplicate_ids <- check_duplicate_ids(x1, x2)
+
+  # Add suffix to identifiers with duplicates
+
+
+  ##########
+
   # Replace duplicated IDs between `x1` and `x2` in `x2` with hashes
   x2 <- replace_duplicatedIDs(x1, x2)
+  ###############
 
   # Merge resources
   x <- x1
