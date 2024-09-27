@@ -48,18 +48,20 @@ expand_cols <- function(df, colnames) {
 #' @family helper functions
 #' @noRd
 check_duplicate_ids <- function(x1, x2) {
-  x <- x1
   result = list(deploymentID = FALSE, mediaID = FALSE, observationID = FALSE)
 
-  # Merge resources
-  deployments(x) <- dplyr::bind_rows(deployments(x1), deployments(x2))
-  media(x) <- dplyr::bind_rows(media(x1), media(x2))
-  observations(x) <- dplyr::bind_rows(observations(x1), observations(x2))
-
-  # Get IDs
-  deploymentIDs <- purrr::pluck(deployments(x), "deploymentID")
-  mediaIDs <- purrr::pluck(media(x), "mediaID")
-  observationIDs <- purrr::pluck(observations(x), "observationID")
+  deploymentIDs <- c(
+    unique(purrr::pluck(deployments(x1), "deploymentID")),
+    unique(purrr::pluck(deployments(x2), "deploymentID"))
+  )
+  mediaIDs <- c(
+    unique(purrr::pluck(media(x1), "mediaID")),
+    unique(purrr::pluck(media(x2), "mediaID"))
+  )
+  observationIDs <- c(
+    unique(purrr::pluck(observations(x1), "observationID")),
+    unique(purrr::pluck(observations(x2), "observationID"))
+  )
 
   # Check for duplicates
   if (any(duplicated(deploymentIDs))) {result$deploymentID <- TRUE}
