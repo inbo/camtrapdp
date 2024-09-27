@@ -69,6 +69,64 @@ check_duplicate_ids <- function(x1, x2) {
   return(result)
 }
 
+#' Add suffix to identifiers with duplicates
+#'
+#' Adds suffix to all values of each identifier that has duplicates.
+#'
+#' @inheritParams print.camtrapdp
+#' @param suffix The suffix to add to the IDs.
+#' @param results_duplicate_ids Output generated with `check_duplicate_ids()`.
+#' List with logical for each type of ID, that indicates whether that ID type
+#' has duplicates.
+#' @return `x`
+#' @family helper functions
+#' @noRd
+#' @examples
+#' results_duplicate_ids <- list(
+#' deploymentID = TRUE, mediaID = TRUE, observationID = TRUE
+#' )
+#' x <- add_suffix(example_dataset(), results_duplicate_ids, suffix = ".x")
+add_suffix <- function(x, results_duplicate_ids, suffix) {
+
+  if (results_duplicate_ids$deploymentID) {
+    # Add suffix to deploymentIDs in deployments
+    deployments(x) <-
+      deployments(x) %>%
+      dplyr::mutate(deploymentID = paste0(.data$deploymentID, suffix))
+
+    # Add suffix to deploymentIDs in observations
+    observations(x) <-
+      observations(x) %>%
+      dplyr::mutate(deploymentID = paste0(.data$deploymentID, suffix))
+
+    # Add suffix to deploymentIDs in media
+    media(x) <-
+      media(x) %>%
+      dplyr::mutate(deploymentID = paste0(.data$deploymentID, suffix))
+  }
+
+  if (results_duplicate_ids$mediaID) {
+    # Add suffix to mediaIDs in media
+    media(x) <-
+      media(x) %>%
+      dplyr::mutate(mediaID = paste0(.data$mediaID, suffix))
+
+    # Add suffix to mediaIDs in observations
+    observations(x) <-
+      observations(x) %>%
+      dplyr::mutate(mediaID = paste0(.data$mediaID, suffix))
+  }
+
+  if (results_duplicate_ids$observationID) {
+    # Add suffix to observationIDs in observations
+    observations(x) <-
+      observations(x) %>%
+      dplyr::mutate(observationID = paste0(.data$observationID, suffix))
+  }
+
+  return(x)
+}
+
 #' Replace duplicated IDs when merging Camera Trap Data packages
 #'
 #' Replaces duplicated deploymentIDs, mediaIDs and observationIDs between
