@@ -22,7 +22,7 @@ merge_camtrapdp <- function(x1, x2, suffix = c(".x", ".y")) {
   results_duplicate_ids <- check_duplicate_ids(x1, x2)
 
   # Add suffix to identifiers with duplicates
-  if (any(results_duplicate_ids)) {
+  if (TRUE %in% results_duplicate_ids) {
 
     if (!is.character(suffix) || length(suffix) != 2) {
       cli::cli_alert_warning(
