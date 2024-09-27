@@ -23,6 +23,26 @@ merge_camtrapdp <- function(x1, x2, suffix = c(".x", ".y")) {
 
   # Add suffix to identifiers with duplicates
   if (any(results_duplicate_ids)) {
+
+    if (!is.character(suffix) || length(suffix) != 2) {
+      cli::cli_alert_warning(
+        c(
+          paste(
+            "{.arg suffix} must be a character vector of length 2, not",
+            "a {class(suffix)} object of length {length(suffix)}."
+          )
+        ),
+        class = "camtrapdp_warning_suffix_invalid"
+      )
+    }
+
+    if (any(is.na(suffix))) {
+      cli::cli_alert_warning(
+        "{.arg suffix} can't be 'NA'.",
+        class = "camtrapdp_warning_suffix_NA"
+      )
+    }
+
     x1 <- add_suffix(x1, results_duplicate_ids, suffix[1])
     x2 <- add_suffix(x2, results_duplicate_ids, suffix[2])
   }
