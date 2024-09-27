@@ -44,11 +44,13 @@ expand_cols <- function(df, colnames) {
 #' @param x1,x2 Camera Trap Data Package objects (as returned by
 #' `read_camtrapdp()`), to be coerced to one.
 #' @return List with logical for each type of ID, that indicates whether that
-#' ID type has duplicates.
+#' ID type has duplicates between x1 and x2.
 #' @family helper functions
 #' @noRd
 check_duplicate_ids <- function(x1, x2) {
-  result = list(deploymentID = FALSE, mediaID = FALSE, observationID = FALSE)
+  result = list(
+    deploymentID = FALSE, mediaID = FALSE, observationID = FALSE,
+    eventID = FALSE, individualID = FALSE)
 
   deploymentIDs <- c(
     unique(purrr::pluck(deployments(x1), "deploymentID")),
@@ -62,11 +64,21 @@ check_duplicate_ids <- function(x1, x2) {
     unique(purrr::pluck(observations(x1), "observationID")),
     unique(purrr::pluck(observations(x2), "observationID"))
   )
+  eventIDs <- c(
+    unique(purrr::pluck(media(x1), "eventID")),
+    unique(purrr::pluck(media(x2), "eventID"))
+  )
+  individualIDs <-  c(
+    unique(purrr::pluck(observations(x1), "individualID")),
+    unique(purrr::pluck(observations(x2), "individualID"))
+  )
 
   # Check for duplicates
   if (any(duplicated(deploymentIDs))) {result$deploymentID <- TRUE}
   if (any(duplicated(mediaIDs))) {result$mediaID <- TRUE}
   if (any(duplicated(observationIDs))) {result$observationID <- TRUE}
+  if (any(duplicated(eventIDs))) {result$eventID <- TRUE}
+  if (any(duplicated(individualIDs))) {result$individualID <- TRUE}
 
   return(result)
 }
@@ -84,12 +96,12 @@ check_duplicate_ids <- function(x1, x2) {
 #' @family helper functions
 #' @noRd
 #' @examples
-#' results_duplicate_ids <- list(
-#' deploymentID = TRUE, mediaID = TRUE, observationID = TRUE
-#' )
+#' results_duplicate_ids <- list(deploymentID = TRUE, mediaID = TRUE,
+#' observationID = TRUE, eventID = TRUE, individualID = TRUE)
 #' x <- add_suffix(example_dataset(), results_duplicate_ids, suffix = ".x")
 add_suffix <- function(x, results_duplicate_ids, suffix) {
 
+  # deploymentID
   if (results_duplicate_ids$deploymentID) {
     # Add suffix to deploymentIDs in deployments
     deployments(x) <-
@@ -107,6 +119,7 @@ add_suffix <- function(x, results_duplicate_ids, suffix) {
       dplyr::mutate(deploymentID = paste0(.data$deploymentID, suffix))
   }
 
+  # mediaID
   if (results_duplicate_ids$mediaID) {
     # Add suffix to mediaIDs in media
     media(x) <-
@@ -127,12 +140,46 @@ add_suffix <- function(x, results_duplicate_ids, suffix) {
       )
   }
 
+  # observationID
   if (results_duplicate_ids$observationID) {
     # Add suffix to observationIDs in observations
     observations(x) <-
       observations(x) %>%
       dplyr::mutate(observationID = paste0(.data$observationID, suffix))
   }
+
+  # eventID
+  if (results_duplicate_ids$eventID) {
+    # Add suffix to eventIDs in media
+    media(x) <-
+      media(x) %>%
+      dplyr::mutate(
+        eventID = ifelse(
+          !is.na(.data$eventID), paste0(.data$eventID, suffix), NA
+        )
+      )
+
+    # Add suffix to eventIDs in observations
+    observations(x) <-
+      observations(x) %>%
+      dplyr::mutate(
+        eventID = ifelse(
+          !is.na(.data$eventID), paste0(.data$eventID, suffix), NA
+        )
+      )
+  }
+
+    # individualID
+    if (results_duplicate_ids$individualID) {
+      # Add suffix to individualIDs in observations
+      observations(x) <-
+        observations(x) %>%
+        dplyr::mutate(
+          individualID = ifelse(
+            !is.na(.data$individualID), paste0(.data$individualID, suffix), NA
+          )
+        )
+    }
 
   return(x)
 }
