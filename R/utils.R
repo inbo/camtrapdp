@@ -94,7 +94,7 @@ check_duplicate_ids <- function(x1, x2) {
 #' results_duplicate_ids <- list(deploymentID = TRUE, mediaID = TRUE,
 #' observationID = TRUE, eventID = TRUE)
 #' x <- add_prefix(example_dataset(), results_duplicate_ids, prefix = ".x")
-add_prefix <- function(x, results_duplicate_ids) {
+add_prefix <- function(x, results_duplicate_ids, prefix) {
 
   # deploymentID
   if (results_duplicate_ids$deploymentID) {
