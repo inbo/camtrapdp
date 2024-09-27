@@ -7,20 +7,20 @@ test_that("merge_camtrapdp() returns error on duplicate Data Package id", {
   )
 })
 
-test_that("merge_camtrapdp() warns on invalid prefix", {
+test_that("merge_camtrapdp() returns error on invalid prefix", {
   skip_if_offline()
   x <- example_dataset()
   expect_error(
     merge_camtrapdp(x, x, prefix = c(1, 2)),
-    class = "camtrapdp_warning_prefix_invalid"
+    class = "camtrapdp_error_prefix_invalid"
   )
   expect_error(
     merge_camtrapdp(x, x, prefix = c("one", "two", "three")),
-    class = "camtrapdp_warning_prefix_invalid"
+    class = "camtrapdp_error_prefix_invalid"
   )
   expect_error(
     merge_camtrapdp(x, x, prefix = c("one-", NA)),
-    class = "camtrapdp_warning_prefix_NA"
+    class = "camtrapdp_error_prefix_NA"
   )
   expect_no_error(merge_camtrapdp(x, x, prefix = c("this_", "works_")))
 })

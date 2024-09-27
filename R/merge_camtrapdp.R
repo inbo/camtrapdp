@@ -45,14 +45,14 @@ merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
             "a {class(prefix)} object of length {length(prefix)}."
           )
         ),
-        class = "camtrapdp_warning_prefix_invalid"
+        class = "camtrapdp_error_prefix_invalid"
       )
     }
 
     if (any(is.na(prefix))) {
       cli::cli_abort(
         "{.arg prefix} can't be 'NA'.",
-        class = "camtrapdp_warning_prefix_NA"
+        class = "camtrapdp_error_prefix_NA"
       )
     }
 
