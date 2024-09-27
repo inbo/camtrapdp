@@ -78,12 +78,12 @@ check_duplicate_ids <- function(x1, x2) {
   return(result)
 }
 
-#' Add suffix to identifiers with duplicates
+#' Add prefix to identifiers with duplicates
 #'
-#' Adds suffix to all values of each identifier that has duplicates.
+#' Adds prefix to all values of each identifier that has duplicates.
 #'
 #' @inheritParams print.camtrapdp
-#' @param suffix The suffix to add to the IDs.
+#' @param prefix The prefix to add to the IDs.
 #' @param results_duplicate_ids Output generated with `check_duplicate_ids()`.
 #' List with logical for each type of ID, that indicates whether that ID type
 #' has duplicates.
@@ -93,73 +93,73 @@ check_duplicate_ids <- function(x1, x2) {
 #' @examples
 #' results_duplicate_ids <- list(deploymentID = TRUE, mediaID = TRUE,
 #' observationID = TRUE, eventID = TRUE)
-#' x <- add_suffix(example_dataset(), results_duplicate_ids, suffix = ".x")
-add_suffix <- function(x, results_duplicate_ids, suffix) {
+#' x <- add_prefix(example_dataset(), results_duplicate_ids, prefix = ".x")
+add_prefix <- function(x, results_duplicate_ids) {
 
   # deploymentID
   if (results_duplicate_ids$deploymentID) {
-    # Add suffix to deploymentIDs in deployments
+    # Add prefix to deploymentIDs in deployments
     deployments(x) <-
       deployments(x) %>%
-      dplyr::mutate(deploymentID = paste0(.data$deploymentID, suffix))
+      dplyr::mutate(deploymentID = paste0(prefix, .data$deploymentID))
 
-    # Add suffix to deploymentIDs in observations
+    # Add prefix to deploymentIDs in observations
     observations(x) <-
       observations(x) %>%
-      dplyr::mutate(deploymentID = paste0(.data$deploymentID, suffix))
+      dplyr::mutate(deploymentID = paste0(prefix, .data$deploymentID))
 
-    # Add suffix to deploymentIDs in media
+    # Add prefix to deploymentIDs in media
     media(x) <-
       media(x) %>%
-      dplyr::mutate(deploymentID = paste0(.data$deploymentID, suffix))
+      dplyr::mutate(deploymentID = paste0(prefix, .data$deploymentID))
   }
 
   # mediaID
   if (results_duplicate_ids$mediaID) {
-    # Add suffix to mediaIDs in media
+    # Add prefix to mediaIDs in media
     media(x) <-
       media(x) %>%
       dplyr::mutate(
         mediaID = ifelse(
-          !is.na(.data$mediaID), paste0(.data$mediaID, suffix), NA
+          !is.na(.data$mediaID), paste0(prefix, .data$mediaID), NA
           )
       )
 
-    # Add suffix to mediaIDs in observations
+    # Add prefix to mediaIDs in observations
     observations(x) <-
       observations(x) %>%
       dplyr::mutate(
         mediaID = ifelse(
-          !is.na(.data$mediaID), paste0(.data$mediaID, suffix), NA
+          !is.na(.data$mediaID), paste0(prefix, .data$mediaID), NA
         )
       )
   }
 
   # observationID
   if (results_duplicate_ids$observationID) {
-    # Add suffix to observationIDs in observations
+    # Add prefix to observationIDs in observations
     observations(x) <-
       observations(x) %>%
-      dplyr::mutate(observationID = paste0(.data$observationID, suffix))
+      dplyr::mutate(observationID = paste0(prefix, .data$observationID))
   }
 
   # eventID
   if (results_duplicate_ids$eventID) {
-    # Add suffix to eventIDs in media
+    # Add prefix to eventIDs in media
     media(x) <-
       media(x) %>%
       dplyr::mutate(
         eventID = ifelse(
-          !is.na(.data$eventID), paste0(.data$eventID, suffix), NA
+          !is.na(.data$eventID), paste0(prefix, .data$eventID), NA
         )
       )
 
-    # Add suffix to eventIDs in observations
+    # Add prefix to eventIDs in observations
     observations(x) <-
       observations(x) %>%
       dplyr::mutate(
         eventID = ifelse(
-          !is.na(.data$eventID), paste0(.data$eventID, suffix), NA
+          !is.na(.data$eventID), paste0(prefix, .data$eventID), NA
         )
       )
   }

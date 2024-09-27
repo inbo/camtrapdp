@@ -2,7 +2,7 @@
 #'
 #' @param x1,x2 Camera Trap Data Package objects (as returned by
 #' `read_camtrapdp()`), to be coerced to one.
-#' @param suffix If there are duplicate IDs in x1 an x2, these suffixes will be
+#' @param prefix If there are duplicate IDs in x1 an x2, these prefixes will be
 #' added to all the values of each identifier with duplicates, to disambiguate
 #' them. Should be a character vector of length 2.
 #' @return `x`
@@ -14,37 +14,37 @@
 #' x2 <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
 #' x_merged <- merge_camtrapdp(x1, x2)
-merge_camtrapdp <- function(x1, x2, suffix = c(".x", ".y")) {
+merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
 
   # check if identifiers have duplicates
   results_duplicate_ids <- check_duplicate_ids(x1, x2)
 
-  # Add suffix to identifiers with duplicates
+  # Add prefix to identifiers with duplicates
   if (TRUE %in% results_duplicate_ids) {
 
-    if (!is.character(suffix) || length(suffix) != 2) {
+    if (!is.character(prefix) || length(prefix) != 2) {
       cli::cli_alert_warning(
         c(
           paste(
-            "{.arg suffix} must be a character vector of length 2, not",
-            "a {class(suffix)} object of length {length(suffix)}."
+            "{.arg prefix} must be a character vector of length 2, not",
+            "a {class(prefix)} object of length {length(prefix)}."
           )
         ),
-        class = "camtrapdp_warning_suffix_invalid"
+        class = "camtrapdp_warning_prefix_invalid"
       )
     }
 
-    if (any(is.na(suffix))) {
+    if (any(is.na(prefix))) {
       cli::cli_alert_warning(
-        "{.arg suffix} can't be 'NA'.",
-        class = "camtrapdp_warning_suffix_NA"
+        "{.arg prefix} can't be 'NA'.",
+        class = "camtrapdp_warning_prefix_NA"
       )
     }
 
-    x1 <- add_suffix(x1, results_duplicate_ids, suffix[1])
-    x2 <- add_suffix(x2, results_duplicate_ids, suffix[2])
+    x1 <- add_prefix(x1, results_duplicate_ids, prefix[1])
+    x2 <- add_prefix(x2, results_duplicate_ids, prefix[2])
   }
 
   # Merge resources

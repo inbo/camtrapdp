@@ -32,7 +32,7 @@ test_that("merge_camtrapdp() returns no duplicated deploymentIDs, mediaIDs
   expect_false(any(duplicated(observationIDs)))
 })
 
-test_that("merge_camtrapdp() adds suffix to duplicated IDs but not if mediaID = NA", {
+test_that("merge_camtrapdp() adds prefix to duplicated IDs but not if mediaID = NA", {
 
 })
 
