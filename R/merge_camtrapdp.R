@@ -2,6 +2,9 @@
 #'
 #' @param x1,x2 Camera Trap Data Package objects (as returned by
 #' `read_camtrapdp()`), to be coerced to one.
+#' @param suffix If there are duplicate IDs in x1 an x2, these suffixes will be
+#' added to all the values of each identifier with duplicates, to disambiguate
+#' them. Should be a character vector of length 2.
 #' @return `x`
 #' @family transformation functions
 #' @export
@@ -11,7 +14,7 @@
 #' x2 <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
 #' x_merged <- merge_camtrapdp(x1, x2)
-merge_camtrapdp <- function(x1, x2) {
+merge_camtrapdp <- function(x1, x2, suffix = c(".x", ".y")) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
 
