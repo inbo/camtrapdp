@@ -1,3 +1,12 @@
+test_that("merge_camtrapdp() returns error on duplicate Data Package id", {
+  skip_if_offline()
+  x <- example_dataset()
+  expect_error(
+    merge_camtrapdp(x, x),
+    class = "camtrapdp_error_camtrapdpid_duplicated"
+  )
+})
+
 test_that("merge_camtrapdp() warns on invalid prefix", {
   skip_if_offline()
   x <- example_dataset()
