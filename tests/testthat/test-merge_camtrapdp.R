@@ -9,20 +9,26 @@ test_that("merge_camtrapdp() returns error on duplicate Data Package id", {
 
 test_that("merge_camtrapdp() returns error on invalid prefix", {
   skip_if_offline()
-  x <- example_dataset()
+  x1 <- example_dataset()
+  x2 <- example_dataset()
+  x1$id <- 1
+  x2$id <- 2
+
   expect_error(
-    merge_camtrapdp(x, x, prefix = c(1, 2)),
+    merge_camtrapdp(x1, x2, prefix = c(1, 2)),
     class = "camtrapdp_error_prefix_invalid"
   )
   expect_error(
-    merge_camtrapdp(x, x, prefix = c("one", "two", "three")),
+    merge_camtrapdp(x1, x2, prefix = c("one", "two", "three")),
     class = "camtrapdp_error_prefix_invalid"
   )
   expect_error(
-    merge_camtrapdp(x, x, prefix = c("one-", NA)),
+    merge_camtrapdp(x1, x2, prefix = c("one-", NA)),
     class = "camtrapdp_error_prefix_NA"
   )
-  expect_no_error(merge_camtrapdp(x, x, prefix = c("this_", "works_")))
+  expect_no_error(merge_camtrapdp(x1, x2, prefix = c("this_", "works_")))
+  prefix_ids <- c(paste0(x1$id, "-"), paste0(x2$id, "-"))
+  expect_no_error(merge_camtrapdp(x1, x2, prefix = prefix_ids))
 })
 
 test_that("merge_camtrapdp() returns a valid camtrapdp object", {
@@ -34,7 +40,7 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   expect_no_error(
     suppressMessages(
       check_camtrapdp(
-        merge_camtrapdp(x1, x2)
+        merge_camtrapdp(x1, x2,)
         )
     )
   )
@@ -44,7 +50,10 @@ test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
           observationIDs", {
   skip_if_offline()
   x1 <- example_dataset()
-  x_merged <- merge_camtrapdp(x1, x1)
+  x2 <- example_dataset()
+  x1$id <- 1
+  x2$id <- 2
+  x_merged <- merge_camtrapdp(x1, x2)
 
   deploymentIDs <- purrr::pluck(deployments(x1), "deploymentID")
   mediaIDs <- purrr::pluck(media(x1), "mediaID")
@@ -59,8 +68,11 @@ test_that("merge_camtrapdp() adds prefixes to all values of identifiers
           (deploymentID, mediaID, observationID and eventID) with duplicates
           between packages, but not for mediaID = NA", {
   skip_if_offline()
-  x <- example_dataset()
-  x_merged <- merge_camtrapdp(x, x, prefix = c("project1-", "project2-"))
+  x1 <- example_dataset()
+  x2 <- example_dataset()
+  x1$id <- 1
+  x2$id <- 2
+  x_merged <- merge_camtrapdp(x1, x2, prefix = c("project1-", "project2-"))
 
   expect_true("project1-00a2c20d" %in% deployments(x_merged)$deploymentID)
   expect_true("project2-00a2c20d" %in% deployments(x_merged)$deploymentID)
