@@ -4,11 +4,15 @@
 \alias{merge_camtrapdp}
 \title{Merge Camera Trap Data packages}
 \usage{
-merge_camtrapdp(x1, x2)
+merge_camtrapdp(x1, x2, prefix = c("x.", "y."))
 }
 \arguments{
 \item{x1, x2}{Camera Trap Data Package objects (as returned by
 \code{read_camtrapdp()}), to be coerced to one.}
+
+\item{prefix}{If there are duplicate IDs in x1 an x2, these prefixes will be
+added to all the values of each identifier with duplicates, to disambiguate
+them. Should be a character vector of length 2.}
 }
 \value{
 \code{x}
