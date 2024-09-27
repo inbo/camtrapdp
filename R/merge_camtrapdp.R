@@ -55,14 +55,11 @@ merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
 
   # Merge/update metadata
   x$name <- NA
-  # Create new ID
   x$id <- NA
   x$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   x$title <- NA
   x$contributors <- remove_duplicates(c(x1$contributors, x2$contributors))
-  paragraph <- paste0(
-    "This dataset is a combination of 2 datasets: ", x1$title, "and", x2$title,
-    ".")
+  x$description <- paste(x1$description, x2$description, sep = "/n")
   x$version <- "1.0"
   x$keywords <- unique(x1$keywords, x2$keywords)
   x$image <- NULL
@@ -74,6 +71,7 @@ merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
   x$bibliographicCitation <- NULL
   x$coordinatePrecision <-
     max(x1$coordinatePrecision, x2$coordinatePrecision, na.rm = TRUE)
+
   if (!is.null(x1$id)) {
     relatedIdentifiers_x1 <- list(
       relationType = "IsDerivedFrom",
