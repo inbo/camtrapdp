@@ -1,3 +1,21 @@
+test_that("merge_camtrapdp() warns on invalid prefix", {
+  skip_if_offline()
+  x <- example_dataset()
+  expect_error(
+    merge_camtrapdp(x, x, prefix = c(1, 2)),
+    class = "camtrapdp_warning_prefix_invalid"
+  )
+  expect_error(
+    merge_camtrapdp(x, x, prefix = c("one", "two", "three")),
+    class = "camtrapdp_warning_prefix_invalid"
+  )
+  expect_error(
+    merge_camtrapdp(x, x, prefix = c("one-", NA)),
+    class = "camtrapdp_warning_prefix_NA"
+  )
+  expect_no_error(merge_camtrapdp(x, x, prefix = c("this_", "works_")))
+})
+
 test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   skip_if_offline()
   x1 <- example_dataset() %>%
