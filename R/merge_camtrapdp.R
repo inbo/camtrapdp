@@ -19,6 +19,10 @@ merge_camtrapdp <- function(x1, x2) {
   results_duplicate_ids <- check_duplicate_ids(x1, x2)
 
   # Add suffix to identifiers with duplicates
+  if (any(results_duplicate_ids)) {
+    x1 <- add_suffix(x1, results_duplicate_ids, suffix[1])
+    x2 <- add_suffix(x2, results_duplicate_ids, suffix[2])
+  }
 
   # Merge resources
   x <- x1
