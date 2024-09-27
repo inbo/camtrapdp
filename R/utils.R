@@ -50,7 +50,7 @@ expand_cols <- function(df, colnames) {
 check_duplicate_ids <- function(x1, x2) {
   result = list(
     deploymentID = FALSE, mediaID = FALSE, observationID = FALSE,
-    eventID = FALSE, individualID = FALSE)
+    eventID = FALSE)
 
   deploymentIDs <- c(
     unique(purrr::pluck(deployments(x1), "deploymentID")),
@@ -68,17 +68,12 @@ check_duplicate_ids <- function(x1, x2) {
     unique(purrr::pluck(media(x1), "eventID")),
     unique(purrr::pluck(media(x2), "eventID"))
   )
-  individualIDs <-  c(
-    unique(purrr::pluck(observations(x1), "individualID")),
-    unique(purrr::pluck(observations(x2), "individualID"))
-  )
 
   # Check for duplicates
   if (any(duplicated(deploymentIDs))) {result$deploymentID <- TRUE}
   if (any(duplicated(mediaIDs))) {result$mediaID <- TRUE}
   if (any(duplicated(observationIDs))) {result$observationID <- TRUE}
   if (any(duplicated(eventIDs))) {result$eventID <- TRUE}
-  if (any(duplicated(individualIDs))) {result$individualID <- TRUE}
 
   return(result)
 }
@@ -97,7 +92,7 @@ check_duplicate_ids <- function(x1, x2) {
 #' @noRd
 #' @examples
 #' results_duplicate_ids <- list(deploymentID = TRUE, mediaID = TRUE,
-#' observationID = TRUE, eventID = TRUE, individualID = TRUE)
+#' observationID = TRUE, eventID = TRUE)
 #' x <- add_suffix(example_dataset(), results_duplicate_ids, suffix = ".x")
 add_suffix <- function(x, results_duplicate_ids, suffix) {
 
@@ -168,18 +163,6 @@ add_suffix <- function(x, results_duplicate_ids, suffix) {
         )
       )
   }
-
-    # individualID
-    if (results_duplicate_ids$individualID) {
-      # Add suffix to individualIDs in observations
-      observations(x) <-
-        observations(x) %>%
-        dplyr::mutate(
-          individualID = ifelse(
-            !is.na(.data$individualID), paste0(.data$individualID, suffix), NA
-          )
-        )
-    }
 
   return(x)
 }
