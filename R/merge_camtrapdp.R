@@ -25,7 +25,7 @@ merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
   if (TRUE %in% results_duplicate_ids) {
 
     if (!is.character(prefix) || length(prefix) != 2) {
-      cli::cli_alert_warning(
+      cli::cli_abort(
         c(
           paste(
             "{.arg prefix} must be a character vector of length 2, not",
@@ -37,7 +37,7 @@ merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
     }
 
     if (any(is.na(prefix))) {
-      cli::cli_alert_warning(
+      cli::cli_abort(
         "{.arg prefix} can't be 'NA'.",
         class = "camtrapdp_warning_prefix_NA"
       )
