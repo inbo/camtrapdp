@@ -109,12 +109,20 @@ add_suffix <- function(x, results_duplicate_ids, suffix) {
     # Add suffix to mediaIDs in media
     media(x) <-
       media(x) %>%
-      dplyr::mutate(mediaID = paste0(.data$mediaID, suffix))
+      dplyr::mutate(
+        mediaID = ifelse(
+          !is.na(.data$mediaID), paste0(.data$mediaID, suffix), NA
+          )
+      )
 
     # Add suffix to mediaIDs in observations
     observations(x) <-
       observations(x) %>%
-      dplyr::mutate(mediaID = paste0(.data$mediaID, suffix))
+      dplyr::mutate(
+        mediaID = ifelse(
+          !is.na(.data$mediaID), paste0(.data$mediaID, suffix), NA
+        )
+      )
   }
 
   if (results_duplicate_ids$observationID) {
