@@ -19,17 +19,19 @@ merge_camtrapdp <- function(x1, x2, prefix = c(x1$id, x2$id)) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
 
-  if (x1$id == x2$id) {
-    cli::cli_abort(
-      c(
-        paste0(
-          "{.arg x1} and {.arg x2} should be different Camera Trap Data",
-          "Package objects with unique identifiers."
+  if (!is.null(x1$id) & !is.null(x2$id)) {
+    if (x1$id == x2$id) {
+      cli::cli_abort(
+        c(
+          paste0(
+            "{.arg x1} and {.arg x2} should be different Camera Trap Data",
+            "Package objects with unique identifiers."
+          ),
+          x = "{.arg x1} and {.arg x2} have the same id: {.value x1$id}"
         ),
-        x = "{.arg x1} and {.arg x2} have the same id: {.value x1$id}"
-      ),
-      class = "camtrapdp_error_camtrapdpid_duplicated"
-    )
+        class = "camtrapdp_error_camtrapdpid_duplicated"
+      )
+    }
   }
 
   # check if identifiers have duplicates
