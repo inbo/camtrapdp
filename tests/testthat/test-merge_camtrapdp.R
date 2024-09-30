@@ -84,3 +84,66 @@ test_that("merge_camtrapdp() adds prefixes to all values of identifiers
   expect_true("project1-4bb69c45" %in% media(x_merged)$eventID)
   expect_true("project1-4bb69c45" %in% observations(x_merged)$eventID)
 })
+
+test_that("merge_camtrapdp() returns the expected result", {
+  skip_if_offline()
+  x1 <- example_dataset()
+  x2 <- example_dataset()
+  x1$id <- "1"
+  x2$id <- "2"
+  x_merged <- merge_camtrapdp(x1, x2)
+
+  # Check metadata
+  expect_identical(x_merged$resources, x1$resources)
+  expect_identical(x_merged$profile, "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json")
+  expect_identical(x_merged$name, NA)
+  expect_identical(x_merged$id, NA)
+  expect_identical(x_merged$title, NA)
+  expect_identical(x_merged$contributors, x1$contributors)
+  # no test for description
+  expect_identical(x_merged$version, "1.0")
+  expect_identical(x_merged$keywords, x1$keywords)
+  expect_identical(x_merged$image, NULL)
+  expect_identical(x_merged$homepage, NULL)
+  expect_identical(x_merged$sources, x1$sources)
+  expect_equal(x_merged$licenses, x1$licenses) # fails because remove_duplicates switches order of subelements
+  expect_identical(x_merged$bibliographicCitation, NULL)
+  expect_identical(x_merged$projects, list(x1$project, x2$project))
+  expect_identical(x_merged$coordinatePrecision, x1$coordinatePrecision)
+  expect_identical(x_merged$spatial, x1$spatial)
+  expect_identical(x_merged$temporal, x1$temporal)
+  expect_identical(x_merged$taxonomic, x1$taxonomic)
+  expect_identical(x_merged$references, x1$references)
+  expect_identical(x_merged$directory, x1$directory)
+
+  relatedIdentifiers_merged <- list(
+    list(
+      relationType = "IsDerivedFrom",
+      relatedIdentifier = "https://doi.org/10.15468/5tb6ze",
+      resourceTypeGeneral = "Dataset",
+      relatedIdentifierType = "DOI"
+    ),
+    list(
+      relationType = "IsSupplementTo",
+      relatedIdentifier = "https://inbo.github.io/camtraptor/",
+      resourceTypeGeneral = "Software",
+      relatedIdentifierType = "URL"
+    ),
+    list(
+      relationType = "IsDerivedFrom",
+      relatedIdentifier = "1",
+      resourceTypeGeneral = "Data package",
+      relatedIdentifierType = "id"
+    ),
+    list(
+      relationType = "IsDerivedFrom",
+      relatedIdentifier = "2",
+      resourceTypeGeneral = "Data package",
+      relatedIdentifierType = "id"
+    )
+  )
+
+  expect_identical(x_merged$relatedIdentifiers, relatedIdentifiers_merged)
+
+  # Check data
+})
