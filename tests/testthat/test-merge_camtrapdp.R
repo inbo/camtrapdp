@@ -50,9 +50,9 @@ test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
   x2$id <- "2"
   x_merged <- merge_camtrapdp(x1, x2)
 
-  deploymentIDs <- purrr::pluck(deployments(x1), "deploymentID")
-  mediaIDs <- purrr::pluck(media(x1), "mediaID")
-  observationIDs <- purrr::pluck(observations(x1), "observationID")
+  deploymentIDs <- purrr::pluck(deployments(x_merged), "deploymentID")
+  mediaIDs <- purrr::pluck(media(x_merged), "mediaID")
+  observationIDs <- purrr::pluck(observations(x_merged), "observationID")
 
   expect_false(any(duplicated(deploymentIDs)))
   expect_false(any(duplicated(mediaIDs)))
