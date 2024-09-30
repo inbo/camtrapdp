@@ -4,7 +4,8 @@
 #' `read_camtrapdp()`), to be coerced to one.
 #' @param prefix If there are duplicate IDs in x1 an x2, these prefixes will be
 #' added to all the values of each identifier with duplicates, to disambiguate
-#' them. Should be a character vector of length 2.
+#' them. Should be a character vector of length 2. By default, the prefixes are
+#' the ID's of the Data Package.
 #' @return `x`
 #' @family transformation functions
 #' @export
@@ -14,7 +15,7 @@
 #' x2 <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
 #' x_merged <- merge_camtrapdp(x1, x2)
-merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
+merge_camtrapdp <- function(x1, x2, prefix) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
 
@@ -55,6 +56,10 @@ merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
         class = "camtrapdp_error_prefix_NA"
       )
     }
+
+    # Set default prefixes
+    if (is.null(prefix)) {
+      prefix <- c(paste0(x1$id, "_"), paste0(x2$id, "_"))}
 
     x1 <- add_prefix(x1, results_duplicate_ids, prefix[1])
     x2 <- add_prefix(x2, results_duplicate_ids, prefix[2])
