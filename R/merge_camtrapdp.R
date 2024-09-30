@@ -77,7 +77,7 @@ merge_camtrapdp <- function(x1, x2, prefix = c(x1$id, x2$id)) {
   x$contributors <- remove_duplicates(c(x1$contributors, x2$contributors))
   x$description <- paste(x1$description, x2$description, sep = "/n")
   x$version <- "1.0"
-  x$keywords <- unique(x1$keywords, x2$keywords)
+  x$keywords <- unique(c(x1$keywords, x2$keywords))
   x$image <- NULL
   x$homepage <- NULL
   x$sources <- remove_duplicates(c(x1$sources, x2$sources))
