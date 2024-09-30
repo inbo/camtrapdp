@@ -88,7 +88,7 @@ merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
   if (!is.null(x1$id)) {
     relatedIdentifiers_x1 <- list(
       relationType = "IsDerivedFrom",
-      relatedIdentifier = x1$id,
+      relatedIdentifier = as.character(x1$id),
       resourceTypeGeneral = "Data package",
       relatedIdentifierType = "id"
     )
@@ -98,7 +98,7 @@ merge_camtrapdp <- function(x1, x2, prefix = c("x.", "y.")) {
   if (!is.null(x2$id)) {
     relatedIdentifiers_x2 <- list(
       relationType = "IsDerivedFrom",
-      relatedIdentifier = x2$id,
+      relatedIdentifier = as.character(x2$id),
       resourceTypeGeneral = "Data package",
       relatedIdentifierType = "id"
     )
