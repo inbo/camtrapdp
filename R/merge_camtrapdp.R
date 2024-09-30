@@ -15,7 +15,7 @@
 #' x2 <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
 #' x_merged <- merge_camtrapdp(x1, x2)
-merge_camtrapdp <- function(x1, x2, prefix) {
+merge_camtrapdp <- function(x1, x2, prefix = c(x1$id, x2$id)) {
   check_camtrapdp(x1)
   check_camtrapdp(x2)
 
@@ -56,10 +56,6 @@ merge_camtrapdp <- function(x1, x2, prefix) {
         class = "camtrapdp_error_prefix_NA"
       )
     }
-
-    # Set default prefixes
-    if (is.null(prefix)) {
-      prefix <- c(paste0(x1$id, "_"), paste0(x2$id, "_"))}
 
     x1 <- add_prefix(x1, results_duplicate_ids, prefix[1])
     x2 <- add_prefix(x2, results_duplicate_ids, prefix[2])
