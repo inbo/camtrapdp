@@ -254,7 +254,7 @@ test_that("merge_camtrapdp() does x and y", {
   expect_identical(x_merged$sources, sources)
   expect_equal(x_merged$licenses, licenses) # fails because remove_duplicates switches order of subelements
   expect_identical(x_merged$bibliographicCitation, NULL)
-  expect_identical(x_merged$projects, list(project, x2$project))
+  expect_identical(x_merged$projects, list(x1$project, x2$project))
   expect_identical(x_merged$coordinatePrecision, coordinatePrecision)
   expect_identical(x_merged$spatial, spatial)
   expect_identical(x_merged$temporal, temporal)
