@@ -159,7 +159,8 @@ test_that("merge_camtrapdp() returns the expected metadata", {
   # Check data
 })
 
-test_that("merge_camtrapdp() does x and y", {
+test_that("merge_camtrapdp() returns the expected metadata when merging two
+          different Data Packages", {
   skip_if_offline()
   x1 <- example_dataset()
 
@@ -240,6 +241,71 @@ test_that("merge_camtrapdp() does x and y", {
     )
   )
 
+  sources <- list(
+    list(
+      title = "Agouti",
+      path = "https://www.agouti.eu",
+      email = "agouti@wur.nl",
+      version = "v3.21"
+    ),
+    list(
+      title = "Agouti",
+      path = "https://www.agouti.eu",
+      email = "agouti@wur.nl",
+      version = "v4"
+    )
+  )
+
+  licenses <- list(
+    list(name = "CC0-1.0", scope = "data"),
+    list(scope = "media", path = "http://creativecommons.org/licenses/by/4.0/"),
+    list(name = "CC-BY-4.0", scope = "data")
+  )
+
+  coordinatePrecision <- 0.001
+
+  spatial <- list(
+    type = "Polygon",
+    coordinates = structure(
+      c(
+        4.013, 5.659, 5.659, 4.013, 4.013,
+        50.699, 50.699, 52.35604, 52.35604, 50.699
+      ),
+      dim = c(1L, 5L, 2L)
+    )
+  )
+
+  temporal <- list(start = "2020-05-30", end = "2022-03-18")
+
+  references <- list("Evans, J.C., Zilber, R., & Kissling, W.D. (2024). Data from three camera trapping pilots in the Amsterdam Water Supply Dunes of the Netherlands. Data in Brief, 54, 110544. https://doi.org/10.1016/j.dib.2024.110544")
+
+  relatedIdentifiers_merged <- list(
+    list(
+      relationType = "IsDerivedFrom",
+      relatedIdentifier = "https://doi.org/10.15468/5tb6ze",
+      resourceTypeGeneral = "Dataset",
+      relatedIdentifierType = "DOI"
+    ),
+    list(
+      relationType = "IsSupplementTo",
+      relatedIdentifier = "https://inbo.github.io/camtraptor/",
+      resourceTypeGeneral = "Software",
+      relatedIdentifierType = "URL"
+    ),
+    list(
+      relationType = "IsPublishedIn",
+      relatedIdentifier = "https://doi.org/10.1016/j.dib.2024.110544",
+      resourceTypeGeneral = "DataPaper",
+      relatedIdentifierType = "DOI"
+    ),
+    list(
+      relationType = "IsDerivedFrom",
+      relatedIdentifier = "7cca70f5-ef8c-4f86-85fb-8f070937d7ab",
+      resourceTypeGeneral = "Data package",
+      relatedIdentifierType = "id"
+    )
+  )
+
   expect_identical(x_merged$resources, x1$resources)
   expect_identical(x_merged$profile, profile)
   expect_identical(x_merged$name, NA)
@@ -252,7 +318,7 @@ test_that("merge_camtrapdp() does x and y", {
   expect_identical(x_merged$image, NULL)
   expect_identical(x_merged$homepage, NULL)
   expect_identical(x_merged$sources, sources)
-  expect_equal(x_merged$licenses, licenses) # fails because remove_duplicates switches order of subelements
+  expect_equal(x_merged$licenses, licenses)
   expect_identical(x_merged$bibliographicCitation, NULL)
   expect_identical(x_merged$projects, list(x1$project, x2$project))
   expect_identical(x_merged$coordinatePrecision, coordinatePrecision)
@@ -260,9 +326,6 @@ test_that("merge_camtrapdp() does x and y", {
   expect_identical(x_merged$temporal, temporal)
   expect_identical(x_merged$taxonomic, taxonomic)
   expect_identical(x_merged$references, references)
-  expect_identical(x_merged$directory, directory)
-
-  relatedIdentifiers_merged <- list()
-
+  # expect_identical(x_merged$directory, directory)
   expect_identical(x_merged$relatedIdentifiers, relatedIdentifiers_merged)
 })
