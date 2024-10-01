@@ -113,10 +113,10 @@ merge_camtrapdp <- function(x1, x2, prefix = c(x1$id, x2$id)) {
     c(x1$relatedIdentifiers, x2$relatedIdentifiers, new_relatedIdentifiers)
   )
 
-  x$references <- remove_duplicates(c(x1$references, x2$references))
+  x$references <- unique(c(x1$references, x2$references))
 
-  x <-
-    update_spatial(x) %>%
+  x <- x %>%
+    update_spatial() %>%
     update_temporal() %>%
     update_taxonomic()
 
