@@ -14,7 +14,7 @@
 #'   filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
 #' y <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
-#' merged_xy <- merge_camtrapdp(x, y)
+#' xy_merged <- merge_camtrapdp(x, y)
 merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
   check_camtrapdp(x)
   check_camtrapdp(y)
@@ -64,28 +64,28 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
   }
 
   # Merge resources
-  x <- x
-  deployments(x) <- dplyr::bind_rows(deployments(x), deployments(y))
-  media(x) <- dplyr::bind_rows(media(x), media(y))
-  observations(x) <- dplyr::bind_rows(observations(x), observations(y))
+  xy_merged <- x
+  deployments(xy_merged) <- dplyr::bind_rows(deployments(x), deployments(y))
+  media(xy_merged) <- dplyr::bind_rows(media(x), media(y))
+  observations(xy_merged) <- dplyr::bind_rows(observations(x), observations(y))
 
   # Merge/update metadata
-  x$name <- NA
-  x$id <- NA
-  x$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-  x$title <- NA
-  x$contributors <- remove_duplicates(c(x$contributors, y$contributors))
-  x$description <- paste(x$description, y$description, sep = "/n")
-  x$version <- "1.0"
-  x$keywords <- unique(c(x$keywords, y$keywords))
-  x$image <- NULL
-  x$homepage <- NULL
-  x$sources <- remove_duplicates(c(x$sources, y$sources))
-  x$licenses <- remove_duplicates(c(x$licenses, y$licenses))
-  x$project <- NULL
-  x$projects <- list(x$project, y$project)
-  x$bibliographicCitation <- NULL
-  x$coordinatePrecision <-
+  xy_merged$name <- NA
+  xy_merged$id <- NA
+  xy_merged$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+  xy_merged$title <- NA
+  xy_merged$contributors <- remove_duplicates(c(x$contributors, y$contributors))
+  xy_merged$description <- paste(x$description, y$description, sep = "/n")
+  xy_merged$version <- "1.0"
+  xy_merged$keywords <- unique(c(x$keywords, y$keywords))
+  xy_merged$image <- NULL
+  xy_merged$homepage <- NULL
+  xy_merged$sources <- remove_duplicates(c(x$sources, y$sources))
+  xy_merged$licenses <- remove_duplicates(c(x$licenses, y$licenses))
+  xy_merged$project <- NULL
+  xy_merged$projects <- list(x$project, y$project)
+  xy_merged$bibliographicCitation <- NULL
+  xy_merged$coordinatePrecision <-
     max(x$coordinatePrecision, y$coordinatePrecision, na.rm = TRUE)
 
   if (!is.null(x$id)) {
@@ -109,16 +109,16 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
     relatedIdentifiers_y <- list()
   }
   new_relatedIdentifiers <- list(relatedIdentifiers_x, relatedIdentifiers_y)
-  x$relatedIdentifiers <- remove_duplicates(
+  xy_merged$relatedIdentifiers <- remove_duplicates(
     c(x$relatedIdentifiers, y$relatedIdentifiers, new_relatedIdentifiers)
   )
 
-  x$references <- unique(c(x$references, y$references))
+  xy_merged$references <- unique(c(x$references, y$references))
 
-  x <- x %>%
+  xy_merged <- xy_merged %>%
     update_spatial() %>%
     update_temporal() %>%
     update_taxonomic()
 
-  return(x)
+  return(xy_merged)
 }
