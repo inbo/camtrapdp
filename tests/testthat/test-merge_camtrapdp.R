@@ -377,3 +377,27 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   # expect_identical(xy_merged$directory, directory)
   expect_identical(xy_merged$relatedIdentifiers, relatedIdentifiers_merged)
 })
+
+test_that("merge_camtrapdp() can be used in a pipe to merge multiple
+          camtrap DP", {
+  skip_if_offline()
+
+  temp_dir <- tempdir()
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  zip_file <- file.path(temp_dir, "dataset.zip")
+  datapackage_file <- file.path(temp_dir, "datapackage.json")
+  url <- "https://ipt.nlbif.nl/archive.do?r=awd_pilot2"
+
+  download.file(url, zip_file, mode = 'wb')
+  unzip(zip_file, exdir = temp_dir)
+
+  x <- read_camtrapdp(datapackage_file)
+  y <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
+  z <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
+  y$id <- "y"
+  z$id <- "z"
+
+  expect_no_error(x %>% merge_camtrapdp(y) %>% merge_camtrapdp(z))
+})
