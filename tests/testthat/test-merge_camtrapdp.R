@@ -156,7 +156,7 @@ test_that("merge_camtrapdp() returns the expected metadata ", {
   expect_identical(xy_merged$resources, x$resources)
   expect_identical(xy_merged$profile, "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json")
   expect_identical(xy_merged$name, NA)
-  expect_identical(xy_merged$id, NA)
+  expect_identical(xy_merged$id, NULL)
   expect_identical(xy_merged$title, NA)
   expect_identical(xy_merged$contributors, x$contributors)
   expect_identical(
@@ -362,7 +362,7 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   expect_identical(xy_merged$resources, x$resources)
   expect_identical(xy_merged$profile, profile)
   expect_identical(xy_merged$name, NA)
-  expect_identical(xy_merged$id, NA)
+  expect_identical(xy_merged$id, NULL)
   expect_identical(xy_merged$title, NA)
   expect_identical(xy_merged$contributors, contributors)
   expect_identical(
