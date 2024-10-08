@@ -23,7 +23,6 @@ test_that("merge_camtrapdp() returns error on invalid prefix", {
   y <- example_dataset()
   x$id <- "1"
   y$id <- "2"
-
   expect_error(
     merge_camtrapdp(x, y, prefix = c(1, 2)),
     class = "camtrapdp_error_prefix_invalid"
@@ -36,9 +35,16 @@ test_that("merge_camtrapdp() returns error on invalid prefix", {
     merge_camtrapdp(x, y, prefix = c("one", NA)),
     class = "camtrapdp_error_prefix_NA"
   )
+
+  expect_no_error(merge_camtrapdp(x, y))
   expect_no_error(merge_camtrapdp(x, y, prefix = c("this", "works")))
-  prefix_ids <- c(x$id, y$id)
-  expect_no_error(merge_camtrapdp(x, y, prefix = prefix_ids))
+
+  x$id <- NULL
+  y$id <- NULL
+  expect_error(
+    merge_camtrapdp(x, y),
+    class = "camtrapdp_error_prefix_invalid"
+  )
 })
 
 test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
@@ -59,7 +65,7 @@ test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
   expect_false(any(duplicated(observationIDs)))
 })
 
-test_that("merge_camtrapdp() adds prefixes to all values of identifiers
+test_that("merge_camtrapdp() adds default prefixes to all values of identifiers
           (deploymentID, mediaID, observationID and eventID) with duplicates
           between packages, but not for mediaID = NA", {
   skip_if_offline()
@@ -67,36 +73,73 @@ test_that("merge_camtrapdp() adds prefixes to all values of identifiers
   y <- example_dataset()
   x$id <- "1"
   y$id <- "2"
-
-  # Default prefixes
-  xy_merged_default <- merge_camtrapdp(x, y)
-  expect_true("1_00a2c20d" %in% deployments(xy_merged_default)$deploymentID)
-  expect_true("2_00a2c20d" %in% deployments(xy_merged_default)$deploymentID)
-
-  # Custom prefixes
-  xy_merged <- merge_camtrapdp(x, y, prefix = c("project1", "project2"))
+  xy_merged <- merge_camtrapdp(x, y)
 
   # deploymentID
-  expect_true("project1_00a2c20d" %in% deployments(xy_merged)$deploymentID)
-  expect_true("project2_00a2c20d" %in% deployments(xy_merged)$deploymentID)
-  expect_true("project1_00a2c20d" %in% media(xy_merged)$deploymentID)
-  expect_true("project1_00a2c20d" %in% observations(xy_merged)$deploymentID)
+  expect_true("1_00a2c20d" %in% deployments(xy_merged)$deploymentID)
+  expect_true("2_00a2c20d" %in% deployments(xy_merged)$deploymentID)
+  expect_true("1_00a2c20d" %in% media(xy_merged)$deploymentID)
+  expect_true("2_00a2c20d" %in% media(xy_merged)$deploymentID)
+  expect_true("1_00a2c20d" %in% observations(xy_merged)$deploymentID)
+  expect_true("2_00a2c20d" %in% observations(xy_merged)$deploymentID)
 
   # mediaID
-  expect_true("project1_07840dcc" %in% media(xy_merged)$mediaID)
-  expect_true("project1_07840dcc" %in% observations(xy_merged)$mediaID)
-  expect_false("project1_NA" %in% observations(xy_merged)$mediaID)
+  expect_true("1_07840dcc" %in% media(xy_merged)$mediaID)
+  expect_true("2_07840dcc" %in% media(xy_merged)$mediaID)
+  expect_true("1_07840dcc" %in% observations(xy_merged)$mediaID)
+  expect_true("2_07840dcc" %in% observations(xy_merged)$mediaID)
+  expect_false("1_NA" %in% observations(xy_merged)$mediaID)
   expect_true(NA %in% observations(xy_merged)$mediaID)
 
   # observationID
-  expect_true("project1_705e6036" %in% observations(xy_merged)$observationID)
+  expect_true("1_705e6036" %in% observations(xy_merged)$observationID)
+  expect_true("2_705e6036" %in% observations(xy_merged)$observationID)
 
   # eventID
-  expect_true("project1_4bb69c45" %in% media(xy_merged)$eventID)
-  expect_true("project1_4bb69c45" %in% observations(xy_merged)$eventID)
+  expect_true("1_4bb69c45" %in% media(xy_merged)$eventID)
+  expect_true("2_4bb69c45" %in% media(xy_merged)$eventID)
+  expect_true("1_4bb69c45" %in% observations(xy_merged)$eventID)
+  expect_true("2_4bb69c45" %in% observations(xy_merged)$eventID)
 })
 
-test_that("merge_camtrapdp() returns the expected metadata", {
+test_that("merge_camtrapdp() adds custom prefixes to all values of identifiers
+          (deploymentID, mediaID, observationID and eventID) with duplicates
+          between packages, but not for mediaID = NA", {
+  skip_if_offline()
+  x <- example_dataset()
+  y <- example_dataset()
+  x$id <- NULL
+  y$id <- NULL
+  xy_merged <- merge_camtrapdp(x, y, prefix = c("x", "y"))
+
+  # deploymentID
+  expect_true("x_00a2c20d" %in% deployments(xy_merged)$deploymentID)
+  expect_true("y_00a2c20d" %in% deployments(xy_merged)$deploymentID)
+  expect_true("x_00a2c20d" %in% media(xy_merged)$deploymentID)
+  expect_true("y_00a2c20d" %in% media(xy_merged)$deploymentID)
+  expect_true("x_00a2c20d" %in% observations(xy_merged)$deploymentID)
+  expect_true("y_00a2c20d" %in% observations(xy_merged)$deploymentID)
+
+  # mediaID
+  expect_true("x_07840dcc" %in% media(xy_merged)$mediaID)
+  expect_true("y_07840dcc" %in% media(xy_merged)$mediaID)
+  expect_true("x_07840dcc" %in% observations(xy_merged)$mediaID)
+  expect_true("y_07840dcc" %in% observations(xy_merged)$mediaID)
+  expect_false("x_NA" %in% observations(xy_merged)$mediaID)
+  expect_true(NA %in% observations(xy_merged)$mediaID)
+
+  # observationID
+  expect_true("x_705e6036" %in% observations(xy_merged)$observationID)
+  expect_true("y_705e6036" %in% observations(xy_merged)$observationID)
+
+  # eventID
+  expect_true("x_4bb69c45" %in% media(xy_merged)$eventID)
+  expect_true("y_4bb69c45" %in% media(xy_merged)$eventID)
+  expect_true("x_4bb69c45" %in% observations(xy_merged)$eventID)
+  expect_true("y_4bb69c45" %in% observations(xy_merged)$eventID)
+})
+
+test_that("merge_camtrapdp() returns the expected metadata ", {
   skip_if_offline()
   x <- example_dataset()
   y <- example_dataset()
@@ -318,7 +361,7 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   expect_identical(xy_merged$image, NULL)
   expect_identical(xy_merged$homepage, NULL)
   expect_identical(xy_merged$sources, sources)
-  expect_equal(xy_merged$licenses, licenses)
+  expect_identical(xy_merged$licenses, licenses)
   expect_identical(xy_merged$bibliographicCitation, NULL)
   expect_identical(xy_merged$projects, list(x$project, y$project))
   expect_identical(xy_merged$coordinatePrecision, coordinatePrecision)
