@@ -71,7 +71,7 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
 
   # Merge/update metadata
   xy_merged$name <- NA
-  xy_merged$id <- NA
+  xy_merged$id <- NULL
   xy_merged$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   xy_merged$title <- NA
   xy_merged$contributors <- remove_duplicates(c(x$contributors, y$contributors))
