@@ -48,11 +48,11 @@ test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
   y <- example_dataset()
   x$id <- "1"
   y$id <- "2"
-  merged_xy <- merge_camtrapdp(x, y)
+  xy_merged <- merge_camtrapdp(x, y)
 
-  deploymentIDs <- purrr::pluck(deployments(merged_xy), "deploymentID")
-  mediaIDs <- purrr::pluck(media(merged_xy), "mediaID")
-  observationIDs <- purrr::pluck(observations(merged_xy), "observationID")
+  deploymentIDs <- purrr::pluck(deployments(xy_merged), "deploymentID")
+  mediaIDs <- purrr::pluck(media(xy_merged), "mediaID")
+  observationIDs <- purrr::pluck(observations(xy_merged), "observationID")
 
   expect_false(any(duplicated(deploymentIDs)))
   expect_false(any(duplicated(mediaIDs)))
@@ -69,31 +69,31 @@ test_that("merge_camtrapdp() adds prefixes to all values of identifiers
   y$id <- "2"
 
   # Default prefixes
-  merged_xy_default <- merge_camtrapdp(x, y)
-  expect_true("1_00a2c20d" %in% deployments(merged_xy_default)$deploymentID)
-  expect_true("2_00a2c20d" %in% deployments(merged_xy_default)$deploymentID)
+  xy_merged_default <- merge_camtrapdp(x, y)
+  expect_true("1_00a2c20d" %in% deployments(xy_merged_default)$deploymentID)
+  expect_true("2_00a2c20d" %in% deployments(xy_merged_default)$deploymentID)
 
   # Custom prefixes
-  merged_xy <- merge_camtrapdp(x, y, prefix = c("project1", "project2"))
+  xy_merged <- merge_camtrapdp(x, y, prefix = c("project1", "project2"))
 
   # deploymentID
-  expect_true("project1_00a2c20d" %in% deployments(merged_xy)$deploymentID)
-  expect_true("project2_00a2c20d" %in% deployments(merged_xy)$deploymentID)
-  expect_true("project1_00a2c20d" %in% media(merged_xy)$deploymentID)
-  expect_true("project1_00a2c20d" %in% observations(merged_xy)$deploymentID)
+  expect_true("project1_00a2c20d" %in% deployments(xy_merged)$deploymentID)
+  expect_true("project2_00a2c20d" %in% deployments(xy_merged)$deploymentID)
+  expect_true("project1_00a2c20d" %in% media(xy_merged)$deploymentID)
+  expect_true("project1_00a2c20d" %in% observations(xy_merged)$deploymentID)
 
   # mediaID
-  expect_true("project1_07840dcc" %in% media(merged_xy)$mediaID)
-  expect_true("project1_07840dcc" %in% observations(merged_xy)$mediaID)
-  expect_false("project1_NA" %in% observations(merged_xy)$mediaID)
-  expect_true(NA %in% observations(merged_xy)$mediaID)
+  expect_true("project1_07840dcc" %in% media(xy_merged)$mediaID)
+  expect_true("project1_07840dcc" %in% observations(xy_merged)$mediaID)
+  expect_false("project1_NA" %in% observations(xy_merged)$mediaID)
+  expect_true(NA %in% observations(xy_merged)$mediaID)
 
   # observationID
-  expect_true("project1_705e6036" %in% observations(merged_xy)$observationID)
+  expect_true("project1_705e6036" %in% observations(xy_merged)$observationID)
 
   # eventID
-  expect_true("project1_4bb69c45" %in% media(merged_xy)$eventID)
-  expect_true("project1_4bb69c45" %in% observations(merged_xy)$eventID)
+  expect_true("project1_4bb69c45" %in% media(xy_merged)$eventID)
+  expect_true("project1_4bb69c45" %in% observations(xy_merged)$eventID)
 })
 
 test_that("merge_camtrapdp() returns the expected metadata", {
@@ -102,30 +102,30 @@ test_that("merge_camtrapdp() returns the expected metadata", {
   y <- example_dataset()
   x$id <- "1"
   y$id <- "2"
-  merged_xy <- merge_camtrapdp(x, y)
+  xy_merged <- merge_camtrapdp(x, y)
 
   # Check metadata
-  expect_identical(merged_xy$resources, x$resources)
-  expect_identical(merged_xy$profile, "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json")
-  expect_identical(merged_xy$name, NA)
-  expect_identical(merged_xy$id, NA)
-  expect_identical(merged_xy$title, NA)
-  expect_identical(merged_xy$contributors, x$contributors)
+  expect_identical(xy_merged$resources, x$resources)
+  expect_identical(xy_merged$profile, "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json")
+  expect_identical(xy_merged$name, NA)
+  expect_identical(xy_merged$id, NA)
+  expect_identical(xy_merged$title, NA)
+  expect_identical(xy_merged$contributors, x$contributors)
   # no test for description
-  expect_identical(merged_xy$version, "1.0")
-  expect_identical(merged_xy$keywords, x$keywords)
-  expect_identical(merged_xy$image, NULL)
-  expect_identical(merged_xy$homepage, NULL)
-  expect_identical(merged_xy$sources, x$sources)
-  expect_equal(merged_xy$licenses, x$licenses) # fails because remove_duplicates switches order of subelements
-  expect_identical(merged_xy$bibliographicCitation, NULL)
-  expect_identical(merged_xy$projects, list(x$project, y$project))
-  expect_identical(merged_xy$coordinatePrecision, x$coordinatePrecision)
-  expect_identical(merged_xy$spatial, x$spatial)
-  expect_identical(merged_xy$temporal, x$temporal)
-  expect_identical(merged_xy$taxonomic, x$taxonomic)
-  expect_identical(merged_xy$references, x$references)
-  expect_identical(merged_xy$directory, x$directory)
+  expect_identical(xy_merged$version, "1.0")
+  expect_identical(xy_merged$keywords, x$keywords)
+  expect_identical(xy_merged$image, NULL)
+  expect_identical(xy_merged$homepage, NULL)
+  expect_identical(xy_merged$sources, x$sources)
+  expect_equal(xy_merged$licenses, x$licenses) # fails because remove_duplicates switches order of subelements
+  expect_identical(xy_merged$bibliographicCitation, NULL)
+  expect_identical(xy_merged$projects, list(x$project, y$project))
+  expect_identical(xy_merged$coordinatePrecision, x$coordinatePrecision)
+  expect_identical(xy_merged$spatial, x$spatial)
+  expect_identical(xy_merged$temporal, x$temporal)
+  expect_identical(xy_merged$taxonomic, x$taxonomic)
+  expect_identical(xy_merged$references, x$references)
+  expect_identical(xy_merged$directory, x$directory)
 
   relatedIdentifiers_merged <- list(
     list(
@@ -154,7 +154,7 @@ test_that("merge_camtrapdp() returns the expected metadata", {
     )
   )
 
-  expect_identical(merged_xy$relatedIdentifiers, relatedIdentifiers_merged)
+  expect_identical(xy_merged$relatedIdentifiers, relatedIdentifiers_merged)
 
   # Check data
 })
@@ -175,7 +175,7 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
 
   y <- read_camtrapdp(datapackage_file)
 
-  merged_xy <- merge_camtrapdp(x, y)
+  xy_merged <- merge_camtrapdp(x, y)
 
   # Check metadata
   profile <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json"
@@ -306,26 +306,26 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
     )
   )
 
-  expect_identical(merged_xy$resources, x$resources)
-  expect_identical(merged_xy$profile, profile)
-  expect_identical(merged_xy$name, NA)
-  expect_identical(merged_xy$id, NA)
-  expect_identical(merged_xy$title, NA)
-  expect_identical(merged_xy$contributors, contributors)
+  expect_identical(xy_merged$resources, x$resources)
+  expect_identical(xy_merged$profile, profile)
+  expect_identical(xy_merged$name, NA)
+  expect_identical(xy_merged$id, NA)
+  expect_identical(xy_merged$title, NA)
+  expect_identical(xy_merged$contributors, contributors)
   # no test for description
-  expect_identical(merged_xy$version, "1.0")
-  expect_identical(merged_xy$keywords, c(x$keywords, y$keywords))
-  expect_identical(merged_xy$image, NULL)
-  expect_identical(merged_xy$homepage, NULL)
-  expect_identical(merged_xy$sources, sources)
-  expect_equal(merged_xy$licenses, licenses)
-  expect_identical(merged_xy$bibliographicCitation, NULL)
-  expect_identical(merged_xy$projects, list(x$project, y$project))
-  expect_identical(merged_xy$coordinatePrecision, coordinatePrecision)
-  expect_identical(merged_xy$spatial, spatial)
-  expect_identical(merged_xy$temporal, temporal)
-  expect_identical(merged_xy$taxonomic, taxonomic)
-  expect_identical(merged_xy$references, references)
-  # expect_identical(merged_xy$directory, directory)
-  expect_identical(merged_xy$relatedIdentifiers, relatedIdentifiers_merged)
+  expect_identical(xy_merged$version, "1.0")
+  expect_identical(xy_merged$keywords, c(x$keywords, y$keywords))
+  expect_identical(xy_merged$image, NULL)
+  expect_identical(xy_merged$homepage, NULL)
+  expect_identical(xy_merged$sources, sources)
+  expect_equal(xy_merged$licenses, licenses)
+  expect_identical(xy_merged$bibliographicCitation, NULL)
+  expect_identical(xy_merged$projects, list(x$project, y$project))
+  expect_identical(xy_merged$coordinatePrecision, coordinatePrecision)
+  expect_identical(xy_merged$spatial, spatial)
+  expect_identical(xy_merged$temporal, temporal)
+  expect_identical(xy_merged$taxonomic, taxonomic)
+  expect_identical(xy_merged$references, references)
+  # expect_identical(xy_merged$directory, directory)
+  expect_identical(xy_merged$relatedIdentifiers, relatedIdentifiers_merged)
 })
