@@ -50,8 +50,10 @@ test_that("merge_camtrapdp() returns error on invalid prefix", {
 test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
           observationIDs", {
   skip_if_offline()
-  x <- example_dataset()
-  y <- example_dataset()
+  x <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
+  y <- example_dataset() %>%
+    filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
   x$id <- "1"
   y$id <- "2"
   xy_merged <- merge_camtrapdp(x, y)
@@ -63,6 +65,9 @@ test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
   expect_false(any(duplicated(deploymentIDs)))
   expect_false(any(duplicated(mediaIDs)))
   expect_false(any(duplicated(observationIDs)))
+
+  expect_true("00a2c20d" %in% deployments(xy_merged)$deploymentID)
+  expect_true("577b543a" %in% deployments(xy_merged)$deploymentID)
 })
 
 test_that("merge_camtrapdp() adds default prefixes to all values of identifiers
