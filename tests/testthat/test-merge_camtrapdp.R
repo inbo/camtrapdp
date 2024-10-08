@@ -159,7 +159,10 @@ test_that("merge_camtrapdp() returns the expected metadata ", {
   expect_identical(xy_merged$id, NA)
   expect_identical(xy_merged$title, NA)
   expect_identical(xy_merged$contributors, x$contributors)
-  # no test for description
+  expect_identical(
+    xy_merged$description,
+    paste(x$description, y$description, sep = "/n")
+  )
   expect_identical(xy_merged$version, "1.0")
   expect_identical(xy_merged$keywords, x$keywords)
   expect_identical(xy_merged$image, NULL)
@@ -289,6 +292,8 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
     )
   )
 
+  description <- "MICA - Muskrat and coypu camera trap observations in Belgium, the Netherlands and Germany is an occurrence dataset published by the Research Institute of Nature and Forest (INBO). It is part of the LIFE project MICA, in which innovative techniques are tested for a more efficient control of muskrat and coypu populations, both invasive species. This dataset is a sample of the original dataset and serves as an example of a Camera Trap Data Package (Camtrap DP)./nCamera trap pilot 2 was a test of the difference in species detection and data accumulation between a Snyper Commander camera with a regular lens (52°) and one with a wide lens (100°). The cameras were deployed at 30 cm above the ground within the herbivore exclosure Zeeveld Noord in the Amsterdam Water Supply Dunes from 14th of August 2021 to 24th of September 2021. During this pilot, a solar panel failure caused the cameras to stop recording data from the 24th of August 2021 to the 6th of September (14 days). During annotation, only days in which both cameras were operational were annotated. This led to a total of 1,113 images over 28 days from the two cameras. A detailed description of the dataset can be found in a data paper published in the journal Data in Brief (Evans et al. 2024, https://doi.org/10.1016/j.dib.2024.110544)."
+
   sources <- list(
     list(
       title = "Agouti",
@@ -360,7 +365,10 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   expect_identical(xy_merged$id, NA)
   expect_identical(xy_merged$title, NA)
   expect_identical(xy_merged$contributors, contributors)
-  # no test for description
+  expect_identical(
+    xy_merged$description,
+    paste(x$description, y$description, sep = "/n")
+    )
   expect_identical(xy_merged$version, "1.0")
   expect_identical(xy_merged$keywords, c(x$keywords, y$keywords))
   expect_identical(xy_merged$image, NULL)
