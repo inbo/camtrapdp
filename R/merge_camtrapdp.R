@@ -59,8 +59,8 @@ merge_camtrapdp <- function(x1, x2, prefix = c(x1$id, x2$id)) {
       )
     }
 
-    x1 <- add_prefix(x1, results_duplicate_ids, prefix[1])
-    x2 <- add_prefix(x2, results_duplicate_ids, prefix[2])
+    x1 <- add_prefix(x1, results_duplicate_ids, paste0(prefix[1], "_"))
+    x2 <- add_prefix(x2, results_duplicate_ids, paste0(prefix[2], "_"))
   }
 
   # Merge resources
