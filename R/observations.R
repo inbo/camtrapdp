@@ -8,6 +8,8 @@
 #'   It should only be used within other functions, where the expected data
 #'   structure can be guaranteed.
 #'
+#'   - Metadata (`x$taxonomic`) are updated to match the assigned observations.
+#'
 #' @inheritParams print.camtrapdp
 #' @return A [tibble::tibble()] data frame with observations.
 #' @family accessor functions
@@ -35,5 +37,9 @@ observations <- function(x) {
     )
   }
   purrr::pluck(x, "data", "observations") <- dplyr::as_tibble(value)
+
+  # Update taxonomic scope in metadata
+  x <- update_taxonomic(x)
+
   return(x)
 }
