@@ -6,8 +6,8 @@
 #'
 #' - Media are filtered on associated `deploymentID`.
 #' - Observations are filtered on associated `deploymentID`.
-#' - Metadata (`x$temporal` and `x$spatial`) are updated to match the filtered
-#' deployments.
+#' - Metadata (`x$temporal`, `x$spatial` and `x$taxonomic`) are updated to
+#' match the filtered deployments.
 #'
 #' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
