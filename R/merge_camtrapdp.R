@@ -114,6 +114,7 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
   )
 
   xy_merged$references <- unique(c(x$references, y$references))
+  xy_merged$directory <- "."
 
   xy_merged <- xy_merged %>%
     update_spatial() %>%

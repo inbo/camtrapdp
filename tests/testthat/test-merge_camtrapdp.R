@@ -382,7 +382,7 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   expect_identical(xy_merged$temporal, temporal)
   expect_identical(xy_merged$taxonomic, taxonomic)
   expect_identical(xy_merged$references, references)
-  # expect_identical(xy_merged$directory, directory)
+  expect_identical(xy_merged$directory, ".")
   expect_identical(xy_merged$relatedIdentifiers, relatedIdentifiers_merged)
 })
 
