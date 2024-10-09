@@ -8,17 +8,15 @@
 #' @family helper functions
 #' @noRd
 update_spatial <- function(x) {
-  deployments <- purrr::pluck(x, "data", "deployments")
-
-  if (nrow(deployments) == 0) {
+  if (nrow(deployments(x)) == 0) {
     x$spatial <- NULL
     return(x)
   }
 
-  lat_min <- min(deployments$latitude)
-  lat_max <- max(deployments$latitude)
-  long_min <- min(deployments$longitude)
-  long_max <- max(deployments$longitude)
+  lat_min <- min(deployments(x)$latitude)
+  lat_max <- max(deployments(x)$latitude)
+  long_min <- min(deployments(x)$longitude)
+  long_max <- max(deployments(x)$longitude)
 
   x$spatial$coordinates <- array(
     c(
@@ -41,21 +39,18 @@ update_spatial <- function(x) {
 #' @family helper functions
 #' @noRd
 update_temporal <- function(x) {
-  deployments <- purrr::pluck(x, "data", "deployments")
-
-  if (nrow(deployments) == 0) {
+  if (nrow(deployments(x)) == 0) {
     x$temporal <- NULL
     return(x)
   }
 
-  deployments <- purrr::pluck(x, "data", "deployments")
   x$temporal$start <-
-    deployments %>%
+    deployments(x) %>%
     dplyr::pull(.data$deploymentStart) %>%
     min() %>%
     format(format = "%Y-%m-%d")
   x$temporal$end <-
-    deployments %>%
+    deployments(x) %>%
     dplyr::pull(.data$deploymentEnd) %>%
     max() %>%
     format(format = "%Y-%m-%d")
