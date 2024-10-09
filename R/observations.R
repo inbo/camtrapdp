@@ -36,6 +36,15 @@ observations <- function(x) {
       class = "camtrapdp_error_assignment_wrong_class"
     )
   }
+
+  column_names <- c("scientificName")
+  if (any(!column_names %in% names(value))) {
+    cli::cli_abort(
+      "{.arg value} must be a data.frame with column {.val {column_names}}.",
+      class = "camtrapdp_error_observations_columns_missing"
+    )
+  }
+
   purrr::pluck(x, "data", "observations") <- dplyr::as_tibble(value)
 
   # Update taxonomic scope in metadata

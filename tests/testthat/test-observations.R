@@ -13,7 +13,7 @@ test_that("observations() returns the observations", {
 test_that("observations<-() assigns a data frame (as tibble) as observations", {
   skip_if_offline()
   x <- example_dataset()
-  df <- data.frame(a = 1:3)
+  df <- data.frame(scientificName = 1:3)
   observations(x) <- df
   expect_identical(observations(x), dplyr::as_tibble(df))
   expect_s3_class(observations(x), "tbl")
@@ -25,5 +25,14 @@ test_that("observations<-() returns error when value is not a data frame", {
   expect_error(
     observations(x) <- "not_a_data_frame",
     class = "camtrapdp_error_assignment_wrong_class"
+  )
+})
+
+test_that("observations<-() returns error when expected columns are missing", {
+  skip_if_offline()
+  x <- example_dataset()
+  expect_error(
+    observations(x) <- data.frame(a = 1:3),
+    class = "camtrapdp_error_observations_columns_missing"
   )
 })
