@@ -62,11 +62,13 @@ read_camtrapdp <- function(file) {
   attr(x, "version") <- version
 
   # Read and attach csv data
-  deployments(x) <-
+  # Note: assignment functions are not used here to bypass metadata update and
+  # validation (comes later)
+  purrr::pluck(x, "data", "deployments") <-
     frictionless::read_resource(package, "deployments")
-  media(x) <-
+  purrr::pluck(x, "data", "media") <-
     frictionless::read_resource(package, "media")
-  observations(x) <-
+  purrr::pluck(x, "data", "observations") <-
     frictionless::read_resource(package, "observations")
 
   # Upgrade
