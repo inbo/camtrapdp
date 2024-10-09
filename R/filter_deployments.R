@@ -69,5 +69,8 @@ filter_deployments <- function(x, ...) {
     update_temporal() %>%
     update_spatial()
 
+  # Update taxonomic scope in metadata
+  x <- update_taxonomic(x)
+
   return(x)
 }
