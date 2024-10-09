@@ -8,12 +8,13 @@
 #' @family helper functions
 #' @noRd
 update_spatial <- function(x) {
-  if (nrow(deployments(x)) == 0) {
+  deployments <- purrr::pluck(x, "data", "deployments")
+
+  if (nrow(deployments) == 0) {
     x$spatial <- NULL
     return(x)
   }
 
-  deployments <- deployments(x)
   lat_min <- min(deployments$latitude)
   lat_max <- max(deployments$latitude)
   long_min <- min(deployments$longitude)
@@ -40,12 +41,14 @@ update_spatial <- function(x) {
 #' @family helper functions
 #' @noRd
 update_temporal <- function(x) {
-  if (nrow(deployments(x)) == 0) {
+  deployments <- purrr::pluck(x, "data", "deployments")
+
+  if (nrow(deployments) == 0) {
     x$temporal <- NULL
     return(x)
   }
 
-  deployments <- deployments(x)
+  deployments <- purrr::pluck(x, "data", "deployments")
   x$temporal$start <-
     deployments %>%
     dplyr::pull(.data$deploymentStart) %>%
