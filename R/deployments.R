@@ -7,6 +7,9 @@
 #'   It should only be used within other functions, where the expected data
 #'   structure can be guaranteed.
 #'
+#' - Metadata (`x$temporal` and `x$spatial`) are updated to match the assigned
+#' deployments.
+#'
 #' @inheritParams print.camtrapdp
 #' @return A [tibble::tibble()] data frame with deployments.
 #' @family accessor functions
@@ -33,6 +36,14 @@ deployments <- function(x) {
       class = "camtrapdp_error_assignment_wrong_class"
     )
   }
+
   purrr::pluck(x, "data", "deployments") <- dplyr::as_tibble(value)
+
+  # Update temporal and spatial scope in metadata
+  x <-
+    x %>%
+    update_temporal() %>%
+    update_spatial()
+
   return(x)
 }

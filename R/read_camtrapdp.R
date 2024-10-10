@@ -31,6 +31,14 @@
 #' Note that this can result in media being linked to multiple events (and thus
 #' being duplicated), for example when events and sub-events were defined.
 #'
+#' @section Update metadata:
+#'
+#' Camtrap DP metadata has a `spatial` and `temporal` property that contains the
+#' spatial and temporal coverage of the package respectively.
+#'
+#' This function **will automatically update the spatial and temporal scopes in
+#' metadata based on data**.
+#'
 #' @param file Path or URL to a `datapackage.json` file.
 #' @return A Camera Trap Data Package object.
 #' @family read functions
@@ -62,15 +70,30 @@ read_camtrapdp <- function(file) {
   attr(x, "version") <- version
 
   # Read and attach csv data
-  deployments(x) <-
+  # Note: assignment functions are not used here to bypass metadata update and
+  # validation (comes later)
+  purrr::pluck(x, "data", "deployments") <-
     frictionless::read_resource(package, "deployments")
-  media(x) <-
+  purrr::pluck(x, "data", "media") <-
     frictionless::read_resource(package, "media")
-  observations(x) <-
+  purrr::pluck(x, "data", "observations") <-
     frictionless::read_resource(package, "observations")
 
   # Upgrade
   x <- upgrade(x, upgrade_to = "1.0.1")
+
+  # Add eventID to media
+  media(x) <-
+    dplyr::left_join(
+      media(x),
+      events(x),
+      by = dplyr::join_by(
+        "deploymentID",
+        "timestamp" >= "eventStart",
+        "timestamp" <= "eventEnd"
+      )
+    ) %>%
+    dplyr::select(-"eventStart", -"eventEnd")
 
   # Add taxonomic info to observations
   taxonomy <- build_taxa(x)
@@ -87,18 +110,16 @@ read_camtrapdp <- function(file) {
       )
   }
 
-  # Add eventID to media
-  media(x) <-
-    dplyr::left_join(
-      media(x),
-      events(x),
-      by = dplyr::join_by(
-        "deploymentID",
-        "timestamp" >= "eventStart",
-        "timestamp" <= "eventEnd"
-      )
-    ) %>%
-    dplyr::select(-"eventStart", -"eventEnd")
+  # Update temporal and spatial scope in metadata
+  x <-
+    x %>%
+    update_temporal() %>%
+    update_spatial()
+
+  cli::cli_inform(
+    c("v" = "Updating temporal and spatial scopes in metadata based on data."),
+    class = "camtrapdp_message_update_metadata"
+  )
 
   return(x)
 }

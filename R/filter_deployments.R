@@ -6,8 +6,8 @@
 #'
 #' - Media are filtered on associated `deploymentID`.
 #' - Observations are filtered on associated `deploymentID`.
-#' - Metadata (`x$temporal` and `x$spatial`) are updated to match the filtered
-#' deployments.
+#' - Metadata (`x$temporal`, `x$spatial` and `x$taxonomic`) are updated to match
+#' the filtered deployments.
 #'
 #' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
@@ -58,16 +58,11 @@ filter_deployments <- function(x, ...) {
     observations(x) %>%
     dplyr::filter(.data$deploymentID %in% deployments$deploymentID)
 
-  # Assign filtered data
+  # Assign filtered data (and update temporal, spatial and taxonomic scope in
+  # metadata)
   deployments(x) <- deployments
   media(x) <- media
   observations(x) <- observations
-
-  # Update temporal and spatial scope in metadata
-  x <-
-    x %>%
-    update_temporal() %>%
-    update_spatial()
 
   return(x)
 }
