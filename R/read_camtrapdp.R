@@ -74,6 +74,19 @@ read_camtrapdp <- function(file) {
   # Upgrade
   x <- upgrade(x, upgrade_to = "1.0.1")
 
+  # Add eventID to media
+  media(x) <-
+    dplyr::left_join(
+      media(x),
+      events(x),
+      by = dplyr::join_by(
+        "deploymentID",
+        "timestamp" >= "eventStart",
+        "timestamp" <= "eventEnd"
+      )
+    ) %>%
+    dplyr::select(-"eventStart", -"eventEnd")
+
   # Add taxonomic info to observations
   taxonomy <- build_taxa(x)
   if (!is.null(taxonomy)) {
@@ -88,19 +101,6 @@ read_camtrapdp <- function(file) {
         by = dplyr::join_by("scientificName" == "taxon.scientificName")
       )
   }
-
-  # Add eventID to media
-  media(x) <-
-    dplyr::left_join(
-      media(x),
-      events(x),
-      by = dplyr::join_by(
-        "deploymentID",
-        "timestamp" >= "eventStart",
-        "timestamp" <= "eventEnd"
-      )
-    ) %>%
-    dplyr::select(-"eventStart", -"eventEnd")
 
   return(x)
 }
