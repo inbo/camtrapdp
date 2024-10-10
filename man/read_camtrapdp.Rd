@@ -46,6 +46,16 @@ Note that this can result in media being linked to multiple events (and thus
 being duplicated), for example when events and sub-events were defined.
 }
 
+\section{Update metadata}{
+
+
+Camtrap DP metadata has a \code{spatial} and \code{temporal} property that contains the
+spatial and temporal coverage of the package respectively.
+
+This function \strong{will automatically update the spatial and temporal scopes in
+metadata based on data}.
+}
+
 \examples{
 file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
 x <- read_camtrapdp(file)

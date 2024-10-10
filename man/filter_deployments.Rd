@@ -20,8 +20,8 @@ rows that satisfy the conditions.
 \itemize{
 \item Media are filtered on associated \code{deploymentID}.
 \item Observations are filtered on associated \code{deploymentID}.
-\item Metadata (\code{x$temporal} and \code{x$spatial}) are updated to match the filtered
-deployments.
+\item Metadata (\code{x$temporal}, \code{x$spatial} and \code{x$taxonomic}) are updated to match
+the filtered deployments.
 }
 }
 \examples{

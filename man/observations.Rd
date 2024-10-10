@@ -24,6 +24,9 @@ object.
 \verb{observations<-()} is the assignment equivalent.
 It should only be used within other functions, where the expected data
 structure can be guaranteed.
+\itemize{
+\item Metadata (\code{x$taxonomic}) are updated to match the assigned observations.
+}
 }
 \examples{
 x <- example_dataset()
