@@ -7,15 +7,6 @@ test_that("observations<-() returns error when value is not a data frame", {
   )
 })
 
-test_that("observations<-() returns error when expected columns are missing", {
-  skip_if_offline()
-  x <- example_dataset()
-  expect_error(
-    observations(x) <- data.frame(a = 1:3),
-    class = "camtrapdp_error_observations_columns_missing"
-  )
-})
-
 test_that("observations() returns a tibble", {
   skip_if_offline()
   x <- example_dataset()

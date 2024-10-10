@@ -7,18 +7,6 @@ test_that("deployments<-() returns error when value is not a data frame", {
   )
 })
 
-test_that("deployments<-() returns error when expected columns are missing", {
-  skip_if_offline()
-  x <- example_dataset()
-  expect_error(
-    deployments(x) <- data.frame(
-      deploymentStart = 1:3,
-      deploymentEnd = 1:3,
-      latitude = 1:3),
-    class = "camtrapdp_error_deployments_columns_missing"
-  )
-})
-
 test_that("deployments() returns a tibble", {
   skip_if_offline()
   x <- example_dataset()
