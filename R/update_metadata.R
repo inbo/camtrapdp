@@ -78,16 +78,34 @@ update_taxonomic <- function(x) {
     return(x)
   }
 
-  current_taxa <- purrr::pluck(taxa(x), "scientificName") %>% sort()
+  taxa <- taxa(x)
   # Set taxonomic
-  if (is.null(x$taxonomic)) {
-    x$taxonomic <- purrr::map(current_taxa, ~ list(scientificName = .x))
+  x$taxonomic <- purrr::map(1:nrow(taxa), function(i) {
+    current_row <- taxa[i, ]
 
-  # Update taxonomic
-  } else {
-    x$taxonomic <- purrr::keep(
-      x$taxonomic, ~ purrr::pluck(.x, "scientificName") %in% current_taxa
-    )
-  }
+    # Create taxonomic list without vernacular names
+    taxonomic_list <-
+      current_row %>%
+      dplyr::select(-dplyr::starts_with("vernacularNames")) %>%
+      as.list()
+
+    if (any(startsWith(names(current_row), "vernacularNames"))) {
+      # Group vernacular names
+      vernacularNames <-
+        current_row %>%
+        dplyr::select(dplyr::starts_with("vernacularNames")) %>%
+        dplyr::rename_with(~ sub("^vernacularNames.", "", .x)) %>%
+        as.list()
+
+      # Append to taxonomic list
+      taxonomic_list <- append(
+        taxonomic_list,
+        list("vernacularNames" = vernacularNames)
+      )
+    }
+
+    return(taxonomic_list)
+  })
+
   return(x)
 }
