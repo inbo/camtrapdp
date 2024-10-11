@@ -15,6 +15,8 @@ update_spatial <- function(x) {
     return(x)
   }
 
+  x$spatial$type <- "Polygon"
+
   lat_min <- min(deployments$latitude)
   lat_max <- max(deployments$latitude)
   long_min <- min(deployments$longitude)
