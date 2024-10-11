@@ -67,12 +67,28 @@ test_that("filter_media() updates taxonomic scope in metadata", {
   x_empty <- filter_media(x, favorite == TRUE, filePublic == FALSE)
   expect_null(x_empty$taxonomic)
 
-  # Taxonomic scope is created when not present, names are alphabetical
+  # Taxonomic scope is created based on data in observations, names are alphabetical
   x$taxonomic <- NULL
   x_multiple <- filter_media(x, mediaID == "8263e85b")
-  expected_taxonomic <-  list(
-    list(scientificName = "Anas platyrhynchos"),
-    list(scientificName = "Anas strepera")
+  expected_taxonomic <- list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "mallard",
+        nld = "wilde eend"
+      )
+    ),
+    list(
+      scientificName = "Anas strepera",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "gadwall",
+        nld = "krakeend"
+      )
+    )
   )
   expect_identical(x_multiple$taxonomic, expected_taxonomic)
 })
