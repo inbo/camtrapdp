@@ -27,3 +27,23 @@ test_that("observations<-() assigns a data frame (as tibble) as observations", {
   expect_identical(observations(x), dplyr::as_tibble(df))
   expect_s3_class(observations(x), "tbl")
 })
+
+test_that("observations<-() updates taxonomic scope in metadata", {
+  skip_if_offline()
+  x <- example_dataset()
+  observations(x) <- data.frame(
+    scientificName = "Anas platyrhynchos",
+    taxon.taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+    taxon.taxonRank = "species"
+  )
+
+  expected_taxonomic <- list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species"
+      )
+    )
+  expect_identical(x$taxonomic, expected_taxonomic)
+})
+
