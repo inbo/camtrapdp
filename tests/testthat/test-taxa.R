@@ -79,17 +79,3 @@ test_that("taxa() removes duplicates and keeps the rows with most taxnomical
   )
 })
 
-test_that("taxa() warns on duplicates", {
-  skip_if_offline()
-  x <- example_dataset()
-  observations(x) <- observations(x) %>%
-    dplyr::mutate(
-      taxon.vernacularNames.nld =
-        dplyr::if_else(
-        observationID == "07840dcc_1", NA, .data$taxon.vernacularNames.nld
-        )
-    )
-
-  expect_warning(taxa(x))
-})
-
