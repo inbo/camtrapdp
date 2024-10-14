@@ -3,6 +3,10 @@
 #' Gets the (unique) scientific names and associated taxonomic information from
 #' the observations of a Camera Trap Data Package object.
 #'
+#' - Duplicates are identified based on `scientificName` and, if present,
+#' `taxonID`. The row with the highest number of non-missing taxonomic values is
+#' kept. In case of ties, the last row is chosen.
+#'
 #' @inheritParams print.camtrapdp
 #' @return A [tibble::tibble()] data frame with the taxonomic information,
 #'   containing at least a `scientificName` column.

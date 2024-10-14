@@ -17,6 +17,13 @@ containing at least a \code{scientificName} column.
 Gets the (unique) scientific names and associated taxonomic information from
 the observations of a Camera Trap Data Package object.
 }
+\details{
+\itemize{
+\item Duplicates are identified based on \code{scientificName} and, if present,
+\code{taxonID}. The row with the highest number of non-missing taxonomic values is
+kept. In case of ties, the last row is chosen.
+}
+}
 \examples{
 x <- example_dataset()
 taxa(x)
