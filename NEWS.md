@@ -3,11 +3,12 @@
 * New function `write_eml()` transforms Camtrap DP metadata to EML (#61).
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` and spatial scope in the metadata (#85).
 * New function `shift_time()` allows to shift/correct date-times in data and metadata for specified deploymentIDs and duration (#105).
-* `filter_deployments()` and `deployments()<-` now update the spatial, temporal and taxonomic scope in the metadata (#72, #111, #132).
-* `filter_observations()`, `filter_media()`, `media()<-` and `observations()<-` now update the taxonomic scope in the metadata (#73, #111).
-* `read_camtrap_dp()` now upgrades datasets to Camtrap DP 1.0.1 and updates the temporal and spatial scopes in metadata based on data. The internal function `convert()` has been renamed to `upgrade()` (#113).
+* `filter_deployments()` and `deployments()<-` now update the spatial, temporal and taxonomic scope in the metadata based on the returned data (#72, #111, #132).
+* `filter_observations()`, `filter_media()`, `media()<-` and `observations()<-` now update the taxonomic scope in the metadata based on the returned data (#73, #111).
+* `read_camtrapdp()` now updates the spatial and temporal scope in metadata based on the data (#130).
+* `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.1. The internal function `convert()` has been renamed to `upgrade()` (#113).
 * Internal function `build_taxa()` is renamed to `read_taxonomic()`.
-* `taxa()` now removes duplicates based on `scientificName` and, if present, `taxonID`, and the amount of taxonomical information available.
+* `taxa()` now removes duplicates, based on `scientificName` and (if present) `taxonID` (#130).
 
 # camtrapdp 0.3.1
 
