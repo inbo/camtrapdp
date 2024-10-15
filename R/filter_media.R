@@ -59,7 +59,7 @@ filter_media <- function(x, ...) {
       (.data$observationLevel == "event" & .data$eventID %in% select_event_ids)
     )
 
-  # Assign filtered data (and update taxonomic scope in metadata)
+  # Assign filtered data (also updates taxonomic scope)
   media(x) <- media
   observations(x) <- observations
 

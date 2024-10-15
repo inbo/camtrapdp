@@ -5,10 +5,9 @@
 #'   object.
 #'
 #' `observations<-()` is the assignment equivalent.
-#'   It should only be used within other functions, where the expected data
-#'   structure can be guaranteed.
-#'
-#'   - Metadata (`x$taxonomic`) are updated to match the assigned observations.
+#' - It should only be used within other functions, where the expected data
+#' structure can be guaranteed.
+#' - Metadata (`x$taxonomic`) are updated to match the assigned observations.
 #'
 #' @inheritParams print.camtrapdp
 #' @return A [tibble::tibble()] data frame with observations.
