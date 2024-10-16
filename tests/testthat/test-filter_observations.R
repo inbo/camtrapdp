@@ -43,6 +43,7 @@ test_that("filter_observations() supports combinations of conditions", {
 test_that("filter_observations() filters observations and media, but not deployments", {
   skip_if_offline()
   x <- example_dataset()
+
   x_filtered <- filter_observations(
     x,
     scientificName == "Vulpes vulpes",
@@ -65,6 +66,8 @@ test_that("filter_observations() filters observations and media, but not deploym
 test_that("filter_observations() updates taxonomic scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
+
+  # One observation, 1 species
   x_1_taxon <- filter_observations(
     x,
     scientificName == "Vulpes vulpes",
@@ -79,10 +82,7 @@ test_that("filter_observations() updates taxonomic scope in metadata", {
     "red fox" # Original data is still present
   )
 
-  x_empty <- filter_observations(x, count == 5, behavior == "not_a_behavior")
-  expect_null(x_empty$taxonomic)
-
-  # Taxonomic scope is created based on data in observations, names are alphabetical
+  # Multiple observations, 2 species (names are alphabetical)
   x$taxonomic <- NULL
   x_2_taxa <- filter_observations(
     x,
@@ -109,4 +109,8 @@ test_that("filter_observations() updates taxonomic scope in metadata", {
     )
   )
   expect_identical(x_2_taxa$taxonomic, expected_taxonomic)
+
+  # Zero observations
+  x_empty <- filter_observations(x, count == 5, behavior == "not_a_behavior")
+  expect_null(x_empty$taxonomic)
 })

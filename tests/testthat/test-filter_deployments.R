@@ -43,8 +43,8 @@ test_that("filter_deployments() supports combinations of conditions", {
 test_that("filter_deployments() filters deployments, media and observations", {
   skip_if_offline()
   x <- example_dataset()
-  x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
 
+  x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
   expect_lt(nrow(deployments(x_filtered)), nrow(deployments(x)))
   expect_lt(nrow(media(x_filtered)), nrow(media(x)))
   expect_lt(nrow(observations(x_filtered)), nrow(observations(x)))
@@ -56,6 +56,7 @@ test_that("filter_deployments() updates temporal and spatial scope in metadata",
   skip_if_offline()
   x <- example_dataset()
 
+  # One deployment
   x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
   expect_identical(x_filtered$temporal$start, "2021-03-27")
   expect_identical(x_filtered$temporal$end, "2021-04-18")
@@ -68,6 +69,7 @@ test_that("filter_deployments() updates temporal and spatial scope in metadata",
   )
   expect_identical(x_filtered$spatial$coordinates, coordinates_array)
 
+  # Multiple deployments
   x_multiple <- filter_deployments(x, cameraHeight >= 1.0)
   expect_identical(x_multiple$temporal$start, "2020-05-30")
   expect_identical(x_multiple$temporal$end, "2021-04-18")
@@ -80,6 +82,7 @@ test_that("filter_deployments() updates temporal and spatial scope in metadata",
   )
   expect_identical(x_multiple$spatial$coordinates, coordinates_array)
 
+  # Zero deployments
   x_empty <- filter_deployments(x, latitude < 0, longitude < 0)
   expect_null(x_empty$temporal)
   expect_null(x_empty$spatial)

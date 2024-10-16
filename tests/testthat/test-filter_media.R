@@ -43,8 +43,8 @@ test_that("filter_media() supports combinations of conditions", {
 test_that("filter_media() filters media and observations, but not deployments", {
   skip_if_offline()
   x <- example_dataset()
-  x_filtered <- filter_media(x, favorite == TRUE)
 
+  x_filtered <- filter_media(x, favorite == TRUE)
   expect_equal(deployments(x_filtered), deployments(x))
   expect_lt(nrow(media(x_filtered)), nrow(media(x)))
   expect_lt(nrow(observations(x_filtered)), nrow(observations(x)))
@@ -54,6 +54,8 @@ test_that("filter_media() filters media and observations, but not deployments", 
 test_that("filter_media() updates taxonomic scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
+
+  # One media, multiple observations, 1 species
   x_1_taxon <- filter_media(x, mediaID == "e8b8e44c")
   expect_identical(
     purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "scientificName")),
@@ -64,10 +66,7 @@ test_that("filter_media() updates taxonomic scope in metadata", {
     "mallard" # Original data is still present
   )
 
-  x_empty <- filter_media(x, favorite == TRUE, filePublic == FALSE)
-  expect_null(x_empty$taxonomic)
-
-  # Taxonomic scope is created based on data in observations, names are alphabetical
+  # One media, multiple observations, 2 species (names are alphabetical)
   x$taxonomic <- NULL
   x_multiple <- filter_media(x, mediaID == "8263e85b")
   expected_taxonomic <- list(
@@ -91,4 +90,8 @@ test_that("filter_media() updates taxonomic scope in metadata", {
     )
   )
   expect_identical(x_multiple$taxonomic, expected_taxonomic)
+
+  # Zero media
+  x_empty <- filter_media(x, favorite == TRUE, filePublic == FALSE)
+  expect_null(x_empty$taxonomic)
 })
