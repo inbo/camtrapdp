@@ -2,13 +2,41 @@
 #'
 #' @param x,y Camera Trap Data Package objects (as returned by
 #' `read_camtrapdp()`), to be coerced to one.
-#' @param prefix If there are duplicate IDs in x an y, these prefixes will be
+#' @param prefix If there are duplicate IDs between x and y, prefixes will be
 #' added to all the values of each identifier with duplicates, to disambiguate
 #' them. Should be a character vector of length 2. By default, the prefixes are
 #' the ID's of the Data Package.
 #' @return `x`
 #' @family transformation functions
 #' @export
+#' @section Merging details:
+#' Deployments, media and observations are combined. If there are duplicate IDs
+#' between x and y, prefixes will be added to all the values of each identifier
+#' with duplicates, to disambiguate them.
+#' The following properties are set:
+#' - **name**: Set to NA.
+#' - **id**: Set to NULL.
+#' - **created**: Set to current timestamp.
+#' - **title**: Set to NA.
+#' - **contributors**: A combination is made and duplicates are removed.
+#' - **description**: A combination is made.
+#' - **version**: Set to 1.0.
+#' - **keywords**: A combination is made and duplicates are removed.
+#' - **image**: Set to NULL.
+#' - **homepage**: Set to NULL.
+#' - **sources**: A combination is made and duplicates are removed.
+#' - **licenses**: A combination is made and duplicates are removed.
+#' - **bibliographicCitation**: Set to NULL.
+#' - **project**: List of the projects.
+#' - **coordinatePrecision**: Set to the least precise `coordinatePrecision`.
+#' - **spatial**: Reset based on the new deployments.
+#' - **temporal**: Reset based on the new deployments.
+#' - **taxonomic**: A combination is made and duplicates are removed.
+#' - **relatedIdentifiers**: A combination is made and duplicates are removed.
+#' - **references**: A combination is made and duplicates are removed.
+#' @section Merging multiple Camera Trap Data Packages:
+#' `merge_camtrapdp()` can be used in a pipe to merge multiple camtrap DP.
+#' - x %>% merge_camtrapdp(y) %>% merge_camtrapdp(z)
 #' @examples
 #' x <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))

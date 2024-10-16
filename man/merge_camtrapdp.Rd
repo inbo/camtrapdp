@@ -4,15 +4,16 @@
 \alias{merge_camtrapdp}
 \title{Merge Camera Trap Data packages}
 \usage{
-merge_camtrapdp(x1, x2, prefix = c("x.", "y."))
+merge_camtrapdp(x, y, prefix = c(x$id, y$id))
 }
 \arguments{
-\item{x1, x2}{Camera Trap Data Package objects (as returned by
+\item{x, y}{Camera Trap Data Package objects (as returned by
 \code{read_camtrapdp()}), to be coerced to one.}
 
-\item{prefix}{If there are duplicate IDs in x1 an x2, these prefixes will be
+\item{prefix}{If there are duplicate IDs between x and y, prefixes will be
 added to all the values of each identifier with duplicates, to disambiguate
-them. Should be a character vector of length 2.}
+them. Should be a character vector of length 2. By default, the prefixes are
+the ID's of the Data Package.}
 }
 \value{
 \code{x}
@@ -20,12 +21,50 @@ them. Should be a character vector of length 2.}
 \description{
 Merge Camera Trap Data packages
 }
+\section{Merging details}{
+
+Deployments, media and observations are combined. If there are duplicate IDs
+between x and y, prefixes will be added to all the values of each identifier
+with duplicates, to disambiguate them.
+The following properties are set:
+\itemize{
+\item \strong{name}: Set to NA.
+\item \strong{id}: Set to NULL.
+\item \strong{created}: Set to current timestamp.
+\item \strong{title}: Set to NA.
+\item \strong{contributors}: A combination is made and duplicates are removed.
+\item \strong{description}: A combination is made.
+\item \strong{version}: Set to 1.0.
+\item \strong{keywords}: A combination is made and duplicates are removed.
+\item \strong{image}: Set to NULL.
+\item \strong{homepage}: Set to NULL.
+\item \strong{sources}: A combination is made and duplicates are removed.
+\item \strong{licenses}: A combination is made and duplicates are removed.
+\item \strong{bibliographicCitation}: Set to NULL.
+\item \strong{project}: List of the projects.
+\item \strong{coordinatePrecision}: Set to the least precise \code{coordinatePrecision}.
+\item \strong{spatial}: Reset based on the new deployments.
+\item \strong{temporal}: Reset based on the new deployments.
+\item \strong{taxonomic}: A combination is made and duplicates are removed.
+\item \strong{relatedIdentifiers}: A combination is made and duplicates are removed.
+\item \strong{references}: A combination is made and duplicates are removed.
+}
+}
+
+\section{Merging multiple Camera Trap Data Packages}{
+
+\code{merge_camtrapdp()} can be used in a pipe to merge multiple camtrap DP.
+\itemize{
+\item x \%>\% merge_camtrapdp(y) \%>\% merge_camtrapdp(z)
+}
+}
+
 \examples{
-x1 <- example_dataset() \%>\%
+x <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("00a2c20d", "29b7d356"))
-x2 <- example_dataset() \%>\%
+y <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("577b543a", "62c200a9"))
-x_merged <- merge_camtrapdp(x1, x2)
+xy_merged <- merge_camtrapdp(x, y)
 }
 \seealso{
 Other transformation functions: 
