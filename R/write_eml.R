@@ -129,13 +129,13 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   creator_list <- purrr::transpose(creators)
 
   # Set creators
-  eml$dataset$creator <- create_contributor_list(creator_list)
+  eml$dataset$creator <- create_eml_contributors(creator_list)
 
   # Set contacts
   contact_df <- dplyr::filter(creators, role == "contact")
   contact_list <- purrr::transpose(contact_df)
   if (length(contact_list) != 0) {
-    contact_eml <- create_contributor_list(contact_list)
+    contact_eml <- create_eml_contributors(contact_list)
   } else {
     # First creator
     contact_eml <- purrr::pluck(eml, "dataset", "creator", 1)

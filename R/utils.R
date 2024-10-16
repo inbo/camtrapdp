@@ -43,7 +43,7 @@ expand_cols <- function(df, colnames) {
 #' @return A list of emld objects for any responsibleParty.
 #' @family helper functions
 #' @noRd
-create_contributor_list <- function(contributor_list) {
+create_eml_contributors <- function(contributor_list) {
   purrr::map(contributor_list, ~ EML::set_responsibleParty(
     givenName = .$first_name,
     surName = .$last_name,
