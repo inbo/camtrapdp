@@ -110,8 +110,7 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
   xy_merged$homepage <- NULL
   xy_merged$sources <- remove_duplicates(c(x$sources, y$sources))
   xy_merged$licenses <- remove_duplicates(c(x$licenses, y$licenses))
-  xy_merged$project <- NULL
-  xy_merged$projects <- list(x$project, y$project)
+  xy_merged$project <- list(x$project, y$project)
   xy_merged$bibliographicCitation <- NULL
   xy_merged$coordinatePrecision <-
     max(x$coordinatePrecision, y$coordinatePrecision, na.rm = TRUE)
