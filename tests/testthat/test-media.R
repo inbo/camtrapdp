@@ -10,7 +10,7 @@ test_that("media() returns the media", {
   expect_identical(media(x), x$data$media)
 })
 
-test_that("media<-() assigns a data frame (as tibble) as media", {
+test_that("media()<- assigns a data frame (as tibble) as media", {
   skip_if_offline()
   x <- example_dataset()
   df <- data.frame(a = 1:3)
@@ -19,7 +19,7 @@ test_that("media<-() assigns a data frame (as tibble) as media", {
   expect_s3_class(media(x), "tbl")
 })
 
-test_that("media<-() returns error when value is not a data frame", {
+test_that("media()<- returns error when value is not a data frame", {
   skip_if_offline()
   x <- example_dataset()
   expect_error(

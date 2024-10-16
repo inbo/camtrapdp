@@ -1,28 +1,28 @@
-test_that("build_taxa() returns a data frame", {
+test_that("taxonomic() returns a data frame", {
   skip_if_offline()
   x <- example_dataset()
-  expect_s3_class(build_taxa(x), "data.frame")
+  expect_s3_class(taxonomic(x), "data.frame")
 })
 
-test_that("build_taxa() returns NULL when there is no taxonomic information", {
+test_that("taxonomic() returns NULL when there is no taxonomic information", {
   skip_if_offline()
   x <- example_dataset()
   x$taxonomic <- NULL
-  expect_null(build_taxa(x))
+  expect_null(taxonomic(x))
 })
 
-test_that("build_taxa() returns one row per species in $data$observations", {
+test_that("taxonomic() returns one row per species in $data$observations", {
   skip_if_offline()
   x <- example_dataset()
   number_of_species <-
     dplyr::n_distinct(x$data$observations$scientificName, na.rm = TRUE)
   expect_equal(
-    nrow(build_taxa(x)),
+    nrow(taxonomic(x)),
     number_of_species
   )
 })
 
-test_that("build_taxa() returns the expected columns", {
+test_that("taxonomic() returns the expected columns", {
   skip_if_offline()
   x <- example_dataset()
   expected_cols <- c(
@@ -32,10 +32,10 @@ test_that("build_taxa() returns the expected columns", {
     "vernacularNames.eng",
     "vernacularNames.nld"
   )
-  expect_named(build_taxa(x), expected_cols)
+  expect_named(taxonomic(x), expected_cols)
 })
 
-test_that("build_taxa() creates a column per language for vernacularName", {
+test_that("taxonomic() creates a column per language for vernacularName", {
   skip_if_offline()
   x <- example_dataset()
   taxonomy_many_languages <- list(
@@ -57,7 +57,7 @@ test_that("build_taxa() creates a column per language for vernacularName", {
 
   # Expect 6 vernacularName columns
   expect_length(
-    dplyr::select(build_taxa(x), dplyr::starts_with("vernacularNames.")),
+    dplyr::select(taxonomic(x), dplyr::starts_with("vernacularNames.")),
     6
   )
 
@@ -71,12 +71,12 @@ test_that("build_taxa() creates a column per language for vernacularName", {
     "vernacularNames.afr"
   )
   expect_named(
-    dplyr::select(build_taxa(x), dplyr::starts_with("vernacularNames.")),
+    dplyr::select(taxonomic(x), dplyr::starts_with("vernacularNames.")),
     expected_cols
   )
 })
 
-test_that("build_taxa() can handle missing vernacular names", {
+test_that("taxonomic() can handle missing vernacular names", {
   skip_if_offline()
   x <- example_dataset()
   # Create a taxonomy where the English vernacularName of Anas strepera is not
@@ -110,10 +110,10 @@ test_that("build_taxa() can handle missing vernacular names", {
     "vernacularNames.eng",
     "vernacularNames.nld"
   )
-  expect_named(build_taxa(x), expected_cols)
+  expect_named(taxonomic(x), expected_cols)
 })
 
-test_that("build_taxa() fills missing values with NA when a taxonomic field
+test_that("taxonomic() fills missing values with NA when a taxonomic field
            is only present for some of the records", {
   skip_if_offline()
   x <- example_dataset()
@@ -145,21 +145,21 @@ test_that("build_taxa() fills missing values with NA when a taxonomic field
     "vernacularNames.eng",
     "vernacularNames.nld"
   )
-  expect_named(build_taxa(x), expected_cols)
+  expect_named(taxonomic(x), expected_cols)
 
   # Check that the Dutch vernacular name column contains an NA
   expect_contains(
-    dplyr::pull(build_taxa(x), vernacularNames.nld),
+    dplyr::pull(taxonomic(x), vernacularNames.nld),
     NA_character_
   )
   # Check that the English vernacular name column contains an NA
   expect_contains(
-    dplyr::pull(build_taxa(x), vernacularNames.eng),
+    dplyr::pull(taxonomic(x), vernacularNames.eng),
     NA_character_
   )
 })
 
-test_that("build_taxa() returns warning for duplicate scientificNames", {
+test_that("taxonomic() returns warning for duplicate scientificNames", {
   skip_if_offline()
   x <- example_dataset()
   # Add duplicate name
@@ -168,12 +168,12 @@ test_that("build_taxa() returns warning for duplicate scientificNames", {
     list(list(scientificName = "Vulpes vulpes"))
   )
   expect_warning(
-    build_taxa(x),
+    taxonomic(x),
     class = "camtrapdp_warning_duplicate_scientificname"
   )
 })
 
-test_that("build_taxa() uses first record for duplicate scientificNames", {
+test_that("taxonomic() uses first record for duplicate scientificNames", {
   skip_if_offline()
   x <- example_dataset()
   # Add duplicate name
@@ -182,12 +182,12 @@ test_that("build_taxa() uses first record for duplicate scientificNames", {
     list(list(scientificName = "Vulpes vulpes"))
   )
   expect_identical(
-    suppressWarnings(build_taxa(x))$scientificName,
-    unique(suppressWarnings(build_taxa(x))$scientificName)
+    suppressWarnings(taxonomic(x))$scientificName,
+    unique(suppressWarnings(taxonomic(x))$scientificName)
   )
 })
 
-test_that("build_taxa() removes columns that are empty", {
+test_that("taxonomic() removes columns that are empty", {
   skip_if_offline()
   x <- example_dataset()
   # Overwrite taxonomy with two duplicate taxa
@@ -214,7 +214,7 @@ test_that("build_taxa() removes columns that are empty", {
       )
     )
   expect_named(
-    suppressWarnings(build_taxa(x)),
+    suppressWarnings(taxonomic(x)),
     c(
       "scientificName",
       "taxonID",

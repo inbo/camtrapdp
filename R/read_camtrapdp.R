@@ -31,6 +31,14 @@
 #' Note that this can result in media being linked to multiple events (and thus
 #' being duplicated), for example when events and sub-events were defined.
 #'
+#' @section Update metadata:
+#'
+#' Camtrap DP metadata has a `spatial` and `temporal` property that contains the
+#' spatial and temporal coverage of the package respectively.
+#'
+#' This function **will automatically update the spatial and temporal scopes**
+#' in metadata based on the data.
+#'
 #' @param file Path or URL to a `datapackage.json` file.
 #' @return A Camera Trap Data Package object.
 #' @family read functions
@@ -62,30 +70,17 @@ read_camtrapdp <- function(file) {
   attr(x, "version") <- version
 
   # Read and attach csv data
-  deployments(x) <-
+  # Assignment functions should not be used here, to bypass metadata update
+  # and validation, which comes later
+  purrr::pluck(x, "data", "deployments") <-
     frictionless::read_resource(package, "deployments")
-  media(x) <-
+  purrr::pluck(x, "data", "media") <-
     frictionless::read_resource(package, "media")
-  observations(x) <-
+  purrr::pluck(x, "data", "observations") <-
     frictionless::read_resource(package, "observations")
 
   # Upgrade
   x <- upgrade(x, upgrade_to = "1.0.1")
-
-  # Add taxonomic info to observations
-  taxonomy <- build_taxa(x)
-  if (!is.null(taxonomy)) {
-    # Add taxon. as column suffix
-    colnames(taxonomy) <- paste("taxon", colnames(taxonomy), sep = ".")
-
-    # Join taxonomy with observations
-    observations(x) <-
-      dplyr::left_join(
-        observations(x),
-        taxonomy,
-        by = dplyr::join_by("scientificName" == "taxon.scientificName")
-      )
-  }
 
   # Add eventID to media
   media(x) <-
@@ -99,6 +94,27 @@ read_camtrapdp <- function(file) {
       )
     ) %>%
     dplyr::select(-"eventStart", -"eventEnd")
+
+  # Add taxonomic info to observations
+  taxonomy <- taxonomic(x)
+  if (!is.null(taxonomy)) {
+    # Add taxon. as column suffix
+    colnames(taxonomy) <- paste("taxon", colnames(taxonomy), sep = ".")
+
+    # Join taxonomy with observations
+    observations(x) <-
+      dplyr::left_join(
+        observations(x),
+        taxonomy,
+        by = dplyr::join_by("scientificName" == "taxon.scientificName")
+      )
+  }
+
+  # Update temporal and spatial scope in metadata
+  x <-
+    x %>%
+    update_temporal() %>%
+    update_spatial()
 
   return(x)
 }
