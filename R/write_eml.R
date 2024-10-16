@@ -129,37 +129,13 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   creator_list <- purrr::transpose(creators)
 
   # Set creators
-  eml$dataset$creator <-
-    purrr::map(creator_list, ~ EML::set_responsibleParty(
-      givenName = .$first_name,
-      surName = .$last_name,
-      organizationName = .$organization, # Discouraged by EML, but used by IPT
-      email = .$email,
-      userId = if (!is.na(.$orcid)) {
-        list(directory = "https://orcid.org/", .$orcid)
-      } else {
-        NULL
-      },
-      onlineUrl = .$path
-    ))
+  eml$dataset$creator <- create_contributor_list(creator_list)
 
   # Set contacts
   contact_df <- dplyr::filter(creators, role == "contact")
   contact_list <- purrr::transpose(contact_df)
   if (length(contact_list) != 0) {
-    contact_eml <-
-      purrr::map(contact_list, ~ EML::set_responsibleParty(
-        givenName = .$first_name,
-        surName = .$last_name,
-        organizationName = .$organization, # Discouraged by EML, but used by IPT
-        email = .$email,
-        userId = if (!is.na(.$orcid)) {
-          list(directory = "https://orcid.org/", .$orcid)
-        } else {
-          NULL
-        },
-        onlineUrl = .$path
-      ))
+    contact_eml <- create_contributor_list(contact_list)
   } else {
     # First creator
     contact_eml <- purrr::pluck(eml, "dataset", "creator", 1)

@@ -36,3 +36,24 @@ expand_cols <- function(df, colnames) {
   df[, cols_to_add] <- NA_character_
   return(df)
 }
+
+#' Creates list of contributors in EML format
+#'
+#' @param contributor_list List of contributors
+#' @return A list of emld objects for any responsibleParty.
+#' @family helper functions
+#' @noRd
+create_contributor_list <- function(contributor_list) {
+  purrr::map(contributor_list, ~ EML::set_responsibleParty(
+    givenName = .$first_name,
+    surName = .$last_name,
+    organizationName = .$organization, # Discouraged by EML, but used by IPT
+    email = .$email,
+    userId = if (!is.na(.$orcid)) {
+      list(directory = "https://orcid.org/", .$orcid)
+    } else {
+      NULL
+    },
+    onlineUrl = .$path
+  ))
+}
