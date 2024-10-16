@@ -116,7 +116,8 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
         grepl(orcid_regex, .data$path),
         NA_character_,
         .data$path
-      )
+      ),
+      role = NA_character_
     )
 
   # Create creators list
@@ -165,7 +166,9 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
       south = coordinates[1,1,2], # lat_min
       east = coordinates[1,3,1], # long_max
       north = coordinates[1,3,2], # lat_max
-      sci_names = sci_names
+      sci_names = sci_names,
+      geographicDescription =
+        "Geographic description not provided for this dataset."
     )
 
   # Set project
