@@ -168,14 +168,14 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   coordinates <- x$spatial$coordinates
   eml$dataset$coverage <-
     EML::set_coverage(
-      begin = x$temporal$start,
-      end = x$temporal$end,
-      west = coordinates[1,1,1], # long_min
-      south = coordinates[1,1,2], # lat_min
-      east = coordinates[1,3,1], # long_max
-      north = coordinates[1,3,2], # lat_max
+      beginDate = x$temporal$start,
+      endDate = x$temporal$end,
       geographicDescription =
-        "Geographic description not provided for this dataset."
+        "Geographic description not provided for this dataset.",
+      westBoundingCoordinate = coordinates[1,1,1], # long_min
+      southBoundingCoordinate = coordinates[1,1,2], # lat_min
+      eastBoundingCoordinate = coordinates[1,3,1], # long_max
+      northBoundingCoordinate = coordinates[1,3,2] # lat_max
     )
 
   # Set taxonomic coverage
