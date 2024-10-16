@@ -16,6 +16,9 @@ containing at least a \code{scientificName} column.
 \description{
 Gets the (unique) scientific names and associated taxonomic information from
 the observations of a Camera Trap Data Package object.
+Duplicate taxa (i.e. with the same \code{scientificName}) are removed, retaining
+the taxon with (first) a \code{taxonID} and (second) the most taxonomic
+information.
 }
 \examples{
 x <- example_dataset()

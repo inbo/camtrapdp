@@ -43,8 +43,8 @@ test_that("filter_media() supports combinations of conditions", {
 test_that("filter_media() filters media and observations, but not deployments", {
   skip_if_offline()
   x <- example_dataset()
-  x_filtered <- filter_media(x, favorite == TRUE)
 
+  x_filtered <- filter_media(x, favorite == TRUE)
   expect_equal(deployments(x_filtered), deployments(x))
   expect_lt(nrow(media(x_filtered)), nrow(media(x)))
   expect_lt(nrow(observations(x_filtered)), nrow(observations(x)))
@@ -54,6 +54,11 @@ test_that("filter_media() filters media and observations, but not deployments", 
 test_that("filter_media() updates taxonomic scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
+
+  # Set dummy scope (will be overwritten when updated)
+  x$taxonomic <- list()
+
+  # One media, multiple observations, 1 taxon
   x_1_taxon <- filter_media(x, mediaID == "e8b8e44c")
   expect_identical(
     purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "scientificName")),
@@ -64,15 +69,31 @@ test_that("filter_media() updates taxonomic scope in metadata", {
     "mallard" # Original data is still present
   )
 
-  x_empty <- filter_media(x, favorite == TRUE, filePublic == FALSE)
-  expect_null(x_empty$taxonomic)
-
-  # Taxonomic scope is created when not present, names are alphabetical
-  x$taxonomic <- NULL
+  # One media, multiple observations, 2 taxa (names are alphabetical)
   x_multiple <- filter_media(x, mediaID == "8263e85b")
-  expected_taxonomic <-  list(
-    list(scientificName = "Anas platyrhynchos"),
-    list(scientificName = "Anas strepera")
+  expected_taxonomic <- list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "mallard",
+        nld = "wilde eend"
+      )
+    ),
+    list(
+      scientificName = "Anas strepera",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "gadwall",
+        nld = "krakeend"
+      )
+    )
   )
   expect_identical(x_multiple$taxonomic, expected_taxonomic)
+
+  # Zero media
+  x_empty <- filter_media(x, favorite == TRUE, filePublic == FALSE)
+  expect_null(x_empty$taxonomic)
 })

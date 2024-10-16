@@ -5,8 +5,9 @@
 #'   object.
 #'
 #' `observations<-()` is the assignment equivalent.
-#'   It should only be used within other functions, where the expected data
-#'   structure can be guaranteed.
+#' - It should only be used within other functions, where the expected data
+#' structure can be guaranteed.
+#' - Metadata (`x$taxonomic`) are updated to match the assigned observations.
 #'
 #' @inheritParams print.camtrapdp
 #' @return A [tibble::tibble()] data frame with observations.
@@ -34,6 +35,11 @@ observations <- function(x) {
       class = "camtrapdp_error_assignment_wrong_class"
     )
   }
+
   purrr::pluck(x, "data", "observations") <- dplyr::as_tibble(value)
+
+  # Update taxonomic scope in metadata
+  x <- update_taxonomic(x)
+
   return(x)
 }

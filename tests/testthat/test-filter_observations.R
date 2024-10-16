@@ -43,6 +43,7 @@ test_that("filter_observations() supports combinations of conditions", {
 test_that("filter_observations() filters observations and media, but not deployments", {
   skip_if_offline()
   x <- example_dataset()
+
   x_filtered <- filter_observations(
     x,
     scientificName == "Vulpes vulpes",
@@ -65,6 +66,11 @@ test_that("filter_observations() filters observations and media, but not deploym
 test_that("filter_observations() updates taxonomic scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
+
+  # Set dummy scope (will be overwritten when updated)
+  x$taxonomic <- list()
+
+  # One observation, 1 taxon
   x_1_taxon <- filter_observations(
     x,
     scientificName == "Vulpes vulpes",
@@ -79,18 +85,38 @@ test_that("filter_observations() updates taxonomic scope in metadata", {
     "red fox" # Original data is still present
   )
 
-  x_empty <- filter_observations(x, count == 5, behavior == "not_a_behavior")
-  expect_null(x_empty$taxonomic)
-
-  # Taxonomic scope is created when not present, names are alphabetical
-  x$taxonomic <- NULL
+  # Multiple observations, 2 taxa (names are alphabetical)
   x_2_taxa <- filter_observations(
     x,
     scientificName %in% c("Mustela putorius", "Martes foina")
   )
-  expected_taxononic <-  list(
-    list(scientificName = "Martes foina"),
-    list(scientificName = "Mustela putorius")
+  expected_taxonomic <- list(
+    list(
+      scientificName = "Martes foina",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/3Y9VW",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "beech marten",
+        nld = "steenmarter"
+      )
+    ),
+    list(
+      scientificName = "Mustela putorius",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/44QYC",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "European polecat",
+        nld = "bunzing"
+      )
+    )
   )
-  expect_identical(x_2_taxa$taxonomic, expected_taxononic)
+  expect_identical(x_2_taxa$taxonomic, expected_taxonomic)
+
+  # Zero observations
+  x_empty <- filter_observations(x, count == 5, behavior == "not_a_behavior")
+  expect_null(x_empty$taxonomic)
+
+  # Multiple observations, zero taxa
+  x_blank <- filter_observations(x, observationType == "blank")
+  expect_null(x_blank$taxonomic)
 })
