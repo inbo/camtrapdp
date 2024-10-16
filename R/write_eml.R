@@ -15,6 +15,9 @@
 #' Metadata are derived from what is provided in `x`.
 #' The following properties are set:
 #' - **title**: Title as provided in `x$title`.
+#' - **type**: Set to Occurrence.
+#' - **subtype**: Set to Observation.
+#' - **update frequency**: Set to unknown.
 #' - **description**: Description as provided in `x$description`.
 #'   If `derived_paragraph = TRUE` a generated paragraph is added, e.g.:
 #'
@@ -24,8 +27,10 @@
 #'   or unclassified media, vehicles and observations of humans.
 #' - **license**: License with scope `data` as provided in `x$licenses`.
 #' - **creators**: Contributors (all roles) as provided in `x$contributors`.
-#' - **contact**: First creator.
-#' - **metadata provider**: First creator.
+#' - **contact**: Use contributors with role `contact`. If none exist, use first
+#' creator.
+#' - **metadata provider**: Use contributors with role `contact`. If none exist,
+#' use first creator.
 #' - **keywords**: Keywords as provided in `x$keywords`.
 #' - **geographic coverage**: Bounding box as provided in `x$spatial`.
 #' - **taxonomic coverage**: Species (no other ranks) as provided in
@@ -39,9 +44,6 @@
 #'   `x$project$path`.
 #'
 #' The following properties are not set:
-#' - **type**
-#' - **subtype**
-#' - **update frequency**
 #' - **publishing organization**
 #' - **associated parties**
 #' - **sampling methods**
@@ -88,6 +90,9 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     para <- append(para, paste0("<![CDATA[", last_para, "]]>"))
   }
   eml$dataset$abstract$para <- para
+
+  # Set update frequence
+  eml$dataset$abstract$maintenanceUpdateFrequency <- "unknown"
 
   # Convert contributors to a data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
@@ -138,6 +143,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
       onlineUrl = .$path
     ))
 
+  # Set contacts
   contact_df <- dplyr::filter(creators, role == "contact")
   contact_list <- purrr::transpose(contact_df)
   if (length(contact_list) != 0) {
@@ -163,7 +169,20 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
 
   # Set keywords
   eml$dataset$keywordSet <-
-    list(list(keywordThesaurus = "n/a", keyword = x$keywords))
+    list(
+      list(
+        keywordThesaurus = "GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml",
+        keyword = "Occurrence"
+      ),
+      list(
+        keywordThesaurus = "GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml",
+        keyword = "Observation"
+      ),
+      list(
+        keywordThesaurus = "n/a",
+        keyword = x$keywords
+      )
+    )
 
   # Set license
   eml$dataset$intellectualRights$para <-

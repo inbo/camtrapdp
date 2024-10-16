@@ -28,6 +28,9 @@ Metadata are derived from what is provided in \code{x}.
 The following properties are set:
 \itemize{
 \item \strong{title}: Title as provided in \code{x$title}.
+\item \strong{type}: Set to Occurrence.
+\item \strong{subtype}: Set to Observation.
+\item \strong{update frequency}: Set to unknown.
 \item \strong{description}: Description as provided in \code{x$description}.
 If \code{derived_paragraph = TRUE} a generated paragraph is added, e.g.:
 
@@ -36,8 +39,10 @@ Data have been standardized to Darwin Core using the \href{https://inbo.github.i
 or unclassified media, vehicles and observations of humans.
 \item \strong{license}: License with scope \code{data} as provided in \code{x$licenses}.
 \item \strong{creators}: Contributors (all roles) as provided in \code{x$contributors}.
-\item \strong{contact}: First creator.
-\item \strong{metadata provider}: First creator.
+\item \strong{contact}: Use contributors with role \code{contact}. If none exist, use first
+creator.
+\item \strong{metadata provider}: Use contributors with role \code{contact}. If none exist,
+use first creator.
 \item \strong{keywords}: Keywords as provided in \code{x$keywords}.
 \item \strong{geographic coverage}: Bounding box as provided in \code{x$spatial}.
 \item \strong{taxonomic coverage}: Species (no other ranks) as provided in
@@ -53,9 +58,6 @@ If this is a DOI, no new DOI will be created when publishing to GBIF.
 
 The following properties are not set:
 \itemize{
-\item \strong{type}
-\item \strong{subtype}
-\item \strong{update frequency}
 \item \strong{publishing organization}
 \item \strong{associated parties}
 \item \strong{sampling methods}
