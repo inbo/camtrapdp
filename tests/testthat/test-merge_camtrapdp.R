@@ -152,6 +152,12 @@ test_that("merge_camtrapdp() returns the expected metadata ", {
   y$id <- "2"
   xy_merged <- merge_camtrapdp(x, y)
 
+  # Can't compare with x$licenses because remove_duplicates switches order of
+  # subelements
+  licenses <- list(
+    list(name = "CC0-1.0", scope = "data"),
+    list(scope = "media", path = "http://creativecommons.org/licenses/by/4.0/"))
+
   # Check metadata
   expect_identical(xy_merged$resources, x$resources)
   expect_identical(xy_merged$profile, "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json")
@@ -168,7 +174,7 @@ test_that("merge_camtrapdp() returns the expected metadata ", {
   expect_identical(xy_merged$image, NULL)
   expect_identical(xy_merged$homepage, NULL)
   expect_identical(xy_merged$sources, x$sources)
-  expect_equal(xy_merged$licenses, x$licenses) # fails because remove_duplicates switches order of subelements
+  expect_identical(xy_merged$licenses, licenses)
   expect_identical(xy_merged$bibliographicCitation, NULL)
   expect_identical(xy_merged$projects, list(x$project, y$project))
   expect_identical(xy_merged$coordinatePrecision, x$coordinatePrecision)
@@ -176,7 +182,7 @@ test_that("merge_camtrapdp() returns the expected metadata ", {
   expect_identical(xy_merged$temporal, x$temporal)
   expect_identical(xy_merged$taxonomic, x$taxonomic)
   expect_identical(xy_merged$references, x$references)
-  expect_identical(xy_merged$directory, x$directory)
+  expect_identical(xy_merged$directory, ".")
 
   relatedIdentifiers_merged <- list(
     list(
@@ -215,17 +221,17 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   skip_if_offline()
   x <- example_dataset()
 
+  # Download second Camera Trap Data package
   temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   zip_file <- file.path(temp_dir, "dataset.zip")
   datapackage_file <- file.path(temp_dir, "datapackage.json")
   url <- "https://ipt.nlbif.nl/archive.do?r=awd_pilot2"
-
   download.file(url, zip_file, mode = 'wb')
   unzip(zip_file, exdir = temp_dir)
-
   y <- read_camtrapdp(datapackage_file)
 
+  # Merge
   xy_merged <- merge_camtrapdp(x, y)
 
   # Check metadata
@@ -329,6 +335,113 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   )
 
   temporal <- list(start = "2020-05-30", end = "2022-03-18")
+
+  taxonomic <- list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species",
+      family = NA_character_,
+      order. = NA_character_,
+      vernacularNames = list(eng = "mallard", nld = "wilde eend")
+    ),
+    list(
+      scientificName = "Anas strepera",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+      taxonRank = "species",
+      family = NA_character_,
+      order. = NA_character_,
+      vernacularNames = list(eng = "gadwall", nld = "krakeend")
+    ),
+    list(
+      scientificName = "Apodemus sylvaticus",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/FRJJ",
+      taxonRank = "species",
+      family = "Muridae",
+      order. = "Rodentia",
+      vernacularNames = list(eng = "wood mouse", nld = "bosmuis")
+    ),
+    list(
+      scientificName = "Ardea",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/32FH",
+      taxonRank = "genus",
+      family = NA_character_,
+      order. = NA_character_,
+      vernacularNames = list(eng = "great herons", nld = "reigers")
+    ),
+    list(
+      scientificName = "Ardea cinerea",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/GCHS",
+      taxonRank = "species",
+      family = NA_character_,
+      order. = NA_character_,
+      vernacularNames = list(eng = "grey heron", nld = "blauwe reiger")
+    ),
+    list(
+      scientificName = "Aves",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/V2",
+      taxonRank = "class",
+      family = NA_character_,
+      order. = NA_character_,
+      vernacularNames = list(eng = "bird sp.", nld = "vogel")
+    ),
+    list(
+      scientificName = "Corvus corone",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/YNHJ",
+      taxonRank = "species",
+      family = "Corvidae",
+      order. = "Passeriformes",
+      vernacularNames = list(eng = "carrion crow", nld = "zwarte kraai")
+    ),
+    list(
+      scientificName = "Homo sapiens",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/6MB3T",
+      taxonRank = "species",
+      family = "Hominidae",
+      order. = "Primates",
+      vernacularNames = list(eng = "human", nld = "mens")
+    ),
+    list(
+      scientificName = "Martes foina",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/3Y9VW",
+      taxonRank = "species",
+      family = NA_character_,
+      order. = NA_character_,
+      vernacularNames = list(eng = "beech marten", nld = "steenmarter")
+    ),
+    list(
+      scientificName = "Mustela putorius",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/44QYC",
+      taxonRank = "species",
+      family = NA_character_,
+      order. = NA_character_,
+      vernacularNames = list(eng = "European polecat", nld = "bunzing")
+    ),
+    list(
+      scientificName = "Oryctolagus cuniculus",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/74ZBP",
+      taxonRank = "species",
+      family = "Leporidae",
+      order. = "Lagomorpha",
+      vernacularNames = list(eng = "European rabbit", nld = "Europees konijn")
+    ),
+    list(
+      scientificName = "Rattus norvegicus",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/4RM67",
+      taxonRank = "species",
+      family = NA_character_,
+      order. = NA_character_,
+      vernacularNames = list(eng = "brown rat", nld = "bruine rat")
+    ),
+    list(
+      scientificName = "Vulpes vulpes",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/5BSG3",
+      taxonRank = "species",
+      family = "Canidae",
+      order. = "Carnivora",
+      vernacularNames = list(eng = "red fox", nld = "vos")
+    )
+  )
 
   references <- list("Evans, J.C., Zilber, R., & Kissling, W.D. (2024). Data from three camera trapping pilots in the Amsterdam Water Supply Dunes of the Netherlands. Data in Brief, 54, 110544. https://doi.org/10.1016/j.dib.2024.110544")
 
