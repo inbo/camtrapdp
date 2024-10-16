@@ -117,7 +117,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
         NA_character_,
         .data$path
       ),
-      role = NA_character_
+      role = .data$role
     )
 
   # Create creators list
@@ -137,9 +137,29 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
       },
       onlineUrl = .$path
     ))
-  first_creator <- purrr::pluck(eml, "dataset", "creator", 1)
-  eml$dataset$contact <- first_creator
-  eml$dataset$metadataProvider <- first_creator
+
+  contact_df <- dplyr::filter(creators, role == "contact")
+  contact_list <- purrr::transpose(contact_df)
+  if (length(contact_list) != 0) {
+    contact_eml <-
+      purrr::map(contact_list, ~ EML::set_responsibleParty(
+        givenName = .$first_name,
+        surName = .$last_name,
+        organizationName = .$organization, # Discouraged by EML, but used by IPT
+        email = .$email,
+        userId = if (!is.na(.$orcid)) {
+          list(directory = "https://orcid.org/", .$orcid)
+        } else {
+          NULL
+        },
+        onlineUrl = .$path
+      ))
+  } else {
+    # First creator
+    contact_eml <- purrr::pluck(eml, "dataset", "creator", 1)
+  }
+  eml$dataset$contact <- contact_eml
+  eml$dataset$metadataProvider <- contact_eml
 
   # Set keywords
   eml$dataset$keywordSet <-
