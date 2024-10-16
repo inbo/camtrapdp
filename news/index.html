@@ -38,11 +38,16 @@
 <li>New function <code><a href="../reference/round_coordinates.html">round_coordinates()</a></code> allows to fuzzy/generalize location information by rounding deployment <code>latitude</code> and <code>longitude</code>. It also updates <code>coordinateUncertainty</code> in the deployments and <code>coordinatePrecision</code> and spatial scope in the metadata (<a href="https://github.com/inbo/camtrapdp/issues/85" class="external-link">#85</a>).</li>
 <li>New function <code><a href="../reference/shift_time.html">shift_time()</a></code> allows to shift/correct date-times in data and metadata for specified deploymentIDs and duration (<a href="https://github.com/inbo/camtrapdp/issues/105" class="external-link">#105</a>).</li>
 <li>
-<code><a href="../reference/filter_deployments.html">filter_deployments()</a></code> now updates the spatial and temporal scope in the metadata (<a href="https://github.com/inbo/camtrapdp/issues/72" class="external-link">#72</a>).</li>
+<code><a href="../reference/filter_deployments.html">filter_deployments()</a></code> and <code>deployments()&lt;-</code> now update the spatial, temporal and taxonomic scope in the metadata based on the returned data (<a href="https://github.com/inbo/camtrapdp/issues/72" class="external-link">#72</a>, <a href="https://github.com/inbo/camtrapdp/issues/111" class="external-link">#111</a>, <a href="https://github.com/inbo/camtrapdp/issues/132" class="external-link">#132</a>).</li>
 <li>
-<code><a href="../reference/filter_observations.html">filter_observations()</a></code> and <code><a href="../reference/filter_media.html">filter_media()</a></code> now update the taxonomic scope in the metadata (<a href="https://github.com/inbo/camtrapdp/issues/73" class="external-link">#73</a>).</li>
+<code><a href="../reference/filter_observations.html">filter_observations()</a></code>, <code><a href="../reference/filter_media.html">filter_media()</a></code>, <code>media()&lt;-</code> and <code>observations()&lt;-</code> now update the taxonomic scope in the metadata based on the returned data (<a href="https://github.com/inbo/camtrapdp/issues/73" class="external-link">#73</a>, <a href="https://github.com/inbo/camtrapdp/issues/111" class="external-link">#111</a>).</li>
 <li>
-<code>read_camtrap_dp()</code> now upgrades datasets to Camtrap DP 1.0.1. The internal function <code>convert()</code> has been renamed to <code><a href="https://rdrr.io/r/utils/upgrade.html" class="external-link">upgrade()</a></code> (<a href="https://github.com/inbo/camtrapdp/issues/113" class="external-link">#113</a>).</li>
+<code><a href="../reference/read_camtrapdp.html">read_camtrapdp()</a></code> now updates the spatial and temporal scope in metadata based on the data (<a href="https://github.com/inbo/camtrapdp/issues/130" class="external-link">#130</a>).</li>
+<li>
+<code><a href="../reference/read_camtrapdp.html">read_camtrapdp()</a></code> now upgrades datasets to Camtrap DP 1.0.1. The internal function <code>convert()</code> has been renamed to <code><a href="https://rdrr.io/r/utils/upgrade.html" class="external-link">upgrade()</a></code> (<a href="https://github.com/inbo/camtrapdp/issues/113" class="external-link">#113</a>).</li>
+<li>Internal function <code>build_taxa()</code> is renamed to <code>taxonomic()</code> (<a href="https://github.com/inbo/camtrapdp/issues/130" class="external-link">#130</a>).</li>
+<li>
+<code><a href="../reference/taxa.html">taxa()</a></code> now removes duplicates (<a href="https://github.com/inbo/camtrapdp/issues/130" class="external-link">#130</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.1" id="camtrapdp-031">camtrapdp 0.3.1<a class="anchor" aria-label="anchor" href="#camtrapdp-031"></a></h2><p class="text-muted">CRAN release: 2024-07-05</p>
