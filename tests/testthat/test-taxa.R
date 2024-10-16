@@ -28,7 +28,7 @@ test_that("taxa() returns the expected rows (unique taxa)", {
   )
 })
 
-test_that("taxa() removes duplicates and keeps the rows with most taxonomical
+test_that("taxa() removes duplicates and keeps the taxon with most taxonomical
           information", {
   skip_if_offline()
   x <- example_dataset()
