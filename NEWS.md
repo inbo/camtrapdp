@@ -3,6 +3,7 @@
 * New function `write_eml()` transforms Camtrap DP metadata to EML (#61).
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` and spatial scope in the metadata (#85).
 * New function `shift_time()` allows to shift/correct date-times in data and metadata for specified deploymentIDs and duration (#105).
+* New function `merge_camtrapdp()` merges two Camera Trap Data packages (#112).
 * `filter_deployments()` and `deployments()<-` now update the spatial, temporal and taxonomic scope in the metadata based on the returned data (#72, #111, #132).
 * `filter_observations()`, `filter_media()`, `media()<-` and `observations()<-` now update the taxonomic scope in the metadata based on the returned data (#73, #111).
 * `read_camtrapdp()` now updates the spatial and temporal scope in metadata based on the data (#130).
