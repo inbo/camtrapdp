@@ -1,12 +1,12 @@
-#' Read taxonomic metadata and build a data frame
+#' Get taxonomic metadata and build a data frame
 #'
-#' Reads the `x$taxonomic` property in a Camera Trap Data Package object and
+#' Gets the `x$taxonomic` property in a Camera Trap Data Package object and
 #' builds a data frame with the taxonomic information.
 #'
 #' @inheritParams print.camtrapdp
 #' @return A data frame with the taxonomic information.
 #' @noRd
-read_taxonomic <- function(x) {
+taxonomic <- function(x) {
   # Extract the taxonomic information
   taxonomic_list <- purrr::pluck(x, "taxonomic")
 

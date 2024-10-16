@@ -96,7 +96,7 @@ read_camtrapdp <- function(file) {
     dplyr::select(-"eventStart", -"eventEnd")
 
   # Add taxonomic info to observations
-  taxonomy <- read_taxonomic(x)
+  taxonomy <- taxonomic(x)
   if (!is.null(taxonomy)) {
     # Add taxon. as column suffix
     colnames(taxonomy) <- paste("taxon", colnames(taxonomy), sep = ".")

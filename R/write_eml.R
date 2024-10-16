@@ -149,7 +149,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$name
 
   # Set coverage
-  taxa <- read_taxonomic(x)
+  taxa <- taxonomic(x)
   coordinates <- x$spatial$coordinates
   if ("taxonRank" %in% names(taxa)) {
     taxa <- dplyr::filter(taxa, .data$taxonRank == "species")
