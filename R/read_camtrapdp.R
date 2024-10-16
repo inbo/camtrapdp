@@ -36,8 +36,8 @@
 #' Camtrap DP metadata has a `spatial` and `temporal` property that contains the
 #' spatial and temporal coverage of the package respectively.
 #'
-#' This function **will automatically update the spatial and temporal scopes in
-#' metadata based on data**.
+#' This function **will automatically update the spatial and temporal scopes**
+#' in metadata based on the data.
 #'
 #' @param file Path or URL to a `datapackage.json` file.
 #' @return A Camera Trap Data Package object.
@@ -70,8 +70,8 @@ read_camtrapdp <- function(file) {
   attr(x, "version") <- version
 
   # Read and attach csv data
-  # Note: assignment functions are not used here to bypass metadata update and
-  # validation (comes later)
+  # Assignment functions should not be used here, to bypass metadata update
+  # and validation, which comes later
   purrr::pluck(x, "data", "deployments") <-
     frictionless::read_resource(package, "deployments")
   purrr::pluck(x, "data", "media") <-
@@ -115,11 +115,6 @@ read_camtrapdp <- function(file) {
     x %>%
     update_temporal() %>%
     update_spatial()
-
-  cli::cli_inform(
-    c("v" = "Updating temporal and spatial scopes in metadata based on data."),
-    class = "camtrapdp_message_update_metadata"
-  )
 
   return(x)
 }

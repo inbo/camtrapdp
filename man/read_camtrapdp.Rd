@@ -52,8 +52,8 @@ being duplicated), for example when events and sub-events were defined.
 Camtrap DP metadata has a \code{spatial} and \code{temporal} property that contains the
 spatial and temporal coverage of the package respectively.
 
-This function \strong{will automatically update the spatial and temporal scopes in
-metadata based on data}.
+This function \strong{will automatically update the spatial and temporal scopes}
+in metadata based on the data.
 }
 
 \examples{
