@@ -64,6 +64,8 @@ x <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("00a2c20d", "29b7d356"))
 y <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("577b543a", "62c200a9"))
+x$id <- "1"
+y$id <- "2"
 xy_merged <- merge_camtrapdp(x, y)
 }
 \seealso{
