@@ -41,3 +41,16 @@ test_that("write_eml() supports disabling the derived paragraph", {
 
   expect_error(result$dataset$abstract$para[[2]]) # Subscript out of bounds
 })
+
+test_that("write_eml() sets contact to first contributor if no contributor with
+          role 'contact' is provided", {
+  skip_if_offline()
+  x <- example_dataset()
+  # Remove contributor with role == contact
+  x$contributors[[4]] <- NULL
+  temp_dir <- file.path(tempdir(), "eml")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  result <- suppressMessages(write_eml(x, temp_dir))
+
+  expect_identical(result$dataset$creator[[1]], result$dataset$contact)
+})
