@@ -16,7 +16,7 @@ read_taxonomic <- function(x) {
   }
 
   # Convert list into a data.frame
-  taxonomy_df <-
+  taxa <-
     purrr::map(
       taxonomic_list,
       purrr::list_flatten,
@@ -26,7 +26,7 @@ read_taxonomic <- function(x) {
     purrr::list_rbind()
 
   # Warn if there are duplicate scientificNames
-  scientific_names <- purrr::pluck(taxonomy_df, "scientificName")
+  scientific_names <- purrr::pluck(taxa, "scientificName")
   duplicate_names <- scientific_names[duplicated(scientific_names)]
   if (length(duplicate_names) > 0) {
     cli::cli_warn(
@@ -40,16 +40,16 @@ read_taxonomic <- function(x) {
   }
 
   # Only keep the first row if a scientificName occurs more than once
-  taxonomy_df <- dplyr::distinct(
-    taxonomy_df,
+  taxa <- dplyr::distinct(
+    taxa,
     .data$scientificName,
     .keep_all = TRUE
   )
 
   # Drop any columns that are empty (e.g as result of dropping duplicates)
-  cols_to_keep <- colSums(is.na(taxonomy_df)) != nrow(taxonomy_df)
-  taxonomy_df <- taxonomy_df[, cols_to_keep, drop = FALSE]
+  cols_to_keep <- colSums(is.na(taxa)) != nrow(taxa)
+  taxa <- taxa[, cols_to_keep, drop = FALSE]
 
   # Return data.frame
-  return(taxonomy_df)
+  return(taxa)
 }

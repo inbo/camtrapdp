@@ -8,7 +8,7 @@
 * `read_camtrapdp()` now updates the spatial and temporal scope in metadata based on the data (#130).
 * `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.1. The internal function `convert()` has been renamed to `upgrade()` (#113).
 * Internal function `build_taxa()` is renamed to `read_taxonomic()`.
-* `taxa()` now removes duplicates, based on `scientificName` and (if present) `taxonID` (#130).
+* `taxa()` now removes duplicates (#130).
 
 # camtrapdp 0.3.1
 
