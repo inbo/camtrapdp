@@ -56,6 +56,10 @@ test_that("filter_deployments() updates temporal and spatial scope in metadata",
   skip_if_offline()
   x <- example_dataset()
 
+  # Set dummy scopes (will be overwritten when updated)
+  x$spatial <- list()
+  x$temporal <- list()
+
   # One deployment
   x_filtered <- filter_deployments(x, deploymentID == "62c200a9")
   expect_identical(x_filtered$temporal$start, "2021-03-27")

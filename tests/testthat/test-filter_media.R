@@ -55,7 +55,10 @@ test_that("filter_media() updates taxonomic scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
 
-  # One media, multiple observations, 1 species
+  # Set dummy scope (will be overwritten when updated)
+  x$taxonomic <- list()
+
+  # One media, multiple observations, 1 taxon
   x_1_taxon <- filter_media(x, mediaID == "e8b8e44c")
   expect_identical(
     purrr::map_chr(x_1_taxon$taxonomic, ~ purrr::pluck(.x, "scientificName")),
@@ -66,8 +69,7 @@ test_that("filter_media() updates taxonomic scope in metadata", {
     "mallard" # Original data is still present
   )
 
-  # One media, multiple observations, 2 species (names are alphabetical)
-  x$taxonomic <- NULL
+  # One media, multiple observations, 2 taxa (names are alphabetical)
   x_multiple <- filter_media(x, mediaID == "8263e85b")
   expected_taxonomic <- list(
     list(

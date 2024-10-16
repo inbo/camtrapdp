@@ -65,22 +65,21 @@ update_temporal <- function(x) {
 
 #' Update taxonomic metadata
 #'
-#' Filters existing taxa in `x$taxonomic` on the scientific names found in the
-#' observations or creates a `x$taxonomic` with a unique list of those
-#' scientific names.
-#' Sets `x$taxonomic` to `NULL` if there are no observations.
+#' Sets `x$taxonomic` to unique `taxa()` found in the observations.
+#' Sets `x$taxonomic` to `NULL` if there are no taxa/observations.
 #'
 #' @inheritParams print.camtrapdp
 #' @return `x` with updated taxonomic metadata.
 #' @family helper functions
 #' @noRd
 update_taxonomic <- function(x) {
-  if (nrow(observations(x)) == 0) {
+  taxa <- taxa(x)
+
+  if (nrow(taxa) == 0) {
     x$taxonomic <- NULL
     return(x)
   }
 
-  taxa <- taxa(x)
   # Set taxonomic
   x$taxonomic <- purrr::map(1:nrow(taxa), function(i) {
     current_row <- taxa[i, ]
