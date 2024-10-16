@@ -45,8 +45,7 @@ creator.
 use first creator.
 \item \strong{keywords}: Keywords as provided in \code{x$keywords}.
 \item \strong{geographic coverage}: Bounding box as provided in \code{x$spatial}.
-\item \strong{taxonomic coverage}: Species (no other ranks) as provided in
-\code{x$taxonomic}.
+\item \strong{taxonomic coverage}: Taxa as provided in \code{x$taxonomic}.
 \item \strong{temporal coverage}: Date range as provided in \code{x$temporal}.
 \item \strong{project data}: Title, acronym as identifier, description, and sampling
 design as provided in \code{x$project}.

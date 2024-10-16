@@ -33,8 +33,7 @@
 #' use first creator.
 #' - **keywords**: Keywords as provided in `x$keywords`.
 #' - **geographic coverage**: Bounding box as provided in `x$spatial`.
-#' - **taxonomic coverage**: Species (no other ranks) as provided in
-#'   `x$taxonomic`.
+#' - **taxonomic coverage**: Taxa as provided in `x$taxonomic`.
 #' - **temporal coverage**: Date range as provided in `x$temporal`.
 #' - **project data**: Title, acronym as identifier, description, and sampling
 #'   design as provided in `x$project`.
@@ -164,15 +163,9 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   eml$dataset$intellectualRights$para <-
     purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$name
 
-  # Set coverage
+  # Set temporal and geographic coverage
   taxa <- taxonomic(x)
   coordinates <- x$spatial$coordinates
-  if ("taxonRank" %in% names(taxa)) {
-    taxa <- dplyr::filter(taxa, .data$taxonRank == "species")
-  }
-  sci_names <-
-    dplyr::select(taxa, "scientificName") %>%
-    dplyr::rename(Species = "scientificName") # Column name should be rank
   eml$dataset$coverage <-
     EML::set_coverage(
       begin = x$temporal$start,
@@ -181,9 +174,21 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
       south = coordinates[1,1,2], # lat_min
       east = coordinates[1,3,1], # long_max
       north = coordinates[1,3,2], # lat_max
-      sci_names = sci_names,
       geographicDescription =
         "Geographic description not provided for this dataset."
+    )
+
+  # Set taxonomic coverage
+  eml$dataset$coverage$taxonomicCoverage <-
+    list(
+      taxonomicClassification =
+        purrr::map(1:nrow(taxa), function(i) {
+          current_row <- taxa[i, ]
+          list(
+            taxonRankName = current_row$taxonRank,
+            taxonRankValue = current_row$scientificName
+          )
+        })
     )
 
   # Set project

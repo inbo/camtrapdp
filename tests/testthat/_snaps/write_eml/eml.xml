@@ -102,31 +102,39 @@
       </temporalCoverage>
       <taxonomicCoverage>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Anas platyrhynchos</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Anas strepera</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>genus</taxonRankName>
+          <taxonRankValue>Ardea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Ardea cinerea</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>class</taxonRankName>
+          <taxonRankValue>Aves</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Martes foina</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Mustela putorius</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Rattus norvegicus</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Vulpes vulpes</taxonRankValue>
         </taxonomicClassification>
       </taxonomicCoverage>
