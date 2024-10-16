@@ -21,8 +21,12 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with deployments.
 \code{deployments()} gets the deployments from a Camera Trap Data Package object.
 
 \verb{deployments<-()} is the assignment equivalent.
-It should only be used within other functions, where the expected data
+\itemize{
+\item It should only be used within other functions, where the expected data
 structure can be guaranteed.
+\item Metadata (\code{x$spatial} and \code{x$temporal}) are updated to match the assigned
+deployments.
+}
 }
 \examples{
 x <- example_dataset()

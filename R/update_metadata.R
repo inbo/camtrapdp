@@ -8,12 +8,15 @@
 #' @family helper functions
 #' @noRd
 update_spatial <- function(x) {
-  if (nrow(deployments(x)) == 0) {
+  deployments <- deployments(x)
+
+  if (nrow(deployments) == 0) {
     x$spatial <- NULL
     return(x)
   }
 
-  deployments <- deployments(x)
+  x$spatial$type <- "Polygon"
+
   lat_min <- min(deployments$latitude)
   lat_max <- max(deployments$latitude)
   long_min <- min(deployments$longitude)
@@ -40,12 +43,13 @@ update_spatial <- function(x) {
 #' @family helper functions
 #' @noRd
 update_temporal <- function(x) {
-  if (nrow(deployments(x)) == 0) {
+  deployments <- deployments(x)
+
+  if (nrow(deployments) == 0) {
     x$temporal <- NULL
     return(x)
   }
 
-  deployments <- deployments(x)
   x$temporal$start <-
     deployments %>%
     dplyr::pull(.data$deploymentStart) %>%
@@ -61,31 +65,48 @@ update_temporal <- function(x) {
 
 #' Update taxonomic metadata
 #'
-#' Filters existing taxa in `x$taxonomic` on the scientific names found in the
-#' observations or creates a `x$taxonomic` with a unique list of those
-#' scientific names.
-#' Sets `x$taxonomic` to `NULL` if there are no observations.
+#' Sets `x$taxonomic` to unique `taxa()` found in the observations.
+#' Sets `x$taxonomic` to `NULL` if there are no taxa/observations.
 #'
 #' @inheritParams print.camtrapdp
 #' @return `x` with updated taxonomic metadata.
 #' @family helper functions
 #' @noRd
 update_taxonomic <- function(x) {
-  if (nrow(observations(x)) == 0) {
+  taxa <- taxa(x)
+
+  if (nrow(taxa) == 0) {
     x$taxonomic <- NULL
     return(x)
   }
 
-  current_taxa <- purrr::pluck(taxa(x), "scientificName") %>% sort()
   # Set taxonomic
-  if (is.null(x$taxonomic)) {
-    x$taxonomic <- purrr::map(current_taxa, ~ list(scientificName = .x))
+  x$taxonomic <- purrr::map(1:nrow(taxa), function(i) {
+    current_row <- taxa[i, ]
 
-  # Update taxonomic
-  } else {
-    x$taxonomic <- purrr::keep(
-      x$taxonomic, ~ purrr::pluck(.x, "scientificName") %in% current_taxa
-    )
-  }
+    # Create taxonomic list without vernacular names
+    taxonomic_list <-
+      current_row %>%
+      dplyr::select(-dplyr::starts_with("vernacularNames")) %>%
+      as.list()
+
+    if (any(startsWith(names(current_row), "vernacularNames"))) {
+      # Group vernacular names
+      vernacularNames <-
+        current_row %>%
+        dplyr::select(dplyr::starts_with("vernacularNames")) %>%
+        dplyr::rename_with(~ sub("^vernacularNames.", "", .x)) %>%
+        as.list()
+
+      # Append to taxonomic list
+      taxonomic_list <- append(
+        taxonomic_list,
+        list("vernacularNames" = vernacularNames)
+      )
+    }
+
+    return(taxonomic_list)
+  })
+
   return(x)
 }
