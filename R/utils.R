@@ -41,32 +41,32 @@ expand_cols <- function(df, colnames) {
 #'
 #' Checks for duplicated IDs in two Camera Trap Data Package objects combined.
 #'
-#' @param x1,x2 Camera Trap Data Package objects (as returned by
+#' @param x,y Camera Trap Data Package objects (as returned by
 #' `read_camtrapdp()`), to be coerced to one.
 #' @return List with logical for each type of ID, that indicates whether that
-#' ID type has duplicates between x1 and x2.
+#' ID type has duplicates between x and y.
 #' @family helper functions
 #' @noRd
-check_duplicate_ids <- function(x1, x2) {
+check_duplicate_ids <- function(x, y) {
   result = list(
     deploymentID = FALSE, mediaID = FALSE, observationID = FALSE,
     eventID = FALSE)
 
   deploymentIDs <- c(
-    unique(purrr::pluck(deployments(x1), "deploymentID")),
-    unique(purrr::pluck(deployments(x2), "deploymentID"))
+    unique(purrr::pluck(deployments(x), "deploymentID")),
+    unique(purrr::pluck(deployments(y), "deploymentID"))
   )
   mediaIDs <- c(
-    unique(purrr::pluck(media(x1), "mediaID")),
-    unique(purrr::pluck(media(x2), "mediaID"))
+    unique(purrr::pluck(media(x), "mediaID")),
+    unique(purrr::pluck(media(y), "mediaID"))
   )
   observationIDs <- c(
-    unique(purrr::pluck(observations(x1), "observationID")),
-    unique(purrr::pluck(observations(x2), "observationID"))
+    unique(purrr::pluck(observations(x), "observationID")),
+    unique(purrr::pluck(observations(y), "observationID"))
   )
   eventIDs <- c(
-    unique(purrr::pluck(media(x1), "eventID")),
-    unique(purrr::pluck(media(x2), "eventID"))
+    unique(purrr::pluck(media(x), "eventID")),
+    unique(purrr::pluck(media(y), "eventID"))
   )
 
   # Check for duplicates
