@@ -22,7 +22,7 @@ taxa <- function(x) {
     dplyr::filter(!is.na(.data$scientificName)) %>%
     dplyr::select("scientificName", dplyr::starts_with("taxon.")) %>%
     dplyr::distinct() %>%
-    dplyr::rename_with(~ sub("^taxon.", "", .x)) %>%
+    dplyr::rename_with(~ sub("^taxon.", "", .cols = everything())) %>%
     dplyr::arrange(.data$scientificName)
 
   # Remove duplicates without taxonID
