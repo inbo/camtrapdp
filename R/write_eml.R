@@ -89,8 +89,8 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   }
   eml$dataset$abstract$para <- para
 
-  # Set update frequence
   eml$dataset$abstract$maintenanceUpdateFrequency <- "unknown"
+  # Set update frequency
 
   # Convert contributors to a data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
@@ -145,11 +145,17 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   eml$dataset$keywordSet <-
     list(
       list(
-        keywordThesaurus = "GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml",
+        keywordThesaurus = paste(
+          "GBIF Dataset Type Vocabulary:",
+          "http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml"
+        ),
         keyword = "Occurrence"
       ),
       list(
-        keywordThesaurus = "GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml",
+        keywordThesaurus = paste(
+          "GBIF Dataset Subtype Vocabulary:",
+          "http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml"
+        ),
         keyword = "Observation"
       ),
       list(
@@ -239,7 +245,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Set alternative identifier = package id (can be DOI)
   eml$dataset$alternateIdentifier <- x$id
 
-  # Write filess
+  # Write files
   eml_path <- file.path(directory, "eml.xml")
   cli::cli_h2("Writing file")
   cli::cli_ul(c(
