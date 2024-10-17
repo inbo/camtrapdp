@@ -15,9 +15,9 @@
 #' Metadata are derived from what is provided in `x`.
 #' The following properties are set:
 #' - **title**: Title as provided in `x$title`.
-#' - **type**: Set to Occurrence.
-#' - **subtype**: Set to Observation.
-#' - **update frequency**: Set to unknown.
+#' - **type**: Set to `Occurrence` in keywords.
+#' - **subtype**: Set to `Observation` in keywords.
+#' - **update frequency**: Set to `unknown`.
 #' - **description**: Description as provided in `x$description`.
 #'   If `derived_paragraph = TRUE` a generated paragraph is added, e.g.:
 #'
@@ -27,10 +27,9 @@
 #'   or unclassified media, vehicles and observations of humans.
 #' - **license**: License with scope `data` as provided in `x$licenses`.
 #' - **creators**: Contributors (all roles) as provided in `x$contributors`.
-#' - **contact**: Use contributors with role `contact`. If none exist, use first
+#' - **contact**: Contributors with role `contact`. If none exist, first
 #' creator.
-#' - **metadata provider**: Use contributors with role `contact`. If none exist,
-#' use first creator.
+#' - **metadata provider**: Same as `contact`.
 #' - **keywords**: Keywords as provided in `x$keywords`.
 #' - **geographic coverage**: Bounding box as provided in `x$spatial`.
 #' - **taxonomic coverage**: Taxa as provided in `x$taxonomic`.

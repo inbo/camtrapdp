@@ -28,9 +28,9 @@ Metadata are derived from what is provided in \code{x}.
 The following properties are set:
 \itemize{
 \item \strong{title}: Title as provided in \code{x$title}.
-\item \strong{type}: Set to Occurrence.
-\item \strong{subtype}: Set to Observation.
-\item \strong{update frequency}: Set to unknown.
+\item \strong{type}: Set to \code{Occurrence} in keywords.
+\item \strong{subtype}: Set to \code{Observation} in keywords.
+\item \strong{update frequency}: Set to \code{unknown}.
 \item \strong{description}: Description as provided in \code{x$description}.
 If \code{derived_paragraph = TRUE} a generated paragraph is added, e.g.:
 
@@ -39,10 +39,9 @@ Data have been standardized to Darwin Core using the \href{https://inbo.github.i
 or unclassified media, vehicles and observations of humans.
 \item \strong{license}: License with scope \code{data} as provided in \code{x$licenses}.
 \item \strong{creators}: Contributors (all roles) as provided in \code{x$contributors}.
-\item \strong{contact}: Use contributors with role \code{contact}. If none exist, use first
+\item \strong{contact}: Contributors with role \code{contact}. If none exist, first
 creator.
-\item \strong{metadata provider}: Use contributors with role \code{contact}. If none exist,
-use first creator.
+\item \strong{metadata provider}: Same as \code{contact}.
 \item \strong{keywords}: Keywords as provided in \code{x$keywords}.
 \item \strong{geographic coverage}: Bounding box as provided in \code{x$spatial}.
 \item \strong{taxonomic coverage}: Taxa as provided in \code{x$taxonomic}.
