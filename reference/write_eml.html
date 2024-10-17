@@ -73,6 +73,9 @@ And invisibly, an <a href="https://docs.ropensci.org/EML/reference/eml.html" cla
 
 <p>Metadata are derived from what is provided in <code>x</code>.
 The following properties are set:</p><ul><li><p><strong>title</strong>: Title as provided in <code>x$title</code>.</p></li>
+<li><p><strong>type</strong>: Set to <code>Occurrence</code> in keywords.</p></li>
+<li><p><strong>subtype</strong>: Set to <code>Observation</code> in keywords.</p></li>
+<li><p><strong>update frequency</strong>: Set to <code>unknown</code>.</p></li>
 <li><p><strong>description</strong>: Description as provided in <code>x$description</code>.
 If <code>derived_paragraph = TRUE</code> a generated paragraph is added, e.g.:</p>
 <p>Data have been standardized to Darwin Core using the <a href="https://inbo.github.io/camtrapdp/">camtrapdp</a> R package and only include observations
@@ -80,12 +83,12 @@ If <code>derived_paragraph = TRUE</code> a generated paragraph is added, e.g.:</
 or unclassified media, vehicles and observations of humans.</p></li>
 <li><p><strong>license</strong>: License with scope <code>data</code> as provided in <code>x$licenses</code>.</p></li>
 <li><p><strong>creators</strong>: Contributors (all roles) as provided in <code>x$contributors</code>.</p></li>
-<li><p><strong>contact</strong>: First creator.</p></li>
-<li><p><strong>metadata provider</strong>: First creator.</p></li>
+<li><p><strong>contact</strong>: Contributors with role <code>contact</code>. If none exist, first
+creator.</p></li>
+<li><p><strong>metadata provider</strong>: Same as <code>contact</code>.</p></li>
 <li><p><strong>keywords</strong>: Keywords as provided in <code>x$keywords</code>.</p></li>
 <li><p><strong>geographic coverage</strong>: Bounding box as provided in <code>x$spatial</code>.</p></li>
-<li><p><strong>taxonomic coverage</strong>: Species (no other ranks) as provided in
-<code>x$taxonomic</code>.</p></li>
+<li><p><strong>taxonomic coverage</strong>: Taxa as provided in <code>x$taxonomic</code>.</p></li>
 <li><p><strong>temporal coverage</strong>: Date range as provided in <code>x$temporal</code>.</p></li>
 <li><p><strong>project data</strong>: Title, acronym as identifier, description, and sampling
 design as provided in <code>x$project</code>.</p></li>
@@ -93,10 +96,7 @@ design as provided in <code>x$project</code>.</p></li>
 If this is a DOI, no new DOI will be created when publishing to GBIF.</p></li>
 <li><p><strong>external link</strong>: URL of the project as provided in
 <code>x$project$path</code>.</p></li>
-</ul><p>The following properties are not set:</p><ul><li><p><strong>type</strong></p></li>
-<li><p><strong>subtype</strong></p></li>
-<li><p><strong>update frequency</strong></p></li>
-<li><p><strong>publishing organization</strong></p></li>
+</ul><p>The following properties are not set:</p><ul><li><p><strong>publishing organization</strong></p></li>
 <li><p><strong>associated parties</strong></p></li>
 <li><p><strong>sampling methods</strong></p></li>
 <li><p><strong>citations</strong></p></li>
@@ -119,7 +119,7 @@ If this is a DOI, no new DOI will be created when publishing to GBIF.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • <span style="color: #0000BB;">my_directory/eml.xml</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $packageId</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "296df380-d2b8-4c71-95c4-fa3b6b49ef10"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "c1db20ff-3d9c-4654-8f13-b123b035ab36"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $system</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "uuid"</span>
@@ -132,6 +132,16 @@ If this is a DOI, no new DOI will be created when publishing to GBIF.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$abstract$para</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MICA - Muskrat and coypu camera trap observations in Belgium, the Netherlands and Germany is an occurrence dataset published by the Research Institute of Nature and Forest (INBO). It is part of the LIFE project MICA, in which innovative techniques are tested for a more efficient control of muskrat and coypu populations, both invasive species. This dataset is a sample of the original dataset and serves as an example of a Camera Trap Data Package (Camtrap DP)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] "&lt;![CDATA[&lt;span&gt;&lt;/span&gt;Data have been standardized to Darwin Core using the &lt;a href=\"https://inbo.github.io/camtrapdp/\"&gt;camtrapdp&lt;/a&gt; R package and only include observations (and associated media) of animals. Excluded are records that document blank or unclassified media, vehicles and observations of humans.]]&gt;"                                                                                                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$maintenance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$maintenance$description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$maintenance$description$para</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$maintenance$maintenanceUpdateFrequency</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "unknown"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$creator</span>
@@ -193,41 +203,61 @@ If this is a DOI, no new DOI will be created when publishing to GBIF.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$contact</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$contact[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> '@id': ~</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> address: ~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> electronicMailAddress: axel.neukermans@inbo.be</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> electronicMailAddress: peter.desmet@inbo.be</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> individualName:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   givenName: Axel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   surName: Neukermans</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   givenName: Peter</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   surName: Desmet</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> onlineUrl: .na.character</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> organizationName: Research Institute for Nature and Forest (INBO)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> phone: ~</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> positionName: ~</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> userId:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   directory: https://orcid.org/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   '': 0000-0003-0272-9180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   '': 0000-0002-8442-8025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$metadataProvider</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$metadataProvider[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> '@id': ~</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> address: ~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> electronicMailAddress: axel.neukermans@inbo.be</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> electronicMailAddress: peter.desmet@inbo.be</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> individualName:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   givenName: Axel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   surName: Neukermans</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   givenName: Peter</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   surName: Desmet</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> onlineUrl: .na.character</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> organizationName: Research Institute for Nature and Forest (INBO)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> phone: ~</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> positionName: ~</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> userId:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   directory: https://orcid.org/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   '': 0000-0003-0272-9180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   '': 0000-0002-8442-8025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[1]]$keywordThesaurus</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "n/a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[1]]$keyword</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Occurrence"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[2]]$keywordThesaurus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[2]]$keyword</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Observation"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[3]]$keywordThesaurus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "n/a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$keywordSet[[3]]$keyword</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "camera traps"              "public awareness campaign"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "flood protection"          "flood control"            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "damage prevention"         "animal damage"            </span>
@@ -243,7 +273,7 @@ If this is a DOI, no new DOI will be created when publishing to GBIF.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset$coverage</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> geographicCoverage:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   geographicDescription: []</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   geographicDescription: Geographic description not provided for this dataset.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   boundingCoordinates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     westBoundingCoordinate: 4.013</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     eastBoundingCoordinate: 5.659</span>
@@ -255,19 +285,23 @@ If this is a DOI, no new DOI will be created when publishing to GBIF.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       altitudeUnits: []</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> taxonomicCoverage:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   taxonomicClassification:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Anas platyrhynchos</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Anas strepera</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: genus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Ardea</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Ardea cinerea</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: class</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Aves</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Martes foina</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Mustela putorius</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Rattus norvegicus</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - taxonRankName: species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     taxonRankValue: Vulpes vulpes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> temporalCoverage:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   rangeOfDates:</span>
