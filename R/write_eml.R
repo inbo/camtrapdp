@@ -89,8 +89,11 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   }
   eml$dataset$abstract$para <- para
 
-  eml$dataset$abstract$maintenanceUpdateFrequency <- "unknown"
   # Set update frequency
+  eml$dataset$maintenance <- list(
+    description = list(para = ""),
+    maintenanceUpdateFrequency = "unknown"
+  )
 
   # Convert contributors to a data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
