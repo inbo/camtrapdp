@@ -40,7 +40,7 @@ expand_cols <- function(df, colnames) {
 #' Creates list of contributors in EML format
 #'
 #' @param contributor_list List of contributors
-#' @return A list of emld objects for any responsibleParty.
+#' @return List of contributors as emld responsibleParty objects.
 #' @family helper functions
 #' @noRd
 create_eml_contributors <- function(contributor_list) {

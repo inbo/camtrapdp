@@ -89,7 +89,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   }
   eml$dataset$abstract$para <- para
 
-  # Set update frequency
+  # Set update frequency (requires a description, even if empty)
   eml$dataset$maintenance <- list(
     description = list(para = ""),
     maintenanceUpdateFrequency = "unknown"
@@ -136,13 +136,12 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   contact_df <- dplyr::filter(creators, role == "contact")
   contact_list <- purrr::transpose(contact_df)
   if (length(contact_list) != 0) {
-    contact_eml <- create_eml_contributors(contact_list)
+    contacts <- create_eml_contributors(contact_list)
   } else {
-    # First creator
-    contact_eml <- purrr::pluck(eml, "dataset", "creator", 1)
+    contacts <- purrr::pluck(eml, "dataset", "creator", 1) # First creator
   }
-  eml$dataset$contact <- contact_eml
-  eml$dataset$metadataProvider <- contact_eml
+  eml$dataset$contact <- contacts
+  eml$dataset$metadataProvider <- contacts
 
   # Set keywords
   eml$dataset$keywordSet <-
@@ -172,7 +171,6 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$name
 
   # Set temporal and geographic coverage
-  taxa <- taxonomic(x)
   coordinates <- x$spatial$coordinates
   eml$dataset$coverage <-
     EML::set_coverage(
@@ -187,6 +185,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     )
 
   # Set taxonomic coverage
+  taxa <- taxonomic(x)
   eml$dataset$coverage$taxonomicCoverage <-
     list(
       taxonomicClassification =
@@ -196,7 +195,8 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
             taxonRankName = current_row$taxonRank,
             taxonRankValue = current_row$scientificName
           )
-        })
+        }
+      )
     )
 
   # Set project
