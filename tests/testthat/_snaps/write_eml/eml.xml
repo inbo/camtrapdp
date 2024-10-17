@@ -38,18 +38,26 @@
     </creator>
     <metadataProvider>
       <individualName>
-        <givenName>Axel</givenName>
-        <surName>Neukermans</surName>
+        <givenName>Peter</givenName>
+        <surName>Desmet</surName>
       </individualName>
       <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
-      <electronicMailAddress>axel.neukermans@inbo.be</electronicMailAddress>
-      <userId directory="https://orcid.org/">0000-0003-0272-9180</userId>
+      <electronicMailAddress>peter.desmet@inbo.be</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0002-8442-8025</userId>
     </metadataProvider>
     <pubDate>2023-02-06</pubDate>
     <abstract>
       <para>MICA - Muskrat and coypu camera trap observations in Belgium, the Netherlands and Germany is an occurrence dataset published by the Research Institute of Nature and Forest (INBO). It is part of the LIFE project MICA, in which innovative techniques are tested for a more efficient control of muskrat and coypu populations, both invasive species. This dataset is a sample of the original dataset and serves as an example of a Camera Trap Data Package (Camtrap DP).</para>
       <para><![CDATA[<span></span>Data have been standardized to Darwin Core using the <a href="https://inbo.github.io/camtrapdp/">camtrapdp</a> R package and only include observations (and associated media) of animals. Excluded are records that document blank or unclassified media, vehicles and observations of humans.]]></para>
     </abstract>
+    <keywordSet>
+      <keyword>Occurrence</keyword>
+      <keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Observation</keyword>
+      <keywordThesaurus>GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml</keywordThesaurus>
+    </keywordSet>
     <keywordSet>
       <keyword>camera traps</keyword>
       <keyword>public awareness campaign</keyword>
@@ -73,6 +81,7 @@
     </distribution>
     <coverage>
       <geographicCoverage>
+        <geographicDescription>Geographic description not provided for this dataset.</geographicDescription>
         <boundingCoordinates>
           <westBoundingCoordinate>4.013</westBoundingCoordinate>
           <eastBoundingCoordinate>5.659</eastBoundingCoordinate>
@@ -92,43 +101,57 @@
       </temporalCoverage>
       <taxonomicCoverage>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Anas platyrhynchos</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Anas strepera</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>genus</taxonRankName>
+          <taxonRankValue>Ardea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Ardea cinerea</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>class</taxonRankName>
+          <taxonRankValue>Aves</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Martes foina</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Mustela putorius</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Rattus norvegicus</taxonRankValue>
         </taxonomicClassification>
         <taxonomicClassification>
-          <taxonRankName>Species</taxonRankName>
+          <taxonRankName>species</taxonRankName>
           <taxonRankValue>Vulpes vulpes</taxonRankValue>
         </taxonomicClassification>
       </taxonomicCoverage>
     </coverage>
+    <maintenance>
+      <description>
+        <para/>
+      </description>
+      <maintenanceUpdateFrequency>unknown</maintenanceUpdateFrequency>
+    </maintenance>
     <contact>
       <individualName>
-        <givenName>Axel</givenName>
-        <surName>Neukermans</surName>
+        <givenName>Peter</givenName>
+        <surName>Desmet</surName>
       </individualName>
       <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
-      <electronicMailAddress>axel.neukermans@inbo.be</electronicMailAddress>
-      <userId directory="https://orcid.org/">0000-0003-0272-9180</userId>
+      <electronicMailAddress>peter.desmet@inbo.be</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0002-8442-8025</userId>
     </contact>
     <project id="MICA">
       <title>Management of Invasive Coypu and muskrAt in Europe</title>

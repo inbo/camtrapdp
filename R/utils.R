@@ -179,9 +179,9 @@ add_prefix <- function(x, results_duplicate_ids, prefix) {
 #' @noRd
 #' @examples
 #' data_list <- list(
-#' title = "Peter Desmet",
-#' email = "peter.desmet@inbo.be",
-#' organization = "Research Institute for Nature and Forest (INBO)"
+#'   title = "Peter Desmet",
+#'   email = "peter.desmet@inbo.be",
+#'   organization = "Research Institute for Nature and Forest (INBO)"
 #' )
 #' unique_names <- c("title", "email", "path", "role", "organization")
 #' normalize_list(data_list, unique_names)
@@ -329,4 +329,25 @@ remove_duplicates <- function(data_list) {
     })
 
   return(unique_data_list)
+}
+
+#' Creates list of contributors in EML format
+#'
+#' @param contributor_list List of contributors
+#' @return List of contributors as emld responsibleParty objects.
+#' @family helper functions
+#' @noRd
+create_eml_contributors <- function(contributor_list) {
+  purrr::map(contributor_list, ~ EML::set_responsibleParty(
+    givenName = .$first_name,
+    surName = .$last_name,
+    organizationName = .$organization, # Discouraged by EML, but used by IPT
+    email = .$email,
+    userId = if (!is.na(.$orcid)) {
+      list(directory = "https://orcid.org/", .$orcid)
+    } else {
+      NULL
+    },
+    onlineUrl = .$path
+  ))
 }
