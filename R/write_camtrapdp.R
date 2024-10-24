@@ -26,7 +26,7 @@ write_camtrapdp <- function(x, directory) {
   # Remove columns that were added by read_camtrapdp()
   media(x) <-
     media(x) %>%
-    dplyr::select(-eventID)
+    dplyr::select(-"eventID")
   # Do not use assign function for observations because it would update
   # x$taxonomic without the "taxon."-terms
   x$data$observations <-
