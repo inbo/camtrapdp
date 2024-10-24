@@ -32,6 +32,9 @@ write_camtrapdp <- function(x, directory) {
     x <- frictionless::add_resource(
       x, resource, data = x$data[[resource]], replace = TRUE, schema = schema
       )
+    # Hack to circumvent that add_resource() adds schema verbosely
+    resource_index <- purrr::detect_index(x$resources, ~ .x$name == resource)
+    x$resources[[resource_index]]$schema <- schema
   }
   # Remove data
   x$data <- NULL
