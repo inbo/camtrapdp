@@ -17,6 +17,12 @@
 write_camtrapdp <- function(x, directory) {
   check_camtrapdp(x)
 
+  # Update spatial, temporal and taxonomic scope in metadata
+  x <- x %>%
+    update_spatial() %>%
+    update_temporal() %>%
+    update_taxonomic()
+
   # Remove columns that were added by read_camtrapdp()
   media(x) <-
     media(x) %>%
