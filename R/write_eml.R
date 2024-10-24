@@ -15,6 +15,9 @@
 #' Metadata are derived from what is provided in `x`.
 #' The following properties are set:
 #' - **title**: Title as provided in `x$title`.
+#' - **type**: Set to `Occurrence` in keywords.
+#' - **subtype**: Set to `Observation` in keywords.
+#' - **update frequency**: Set to `unknown`.
 #' - **description**: Description as provided in `x$description`.
 #'   If `derived_paragraph = TRUE` a generated paragraph is added, e.g.:
 #'
@@ -24,12 +27,12 @@
 #'   or unclassified media, vehicles and observations of humans.
 #' - **license**: License with scope `data` as provided in `x$licenses`.
 #' - **creators**: Contributors (all roles) as provided in `x$contributors`.
-#' - **contact**: First creator.
-#' - **metadata provider**: First creator.
+#' - **contact**: Contributors with role `contact`. If none exist, first
+#' creator.
+#' - **metadata provider**: Same as `contact`.
 #' - **keywords**: Keywords as provided in `x$keywords`.
 #' - **geographic coverage**: Bounding box as provided in `x$spatial`.
-#' - **taxonomic coverage**: Species (no other ranks) as provided in
-#'   `x$taxonomic`.
+#' - **taxonomic coverage**: Taxa as provided in `x$taxonomic`.
 #' - **temporal coverage**: Date range as provided in `x$temporal`.
 #' - **project data**: Title, acronym as identifier, description, and sampling
 #'   design as provided in `x$project`.
@@ -39,9 +42,6 @@
 #'   `x$project$path`.
 #'
 #' The following properties are not set:
-#' - **type**
-#' - **subtype**
-#' - **update frequency**
 #' - **publishing organization**
 #' - **associated parties**
 #' - **sampling methods**
@@ -89,6 +89,12 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   }
   eml$dataset$abstract$para <- para
 
+  # Set update frequency (requires a description, even if empty)
+  eml$dataset$maintenance <- list(
+    description = list(para = ""),
+    maintenanceUpdateFrequency = "unknown"
+  )
+
   # Convert contributors to a data frame
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
   creators <-
@@ -116,56 +122,81 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
         grepl(orcid_regex, .data$path),
         NA_character_,
         .data$path
-      )
+      ),
+      role = .data$role
     )
 
   # Create creators list
   creator_list <- purrr::transpose(creators)
 
   # Set creators
-  eml$dataset$creator <-
-    purrr::map(creator_list, ~ EML::set_responsibleParty(
-      givenName = .$first_name,
-      surName = .$last_name,
-      organizationName = .$organization, # Discouraged by EML, but used by IPT
-      email = .$email,
-      userId = if (!is.na(.$orcid)) {
-        list(directory = "https://orcid.org/", .$orcid)
-      } else {
-        NULL
-      },
-      onlineUrl = .$path
-    ))
-  first_creator <- purrr::pluck(eml, "dataset", "creator", 1)
-  eml$dataset$contact <- first_creator
-  eml$dataset$metadataProvider <- first_creator
+  eml$dataset$creator <- create_eml_contributors(creator_list)
+
+  # Set contacts
+  contact_df <- dplyr::filter(creators, role == "contact")
+  contact_list <- purrr::transpose(contact_df)
+  if (length(contact_list) != 0) {
+    contacts <- create_eml_contributors(contact_list)
+  } else {
+    contacts <- purrr::pluck(eml, "dataset", "creator", 1) # First creator
+  }
+  eml$dataset$contact <- contacts
+  eml$dataset$metadataProvider <- contacts
 
   # Set keywords
   eml$dataset$keywordSet <-
-    list(list(keywordThesaurus = "n/a", keyword = x$keywords))
+    list(
+      list(
+        keywordThesaurus = paste(
+          "GBIF Dataset Type Vocabulary:",
+          "http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml"
+        ),
+        keyword = "Occurrence"
+      ),
+      list(
+        keywordThesaurus = paste(
+          "GBIF Dataset Subtype Vocabulary:",
+          "http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml"
+        ),
+        keyword = "Observation"
+      ),
+      list(
+        keywordThesaurus = "n/a",
+        keyword = x$keywords
+      )
+    )
 
   # Set license
   eml$dataset$intellectualRights$para <-
     purrr::keep(x$licenses, ~ .$scope == "data")[[1]]$name
 
-  # Set coverage
-  taxa <- taxonomic(x)
+  # Set temporal and geographic coverage
   coordinates <- x$spatial$coordinates
-  if ("taxonRank" %in% names(taxa)) {
-    taxa <- dplyr::filter(taxa, .data$taxonRank == "species")
-  }
-  sci_names <-
-    dplyr::select(taxa, "scientificName") %>%
-    dplyr::rename(Species = "scientificName") # Column name should be rank
   eml$dataset$coverage <-
     EML::set_coverage(
-      begin = x$temporal$start,
-      end = x$temporal$end,
-      west = coordinates[1,1,1], # long_min
-      south = coordinates[1,1,2], # lat_min
-      east = coordinates[1,3,1], # long_max
-      north = coordinates[1,3,2], # lat_max
-      sci_names = sci_names
+      beginDate = x$temporal$start,
+      endDate = x$temporal$end,
+      geographicDescription =
+        "Geographic description not provided for this dataset.",
+      westBoundingCoordinate = coordinates[1,1,1], # long_min
+      southBoundingCoordinate = coordinates[1,1,2], # lat_min
+      eastBoundingCoordinate = coordinates[1,3,1], # long_max
+      northBoundingCoordinate = coordinates[1,3,2] # lat_max
+    )
+
+  # Set taxonomic coverage
+  taxa <- taxonomic(x)
+  eml$dataset$coverage$taxonomicCoverage <-
+    list(
+      taxonomicClassification =
+        purrr::map(1:nrow(taxa), function(i) {
+          current_row <- taxa[i, ]
+          list(
+            taxonRankName = current_row$taxonRank,
+            taxonRankValue = current_row$scientificName
+          )
+        }
+      )
     )
 
   # Set project
@@ -217,7 +248,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Set alternative identifier = package id (can be DOI)
   eml$dataset$alternateIdentifier <- x$id
 
-  # Write filess
+  # Write files
   eml_path <- file.path(directory, "eml.xml")
   cli::cli_h2("Writing file")
   cli::cli_ul(c(
