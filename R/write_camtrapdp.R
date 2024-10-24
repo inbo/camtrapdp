@@ -3,7 +3,8 @@
 #' Writes a Camera Trap Data Package and its related Data Resources to disk as a
 #' `datapackage.json` and CSV files.
 #' Already existing CSV files of the same name will not be overwritten.
-#' The function can also be used to download a Data Package in its entirety.
+#' The function can also be used to download a Camera Trap Data Package in its
+#' entirety.
 #'
 #' @inheritParams print.camtrapdp
 #' @param directory Path to local directory to write files to.
