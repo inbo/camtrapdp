@@ -21,7 +21,9 @@ write_camtrapdp <- function(x, directory) {
   media(x) <-
     media(x) %>%
     dplyr::select(-eventID)
-  observations(x) <-
+  # Do not use assign function for observations or x$taxonomic is updated
+  # without the "taxon."-terms
+  x$data$observations <-
     observations(x) %>%
     dplyr::select(-dplyr::starts_with("taxon."))
 
@@ -36,6 +38,7 @@ write_camtrapdp <- function(x, directory) {
     resource_index <- purrr::detect_index(x$resources, ~ .x$name == resource)
     x$resources[[resource_index]]$schema <- schema
   }
+
   # Remove data
   x$data <- NULL
 
