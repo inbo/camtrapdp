@@ -11,15 +11,28 @@ write_camtrapdp(x, directory)
 
 \item{directory}{Path to local directory to write files to.}
 }
+\value{
+\code{x} invisibly, as written to file.
+}
 \description{
-Writes a Camera Trap Data Package to disk as a datapackage.json and CSV
-files.
+Writes a Camera Trap Data Package and its related Data Resources to disk as a
+\code{datapackage.json} and CSV files.
+Already existing CSV files of the same name will not be overwritten.
+The function can also be used to download a Data Package in its entirety.
 }
 \examples{
 x <- example_dataset()
+
+# Change Data Package by filtering
 x <- filter_deployments(x, deploymentID == "00a2c20d")
+
+# Write the Camera Trap Data Package to disk
 (write_camtrapdp(x, directory = "my_directory"))
+
+# Check files
+list.files("my_directory")
 
 # Clean up (don't do this if you want to keep your files)
 unlink("my_directory", recursive = TRUE)
 }
+\concept{write functions}
