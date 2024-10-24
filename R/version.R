@@ -52,7 +52,9 @@ version <- function(x) {
   new <- value
   x$profile <- sub(old, new, x$profile, fixed = TRUE)
   x$resources <- purrr::map(x$resources, function(resource) {
-    resource$schema <- sub(old, new, resource$schema, fixed = TRUE)
+    if (!is.null(resource$schema)) {
+      resource$schema <- sub(old, new, resource$schema, fixed = TRUE)
+    }
     resource
   })
   attr(x, "version") <- new
