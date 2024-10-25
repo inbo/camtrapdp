@@ -35,7 +35,9 @@ Imports:
     rlang,
     uuid
 Suggests:
+    jsonlite,
     lubridate,
+    readr,
     testthat (>= 3.0.0),
     tibble,
     xml2

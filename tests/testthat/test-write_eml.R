@@ -15,6 +15,7 @@ test_that("write_eml() writes an eml.xml to a directory and returns eml
     )
   )
   expect_type(result, "list")
+  expect_invisible(suppressMessages(write_eml(x, temp_dir)))
 })
 
 test_that("write_eml() returns the expected eml.xml file for the example

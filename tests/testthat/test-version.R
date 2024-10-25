@@ -37,6 +37,7 @@ test_that("version() returns x$profile when no match is found", {
 test_that("version()<- assigns a version to a package and its resources", {
   skip_if_offline()
   x <- example_dataset()
+  x <- frictionless::add_resource(x, "iris", iris) # 5th resource (with schema)
   version(x) <- "6.6.6"
   expect_identical(version(x), "6.6.6")
   expect_identical(
@@ -55,4 +56,7 @@ test_that("version()<- assigns a version to a package and its resources", {
     x$resources[[3]]$schema,
     "https://raw.githubusercontent.com/tdwg/camtrap-dp/6.6.6/observations-table-schema.json"
   )
+  # Non Camtrap DP resources
+  expect_null(x$resources[[4]]$schema) # Remains having no schema
+  expect_type(x$resources[[5]]$schema, "list") # Remains having a list schema
 })
