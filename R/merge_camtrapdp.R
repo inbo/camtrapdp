@@ -93,11 +93,20 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
     y <- add_prefix(y, results_duplicate_ids, paste0(prefix[2], "_"))
   }
 
-  # Merge resources
+  # Merge camtrap DP resources
   xy_merged <- x
   deployments(xy_merged) <- dplyr::bind_rows(deployments(x), deployments(y))
   media(xy_merged) <- dplyr::bind_rows(media(x), media(y))
   observations(xy_merged) <- dplyr::bind_rows(observations(x), observations(y))
+
+  # Merge additional resources
+  camtrapdp_resources <- c("deployments", "media", "observations")
+  x_resource_names <- purrr::map(x$resources, ~ .[["name"]]) %>% unlist()
+  y_resource_names <- purrr::map(x$resources, ~ .[["name"]]) %>% unlist()
+  x_additional_resources <-
+    x_resource_names[!x_resource_names %in% camtrapdp_resources]
+  y_additional_resources <-
+    y_resource_names[!y_resource_names %in% camtrapdp_resources]
 
   # Merge/update metadata
   xy_merged$name <- NA
