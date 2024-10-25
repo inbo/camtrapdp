@@ -6,7 +6,7 @@
 #' added to all the values of each identifier with duplicates, to disambiguate
 #' them. Should be a character vector of length 2. By default, the prefixes are
 #' the ID's of the Data Package.
-#' @return `x`
+#' @return `xy_merged`
 #' @family transformation functions
 #' @export
 #' @section Merging details:
@@ -100,41 +100,7 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
   observations(xy_merged) <- dplyr::bind_rows(observations(x), observations(y))
 
   # Merge additional resources
-  camtrapdp_resources <- c("deployments", "media", "observations")
-  x_resource_names <- purrr::map(x$resources, ~ .[["name"]]) %>% unlist()
-  y_resource_names <- purrr::map(x$resources, ~ .[["name"]]) %>% unlist()
-  x_additional_resources <-
-    x_resource_names[!x_resource_names %in% camtrapdp_resources]
-  y_additional_resources <-
-    y_resource_names[!y_resource_names %in% camtrapdp_resources]
-
-  all_additional_resources <- c(x_additional_resources, y_additional_resources)
-
-  if (length(all_additional_resources) > 0) {
-    duplicated_resources <- duplicated(all_additional_resources)
-    duplicated_names <- all_additional_resources[duplicated_resources]
-
-    # Add prefixes to resource names that are not unique
-    if (any(duplicated_names)) {
-      purrr::map(duplicated_names, function(duplicated_name) {
-        x_index <- which(purrr::map(x$resources, "name") == duplicated_name)
-        y_index <- which(purrr::map(y$resources, "name") == duplicated_name)
-        xy_merged$resources[[x_index]]$name <- paste0(prefix[1], "_")
-        y$resources[y_index]$name <- paste0(prefix[2], "_")
-        xy_merged$resources <- append(xy_merged$resources, y$resources[y_index])
-      })
-
-      unique_resources <-
-        all_additional_resources[!all_additional_resources %in% duplicated_names]
-
-      # Add resources
-      purrr::map(all_additional_resources, function(resource_name) {
-        index <- which(purrr::map(y$resources, "name") == resource_name)
-        resource <- x$resources[index]
-        xy_merged$resources <- append(xy_merged$resources, resource)
-      })
-    }
-  }
+  xy_merged <- merge_additional_resources(xy_merged, x, y, prefix)
 
   # Merge/update metadata
   xy_merged$name <- NA
