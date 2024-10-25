@@ -13,6 +13,7 @@ test_that("write_dwc() writes CSV and meta.xml files to a directory and
   expect_identical(names(result), c("occurrence", "multimedia"))
   expect_s3_class(result$occurrence, "tbl")
   expect_s3_class(result$multimedia, "tbl")
+  expect_invisible(suppressMessages(write_dwc(x, temp_dir)))
 })
 
 test_that("write_dwc() returns the expected Darwin Core terms as columns", {

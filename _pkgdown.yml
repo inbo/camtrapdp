@@ -7,9 +7,10 @@ navbar:
   bg: dark
 
 reference:
-- title: "Read functions"
+- title: "Read and write functions"
   contents:
   - has_concept("read functions")
+  - has_concept("write functions")
 - title: "Accessor (and assignment) functions"
   contents:
   - has_concept("accessor functions")
