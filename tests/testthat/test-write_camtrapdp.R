@@ -62,3 +62,17 @@ test_that("write_camtrapdp() writes the unaltered example dataset as is", {
   ))
   expect_identical(written_observations, original_observations)
 })
+
+test_that("write_camtrapdp() can write compressed files", {
+  skip_if_offline()
+  x <- example_dataset()
+  temp_dir <- file.path(tempdir(), "package")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  write_camtrapdp(x, temp_dir, compress = TRUE)
+
+  expect_identical(
+    list.files(temp_dir),
+    c("datapackage.json", "deployments.csv.gz", "media.csv.gz",
+      "observations.csv.gz")
+  )
+})

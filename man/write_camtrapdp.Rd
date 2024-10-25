@@ -11,7 +11,8 @@ write_camtrapdp(x, directory, ...)
 
 \item{directory}{Path to local directory to write files to.}
 
-\item{...}{Further arguments, passed to \code{\link[frictionless:write_package]{frictionless::write_package()}}.}
+\item{...}{Further arguments, passed to \code{\link[frictionless:write_package]{frictionless::write_package()}}
+(e.g. \code{compress = TRUE}).}
 }
 \value{
 \code{datapackage.json} and CSV files written to disk.

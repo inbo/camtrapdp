@@ -5,7 +5,8 @@
 #'
 #' @inheritParams print.camtrapdp
 #' @param directory Path to local directory to write files to.
-#' @param ... Further arguments, passed to [frictionless::write_package()].
+#' @param ... Further arguments, passed to [frictionless::write_package()]
+#'   (e.g. `compress = TRUE`).
 #' @return `datapackage.json` and CSV files written to disk.
 #' @family write functions
 #' @export
