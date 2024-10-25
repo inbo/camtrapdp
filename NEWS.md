@@ -1,6 +1,6 @@
 # camtrapdp (development version)
 
-* New function `write_camtrapdp()` writes a Camera Trap Data Package to disk as a datapackage.json and CSV files (#137).
+* New function `write_camtrapdp()` writes a Camera Trap Data Package to disk as a `datapackage.json` and CSV files (#137).
 * New function `write_eml()` transforms Camtrap DP metadata to EML (#99).
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` and spatial scope in the metadata (#106).
 * New function `shift_time()` allows to shift/correct date-times in data and metadata for specified deploymentIDs and duration (#108).

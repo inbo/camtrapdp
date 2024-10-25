@@ -14,6 +14,21 @@ test_that("write_camtrapdp() writes datapackage.json and CSV files to a
   expect_invisible(write_camtrapdp(x, temp_dir))
 })
 
+test_that("write_camtrapdp() writes a (filtered) dataset that can be read", {
+  skip_if_offline()
+  x <- example_dataset()
+  temp_dir <- file.path(tempdir(), "package")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  # Filter deployments and write to disk
+  write_camtrapdp(filter_deployments(x, deploymentID == "00a2c20d"), temp_dir)
+
+  expect_no_error(read_camtrapdp(file.path(temp_dir, "datapackage.json")))
+  x_written <- read_camtrapdp(file.path(temp_dir, "datapackage.json"))
+  expect_lt(nrow(deployments(x_written)), nrow(deployments(x)))
+  expect_lt(nrow(media(x_written)), nrow(media(x)))
+  expect_lt(nrow(observations(x_written)), nrow(observations(x)))
+})
+
 test_that("write_camtrapdp() writes the unaltered example dataset as is", {
   skip_if_offline()
   x <- example_dataset()
