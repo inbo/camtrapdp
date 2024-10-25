@@ -2,13 +2,11 @@
 #'
 #' Writes a Camera Trap Data Package and its related Data Resources to disk as a
 #' `datapackage.json` and CSV files.
-#' The function can also be used to download a Camera Trap Data Package in its
-#' entirety.
 #'
 #' @inheritParams print.camtrapdp
 #' @param directory Path to local directory to write files to.
 #' @param ... Further arguments, passed to [frictionless::write_package()].
-#' @return `x` invisibly, as written to file.
+#' @return `datapackage.json` and CSV files written to disk.
 #' @family write functions
 #' @export
 #' @examples
@@ -59,5 +57,9 @@ write_camtrapdp <- function(x, directory, ...) {
   # Remove data
   x$data <- NULL
 
+  # Write files
   frictionless::write_package(x, directory, ...)
+
+  # Return NULL rather than x, since x is no longer a valid camtrapdp object
+  invisible(NULL)
 }

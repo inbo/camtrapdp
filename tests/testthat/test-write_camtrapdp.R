@@ -1,19 +1,17 @@
-test_that("write_camtrapdp() returns output Camera Trap Data Package
-          (invisibly)", {
+test_that("write_camtrapdp() writes datapackage.json and CSV files to a
+           directory and returns NULL invisibly", {
+  skip_if_offline()
   x <- example_dataset()
-
   temp_dir <- file.path(tempdir(), "package")
   on.exit(unlink(temp_dir, recursive = TRUE))
-  x_written <- write_camtrapdp(x, temp_dir)
-  x_from_file <- read_camtrapdp(file.path(temp_dir, "datapackage.json"))
+  result <- write_camtrapdp(x, temp_dir)
 
+  expect_identical(
+    list.files(temp_dir),
+    c("datapackage.json", "deployments.csv", "media.csv", "observations.csv")
+  )
+  expect_null(result)
   expect_invisible(write_camtrapdp(x, temp_dir))
-
-  # $data and $directory will differ: overwrite to make the same
-  x_from_file$data <- NULL
-  x_from_file$directory <- x_written$directory
-
-  expect_identical(x_written, x_from_file)
 })
 
 test_that("write_camtrapdp() writes the same json and CSV files as the original
@@ -63,5 +61,4 @@ test_that("write_camtrapdp() writes the same json and CSV files as the original
     file.path(temp_dir, "observations.csv")
   ))
   expect_identical(original_observations, written_observations)
-
 })

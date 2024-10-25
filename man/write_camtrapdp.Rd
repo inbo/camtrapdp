@@ -14,13 +14,11 @@ write_camtrapdp(x, directory, ...)
 \item{...}{Further arguments, passed to \code{\link[frictionless:write_package]{frictionless::write_package()}}.}
 }
 \value{
-\code{x} invisibly, as written to file.
+\code{datapackage.json} and CSV files written to disk.
 }
 \description{
 Writes a Camera Trap Data Package and its related Data Resources to disk as a
 \code{datapackage.json} and CSV files.
-The function can also be used to download a Camera Trap Data Package in its
-entirety.
 }
 \examples{
 x <- example_dataset()
