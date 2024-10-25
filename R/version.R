@@ -50,13 +50,20 @@ version <- function(x) {
 "version<-" <- function(x, value) {
   old <- version(x)
   new <- value
+
+  # Update profile
   x$profile <- sub(old, new, x$profile, fixed = TRUE)
+
+  # Update resource schemas
+  camtrapdp_resource_names <- c("deployments", "media", "observations")
   x$resources <- purrr::map(x$resources, function(resource) {
-    if (!is.null(resource$schema)) {
+    if (resource$name %in% camtrapdp_resource_names) {
       resource$schema <- sub(old, new, resource$schema, fixed = TRUE)
     }
     resource
   })
+
+  # Update version
   attr(x, "version") <- new
   return(x)
 }
