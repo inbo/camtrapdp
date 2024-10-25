@@ -26,12 +26,6 @@
 write_camtrapdp <- function(x, directory, ...) {
   check_camtrapdp(x)
 
-  # Update spatial, temporal and taxonomic scope in metadata
-  x <- x %>%
-    update_spatial() %>%
-    update_temporal() %>%
-    update_taxonomic()
-
   # Remove columns that were added by read_camtrapdp()
   media(x) <-
     media(x) %>%
@@ -42,15 +36,19 @@ write_camtrapdp <- function(x, directory, ...) {
     observations(x) %>%
     dplyr::select(-dplyr::starts_with("taxon."))
 
-  # Add resources
-  resources <- c("deployments", "media", "observations")
-  for (resource in resources) {
-    schema <- purrr::keep(x$resources, ~ .x$name == resource)[[1]]$schema
+  # Update resources
+  resource_names <- c("deployments", "media", "observations")
+  for (resource_name in resource_names) {
+    schema <- purrr::keep(x$resources, ~ .x$name == resource_name)[[1]]$schema
     x <- frictionless::add_resource(
-      x, resource, data = x$data[[resource]], replace = TRUE, schema = schema
+      x,
+      resource_name = resource_name,
+      data = x$data[[resource_name]],
+      schema = ,
+      replace = TRUE,
       )
     # Hack to circumvent that add_resource() adds schema verbosely
-    resource_index <- purrr::detect_index(x$resources, ~ .x$name == resource)
+    resource_index <- purrr::detect_index(x$resources, ~ .x$name == resource_name)
     x$resources[[resource_index]]$schema <- schema
   }
 
