@@ -144,6 +144,33 @@ test_that("merge_camtrapdp() adds custom prefixes to all values of identifiers
   expect_true("y_4bb69c45" %in% observations(xy_merged)$eventID)
 })
 
+test_that("merge_camtrapdp() adds default prefixes to the names of
+          additional resources that are not unique and not required by Camera
+          Trap Data Package standard", {
+  skip_if_offline()
+  x <- example_dataset()
+  y <- example_dataset()
+  x$id <- "1"
+  y$id <- "2"
+  x$resources <- append(
+    y$resources,
+    list(list(
+      name = "annotations",
+      data = list(id = 1L, comment = "albino fox"))
+      ))
+  y$resources <- append(
+    y$resources,
+    list(list(name = "foo", description = "blabla")))
+  xy_merged <- merge_camtrapdp(x, y)
+
+  resource_names <- purrr::map(xy_merged$resources, ~ .[["name"]]) %>% unlist()
+  expected_names <- c(
+    "deployments", "media", "observations", "1_individuals", "annotations",
+    "2_individuals", "foo")
+
+  expect_identical(resource_names, expected_names)
+})
+
 test_that("merge_camtrapdp() returns the expected metadata ", {
   skip_if_offline()
   x <- example_dataset()
@@ -159,7 +186,7 @@ test_that("merge_camtrapdp() returns the expected metadata ", {
     list(scope = "media", path = "http://creativecommons.org/licenses/by/4.0/"))
 
   # Check metadata
-  expect_identical(xy_merged$resources, x$resources)
+  expect_equal(length(xy_merged$resources), 5)
   expect_identical(xy_merged$profile, "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json")
   expect_identical(xy_merged$name, NA)
   expect_identical(xy_merged$id, NULL)
