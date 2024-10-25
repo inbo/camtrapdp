@@ -93,7 +93,7 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
     y <- add_prefix(y, results_duplicate_ids, paste0(prefix[2], "_"))
   }
 
-  # Merge camtrap DP resources
+  # Merge Camera Trap DP resources
   xy_merged <- x
   deployments(xy_merged) <- dplyr::bind_rows(deployments(x), deployments(y))
   media(xy_merged) <- dplyr::bind_rows(media(x), media(y))
@@ -107,6 +107,34 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
     x_resource_names[!x_resource_names %in% camtrapdp_resources]
   y_additional_resources <-
     y_resource_names[!y_resource_names %in% camtrapdp_resources]
+
+  all_additional_resources <- c(x_additional_resources, y_additional_resources)
+
+  if (length(all_additional_resources) > 0) {
+    duplicated_resources <- duplicated(all_additional_resources)
+    duplicated_names <- all_additional_resources[duplicated_resources]
+
+    # Add prefixes to resource names that are not unique
+    if (any(duplicated_names)) {
+      purrr::map(duplicated_names, function(duplicated_name) {
+        x_index <- which(purrr::map(x$resources, "name") == duplicated_name)
+        y_index <- which(purrr::map(y$resources, "name") == duplicated_name)
+        xy_merged$resources[[x_index]]$name <- paste0(prefix[1], "_")
+        y$resources[y_index]$name <- paste0(prefix[2], "_")
+        xy_merged$resources <- append(xy_merged$resources, y$resources[y_index])
+      })
+
+      unique_resources <-
+        all_additional_resources[!all_additional_resources %in% duplicated_names]
+
+      # Add resources
+      purrr::map(all_additional_resources, function(resource_name) {
+        index <- which(purrr::map(y$resources, "name") == resource_name)
+        resource <- x$resources[index]
+        xy_merged$resources <- append(xy_merged$resources, resource)
+      })
+    }
+  }
 
   # Merge/update metadata
   xy_merged$name <- NA
