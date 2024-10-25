@@ -337,10 +337,10 @@ remove_duplicates <- function(data_list) {
 #' Package resources (deployments, media and observations). Resources with the
 #' same name are not combined, but prefixes are added to the resource names.
 #'
-#' @param xy_merged
+#' @param xy_merged Merged Camera Trap Data Package
 #' @inheritParams merge_camtrapdp
 #'
-#' @return `xy_merged`
+#' @return `xy_merged` Merged Camera Trap Data Package
 #' @family helper functions
 #' @noRd
 merge_additional_resources <- function(xy_merged, x, y, prefix) {

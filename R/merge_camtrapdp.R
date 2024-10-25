@@ -6,13 +6,15 @@
 #' added to all the values of each identifier with duplicates, to disambiguate
 #' them. Should be a character vector of length 2. By default, the prefixes are
 #' the ID's of the Data Package.
-#' @return `xy_merged`
+#' @return `xy_merged` Merged Camera Trap Data Package
 #' @family transformation functions
 #' @export
 #' @section Merging details:
 #' Deployments, media and observations are combined. If there are duplicate IDs
 #' between x and y, prefixes will be added to all the values of each identifier
 #' with duplicates, to disambiguate them.
+#' Additional resources are added, but not combined. If additional resources
+#' have the same name, prefixes will be added to the resource name.
 #' The following properties are set:
 #' - **name**: Set to NA.
 #' - **id**: Set to NULL.
