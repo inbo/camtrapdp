@@ -361,22 +361,23 @@ merge_additional_resources <- function(xy_merged, x, y, prefix) {
     # Add prefixes to resource names that are not unique, and add
     if (any(duplicated_resources)) {
       purrr::map(duplicated_names, function(duplicated_name) {
-        x_index <- which(purrr::map(x$resources, "name") == duplicated_name)
+        xy_index <-
+          which(purrr::map(xy_merged$resources, "name") == duplicated_name)
         y_index <- which(purrr::map(y$resources, "name") == duplicated_name)
-        xy_merged$resources[[x_index]]$name <-
+        xy_merged$resources[[xy_index]]$name <-
           paste0(prefix[1], "_", duplicated_name)
         y$resources[[y_index]]$name <- paste0(prefix[2], "_", duplicated_name)
-        xy_merged$resources <- append(xy_merged$resources, y$resources[y_index])
+        xy_merged$resources <<- append(xy_merged$resources, y$resources[y_index])
       })
     }
 
-    # Add unique resources
-    unique_resources <-
-      all_additional_resources[!all_additional_resources %in% duplicated_names]
-    purrr::map(unique_resources, function(resource_name) {
+    # Add unique resources from y
+    y_unique_resources <-
+      y_additional_resources[!y_additional_resources %in% duplicated_names]
+    purrr::map(y_unique_resources, function(resource_name) {
       index <- which(purrr::map(y$resources, "name") == resource_name)
-      resource <- x$resources[index]
-      xy_merged$resources <- append(xy_merged$resources, resource)
+      resource <- y$resources[index]
+      xy_merged$resources <<- append(xy_merged$resources, resource)
     })
   }
 
