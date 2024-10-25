@@ -2,30 +2,30 @@
 #'
 #' Writes a Camera Trap Data Package and its related Data Resources to disk as a
 #' `datapackage.json` and CSV files.
-#' Already existing CSV files of the same name will not be overwritten.
 #' The function can also be used to download a Camera Trap Data Package in its
 #' entirety.
 #'
 #' @inheritParams print.camtrapdp
 #' @param directory Path to local directory to write files to.
+#' @param ... Further arguments, passed to [frictionless::write_package()].
 #' @return `x` invisibly, as written to file.
 #' @family write functions
 #' @export
 #' @examples
 #' x <- example_dataset()
 #'
-#' # Change Data Package by filtering
+#' # Filter (and therefore change) the dataset
 #' x <- filter_deployments(x, deploymentID == "00a2c20d")
 #'
 #' # Write the Camera Trap Data Package to disk
-#' (write_camtrapdp(x, directory = "my_directory"))
+#' write_camtrapdp(x, directory = "my_directory")
 #'
 #' # Check files
 #' list.files("my_directory")
 #'
 #' # Clean up (don't do this if you want to keep your files)
 #' unlink("my_directory", recursive = TRUE)
-write_camtrapdp <- function(x, directory) {
+write_camtrapdp <- function(x, directory, ...) {
   check_camtrapdp(x)
 
   # Update spatial, temporal and taxonomic scope in metadata
@@ -59,5 +59,5 @@ write_camtrapdp <- function(x, directory) {
   # Remove data
   x$data <- NULL
 
-  frictionless::write_package(x, directory)
+  frictionless::write_package(x, directory, ...)
 }

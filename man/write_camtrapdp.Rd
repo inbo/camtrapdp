@@ -4,12 +4,14 @@
 \alias{write_camtrapdp}
 \title{Write a Camera Trap Data Package to disk}
 \usage{
-write_camtrapdp(x, directory)
+write_camtrapdp(x, directory, ...)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
 \item{directory}{Path to local directory to write files to.}
+
+\item{...}{Further arguments, passed to \code{\link[frictionless:write_package]{frictionless::write_package()}}.}
 }
 \value{
 \code{x} invisibly, as written to file.
@@ -17,18 +19,17 @@ write_camtrapdp(x, directory)
 \description{
 Writes a Camera Trap Data Package and its related Data Resources to disk as a
 \code{datapackage.json} and CSV files.
-Already existing CSV files of the same name will not be overwritten.
 The function can also be used to download a Camera Trap Data Package in its
 entirety.
 }
 \examples{
 x <- example_dataset()
 
-# Change Data Package by filtering
+# Filter (and therefore change) the dataset
 x <- filter_deployments(x, deploymentID == "00a2c20d")
 
 # Write the Camera Trap Data Package to disk
-(write_camtrapdp(x, directory = "my_directory"))
+write_camtrapdp(x, directory = "my_directory")
 
 # Check files
 list.files("my_directory")
