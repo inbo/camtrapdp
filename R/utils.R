@@ -386,7 +386,7 @@ remove_duplicates <- function(data_list) {
   return(unique_data_list)
 }
 
-#' Creates list of contributors in EML format
+#' Create list of contributors in EML format
 #'
 #' @param contributor_list List of contributors
 #' @return List of contributors as emld responsibleParty objects.
@@ -405,4 +405,24 @@ create_eml_contributors <- function(contributor_list) {
     },
     onlineUrl = .$path
   ))
+}
+
+#' Replace NULL values recursively
+#'
+#' Replaces NULL values with NA by recursively iterating through each element of
+#' the input list.
+#'
+#' @param x A nested list.
+#' @return A nested list identical to the input x, but with all NULL values
+#' replaced by NA.
+#' @family helper functions
+#' @noRd
+replace_null_recursive <- function(x) {
+  purrr::map(x, function(element) {
+    if (is.list(element) && !is.null(element)) {
+      replace_null_recursive(element)
+    } else {
+      ifelse(is.null(element), NA, element)
+    }
+  })
 }
