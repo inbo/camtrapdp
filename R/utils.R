@@ -183,8 +183,8 @@ add_prefix <- function(x, results_duplicate_ids, prefix) {
 #' @noRd
 merge_additional_resources <- function(xy_merged, x, y, prefix) {
   camtrapdp_resources <- c("deployments", "media", "observations")
-  x_resource_names <- purrr::map(x$resources, ~ .[["name"]]) %>% unlist()
-  y_resource_names <- purrr::map(y$resources, ~ .[["name"]]) %>% unlist()
+  x_resource_names <- frictionless::resources(x)
+  y_resource_names <- frictionless::resources(y)
   x_additional_resources <-
     x_resource_names[!x_resource_names %in% camtrapdp_resources]
   y_additional_resources <-
@@ -251,7 +251,6 @@ normalize_list <- function(data_list, unique_names) {
 
 #' Check if one element is equal to or a subset of another and vice versa
 #'
-#'
 #' @param element1,element2 elements to compare.
 #' @return logical.
 #' @family helper functions
@@ -269,7 +268,7 @@ normalize_list <- function(data_list, unique_names) {
 #'   role = "principalInvestigator",
 #'   organization = "Research Institute for Nature and Forest (INBO)"
 #' )
-#' is.subset(element1, element2)
+#' is_subset(element1, element2)
 is_subset <- function(element1, element2) {
   all(
     purrr::map_vec(names(element1), function(field) {
