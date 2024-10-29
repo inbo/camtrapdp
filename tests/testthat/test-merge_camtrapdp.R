@@ -254,7 +254,7 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   zip_file <- file.path(temp_dir, "dataset.zip")
   datapackage_file <- file.path(temp_dir, "datapackage.json")
   url <- "https://ipt.nlbif.nl/archive.do?r=awd_pilot2"
-  download.file(url, zip_file, mode = 'wb')
+  download.file(url, zip_file, mode = 'wb', quiet = TRUE)
   unzip(zip_file, exdir = temp_dir)
   y <- read_camtrapdp(datapackage_file)
 
@@ -536,7 +536,7 @@ test_that("merge_camtrapdp() can be used in a pipe to merge multiple
   datapackage_file <- file.path(temp_dir, "datapackage.json")
   url <- "https://ipt.nlbif.nl/archive.do?r=awd_pilot2"
 
-  download.file(url, zip_file, mode = 'wb')
+  download.file(url, zip_file, mode = 'wb', quiet = TRUE)
   unzip(zip_file, exdir = temp_dir)
 
   x <- read_camtrapdp(datapackage_file)
