@@ -66,34 +66,29 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
     }
   }
 
-  # check if identifiers have duplicates
-  results_duplicate_ids <- check_duplicate_ids(x, y)
-
-  # Add prefix to identifiers with duplicates
-  if (TRUE %in% results_duplicate_ids) {
-
-    if (!is.character(prefix) || length(prefix) != 2) {
-      cli::cli_abort(
-        c(
-          paste(
-            "{.arg prefix} must be a character vector of length 2, not",
-            "a {class(prefix)} object of length {length(prefix)}."
-          )
-        ),
-        class = "camtrapdp_error_prefix_invalid"
-      )
-    }
-
-    if (any(is.na(prefix))) {
-      cli::cli_abort(
-        "{.arg prefix} can't be 'NA'.",
-        class = "camtrapdp_error_prefix_NA"
-      )
-    }
-
-    x <- add_prefix(x, results_duplicate_ids, paste0(prefix[1], "_"))
-    y <- add_prefix(y, results_duplicate_ids, paste0(prefix[2], "_"))
+  if (!is.character(prefix) || length(prefix) != 2) {
+    cli::cli_abort(
+      c(
+        paste(
+          "{.arg prefix} must be a character vector of length 2, not",
+          "a {class(prefix)} object of length {length(prefix)}."
+        )
+      ),
+      class = "camtrapdp_error_prefix_invalid"
+    )
   }
+
+  if (any(is.na(prefix))) {
+    cli::cli_abort(
+      "{.arg prefix} can't be 'NA'.",
+      class = "camtrapdp_error_prefix_NA"
+    )
+  }
+
+  # Add prefix to duplicate identifiers
+  x_original <- x
+  x <- prefix_identifiers(x, y, prefix[1])
+  y <- prefix_identifiers(y, x_original, prefix[2])
 
   # Merge Camera Trap DP resources
   xy_merged <- x
