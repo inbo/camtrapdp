@@ -1,34 +1,45 @@
-#' Merge Camera Trap Data packages
+#' Merge two Camera Trap Data Packages
 #'
-#' @param x,y Camera Trap Data Package objects (as returned by
-#' `read_camtrapdp()`), to be coerced to one.
-#' @param prefix If there are duplicate IDs between x and y, prefixes will be
-#' added to all the values of each identifier with duplicates, to disambiguate
-#' them. Should be a character vector of length 2. By default, the prefixes are
-#' the ID's of the Data Package.
-#' @return `xy_merged` Merged Camera Trap Data Package
+#' Merges two Camera Trap Data Package objects into one.
+#'
+#' @param x,y Camera Trap Data Package objects, as returned by
+#'  [read_camtrapdp()].
+#' @return A single Camera Trap Data Package object that is the combination of
+#'   `x` and `y`.
 #' @family transformation functions
 #' @export
-#' @section Merging details:
-#' Deployments, media and observations are combined. If there are duplicate IDs
-#' between x and y, prefixes will be added to all the values of each identifier
-#' with duplicates, to disambiguate them.
-#' Additional resources are added, but not combined. If additional resources
-#' have the same name, prefixes will be added to the resource name.
-#' The following properties are set:
-#' - **name**: Set to NA.
-#' - **id**: Set to NULL.
+#' @section Transformation details:
+#'
+#' Both `x` and `y` must have a unique dataset identifier `x$id` and `y$id`.
+#' This identifier is used to prefix identifiers in the data that occur in both
+#' datasets.
+#' For example:
+#' - `x` contains `deploymentID`s `c("a", "b")`.
+#' - `y` contains `deploymentID`s `c("b", "c")`.
+#' - Then merged `xy` will contain `deploymentID`s `c("a", "x_b", "y_b", "c")`.
+#'
+#' Data are merged as follows:
+#' - Deployments are combined, with `deploymentID` kept unique.
+#' - Media are combined, with `mediaID`, `deploymentID` and `eventID` kept
+#' unique.
+#' - Observations are combined, with `observationID`, `deploymentID`, `mediaID`
+#' and `eventID` kept unique.
+#' - Additional resources are retained, with the resource name kept unique.
+#'
+#' Metadata properties are merged as follows:
+#' - **name**: Set to `NA`.
+#' - **id**: Removed.
 #' - **created**: Set to current timestamp.
-#' - **title**: Set to NA.
+#' - **title**: Set to `NA`.
 #' - **contributors**: A combination is made and duplicates are removed.
 #' - **description**: A combination is made.
-#' - **version**: Set to 1.0.
+#' - **version**: Set to `1.0`.
 #' - **keywords**: A combination is made and duplicates are removed.
-#' - **image**: Set to NULL.
-#' - **homepage**: Set to NULL.
+#' - **image**: Removed.
+#' - **homepage**: Removed.
 #' - **sources**: A combination is made and duplicates are removed.
 #' - **licenses**: A combination is made and duplicates are removed.
-#' - **bibliographicCitation**: Set to NULL.
+#' - **bibliographicCitation**: Removed.
 #' - **project**: List of the projects.
 #' - **coordinatePrecision**: Set to the least precise `coordinatePrecision`.
 #' - **spatial**: Reset based on the new deployments.
@@ -36,59 +47,47 @@
 #' - **taxonomic**: A combination is made and duplicates are removed.
 #' - **relatedIdentifiers**: A combination is made and duplicates are removed.
 #' - **references**: A combination is made and duplicates are removed.
-#' @section Merging multiple Camera Trap Data Packages:
-#' `merge_camtrapdp()` can be used in a pipe to merge multiple camtrap DP.
-#' - x %>% merge_camtrapdp(y) %>% merge_camtrapdp(z)
 #' @examples
 #' x <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
 #' y <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
-#' x$id <- "1"
-#' y$id <- "2"
-#' xy_merged <- merge_camtrapdp(x, y)
-merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
+#' x$id <- "x"
+#' y$id <- "y"
+#' merge_camtrapdp(x, y)
+merge_camtrapdp <- function(x, y) {
   check_camtrapdp(x)
   check_camtrapdp(y)
 
-  if (!is.null(x$id) & !is.null(y$id)) {
-    if (x$id == y$id) {
+  # Check identifiers
+  check_identifier <- function(id, arg) {
+    if (is.null(id) || is.na(id) || !is.character(id)) {
       cli::cli_abort(
         c(
-          paste0(
-            "{.arg x} and {.arg y} should be different Camera Trap Data",
-            "Package objects with unique identifiers."
-          ),
-          x = "{.arg x} and {.arg y} have the same id: {.value x$id}"
+          "{.arg {arg}} must have a unique (character) identifier.",
+          "i" = "Assign one to {.field {arg}$id}."
         ),
-        class = "camtrapdp_error_camtrapdpid_duplicated"
+        class = "camtrapdp_error_identifier_invalid"
       )
     }
   }
-
-  if (!is.character(prefix) || length(prefix) != 2) {
+  check_identifier(x$id, "x")
+  check_identifier(y$id, "y")
+  if (x$id == y$id) {
     cli::cli_abort(
       c(
-        paste(
-          "{.arg prefix} must be a character vector of length 2, not",
-          "a {class(prefix)} object of length {length(prefix)}."
-        )
+        "{.arg x} and {.arg y} must have different unique identifiers.",
+        "x" = "{.field x$id} and {.field y$id} currently have the same value:
+               {.val {x$id}}."
       ),
-      class = "camtrapdp_error_prefix_invalid"
+      class = "camtrapdp_error_identifier_duplicated"
     )
   }
 
-  if (any(is.na(prefix))) {
-    cli::cli_abort(
-      "{.arg prefix} can't be 'NA'.",
-      class = "camtrapdp_error_prefix_NA"
-    )
-  }
-
-  # Add prefix to duplicate identifiers
+  # Add prefix to duplicate identifiers in data
   x_original <- x
-  x <- prefix_identifiers(x, y, prefix[1])
-  y <- prefix_identifiers(y, x_original, prefix[2])
+  x <- prefix_identifiers(x, y, x$id)
+  y <- prefix_identifiers(y, x_original, y$id)
 
   # Merge Camera Trap DP resources
   xy_merged <- x
@@ -97,7 +96,7 @@ merge_camtrapdp <- function(x, y, prefix = c(x$id, y$id)) {
   observations(xy_merged) <- dplyr::bind_rows(observations(x), observations(y))
 
   # Merge additional resources
-  xy_merged <- merge_additional_resources(xy_merged, x, y, prefix)
+  xy_merged <- merge_additional_resources(xy_merged, x, y, c(x$id, y$id))
 
   # Merge/update metadata
   xy_merged$name <- NA
