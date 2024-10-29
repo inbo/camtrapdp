@@ -8,43 +8,41 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   expect_no_error(check_camtrapdp(merge_camtrapdp(x, y)))
 })
 
-test_that("merge_camtrapdp() returns error on duplicate Data Package id", {
+test_that("merge_camtrapdp() returns error on duplicate or missing package id", {
   skip_if_offline()
   x <- example_dataset()
+
+  # Duplicate identifiers
   expect_error(
     merge_camtrapdp(x, x),
-    class = "camtrapdp_error_camtrapdpid_duplicated"
-  )
-})
-
-test_that("merge_camtrapdp() returns error on invalid prefix", {
-  skip_if_offline()
-  x <- example_dataset()
-  y <- example_dataset()
-  x$id <- "1"
-  y$id <- "2"
-  expect_error(
-    merge_camtrapdp(x, y, prefix = c(1, 2)),
-    class = "camtrapdp_error_prefix_invalid"
-  )
-  expect_error(
-    merge_camtrapdp(x, y, prefix = c("one", "two", "three")),
-    class = "camtrapdp_error_prefix_invalid"
-  )
-  expect_error(
-    merge_camtrapdp(x, y, prefix = c("one", NA)),
-    class = "camtrapdp_error_prefix_NA"
+    class = "camtrapdp_error_identifier_duplicated"
   )
 
-  expect_no_error(merge_camtrapdp(x, y))
-  expect_no_error(merge_camtrapdp(x, y, prefix = c("this", "works")))
-
+  # Invalid identifier
+  y <- x
   x$id <- NULL
-  y$id <- NULL
   expect_error(
     merge_camtrapdp(x, y),
-    class = "camtrapdp_error_prefix_invalid"
+    class = "camtrapdp_error_identifier_invalid"
   )
+  x$id <- NA_character_
+  expect_error(
+    merge_camtrapdp(x, y),
+    class = "camtrapdp_error_identifier_invalid"
+  )
+  x$id <- 1
+  expect_error(
+    merge_camtrapdp(x, y),
+    class = "camtrapdp_error_identifier_invalid"
+  )
+  x$id <- "x"
+  y$id <- 1
+  expect_error(
+    merge_camtrapdp(x, y),
+    class = "camtrapdp_error_identifier_invalid"
+  )
+  y$id <- "y"
+  expect_no_error(merge_camtrapdp(x, y))
 })
 
 test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
@@ -105,43 +103,6 @@ test_that("merge_camtrapdp() adds default prefixes to all values of identifiers
   expect_true("2_4bb69c45" %in% media(xy_merged)$eventID)
   expect_true("1_4bb69c45" %in% observations(xy_merged)$eventID)
   expect_true("2_4bb69c45" %in% observations(xy_merged)$eventID)
-})
-
-test_that("merge_camtrapdp() adds custom prefixes to all values of identifiers
-          (deploymentID, mediaID, observationID and eventID) with duplicates
-          between packages, but not for mediaID = NA", {
-  skip_if_offline()
-  x <- example_dataset()
-  y <- example_dataset()
-  x$id <- NULL
-  y$id <- NULL
-  xy_merged <- merge_camtrapdp(x, y, prefix = c("x", "y"))
-
-  # deploymentID
-  expect_true("x_00a2c20d" %in% deployments(xy_merged)$deploymentID)
-  expect_true("y_00a2c20d" %in% deployments(xy_merged)$deploymentID)
-  expect_true("x_00a2c20d" %in% media(xy_merged)$deploymentID)
-  expect_true("y_00a2c20d" %in% media(xy_merged)$deploymentID)
-  expect_true("x_00a2c20d" %in% observations(xy_merged)$deploymentID)
-  expect_true("y_00a2c20d" %in% observations(xy_merged)$deploymentID)
-
-  # mediaID
-  expect_true("x_07840dcc" %in% media(xy_merged)$mediaID)
-  expect_true("y_07840dcc" %in% media(xy_merged)$mediaID)
-  expect_true("x_07840dcc" %in% observations(xy_merged)$mediaID)
-  expect_true("y_07840dcc" %in% observations(xy_merged)$mediaID)
-  expect_false("x_NA" %in% observations(xy_merged)$mediaID)
-  expect_true(NA %in% observations(xy_merged)$mediaID)
-
-  # observationID
-  expect_true("x_705e6036" %in% observations(xy_merged)$observationID)
-  expect_true("y_705e6036" %in% observations(xy_merged)$observationID)
-
-  # eventID
-  expect_true("x_4bb69c45" %in% media(xy_merged)$eventID)
-  expect_true("y_4bb69c45" %in% media(xy_merged)$eventID)
-  expect_true("x_4bb69c45" %in% observations(xy_merged)$eventID)
-  expect_true("y_4bb69c45" %in% observations(xy_merged)$eventID)
 })
 
 test_that("merge_camtrapdp() adds default prefixes to the names of
@@ -244,7 +205,7 @@ test_that("merge_camtrapdp() returns the expected metadata ", {
 })
 
 test_that("merge_camtrapdp() returns the expected metadata when merging two
-          different Data Packages", {
+           different Data Packages", {
   skip_if_offline()
   x <- example_dataset()
 
@@ -257,6 +218,7 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   download.file(url, zip_file, mode = 'wb', quiet = TRUE)
   unzip(zip_file, exdir = temp_dir)
   y <- read_camtrapdp(datapackage_file)
+  y$id <- "y"
 
   # Merge
   xy_merged <- merge_camtrapdp(x, y)
@@ -496,6 +458,12 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
       relatedIdentifier = "7cca70f5-ef8c-4f86-85fb-8f070937d7ab",
       resourceTypeGeneral = "Data package",
       relatedIdentifierType = "id"
+    ),
+    list(
+      relationType = "IsDerivedFrom",
+      relatedIdentifier = "y",
+      resourceTypeGeneral = "Data package",
+      relatedIdentifierType = "id"
     )
   )
 
@@ -524,28 +492,4 @@ test_that("merge_camtrapdp() returns the expected metadata when merging two
   expect_identical(xy_merged$references, references)
   expect_identical(xy_merged$directory, ".")
   expect_identical(xy_merged$relatedIdentifiers, relatedIdentifiers_merged)
-})
-
-test_that("merge_camtrapdp() can be used in a pipe to merge multiple
-          camtrap DP", {
-  skip_if_offline()
-
-  temp_dir <- tempdir()
-  on.exit(unlink(temp_dir, recursive = TRUE))
-  zip_file <- file.path(temp_dir, "dataset.zip")
-  datapackage_file <- file.path(temp_dir, "datapackage.json")
-  url <- "https://ipt.nlbif.nl/archive.do?r=awd_pilot2"
-
-  download.file(url, zip_file, mode = 'wb', quiet = TRUE)
-  unzip(zip_file, exdir = temp_dir)
-
-  x <- read_camtrapdp(datapackage_file)
-  y <- example_dataset() %>%
-    filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
-  z <- example_dataset() %>%
-    filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
-  y$id <- "y"
-  z$id <- "z"
-
-  expect_no_error(x %>% merge_camtrapdp(y) %>% merge_camtrapdp(z))
 })

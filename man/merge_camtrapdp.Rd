@@ -2,47 +2,59 @@
 % Please edit documentation in R/merge_camtrapdp.R
 \name{merge_camtrapdp}
 \alias{merge_camtrapdp}
-\title{Merge Camera Trap Data packages}
+\title{Merge two Camera Trap Data Packages}
 \usage{
-merge_camtrapdp(x, y, prefix = c(x$id, y$id))
+merge_camtrapdp(x, y)
 }
 \arguments{
-\item{x, y}{Camera Trap Data Package objects (as returned by
-\code{read_camtrapdp()}), to be coerced to one.}
-
-\item{prefix}{If there are duplicate IDs between x and y, prefixes will be
-added to all the values of each identifier with duplicates, to disambiguate
-them. Should be a character vector of length 2. By default, the prefixes are
-the ID's of the Data Package.}
+\item{x, y}{Camera Trap Data Package objects, as returned by
+\code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 }
 \value{
-\code{xy_merged} Merged Camera Trap Data Package
+A single Camera Trap Data Package object that is the combination of
+\code{x} and \code{y}.
 }
 \description{
-Merge Camera Trap Data packages
+Merges two Camera Trap Data Package objects into one.
 }
-\section{Merging details}{
+\section{Transformation details}{
 
-Deployments, media and observations are combined. If there are duplicate IDs
-between x and y, prefixes will be added to all the values of each identifier
-with duplicates, to disambiguate them.
-Additional resources are added, but not combined. If additional resources
-have the same name, prefixes will be added to the resource name.
-The following properties are set:
+
+Both \code{x} and \code{y} must have a unique dataset identifier \code{x$id} and \code{y$id}.
+This identifier is used to prefix identifiers in the data that occur in both
+datasets.
+For example:
 \itemize{
-\item \strong{name}: Set to NA.
-\item \strong{id}: Set to NULL.
+\item \code{x} contains \code{deploymentID}s \code{c("a", "b")}.
+\item \code{y} contains \code{deploymentID}s \code{c("b", "c")}.
+\item Then merged \code{xy} will contain \code{deploymentID}s \code{c("a", "x_b", "y_b", "c")}.
+}
+
+Data are merged as follows:
+\itemize{
+\item Deployments are combined, with \code{deploymentID} kept unique.
+\item Media are combined, with \code{mediaID}, \code{deploymentID} and \code{eventID} kept
+unique.
+\item Observations are combined, with \code{observationID}, \code{deploymentID}, \code{mediaID}
+and \code{eventID} kept unique.
+\item Additional resources are retained, with the resource name kept unique.
+}
+
+Metadata properties are merged as follows:
+\itemize{
+\item \strong{name}: Set to \code{NA}.
+\item \strong{id}: Removed.
 \item \strong{created}: Set to current timestamp.
-\item \strong{title}: Set to NA.
+\item \strong{title}: Set to \code{NA}.
 \item \strong{contributors}: A combination is made and duplicates are removed.
 \item \strong{description}: A combination is made.
-\item \strong{version}: Set to 1.0.
+\item \strong{version}: Set to \code{1.0}.
 \item \strong{keywords}: A combination is made and duplicates are removed.
-\item \strong{image}: Set to NULL.
-\item \strong{homepage}: Set to NULL.
+\item \strong{image}: Removed.
+\item \strong{homepage}: Removed.
 \item \strong{sources}: A combination is made and duplicates are removed.
 \item \strong{licenses}: A combination is made and duplicates are removed.
-\item \strong{bibliographicCitation}: Set to NULL.
+\item \strong{bibliographicCitation}: Removed.
 \item \strong{project}: List of the projects.
 \item \strong{coordinatePrecision}: Set to the least precise \code{coordinatePrecision}.
 \item \strong{spatial}: Reset based on the new deployments.
@@ -53,22 +65,14 @@ The following properties are set:
 }
 }
 
-\section{Merging multiple Camera Trap Data Packages}{
-
-\code{merge_camtrapdp()} can be used in a pipe to merge multiple camtrap DP.
-\itemize{
-\item x \%>\% merge_camtrapdp(y) \%>\% merge_camtrapdp(z)
-}
-}
-
 \examples{
 x <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("00a2c20d", "29b7d356"))
 y <- example_dataset() \%>\%
   filter_deployments(deploymentID \%in\% c("577b543a", "62c200a9"))
-x$id <- "1"
-y$id <- "2"
-xy_merged <- merge_camtrapdp(x, y)
+x$id <- "x"
+y$id <- "y"
+merge_camtrapdp(x, y)
 }
 \seealso{
 Other transformation functions: 
