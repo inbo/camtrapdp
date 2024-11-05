@@ -20,26 +20,26 @@ print.camtrapdp <- function(x, ...) {
   # check_camtrapdp() not necessary: print only triggered for camtrapdp object
 
   # Calculate number of rows for the tables (resources in x$data)
-  tables_rows <-
+  tables <-
     purrr::pluck(x, "data") %>%
     purrr::map(nrow)
+  tables_length <- length(tables)
 
-  # List tables
-  tables <- names(tables_rows)
+  # Show name and tables
+  name <- if (!is.null(x$name)) cli::format_inline("{.val {x$name}} ") else ""
   cli::cat_line(
     cli::format_inline(
-      "A Camera Trap Data Package with {length(tables)} table{?s}{?./:/:}"
+      "A Camera Trap Data Package {name}with {tables_length} table{?s}{?./:/:}"
     )
   )
   purrr::walk2(
-    names(tables_rows),
-    tables_rows,
+    names(tables),
+    tables,
     ~ cli::cat_bullet(cli::format_inline("{.x}: {.val {.y}} rows"))
   )
 
-  # List additional resources (not in x$data), if any
-  resources <- frictionless::resources(x)
-  extra_resources <- resources[!resources %in% tables]
+  # List additional resources, if any
+  extra_resources <- additional_resources(x)
   if (length(extra_resources) > 0) {
     cli::cat_line("")
     cli::cat_line(

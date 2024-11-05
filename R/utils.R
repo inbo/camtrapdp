@@ -37,6 +37,18 @@ expand_cols <- function(df, colnames) {
   return(df)
 }
 
+#' Lists the names of additional resources in a Camera Trap Data Package
+#'
+#' @inheritParams print.camtrapdp
+#' @return Character vector with the additional resource names.
+#' @family helper functions
+#' @noRd
+additional_resources <- function(x) {
+  camtrapdp_resource_names <- c("deployments", "media", "observations")
+  resource_names <- frictionless::resources(x)
+  resource_names[!resource_names %in% camtrapdp_resource_names]
+}
+
 #' Merge additional resources
 #'
 #' Merges resources that are different from the required Camera Trap Data
