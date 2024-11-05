@@ -85,19 +85,16 @@ merge_camtrapdp <- function(x, y) {
   }
   prefixes <- c(x$name, y$name)
 
-  # Add prefix to duplicate identifiers in data
-  x_original <- x
-  x <- prefix_identifiers(x, y, x$id)
-  y <- prefix_identifiers(y, x_original, y$id)
-
-  # Merge Camera Trap DP resources
+  # Create xy_merged from x
   xy_merged <- x
-  deployments(xy_merged) <- dplyr::bind_rows(deployments(x), deployments(y))
-  media(xy_merged) <- dplyr::bind_rows(media(x), media(y))
-  observations(xy_merged) <- dplyr::bind_rows(observations(x), observations(y))
 
-  # Merge additional resources
-  xy_merged <- merge_additional_resources(xy_merged, x, y, c(x$id, y$id))
+  # Merge resources
+  xy_merged$resources <- merge_resources(x, y, prefixes)
+
+  # Merge data
+  deployments(xy_merged) <- merge_deployments(x, y, prefixes)
+  media(xy_merged) <- merge_media(x, y, prefixes)
+  observations(xy_merged) <- merge_observations(x, y, prefixes)
 
   # Merge/update metadata
   xy_merged$name <- NULL
@@ -145,7 +142,8 @@ merge_camtrapdp <- function(x, y) {
   xy_merged$references <- unique(c(x$references, y$references))
   xy_merged$directory <- "."
 
-  xy_merged <- xy_merged %>%
+  xy_merged <-
+    xy_merged %>%
     update_spatial() %>%
     update_temporal() %>%
     update_taxonomic()
