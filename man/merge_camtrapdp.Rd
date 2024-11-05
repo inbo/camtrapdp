@@ -20,8 +20,8 @@ Merges two Camera Trap Data Package objects into one.
 \section{Transformation details}{
 
 
-Both \code{x} and \code{y} must have a unique dataset identifier \code{x$id} and \code{y$id}.
-This identifier is used to prefix identifiers in the data that occur in both
+Both \code{x} and \code{y} must have a unique dataset name \code{x$name} and \code{y$name}.
+This name is used to prefix identifiers in the data that occur in both
 datasets.
 For example:
 \itemize{

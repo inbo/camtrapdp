@@ -10,8 +10,8 @@
 #' @export
 #' @section Transformation details:
 #'
-#' Both `x` and `y` must have a unique dataset identifier `x$id` and `y$id`.
-#' This identifier is used to prefix identifiers in the data that occur in both
+#' Both `x` and `y` must have a unique dataset name `x$name` and `y$name`.
+#' This name is used to prefix identifiers in the data that occur in both
 #' datasets.
 #' For example:
 #' - `x` contains `deploymentID`s `c("a", "b")`.
@@ -59,30 +59,31 @@ merge_camtrapdp <- function(x, y) {
   check_camtrapdp(x)
   check_camtrapdp(y)
 
-  # Check identifiers
-  check_identifier <- function(id, arg) {
-    if (is.null(id) || is.na(id) || !is.character(id)) {
+  # Check names
+  check_name <- function(name, arg) {
+    if (is.null(name) || is.na(name) || !is.character(name)) {
       cli::cli_abort(
         c(
-          "{.arg {arg}} must have a unique (character) identifier.",
-          "i" = "Assign one to {.field {arg}$id}."
+          "{.arg {arg}} must have a unique (character) name.",
+          "i" = "Assign one to {.field {arg}$name}."
         ),
-        class = "camtrapdp_error_identifier_invalid"
+        class = "camtrapdp_error_name_invalid"
       )
     }
   }
-  check_identifier(x$id, "x")
-  check_identifier(y$id, "y")
-  if (x$id == y$id) {
+  check_name(x$name, "x")
+  check_name(y$name, "y")
+  if (x$name == y$name) {
     cli::cli_abort(
       c(
-        "{.arg x} and {.arg y} must have different unique identifiers.",
-        "x" = "{.field x$id} and {.field y$id} currently have the same value:
-               {.val {x$id}}."
+        "{.arg x} and {.arg y} must have different unique names.",
+        "x" = "{.field x$name} and {.field y$name} currently have the same
+               value: {.val {x$name}}."
       ),
-      class = "camtrapdp_error_identifier_duplicated"
+      class = "camtrapdp_error_name_duplicated"
     )
   }
+  prefixes <- c(x$name, y$name)
 
   # Add prefix to duplicate identifiers in data
   x_original <- x
@@ -99,7 +100,7 @@ merge_camtrapdp <- function(x, y) {
   xy_merged <- merge_additional_resources(xy_merged, x, y, c(x$id, y$id))
 
   # Merge/update metadata
-  xy_merged$name <- NA
+  xy_merged$name <- NULL
   xy_merged$id <- NULL
   xy_merged$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   xy_merged$title <- NA
