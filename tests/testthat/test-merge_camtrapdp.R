@@ -1,47 +1,47 @@
 test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   skip_if_offline()
   x <- example_dataset()
-  y <- example_dataset()
-  x$id <- "1"
-  y$id <- "2"
+  y <- x
+  x$name <- "x"
+  y$name <- "y"
 
   expect_no_error(check_camtrapdp(merge_camtrapdp(x, y)))
 })
 
-test_that("merge_camtrapdp() returns error on duplicate or missing package id", {
+test_that("merge_camtrapdp() returns error on duplicate or missing package name", {
   skip_if_offline()
   x <- example_dataset()
 
   # Duplicate identifiers
   expect_error(
     merge_camtrapdp(x, x),
-    class = "camtrapdp_error_identifier_duplicated"
+    class = "camtrapdp_error_name_duplicated"
   )
 
   # Invalid identifier
   y <- x
-  x$id <- NULL
+  x$name <- NULL
   expect_error(
     merge_camtrapdp(x, y),
-    class = "camtrapdp_error_identifier_invalid"
+    class = "camtrapdp_error_name_invalid"
   )
-  x$id <- NA_character_
+  x$name <- NA_character_
   expect_error(
     merge_camtrapdp(x, y),
-    class = "camtrapdp_error_identifier_invalid"
+    class = "camtrapdp_error_name_invalid"
   )
-  x$id <- 1
+  x$name <- 1
   expect_error(
     merge_camtrapdp(x, y),
-    class = "camtrapdp_error_identifier_invalid"
+    class = "camtrapdp_error_name_invalid"
   )
-  x$id <- "x"
-  y$id <- 1
+  x$name <- "x"
+  y$name <- 1
   expect_error(
     merge_camtrapdp(x, y),
-    class = "camtrapdp_error_identifier_invalid"
+    class = "camtrapdp_error_name_invalid"
   )
-  y$id <- "y"
+  y$name <- "y"
   expect_no_error(merge_camtrapdp(x, y))
 })
 
@@ -52,8 +52,8 @@ test_that("merge_camtrapdp() returns unique deploymentIDs, mediaIDs and
     filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
   y <- example_dataset() %>%
     filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
-  x$id <- "1"
-  y$id <- "2"
+  x$name <- "x"
+  y$name <- "y"
   xy_merged <- merge_camtrapdp(x, y)
 
   deploymentIDs <- purrr::pluck(deployments(xy_merged), "deploymentID")
