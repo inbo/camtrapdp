@@ -49,59 +49,6 @@ additional_resources <- function(x) {
   resource_names[!resource_names %in% camtrapdp_resource_names]
 }
 
-#' Merge additional resources
-#'
-#' Merges resources that are different from the required Camera Trap Data
-#' Package resources (deployments, media and observations). Resources with the
-#' same name are not combined, but prefixes are added to the resource names.
-#'
-#' @param xy_merged Merged Camera Trap Data Package
-#' @inheritParams merge_camtrapdp
-#'
-#' @return `xy_merged` Merged Camera Trap Data Package
-#' @family helper functions
-#' @noRd
-merge_additional_resources <- function(xy_merged, x, y, prefix) {
-  camtrapdp_resources <- c("deployments", "media", "observations")
-  x_resource_names <- frictionless::resources(x)
-  y_resource_names <- frictionless::resources(y)
-  x_additional_resources <-
-    x_resource_names[!x_resource_names %in% camtrapdp_resources]
-  y_additional_resources <-
-    y_resource_names[!y_resource_names %in% camtrapdp_resources]
-
-  all_additional_resources <- c(x_additional_resources, y_additional_resources)
-
-  if (length(all_additional_resources) > 0) {
-    duplicated_resources <- duplicated(all_additional_resources)
-    duplicated_names <- all_additional_resources[duplicated_resources]
-
-    # Add prefixes to resource names that are not unique
-    if (any(duplicated_resources)) {
-      purrr::map(duplicated_names, function(duplicated_name) {
-        xy_index <-
-          which(purrr::map(xy_merged$resources, "name") == duplicated_name)
-        y_index <- which(purrr::map(y$resources, "name") == duplicated_name)
-        xy_merged$resources[[xy_index]]$name <-
-          paste0(prefix[1], "_", duplicated_name)
-        y$resources[[y_index]]$name <- paste0(prefix[2], "_", duplicated_name)
-        xy_merged$resources <<- append(xy_merged$resources, y$resources[y_index])
-      })
-    }
-
-    # Add unique resources from y
-    y_unique_resources <-
-      y_additional_resources[!y_additional_resources %in% duplicated_names]
-    purrr::map(y_unique_resources, function(resource_name) {
-      index <- which(purrr::map(y$resources, "name") == resource_name)
-      resource <- y$resources[index]
-      xy_merged$resources <<- append(xy_merged$resources, resource)
-    })
-  }
-
-  return(xy_merged)
-}
-
 #' Normalize list elements
 #'
 #' Converts each list element to a named vector with consistent handling of
