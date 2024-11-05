@@ -38,6 +38,7 @@ deployments(x) <- head(deployments(x), 1)
 }
 \seealso{
 Other accessor functions: 
+\code{\link{contributors}()},
 \code{\link{events}()},
 \code{\link{locations}()},
 \code{\link{media}()},
