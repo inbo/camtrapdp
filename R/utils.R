@@ -39,11 +39,12 @@ expand_cols <- function(df, colnames) {
 
 #' Creates list of contributors in EML format
 #'
-#' @param contributor_list List of contributors
+#' @param contributors A data frame with the contributors
 #' @return List of contributors as emld responsibleParty objects.
 #' @family helper functions
 #' @noRd
-create_eml_contributors <- function(contributor_list) {
+create_eml_contributors <- function(contributors) {
+  contributor_list <- purrr::transpose(contributors)
   purrr::map(contributor_list, ~ EML::set_responsibleParty(
     givenName = .$first_name,
     surName = .$last_name,
