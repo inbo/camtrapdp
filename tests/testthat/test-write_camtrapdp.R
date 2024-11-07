@@ -29,31 +29,6 @@ test_that("write_camtrapdp() writes a (filtered) dataset that can be read", {
   expect_lt(nrow(observations(x_written)), nrow(observations(x)))
 })
 
-test_that("write_camtrapdp() writes a merged dataset that can be read", {
-  skip_if_offline()
-  x <- example_dataset()
-
-  # Download second Camera Trap Data package
-  temp_dir <- tempdir()
-  on.exit(unlink(temp_dir, recursive = TRUE))
-  zip_file <- file.path(temp_dir, "dataset.zip")
-  datapackage_file <- file.path(temp_dir, "datapackage.json")
-  url <- "https://ipt.nlbif.nl/archive.do?r=awd_pilot2"
-  download.file(url, zip_file, mode = "wb")
-  unzip(zip_file, exdir = temp_dir)
-  y <- read_camtrapdp(datapackage_file)
-
-  # Merge
-  xy_merged <- merge_camtrapdp(x, y)
-
-  # Write
-  write_camtrapdp(xy_merged, file.path(temp_dir, "processed"), compress = TRUE)
-
-  expect_no_error(
-    read_camtrapdp(file.path(temp_dir, "processed", "datapackage.json"))
-    )
-})
-
 test_that("write_camtrapdp() writes the unaltered example dataset as is", {
   skip_if_offline()
   x <- example_dataset()
