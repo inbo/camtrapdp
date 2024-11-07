@@ -19,7 +19,7 @@ test_that("write_dwc() writes CSV and meta.xml files to a directory and
 test_that("write_dwc() returns the expected Darwin Core terms as columns", {
   skip_if_offline()
   x <- example_dataset()
-  temp_dir <- file.path(tempdir(), "dwc")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   result <- suppressMessages(write_dwc(x, temp_dir))
 
@@ -90,7 +90,7 @@ test_that("write_dwc() returns the expected Darwin Core mapping for the example
            dataset", {
   skip_if_offline()
   x <- example_dataset()
-  temp_dir <- file.path(tempdir(), "dwc")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   suppressMessages(write_dwc(x, temp_dir))
 
@@ -102,7 +102,7 @@ test_that("write_dwc() returns the expected Darwin Core mapping for the example
 test_that("write_dwc() returns files that comply with the info in meta.xml", {
   skip_if_offline()
   x <- example_dataset()
-  temp_dir <- file.path(tempdir(), "dwc")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   suppressMessages(write_dwc(x, temp_dir))
 
@@ -117,7 +117,7 @@ test_that("write_dwc() returns output when taxonID is missing", {
   optional_cols <- c("taxon.taxonID")
   observations(x) <-
     dplyr::select(observations(x), -dplyr::all_of(optional_cols))
-  temp_dir <- file.path(tempdir(), "dwc")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
 
   expect_no_error(suppressMessages(write_dwc(x, temp_dir)))

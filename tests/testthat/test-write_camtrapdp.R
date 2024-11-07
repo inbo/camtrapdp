@@ -17,7 +17,7 @@ test_that("write_camtrapdp() writes datapackage.json and CSV files to a
 test_that("write_camtrapdp() writes a (filtered) dataset that can be read", {
   skip_if_offline()
   x <- example_dataset()
-  temp_dir <- file.path(tempdir(), "package")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   # Filter deployments and write to disk
   write_camtrapdp(filter_deployments(x, deploymentID == "00a2c20d"), temp_dir)
@@ -32,7 +32,7 @@ test_that("write_camtrapdp() writes a (filtered) dataset that can be read", {
 test_that("write_camtrapdp() writes the unaltered example dataset as is", {
   skip_if_offline()
   x <- example_dataset()
-  temp_dir <- file.path(tempdir(), "package")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   write_camtrapdp(x, temp_dir)
 
@@ -81,7 +81,7 @@ test_that("write_camtrapdp() writes the unaltered example dataset as is", {
 test_that("write_camtrapdp() can write compressed files", {
   skip_if_offline()
   x <- example_dataset()
-  temp_dir <- file.path(tempdir(), "package")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   write_camtrapdp(x, temp_dir, compress = TRUE)
 
