@@ -97,7 +97,7 @@ merge_camtrapdp <- function(x, y) {
   observations(xy_merged) <- merge_observations(x, y, prefixes)
 
   # Merge/update metadata
-  xy_merged$name <- NULL
+  xy_merged$name <- NA
   xy_merged$id <- NULL
   xy_merged$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   xy_merged$title <- NA
