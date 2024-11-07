@@ -50,14 +50,13 @@ test_that("merge_camtrapdp() adds prefixes to identifiers in the data to keep
            them unique", {
   skip_if_offline()
 
-  # Datasets with overlapping deployments: a, b and b, c
+  # Merge datasets with overlapping deployments: a, b and b, c
   x <- example_dataset() %>%
     filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356")) # a, b
   x$name <- "x"
   y <- example_dataset() %>%
     filter_deployments(deploymentID %in% c("29b7d356", "577b543a")) # b, c
   y$name <- "y"
-
   xy <- merge_camtrapdp(x, y)
 
   # No duplicate primary keys
@@ -93,7 +92,7 @@ test_that("merge_camtrapdp() adds prefixes to additional resource names to keep
            them unique", {
   skip_if_offline()
 
-  # Datasets with overlapping resources: individuals and individuals, iris
+  # Merge datasets with overlapping resources: individuals and individuals, iris
   x <- example_dataset()
   x$name <- "x"
   y <- x
@@ -116,13 +115,14 @@ test_that("merge_camtrapdp() returns the expected datapackage.json when merging
   temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
 
-  # Datasets that are identical except for name and id
+  # Merge datasets that are identical except for name and id
   x <- example_dataset()
   x$name <- "x"
   y <- x
   y$name <- "y"
   y$id <- "y"
   xy <- merge_camtrapdp(x, y)
+  xy$created <- NULL
 
   # Write to file
   write_camtrapdp(xy, temp_dir)
@@ -143,16 +143,17 @@ test_that("merge_camtrapdp() returns the expected datapackage.json when merging
    temp_dir <- tempdir()
    on.exit(unlink(temp_dir, recursive = TRUE))
 
-   # Datasets that are different: example_dataset + awd_pilot2
+   # Merge datasets that are different: example_dataset + awd_pilot2
    x <- example_dataset()
    x$name <- "x"
    y_url <- "https://ipt.nlbif.nl/archive.do?r=awd_pilot2"
    zip_file <- file.path(temp_dir, "dataset.zip")
    datapackage_file <- file.path(temp_dir, "datapackage.json")
-   download.file(y_url, zip_file, mode = "wb")
+   download.file(y_url, zip_file, mode = "wb", quiet = TRUE)
    unzip(zip_file, exdir = temp_dir)
    y <- read_camtrapdp(datapackage_file)
    xy <- merge_camtrapdp(x, y)
+   xy$created <- NULL
 
    # Write to file
    temp_dir_merged <- file.path(temp_dir, "merged")
