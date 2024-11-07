@@ -132,6 +132,9 @@ test_that("merge_camtrapdp() returns the expected datapackage.json when merging
   )
 
   expect_snapshot_file(file.path(temp_dir, "datapackage_identical_xy.json"))
+  expect_no_error(
+    read_camtrapdp(file.path(temp_dir, "datapackage_identical_xy.json"))
+  )
 })
 
 test_that("merge_camtrapdp() returns the expected datapackage.json when merging
@@ -161,5 +164,8 @@ test_that("merge_camtrapdp() returns the expected datapackage.json when merging
 
    expect_snapshot_file(
      file.path(temp_dir_merged, "datapackage_different_xy.json")
+   )
+   expect_no_error(
+     read_camtrapdp(file.path(temp_dir_merged, "datapackage_different_xy.json"))
    )
 })
