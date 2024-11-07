@@ -27,7 +27,7 @@ merge_vectors <- function(a, b, prefixes) {
 
 #' Merge resources
 #'
-#' Merges the resources of Camera Trap Data Package `x` and with the additional
+#' Merges the resources of Camera Trap Data Package `x` with the additional
 #' resources of `y`.
 #' Resource names that occur in both `x` and `y` get a prefix.
 #' @inheritParams merge_camtrapdp
