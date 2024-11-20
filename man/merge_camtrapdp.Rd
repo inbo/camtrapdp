@@ -42,26 +42,27 @@ and \code{eventID} kept unique.
 
 Metadata properties are merged as follows:
 \itemize{
-\item \strong{name}: Set to \code{NA}.
+\item \strong{name}: Removed.
 \item \strong{id}: Removed.
 \item \strong{created}: Set to current timestamp.
-\item \strong{title}: Set to \code{NA}.
-\item \strong{contributors}: A combination is made and duplicates are removed.
-\item \strong{description}: A combination is made.
+\item \strong{title}: Removed.
+\item \strong{contributors}: Combined, with duplicates removed.
+\item \strong{description}: Combined as two paragraphs.
 \item \strong{version}: Set to \code{1.0}.
-\item \strong{keywords}: A combination is made and duplicates are removed.
+\item \strong{keywords}: Combined, with duplicates removed.
 \item \strong{image}: Removed.
 \item \strong{homepage}: Removed.
-\item \strong{sources}: A combination is made and duplicates are removed.
-\item \strong{licenses}: A combination is made and duplicates are removed.
+\item \strong{sources}: Combined, with duplicates removed.
+\item \strong{licenses}: Combined, with duplicates removed.
 \item \strong{bibliographicCitation}: Removed.
 \item \strong{project}: List of the projects.
 \item \strong{coordinatePrecision}: Set to the least precise \code{coordinatePrecision}.
 \item \strong{spatial}: Reset based on the new deployments.
 \item \strong{temporal}: Reset based on the new deployments.
-\item \strong{taxonomic}: A combination is made and duplicates are removed.
-\item \strong{relatedIdentifiers}: A combination is made and duplicates are removed.
-\item \strong{references}: A combination is made and duplicates are removed.
+\item \strong{taxonomic}: Combined, with duplicates removed.
+\item \strong{relatedIdentifiers}: Combined, with duplicates removed.
+\item \strong{references}: Combined, with duplicates removed.
+\item Custom properties of \code{x} are also retained.
 }
 }
 
