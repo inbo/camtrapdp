@@ -27,26 +27,27 @@
 #' - Additional resources are retained, with the resource name kept unique.
 #'
 #' Metadata properties are merged as follows:
-#' - **name**: Set to `NA`.
+#' - **name**: Removed.
 #' - **id**: Removed.
 #' - **created**: Set to current timestamp.
-#' - **title**: Set to `NA`.
-#' - **contributors**: A combination is made and duplicates are removed.
-#' - **description**: A combination is made.
+#' - **title**: Removed.
+#' - **contributors**: Combined, with duplicates removed.
+#' - **description**: Combined as two paragraphs.
 #' - **version**: Set to `1.0`.
-#' - **keywords**: A combination is made and duplicates are removed.
+#' - **keywords**: Combined, with duplicates removed.
 #' - **image**: Removed.
 #' - **homepage**: Removed.
-#' - **sources**: A combination is made and duplicates are removed.
-#' - **licenses**: A combination is made and duplicates are removed.
+#' - **sources**: Combined, with duplicates removed.
+#' - **licenses**: Combined, with duplicates removed.
 #' - **bibliographicCitation**: Removed.
 #' - **project**: List of the projects.
 #' - **coordinatePrecision**: Set to the least precise `coordinatePrecision`.
 #' - **spatial**: Reset based on the new deployments.
 #' - **temporal**: Reset based on the new deployments.
-#' - **taxonomic**: A combination is made and duplicates are removed.
-#' - **relatedIdentifiers**: A combination is made and duplicates are removed.
-#' - **references**: A combination is made and duplicates are removed.
+#' - **taxonomic**: Combined, with duplicates removed.
+#' - **relatedIdentifiers**: Combined, with duplicates removed.
+#' - **references**: Combined, with duplicates removed.
+#' - Custom properties of `x` are also retained.
 #' @examples
 #' x <- example_dataset() %>%
 #'   filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
@@ -97,11 +98,11 @@ merge_camtrapdp <- function(x, y) {
   observations(xy) <- merge_observations(x, y, prefixes)
 
   # Merge/update metadata
-  xy$name <- NA
+  xy$name <- NULL
   xy$id <- NULL
   xy$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-  xy$title <- NA
   xy$contributors <- remove_duplicates(c(x$contributors, y$contributors))
+  xy$title <- NULL
   xy$description <- paste(x$description, y$description, sep = "/n")
   xy$version <- "1.0"
   xy$keywords <- unique(c(x$keywords, y$keywords))

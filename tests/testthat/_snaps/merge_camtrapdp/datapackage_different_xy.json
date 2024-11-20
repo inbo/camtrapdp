@@ -40,8 +40,6 @@
     }
   ],
   "profile": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json",
-  "name": null,
-  "title": null,
   "contributors": [
     {
       "title": "Axel Neukermans",
