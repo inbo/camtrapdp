@@ -46,6 +46,27 @@ test_that("merge_camtrapdp() returns error on missing/invalid/duplicate dataset
   expect_no_error(merge_camtrapdp(x, y))
 })
 
+test_that("merge_camtrapdp() adds prefixes to additional resource names to keep
+           them unique", {
+  skip_if_offline()
+
+  # Merge datasets with overlapping resources: individuals and individuals, iris
+  x <- example_dataset()
+  x$name <- "x"
+  y <- x
+  y <- frictionless::add_resource(y, "iris", iris)
+  y$name <- "y"
+  xy <- merge_camtrapdp(x, y)
+
+  expect_identical(
+    frictionless::resources(xy),
+    c(
+      "deployments", "media", "observations", "x_individuals", "y_individuals",
+      "iris"
+    )
+  )
+})
+
 test_that("merge_camtrapdp() adds prefixes to identifiers in the data to keep
            them unique", {
   skip_if_offline()
@@ -88,39 +109,17 @@ test_that("merge_camtrapdp() adds prefixes to identifiers in the data to keep
   expect_in(merged_observation_ids, observations(xy)$observationID)
 })
 
-test_that("merge_camtrapdp() adds prefixes to additional resource names to keep
-           them unique", {
-  skip_if_offline()
-
-  # Merge datasets with overlapping resources: individuals and individuals, iris
-  x <- example_dataset()
-  x$name <- "x"
-  y <- x
-  y <- frictionless::add_resource(y, "iris", iris)
-  y$name <- "y"
-  xy <- merge_camtrapdp(x, y)
-
-  expect_identical(
-    frictionless::resources(xy),
-    c(
-      "deployments", "media", "observations", "x_individuals", "y_individuals",
-      "iris"
-    )
-  )
-})
-
 test_that("merge_camtrapdp() returns the expected datapackage.json when merging
            identical datasets", {
   skip_if_offline()
   temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
 
-  # Merge datasets that are identical except for name and id
+  # Merge datasets that are identical except for name
   x <- example_dataset()
   x$name <- "x"
   y <- x
   y$name <- "y"
-  y$id <- "y"
   xy <- merge_camtrapdp(x, y)
   xy$created <- NULL
 
