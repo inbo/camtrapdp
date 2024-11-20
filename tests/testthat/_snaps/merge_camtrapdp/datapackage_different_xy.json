@@ -325,12 +325,6 @@
       "relatedIdentifier": "https://doi.org/10.1016/j.dib.2024.110544",
       "resourceTypeGeneral": "DataPaper",
       "relatedIdentifierType": "DOI"
-    },
-    {
-      "relationType": "IsDerivedFrom",
-      "relatedIdentifier": "7cca70f5-ef8c-4f86-85fb-8f070937d7ab",
-      "resourceTypeGeneral": "Data package",
-      "relatedIdentifierType": "id"
     }
   ],
   "references": [

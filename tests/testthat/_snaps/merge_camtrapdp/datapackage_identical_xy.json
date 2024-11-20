@@ -238,18 +238,6 @@
       "relatedIdentifier": "https://inbo.github.io/camtraptor/",
       "resourceTypeGeneral": "Software",
       "relatedIdentifierType": "URL"
-    },
-    {
-      "relationType": "IsDerivedFrom",
-      "relatedIdentifier": "7cca70f5-ef8c-4f86-85fb-8f070937d7ab",
-      "resourceTypeGeneral": "Data package",
-      "relatedIdentifierType": "id"
-    },
-    {
-      "relationType": "IsDerivedFrom",
-      "relatedIdentifier": "y",
-      "resourceTypeGeneral": "Data package",
-      "relatedIdentifierType": "id"
     }
   ],
   "references": []

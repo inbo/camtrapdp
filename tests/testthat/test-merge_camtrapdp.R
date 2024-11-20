@@ -169,3 +169,36 @@ test_that("merge_camtrapdp() returns the expected datapackage.json when merging
      read_camtrapdp(file.path(temp_dir_merged, "datapackage_different_xy.json"))
    )
 })
+
+test_that("merge_camtrapdp() adds the DOI of the original datasets as related
+           identifiers", {
+  skip_if_offline()
+
+  # Merge datasets that are identical except for name and DOI
+  x <- example_dataset()
+  x$name <- "x"
+  x$id <- "https://doi.org/x"
+  y <- x
+  y$name <- "y"
+  y$id <- "http://doi.org/y"
+  xy <- merge_camtrapdp(x, y)
+
+  expect_identical(
+    xy$relatedIdentifiers[[3]], # 1 and 2 were present in x and y (identical)
+    list(
+      relationType = "isDerivedFrom",
+      relatedIdentifier = "https://doi.org/x",
+      resourceTypeGeneral = "Dataset",
+      relatedIdentifierType = "DOI"
+    )
+  )
+  expect_identical(
+    xy$relatedIdentifiers[[4]],
+    list(
+      relationType = "isDerivedFrom",
+      relatedIdentifier = "http://doi.org/y",
+      resourceTypeGeneral = "Dataset",
+      relatedIdentifierType = "DOI"
+    )
+  )
+})

@@ -137,31 +137,22 @@ merge_camtrapdp <- function(x, y) {
   xy$references <- unique(c(x$references, y$references))
   xy$directory <- "."
 
-  if (!is.null(x$id)) {
-    relatedIdentifiers_x <- list(
-      relationType = "IsDerivedFrom",
-      relatedIdentifier = as.character(x$id),
-      resourceTypeGeneral = "Data package",
-      relatedIdentifierType = "id"
-    )
-  } else {
-    relatedIdentifiers_x <- list()
-  }
-  if (!is.null(y$id)) {
-    relatedIdentifiers_y <- list(
-      relationType = "IsDerivedFrom",
-      relatedIdentifier = as.character(y$id),
-      resourceTypeGeneral = "Data package",
-      relatedIdentifierType = "id"
-    )
-  } else {
-    relatedIdentifiers_y <- list()
-  }
-  new_relatedIdentifiers <- list(relatedIdentifiers_x, relatedIdentifiers_y)
-  xy_merged$relatedIdentifiers <- remove_duplicates(
-    c(x$relatedIdentifiers, y$relatedIdentifiers, new_relatedIdentifiers)
-  )
+  # Add package$id to related identifiers if it is a DOI
+  add_related_id <- function(id, related_ids) {
+    if (grepl("doi", id %||% "")) {
+      new_related_id <- list(
+        relationType = "isDerivedFrom",
+        relatedIdentifier = id,
+        resourceTypeGeneral = "Dataset",
+        relatedIdentifierType = "DOI"
+      )
+      related_ids <- c(related_ids, list(new_related_id))
 
+    }
+    return(related_ids)
+  }
+  xy$relatedIdentifiers <- add_related_id(x$id, xy$relatedIdentifiers)
+  xy$relatedIdentifiers <- add_related_id(y$id, xy$relatedIdentifiers)
 
   # Update scopes
   xy <-
