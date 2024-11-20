@@ -85,34 +85,36 @@ merge_camtrapdp <- function(x, y) {
   }
   prefixes <- c(x$name, y$name)
 
-  # Create xy_merged from x
-  xy_merged <- x
+  # Create xy from x
+  xy <- x
 
   # Merge resources
-  xy_merged$resources <- merge_resources(x, y, prefixes)
+  xy$resources <- merge_resources(x, y, prefixes)
 
   # Merge data
-  deployments(xy_merged) <- merge_deployments(x, y, prefixes)
-  media(xy_merged) <- merge_media(x, y, prefixes)
-  observations(xy_merged) <- merge_observations(x, y, prefixes)
+  deployments(xy) <- merge_deployments(x, y, prefixes)
+  media(xy) <- merge_media(x, y, prefixes)
+  observations(xy) <- merge_observations(x, y, prefixes)
 
   # Merge/update metadata
-  xy_merged$name <- NA
-  xy_merged$id <- NULL
-  xy_merged$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-  xy_merged$title <- NA
-  xy_merged$contributors <- remove_duplicates(c(x$contributors, y$contributors))
-  xy_merged$description <- paste(x$description, y$description, sep = "/n")
-  xy_merged$version <- "1.0"
-  xy_merged$keywords <- unique(c(x$keywords, y$keywords))
-  xy_merged$image <- NULL
-  xy_merged$homepage <- NULL
-  xy_merged$sources <- remove_duplicates(c(x$sources, y$sources))
-  xy_merged$licenses <- remove_duplicates(c(x$licenses, y$licenses))
-  xy_merged$project <- list(x$project, y$project)
-  xy_merged$bibliographicCitation <- NULL
-  xy_merged$coordinatePrecision <-
+  xy$name <- NA
+  xy$id <- NULL
+  xy$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+  xy$title <- NA
+  xy$contributors <- remove_duplicates(c(x$contributors, y$contributors))
+  xy$description <- paste(x$description, y$description, sep = "/n")
+  xy$version <- "1.0"
+  xy$keywords <- unique(c(x$keywords, y$keywords))
+  xy$image <- NULL
+  xy$homepage <- NULL
+  xy$sources <- remove_duplicates(c(x$sources, y$sources))
+  xy$licenses <- remove_duplicates(c(x$licenses, y$licenses))
+  xy$project <- list(x$project, y$project)
+  xy$bibliographicCitation <- NULL
+  xy$coordinatePrecision <-
     max(x$coordinatePrecision, y$coordinatePrecision, na.rm = TRUE)
+  xy$references <- unique(c(x$references, y$references))
+  xy$directory <- "."
 
   if (!is.null(x$id)) {
     relatedIdentifiers_x <- list(
@@ -139,14 +141,13 @@ merge_camtrapdp <- function(x, y) {
     c(x$relatedIdentifiers, y$relatedIdentifiers, new_relatedIdentifiers)
   )
 
-  xy_merged$references <- unique(c(x$references, y$references))
-  xy_merged$directory <- "."
 
-  xy_merged <-
-    xy_merged %>%
+  # Update scopes
+  xy <-
+    xy %>%
     update_spatial() %>%
     update_temporal() %>%
     update_taxonomic()
 
-  return(xy_merged)
+  return(xy)
 }
