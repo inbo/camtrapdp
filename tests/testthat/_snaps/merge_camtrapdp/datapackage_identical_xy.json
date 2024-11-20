@@ -104,8 +104,6 @@
       "scope": "data"
     },
     {
-      "scope": "media",
-      "path": "http://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "project": [
@@ -130,6 +128,8 @@
       "captureMethod": ["activityDetection", "timeLapse"],
       "individualAnimals": false,
       "observationLevel": ["media", "event"]
+      "path": "http://creativecommons.org/licenses/by/4.0/",
+      "scope": "media"
     }
   ],
   "coordinatePrecision": 0.001,

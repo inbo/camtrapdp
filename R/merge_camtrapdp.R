@@ -101,19 +101,20 @@ merge_camtrapdp <- function(x, y) {
   xy$name <- NULL
   xy$id <- NULL
   xy$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-  xy$contributors <- remove_duplicates(c(x$contributors, y$contributors))
   xy$title <- NULL
+  xy$contributors <- unique(c(x$contributors, y$contributors))
   xy$description <- paste(x$description, y$description, sep = "/n")
   xy$version <- "1.0"
   xy$keywords <- unique(c(x$keywords, y$keywords))
   xy$image <- NULL
   xy$homepage <- NULL
-  xy$sources <- remove_duplicates(c(x$sources, y$sources))
-  xy$licenses <- remove_duplicates(c(x$licenses, y$licenses))
   xy$project <- list(x$project, y$project)
+  xy$sources <- unique(c(x$sources, y$sources))
+  xy$licenses <- unique(c(x$licenses, y$licenses))
   xy$bibliographicCitation <- NULL
   xy$coordinatePrecision <-
     max(x$coordinatePrecision, y$coordinatePrecision, na.rm = TRUE)
+  xy$relatedIdentifiers <- unique(c(x$relatedIdentifiers, y$relatedIdentifiers))
   xy$references <- unique(c(x$references, y$references))
   xy$directory <- "."
 

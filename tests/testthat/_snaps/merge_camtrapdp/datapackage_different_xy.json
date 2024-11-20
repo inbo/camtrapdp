@@ -78,25 +78,25 @@
     {
       "title": "Julian Evans",
       "email": "jevansbio@gmail.com",
-      "role": "principalInvestigator",
       "organization": "University of Amsterdam",
+      "role": "principalInvestigator",
       "firstName": "Julian",
       "lastName": "Evans"
     },
     {
       "title": "Rotem Zilber",
       "email": "r.kadanzilber@uva.nl",
-      "role": "principalInvestigator",
       "organization": "University of Amsterdam",
+      "role": "principalInvestigator",
       "firstName": "Rotem",
       "lastName": "Zilber"
     },
     {
       "title": "W. Daniel  Kissling",
-      "email": "wdkissling@gmail.com",
       "path": "https://www.danielkissling.de/",
-      "role": "principalInvestigator",
+      "email": "wdkissling@gmail.com",
       "organization": "University of Amsterdam",
+      "role": "principalInvestigator",
       "firstName": "W. Daniel ",
       "lastName": "Kissling"
     }
@@ -124,8 +124,8 @@
       "scope": "data"
     },
     {
-      "scope": "media",
-      "path": "http://creativecommons.org/licenses/by/4.0/"
+      "path": "http://creativecommons.org/licenses/by/4.0/",
+      "scope": "media"
     },
     {
       "name": "CC-BY-4.0",
@@ -154,6 +154,8 @@
       "captureMethod": "activityDetection",
       "observationLevel": "event",
       "individualAnimals": false
+      "name": "CC-BY-4.0",
+      "scope": "media"
     }
   ],
   "coordinatePrecision": 0.001,
