@@ -40,7 +40,15 @@
 #' - **sources**: Combined, with duplicates removed.
 #' - **licenses**: Combined, with duplicates removed.
 #' - **bibliographicCitation**: Removed.
-#' - **project**: List of the projects.
+#' - **project$id**: Removed.
+#' - **project$title**: Combined.
+#' - **project$acronym**: Removed.
+#' - **project$description**: Combined as two paragraphs.
+#' - **project$path**: Removed.
+#' - **project$samplingDesign**: Sampling design of `x`.
+#' - **project$captureMethod**: Combined, with duplicates removed.
+#' - **project$individuals**: `TRUE` if one of the datasets has `TRUE`.
+#' - **project$observationLevel**: Combined, with duplicates removed.
 #' - **coordinatePrecision**: Set to the least precise `coordinatePrecision`.
 #' - **spatial**: Reset based on the new deployments.
 #' - **temporal**: Reset based on the new deployments.
@@ -108,10 +116,21 @@ merge_camtrapdp <- function(x, y) {
   xy$keywords <- unique(c(x$keywords, y$keywords))
   xy$image <- NULL
   xy$homepage <- NULL
-  xy$project <- list(x$project, y$project)
   xy$sources <- unique(c(x$sources, y$sources))
   xy$licenses <- unique(c(x$licenses, y$licenses))
   xy$bibliographicCitation <- NULL
+  xy$project$id <- NULL
+  xy$project$title <- paste(x$project$title, y$project$title, sep = " / ")
+  xy$project$acronym <- NULL
+  xy$project$description <-
+    paste(x$project$description, y$project$description, sep = "/n")
+  xy$project$path <- NULL
+  xy$project$samplingDesign <- x$project$samplingDesign # Second one ignored
+  xy$project$captureMethod <-
+    unique(c(x$project$captureMethod, y$project$captureMethod))
+  xy$project$individuals <- any(x$project$individuals, y$project$individiuals)
+  xy$project$observationLevel <-
+    unique(c(x$project$observationLevel, y$project$observationLevel))
   xy$coordinatePrecision <-
     max(x$coordinatePrecision, y$coordinatePrecision, na.rm = TRUE)
   xy$relatedIdentifiers <- unique(c(x$relatedIdentifiers, y$relatedIdentifiers))

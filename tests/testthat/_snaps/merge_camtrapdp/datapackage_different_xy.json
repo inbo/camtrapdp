@@ -130,34 +130,21 @@
     {
       "name": "CC-BY-4.0",
       "scope": "data"
-    }
-  ],
-  "project": [
-    {
-      "id": "86cabc14-d475-4439-98a7-e7b590bed60e",
-      "title": "Management of Invasive Coypu and muskrAt in Europe",
-      "acronym": "MICA",
-      "description": "Invasive alien species such as the coypu and muskrat pose a major threat to biodiversity and cost millions of euros annually. By feeding on rushes and reeds, these animals cause serious damage to the environment in which they live and endangered species suffer from habitat loss. The disappearance of reeds and digging in dikes represents a safety risk for humans in the lowland areas. With the LIFE project MICA (<https://lifemica.eu>), the partners from the participating countries want to develop a transnational plan for the management of coypu and muskrat populations in Europe and aim to reduce their population. The objective of an effective population control of coypu and muskrat is to protect lowlands from flooding, to prevent crop damage and loss of biodiversity. The objective of the project is to serve as a pilot and demonstration project in which ‘best practices’ are tested and new techniques are developed for a more efficient control of muskrat and coypu populations. By involving organisations from Belgium, Germany and the Netherlands, the project also promotes international cooperation and knowledge exchange in the field of muskrat and coypu management.",
-      "samplingDesign": "targeted",
-      "path": "https://lifemica.eu",
-      "captureMethod": ["activityDetection", "timeLapse"],
-      "individualAnimals": false,
-      "observationLevel": ["media", "event"]
     },
     {
-      "id": "93b1ff03-de48-470e-a997-88d7b33501ce",
-      "title": "Data from three camera trapping pilots in the Amsterdam Water Supply Dunes of the Netherlands",
-      "acronym": "ARISE-MDS",
-      "description": "Three pilot studies were conducted to test the autonomous deployment of wireless 4G wildlife cameras with solar panels and automated data transmission in the coastal dunes of the Amsterdam Water Supply Dunes, The Netherlands. Monitoring and management of grazing mammals such as the European rabbit (Oryctolagus cuniculus) and the European fallow deer (Dama dama) is of key interest in this nature reserve, as they slow down the rate of natural succession and alter plant species composition and vegetation structure through grazing and digging. These grazers as well as predators such as the red fox (Vulpes vulpes) have typically been monitored using traditional survey methods such as transect and areal counts, but only once or twice a year. The study was aimed to test the feasibility and methodology of running long-term autonomous monitoring networks with wildlife cameras. This involved the testing of power usage, data transmission, and data accumulation, and the robustness of cameras to herbivore damage. Furthermore, the pilots specifically tested how the detection of focal species (rabbits, deer, foxes) differs with deployment heights, camera lens types and the placement in different habitats. The pilot also provides labelled images for the development of deep learning algorithms to automatically identify species.\r\n\r\nWork was carried out as part of the development of the monitoring demonstration sites of a large-scale research infrastructure project ARISE.",
-      "path": "https://www.arise-biodiversity.nl/teammonitoringdemonstration",
-      "samplingDesign": "opportunistic",
-      "captureMethod": "activityDetection",
-      "observationLevel": "event",
-      "individualAnimals": false
       "name": "CC-BY-4.0",
       "scope": "media"
     }
   ],
+  "project": {
+    "title": "Management of Invasive Coypu and muskrAt in Europe / Data from three camera trapping pilots in the Amsterdam Water Supply Dunes of the Netherlands",
+    "description": "Invasive alien species such as the coypu and muskrat pose a major threat to biodiversity and cost millions of euros annually. By feeding on rushes and reeds, these animals cause serious damage to the environment in which they live and endangered species suffer from habitat loss. The disappearance of reeds and digging in dikes represents a safety risk for humans in the lowland areas. With the LIFE project MICA (<https://lifemica.eu>), the partners from the participating countries want to develop a transnational plan for the management of coypu and muskrat populations in Europe and aim to reduce their population. The objective of an effective population control of coypu and muskrat is to protect lowlands from flooding, to prevent crop damage and loss of biodiversity. The objective of the project is to serve as a pilot and demonstration project in which ‘best practices’ are tested and new techniques are developed for a more efficient control of muskrat and coypu populations. By involving organisations from Belgium, Germany and the Netherlands, the project also promotes international cooperation and knowledge exchange in the field of muskrat and coypu management./nThree pilot studies were conducted to test the autonomous deployment of wireless 4G wildlife cameras with solar panels and automated data transmission in the coastal dunes of the Amsterdam Water Supply Dunes, The Netherlands. Monitoring and management of grazing mammals such as the European rabbit (Oryctolagus cuniculus) and the European fallow deer (Dama dama) is of key interest in this nature reserve, as they slow down the rate of natural succession and alter plant species composition and vegetation structure through grazing and digging. These grazers as well as predators such as the red fox (Vulpes vulpes) have typically been monitored using traditional survey methods such as transect and areal counts, but only once or twice a year. The study was aimed to test the feasibility and methodology of running long-term autonomous monitoring networks with wildlife cameras. This involved the testing of power usage, data transmission, and data accumulation, and the robustness of cameras to herbivore damage. Furthermore, the pilots specifically tested how the detection of focal species (rabbits, deer, foxes) differs with deployment heights, camera lens types and the placement in different habitats. The pilot also provides labelled images for the development of deep learning algorithms to automatically identify species.\r\n\r\nWork was carried out as part of the development of the monitoring demonstration sites of a large-scale research infrastructure project ARISE.",
+    "samplingDesign": "targeted",
+    "captureMethod": ["activityDetection", "timeLapse"],
+    "individualAnimals": false,
+    "observationLevel": ["media", "event"],
+    "individuals": false
+  },
   "coordinatePrecision": 0.001,
   "spatial": {
     "type": "Polygon",
