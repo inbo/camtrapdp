@@ -55,7 +55,15 @@ Metadata properties are merged as follows:
 \item \strong{sources}: Combined, with duplicates removed.
 \item \strong{licenses}: Combined, with duplicates removed.
 \item \strong{bibliographicCitation}: Removed.
-\item \strong{project}: List of the projects.
+\item \strong{project$id}: Removed.
+\item \strong{project$title}: Combined.
+\item \strong{project$acronym}: Removed.
+\item \strong{project$description}: Combined as two paragraphs.
+\item \strong{project$path}: Removed.
+\item \strong{project$samplingDesign}: Sampling design of \code{x}.
+\item \strong{project$captureMethod}: Combined, with duplicates removed.
+\item \strong{project$individuals}: \code{TRUE} if one of the datasets has \code{TRUE}.
+\item \strong{project$observationLevel}: Combined, with duplicates removed.
 \item \strong{coordinatePrecision}: Set to the least precise \code{coordinatePrecision}.
 \item \strong{spatial}: Reset based on the new deployments.
 \item \strong{temporal}: Reset based on the new deployments.
