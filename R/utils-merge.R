@@ -69,8 +69,8 @@ merge_deployments <- function(x, y, prefixes) {
   dplyr::bind_rows(x_deployments, y_deployments) %>%
     dplyr::mutate(
       deploymentID = merge_vectors(
-        purrr::pluck(x_deployments, "deploymentID"),
-        purrr::pluck(y_deployments, "deploymentID"),
+        purrr::chuck(x_deployments, "deploymentID"),
+        purrr::chuck(y_deployments, "deploymentID"),
         prefixes
       )
     )
@@ -92,13 +92,13 @@ merge_media <- function(x, y, prefixes) {
   dplyr::bind_rows(x_media, y_media) %>%
     dplyr::mutate(
       mediaID = merge_vectors(
-        purrr::pluck(x_media, "mediaID"),
-        purrr::pluck(y_media, "mediaID"),
+        purrr::chuck(x_media, "mediaID"),
+        purrr::chuck(y_media, "mediaID"),
         prefixes
       ),
       deploymentID = merge_vectors(
-        purrr::pluck(x_media, "deploymentID"),
-        purrr::pluck(y_media, "deploymentID"),
+        purrr::chuck(x_media, "deploymentID"),
+        purrr::chuck(y_media, "deploymentID"),
         prefixes
       ),
       eventID = merge_vectors(
@@ -125,13 +125,13 @@ merge_observations <- function(x, y, prefixes) {
   dplyr::bind_rows(x_observations, y_observations) %>%
     dplyr::mutate(
       observationID = merge_vectors(
-        purrr::pluck(x_observations, "observationID"),
-        purrr::pluck(y_observations, "observationID"),
+        purrr::chuck(x_observations, "observationID"),
+        purrr::chuck(y_observations, "observationID"),
         prefixes
       ),
       deploymentID = merge_vectors(
-        purrr::pluck(x_observations, "deploymentID"),
-        purrr::pluck(y_observations, "deploymentID"),
+        purrr::chuck(x_observations, "deploymentID"),
+        purrr::chuck(y_observations, "deploymentID"),
         prefixes
       ),
       mediaID = merge_vectors(
