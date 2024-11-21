@@ -38,7 +38,8 @@ Data have been standardized to Darwin Core using the \href{https://inbo.github.i
 (and associated media) of animals. Excluded are records that document blank
 or unclassified media, vehicles and observations of humans.
 \item \strong{license}: License with scope \code{data} as provided in \code{x$licenses}.
-\item \strong{creators}: Contributors (all roles) as provided in \code{x$contributors}.
+\item \strong{creators}: Contributors as provided in \code{x$contributors}, excluding those
+with roles \code{rightsHolder} and \code{publisher}.
 \item \strong{contact}: Contributors with role \code{contact}. If none exist, first
 creator.
 \item \strong{metadata provider}: Same as \code{contact}.
