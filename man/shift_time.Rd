@@ -50,6 +50,7 @@ deployments(x_shifted)[, c("deploymentID", "deploymentStart", "deploymentEnd")]
 }
 \seealso{
 Other transformation functions: 
+\code{\link{merge_camtrapdp}()},
 \code{\link{round_coordinates}()},
 \code{\link{write_dwc}()},
 \code{\link{write_eml}()}
