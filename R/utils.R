@@ -37,7 +37,19 @@ expand_cols <- function(df, colnames) {
   return(df)
 }
 
-#' Creates list of contributors in EML format
+#' Lists the names of additional resources in a Camera Trap Data Package
+#'
+#' @inheritParams print.camtrapdp
+#' @return Character vector with the additional resource names.
+#' @family helper functions
+#' @noRd
+additional_resources <- function(x) {
+  camtrapdp_resource_names <- c("deployments", "media", "observations")
+  resource_names <- frictionless::resources(x)
+  resource_names[!resource_names %in% camtrapdp_resource_names]
+}
+
+#' Create list of contributors in EML format
 #'
 #' @param contributors A data frame with the contributors
 #' @return List of contributors as emld responsibleParty objects.
@@ -57,4 +69,24 @@ create_eml_contributors <- function(contributors) {
     },
     onlineUrl = .$path
   ))
+}
+
+#' Replace NULL values recursively
+#'
+#' Replaces `NULL` values with `NA` by recursively iterating through each
+#' element of the input list.
+#'
+#' @param list A nested list.
+#' @return `x`, but with all `NULL` values replaced.
+#' `NA`.
+#' @family helper functions
+#' @noRd
+replace_null_recursive <- function(list) {
+  purrr::map(list, function(element) {
+    if (is.list(element) && !is.null(element)) {
+      replace_null_recursive(element)
+    } else {
+      ifelse(is.null(element), NA, element)
+    }
+  })
 }

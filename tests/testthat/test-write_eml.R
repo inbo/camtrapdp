@@ -22,7 +22,7 @@ test_that("write_eml() returns the expected eml.xml file for the example
            dataset", {
   skip_if_offline()
   x <- example_dataset()
-  temp_dir <- file.path(tempdir(), "eml")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   result <- suppressMessages(write_eml(x, temp_dir))
   result$packageId <- "random_uuid" # Overwrite generated UUID
@@ -36,7 +36,7 @@ test_that("write_eml() returns the expected eml.xml file for the example
 test_that("write_eml() supports disabling the derived paragraph", {
   skip_if_offline()
   x <- example_dataset()
-  temp_dir <- file.path(tempdir(), "eml")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   result <- suppressMessages(write_eml(x, temp_dir, derived_paragraph = FALSE))
 
@@ -49,7 +49,7 @@ test_that("write_eml() sets contact/metadata provider to first creator if none
   x <- example_dataset()
   # Remove contributor with role == contact
   x$contributors[[4]] <- NULL
-  temp_dir <- file.path(tempdir(), "eml")
+  temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   result <- suppressMessages(write_eml(x, temp_dir))
 

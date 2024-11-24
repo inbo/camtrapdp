@@ -23,7 +23,7 @@ taxa <- function(x) {
     dplyr::select("scientificName", dplyr::starts_with("taxon.")) %>%
     dplyr::distinct() %>%
     dplyr::rename_with(~ sub("^taxon.", "", .x)) %>%
-    dplyr::arrange(scientificName)
+    dplyr::arrange(.data$scientificName)
 
   # Remove duplicates without taxonID
   if ("taxonID" %in% names(taxa)) {
