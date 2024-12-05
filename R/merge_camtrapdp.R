@@ -100,7 +100,7 @@ merge_camtrapdp <- function(x, y) {
   # Merge resources
   xy$resources <- merge_resources(x, y, prefixes)
 
-  # Merge data
+  # Merge data (and update scopes)
   deployments(xy) <- merge_deployments(x, y, prefixes)
   media(xy) <- merge_media(x, y, prefixes)
   observations(xy) <- merge_observations(x, y, prefixes)
@@ -153,13 +153,6 @@ merge_camtrapdp <- function(x, y) {
   }
   xy$relatedIdentifiers <- add_related_id(x$id, xy$relatedIdentifiers)
   xy$relatedIdentifiers <- add_related_id(y$id, xy$relatedIdentifiers)
-
-  # Update scopes
-  xy <-
-    xy %>%
-    update_spatial() %>%
-    update_temporal() %>%
-    update_taxonomic()
 
   return(xy)
 }

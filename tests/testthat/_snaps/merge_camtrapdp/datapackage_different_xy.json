@@ -167,8 +167,6 @@
       "scientificName": "Anas platyrhynchos",
       "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
       "taxonRank": "species",
-      "family": null,
-      "order.": null,
       "vernacularNames": {
         "eng": "mallard",
         "nld": "wilde eend"
@@ -178,8 +176,6 @@
       "scientificName": "Anas strepera",
       "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
       "taxonRank": "species",
-      "family": null,
-      "order.": null,
       "vernacularNames": {
         "eng": "gadwall",
         "nld": "krakeend"
@@ -200,8 +196,6 @@
       "scientificName": "Ardea",
       "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/32FH",
       "taxonRank": "genus",
-      "family": null,
-      "order.": null,
       "vernacularNames": {
         "eng": "great herons",
         "nld": "reigers"
@@ -211,8 +205,6 @@
       "scientificName": "Ardea cinerea",
       "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/GCHS",
       "taxonRank": "species",
-      "family": null,
-      "order.": null,
       "vernacularNames": {
         "eng": "grey heron",
         "nld": "blauwe reiger"
@@ -222,8 +214,6 @@
       "scientificName": "Aves",
       "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/V2",
       "taxonRank": "class",
-      "family": null,
-      "order.": null,
       "vernacularNames": {
         "eng": "bird sp.",
         "nld": "vogel"
@@ -255,8 +245,6 @@
       "scientificName": "Martes foina",
       "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/3Y9VW",
       "taxonRank": "species",
-      "family": null,
-      "order.": null,
       "vernacularNames": {
         "eng": "beech marten",
         "nld": "steenmarter"
@@ -266,8 +254,6 @@
       "scientificName": "Mustela putorius",
       "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/44QYC",
       "taxonRank": "species",
-      "family": null,
-      "order.": null,
       "vernacularNames": {
         "eng": "European polecat",
         "nld": "bunzing"
@@ -288,8 +274,6 @@
       "scientificName": "Rattus norvegicus",
       "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/4RM67",
       "taxonRank": "species",
-      "family": null,
-      "order.": null,
       "vernacularNames": {
         "eng": "brown rat",
         "nld": "bruine rat"

@@ -16,10 +16,10 @@
 merge_vectors <- function(a, b, prefixes) {
   a_prefix <- prefixes[1]
   b_prefix <- prefixes[2]
-  a_prefixed <- purrr:::map2_chr(a, a %in% b,
+  a_prefixed <- purrr::map2_chr(a, a %in% b,
     ~ if (!is.na(.x) && .y) { paste(a_prefix, .x, sep = "_") } else { .x }
   )
-  b_prefixed <- purrr:::map2_chr(b, b %in% a,
+  b_prefixed <- purrr::map2_chr(b, b %in% a,
     ~ if (!is.na(.x) && .y) { paste(b_prefix, .x, sep = "_") } else { .x }
   )
   c(a_prefixed, b_prefixed)

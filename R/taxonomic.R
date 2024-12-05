@@ -15,9 +15,6 @@ taxonomic <- function(x) {
     return(NULL)
   }
 
-  # Replace NULL with NA
-  taxonomic_list <- replace_null_recursive(taxonomic_list)
-
   # Convert list into a data.frame
   taxa <-
     purrr::map(
