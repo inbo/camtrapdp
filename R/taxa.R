@@ -42,7 +42,7 @@ taxa <- function(x) {
   # Remove duplicates with the least information
   duplicates_with_least_info <-
     taxa %>%
-    dplyr::mutate(columns_with_info = rowSums(!is.na(.))) %>%
+    dplyr::mutate(columns_with_info = rowSums(!is.na(taxa))) %>%
     dplyr::group_by(.data$scientificName) %>%
     dplyr::filter(dplyr::n() > 1) %>%
     dplyr::arrange(dplyr::desc(.data$columns_with_info)) %>%
