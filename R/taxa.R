@@ -48,7 +48,7 @@ taxa <- function(x) {
     dplyr::arrange(dplyr::desc(.data$columns_with_info)) %>%
     dplyr::slice_tail(n = -1) %>% # Remove first row from group (with most info)
     dplyr::ungroup() %>%
-    dplyr::select(-.data$columns_with_info)
+    dplyr::select(-"columns_with_info")
   taxa <- dplyr::anti_join(
     taxa,
     duplicates_with_least_info,
