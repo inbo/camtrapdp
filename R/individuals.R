@@ -18,11 +18,11 @@
 individuals <- function(x) {
   check_camtrapdp(x)
   observations(x) %>%
+    dplyr::filter(!is.na(individualID)) %>%
     dplyr::distinct(
       .data$individualID,
       .data$scientificName,
       .data$lifeStage,
-      .data$sex,
-    ) %>%
-    dplyr::filter(!is.na(individualID))
+      .data$sex
+    )
 }
