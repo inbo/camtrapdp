@@ -1,4 +1,4 @@
-#' Get locations
+#' Get individuals
 #'
 #' Gets the (unique) individuals from the observations of a Camera Trap Data
 #' Package object.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/individuals.R
 \name{individuals}
 \alias{individuals}
-\title{Get locations}
+\title{Get individuals}
 \usage{
 individuals(x)
 }
