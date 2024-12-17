@@ -23,9 +23,10 @@ test_that("individuals() returns the expected rows (unique individuals)", {
   # Expect 0 individuals
   expect_equal(nrow(individuals(x)), 0)
 
-  # Expect 3 individuals
-  x$data$observations[1,]$individualID <- "anas_1"
-  x$data$observations[23,]$individualID <- "rattus_1"
-  x$data$observations[75,]$individualID <- "anas_2"
-  expect_equal(nrow(individuals(x)), 3)
+  # Add 3 individuals to event 79204343
+  # TODO: remove once https://github.com/tdwg/camtrap-dp/issues/396 is released
+  x$data$observations[x$data$observations$observationID == "05230014",]$individualID <- "Fezzik"
+  x$data$observations[x$data$observations$observationID == "5ead5692",]$individualID <- "Buttercup"
+  x$data$observations[x$data$observations$observationID == "29939500",]$individualID <- "Westley"
+  expect_length(individuals(x), 3)
 })
