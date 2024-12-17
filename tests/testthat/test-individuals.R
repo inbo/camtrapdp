@@ -28,5 +28,5 @@ test_that("individuals() returns the expected rows (unique individuals)", {
   x$data$observations[x$data$observations$observationID == "05230014",]$individualID <- "Fezzik"
   x$data$observations[x$data$observations$observationID == "5ead5692",]$individualID <- "Buttercup"
   x$data$observations[x$data$observations$observationID == "29939500",]$individualID <- "Westley"
-  expect_length(individuals(x), 3)
+  expect_equal(nrow(individuals(x)), 3)
 })
