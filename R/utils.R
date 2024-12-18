@@ -70,23 +70,3 @@ create_eml_contributors <- function(contributors) {
     onlineUrl = .$path
   ))
 }
-
-#' Replace NULL values recursively
-#'
-#' Replaces `NULL` values with `NA` by recursively iterating through each
-#' element of the input list.
-#'
-#' @param list A nested list.
-#' @return `x`, but with all `NULL` values replaced.
-#' `NA`.
-#' @family helper functions
-#' @noRd
-replace_null_recursive <- function(list) {
-  purrr::map(list, function(element) {
-    if (is.list(element) && !is.null(element)) {
-      replace_null_recursive(element)
-    } else {
-      ifelse(is.null(element), NA, element)
-    }
-  })
-}

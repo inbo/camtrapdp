@@ -42,13 +42,13 @@ taxa <- function(x) {
   # Remove duplicates with the least information
   duplicates_with_least_info <-
     taxa %>%
-    dplyr::mutate(columns_with_info = rowSums(!is.na(.))) %>%
+    dplyr::mutate(columns_with_info = rowSums(!is.na(taxa))) %>%
     dplyr::group_by(.data$scientificName) %>%
     dplyr::filter(dplyr::n() > 1) %>%
-    dplyr::arrange(dplyr::desc(columns_with_info)) %>%
+    dplyr::arrange(dplyr::desc(.data$columns_with_info)) %>%
     dplyr::slice_tail(n = -1) %>% # Remove first row from group (with most info)
     dplyr::ungroup() %>%
-    dplyr::select(-columns_with_info)
+    dplyr::select(-"columns_with_info")
   taxa <- dplyr::anti_join(
     taxa,
     duplicates_with_least_info,
