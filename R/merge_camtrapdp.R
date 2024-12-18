@@ -94,6 +94,19 @@ merge_camtrapdp <- function(x, y) {
   }
   prefixes <- c(x$name, y$name)
 
+  # Notify user if samplingDesign of x and y are different
+  if (x$project$samplingDesign != y$project$samplingDesign) {
+    cli::cli_inform(
+      c(
+        "SamplingDesign of the merged dataset is set to samplingDesign of
+        {.arg x} ({.val {x$project$samplingDesign}}).",
+        "!" = "SamplingDesign of {.arg y} ({.val {y$project$samplingDesign}}) is
+        ignored."
+      ),
+      class = "camtrapdp_alert_sampligndesign_ignored"
+    )
+  }
+
   # Create xy from x
   xy <- x
 
