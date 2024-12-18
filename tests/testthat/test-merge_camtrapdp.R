@@ -8,6 +8,20 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   expect_no_error(check_camtrapdp(merge_camtrapdp(x, y)))
 })
 
+test_that("merge_camtrapdp() returns alert on non-identical samplingDesign", {
+  skip_if_offline()
+  x <- example_dataset()
+  x$name <- "x"
+  y <- x
+  y$name <- "y"
+  y$project$samplingDesign <- "opportunistic"
+
+  expect_message(
+    merge_camtrapdp(x, y),
+    class = "camtrapdp_alert_sampligndesign_ignored"
+  )
+})
+
 test_that("merge_camtrapdp() returns error on missing/invalid/duplicate dataset
            name(s)", {
   skip_if_offline()
