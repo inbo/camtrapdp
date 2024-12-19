@@ -30,6 +30,7 @@ locations(x)
 }
 \seealso{
 Other accessor functions: 
+\code{\link{contributors}()},
 \code{\link{deployments}()},
 \code{\link{events}()},
 \code{\link{individuals}()},
