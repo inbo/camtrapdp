@@ -145,11 +145,11 @@ write_dwc <- function(x, directory) {
       ),
       eventRemarks = paste0(
         # E.g. "camera trap with bait near burrow | tags: <t1, t2> | <comment>"
-        dplyr::if_else(
-          as.logical(.data$baitUse),
-          "camera trap with bait",
-          "camera trap without bait"
-        ),
+        dplyr::case_when(
+          .data$baitUse == TRUE ~ "camera trap with bait",
+          .data$baitUse == FALSE ~ "camera trap without bait",
+          is.na(.data$baitUse) ~ ""
+          ),
         dplyr::if_else(
           is.na(.data$featureType),
           "",
