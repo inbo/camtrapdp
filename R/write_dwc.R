@@ -148,8 +148,8 @@ write_dwc <- function(x, directory) {
         dplyr::case_when(
           .data$baitUse == TRUE ~ "camera trap with bait",
           .data$baitUse == FALSE ~ "camera trap without bait",
-          is.na(.data$baitUse) & is.na(.data$featureType) ~ "",
-          is.na(.data$baitUse) & !is.na(.data$featureType) ~ "camera trap"
+          is.na(.data$baitUse) & !is.na(.data$featureType) ~ "camera trap",
+          is.na(.data$baitUse) & is.na(.data$featureType) ~ ""
           ),
         dplyr::if_else(
           is.na(.data$featureType),
