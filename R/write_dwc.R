@@ -145,31 +145,32 @@ write_dwc <- function(x, directory) {
       ),
       eventRemarks = paste0(
         # E.g. "camera trap with bait near burrow | tags: <t1, t2> | <comment>"
-        dplyr::if_else(
-          as.logical(.data$baitUse),
-          "camera trap with bait",
-          "camera trap without bait"
-        ),
+        dplyr::case_when(
+          .data$baitUse == TRUE ~ "camera trap with bait",
+          .data$baitUse == FALSE ~ "camera trap without bait",
+          is.na(.data$baitUse) & !is.na(.data$featureType) ~ "camera trap",
+          is.na(.data$baitUse) & is.na(.data$featureType) ~ ""
+          ),
         dplyr::if_else(
           is.na(.data$featureType),
           "",
           paste0(
             " near ",
-            dplyr::recode(
+            dplyr::case_match(
               .data$featureType,
-              "roadPaved" = "paved road",
-              "roadDirt" = "dirt road",
-              "trailHiking" = "hiking trail",
-              "trailGame" = "game trail",
-              "roadUnderpass" = "road underpass",
-              "roadOverpass" = "road overpass",
-              "roadBridge" = "road bridge",
-              "culvert" = "culvert",
-              "burrow" = "burrow",
-              "nestSite" = "nest site",
-              "carcass" = "carcass",
-              "waterSource" = "water source",
-              "fruitingTree" = "fruiting tree"
+              "roadPaved" ~ "paved road",
+              "roadDirt" ~ "dirt road",
+              "trailHiking" ~ "hiking trail",
+              "trailGame" ~ "game trail",
+              "roadUnderpass" ~ "road underpass",
+              "roadOverpass" ~ "road overpass",
+              "roadBridge" ~ "road bridge",
+              "culvert" ~ "culvert",
+              "burrow" ~ "burrow",
+              "nestSite" ~ "nest site",
+              "carcass" ~ "carcass",
+              "waterSource" ~ "water source",
+              "fruitingTree" ~ "fruiting tree"
             )
           )
         ),
@@ -265,10 +266,10 @@ write_dwc <- function(x, directory) {
       `dcterms:rights` = media_license,
       CreateDate = format(.data$timestamp, format = "%Y-%m-%dT%H:%M:%SZ"),
       captureDevice = .data$cameraModel,
-      resourceCreationTechnique = dplyr::recode(
+      resourceCreationTechnique = dplyr::case_match(
         .data$captureMethod,
-        "activityDetection" = "activity detection",
-        "timeLapse" = "time lapse"
+        "activityDetection" ~ "activity detection",
+        "timeLapse" ~ "time lapse"
       ),
       accessURI = .data$filePath,
       `dc:format` = .data$fileMediatype,
