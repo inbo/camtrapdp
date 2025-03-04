@@ -56,6 +56,9 @@ Audubon Media Description extension.
 \item \code{dcterms:rightsHolder}: first contributor in \code{x$contributors} with role
 \code{rightsHolder}.
 \item \code{dwc:dataGeneralizations}: set if \code{x$coordinatePrecision} is defined.
+\item \code{dwc:identificationVerificationStatus}: set to "verified based on
+photographic evidence" if \code{classificationMethod = "human"} and
+\code{classificationProbability = 1}.
 }
 }
 }

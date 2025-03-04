@@ -44,6 +44,9 @@
 #'   - `dcterms:rightsHolder`: first contributor in `x$contributors` with role
 #'     `rightsHolder`.
 #'   - `dwc:dataGeneralizations`: set if `x$coordinatePrecision` is defined.
+#'   - `dwc:identificationVerificationStatus`: set to "verified based on
+#'      photographic evidence" if `classificationMethod = "human"` and
+#'      `classificationProbability = 1`.
 #' @examples
 #' x <- example_dataset()
 #' write_dwc(x, directory = "my_directory")
