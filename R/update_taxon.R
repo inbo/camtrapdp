@@ -63,5 +63,14 @@ update_taxon <- function(x, from, to) {
       by = dplyr::join_by("scientificName" == "taxon.scientificName")
     )
 
+  # Return message
+  cli::cli_inform(
+    c(
+      "v" = "Taxon {.val {from}} is replaced by {.val {to}}."
+    ),
+    class = "camtrapdp_message_update_taxon"
+  )
+
+
   return(x)
 }
