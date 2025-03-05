@@ -72,6 +72,7 @@ Other transformation functions:
 \code{\link{merge_camtrapdp}()},
 \code{\link{round_coordinates}()},
 \code{\link{shift_time}()},
+\code{\link{update_taxon}()},
 \code{\link{write_eml}()}
 }
 \concept{transformation functions}
