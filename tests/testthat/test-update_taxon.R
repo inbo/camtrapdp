@@ -1,3 +1,19 @@
+test_that("update_taxon() warns if provided 'from' cannot be found as a value in
+          scientificName", {
+  skip_if_offline()
+  x <- example_dataset()
+  to <- list(scientificName = "Anemone")
+
+  expect_warning(
+    update_taxon(x, "not a species name", to),
+    class = "camtrapdp_warning_taxon_not_found"
+    )
+  expect_warning(
+    update_taxon(x, "Anemone nemorosa", to),
+    class = "camtrapdp_warning_taxon_not_found"
+    )
+})
+
 test_that("update_taxon() returns error if scientificName is missing from 'to'", {
   skip_if_offline()
   x <- example_dataset()
@@ -80,7 +96,6 @@ test_that("update_taxon() updates scientificName in observations", {
 
 })
 
-
 test_that("update_taxon() updates taxonomy in data", {
   skip_if_offline()
   x <- example_dataset()
@@ -114,9 +129,6 @@ test_that("update_taxon() updates taxonomy in data", {
     taxa_new,
     expected_taxa
   )
-
-  x$taxonomic
-
 })
 
 test_that("update_taxon() returns message", {

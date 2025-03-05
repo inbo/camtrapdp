@@ -20,6 +20,17 @@
 update_taxon <- function(x, from, to) {
   check_camtrapdp(x)
 
+  if (!from %in% taxa(x)$scientificName) {
+    cli::cli_warn(
+      c(
+        "{.arg {from}} is not found as a scientificName in the data.",
+        "i" = "No taxon is updated."
+      ),
+      class = "camtrapdp_warning_taxon_not_found"
+    )
+    return(x)
+  }
+
   if (!"scientificName" %in% names(to)) {
     cli::cli_abort(
       c(
