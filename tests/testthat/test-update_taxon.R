@@ -14,6 +14,23 @@ test_that("update_taxon() warns if provided 'from' cannot be found as a value in
     )
 })
 
+test_that("update_taxon() returns error if 'to' is not a list", {
+  skip_if_offline()
+  x <- example_dataset()
+  from <- "Anas platyrhynchos"
+  to_string <- "Anas"
+  to_df <- data.frame(scientificName = "Anas")
+
+  expect_error(
+    update_taxon(x, from, to_string),
+    class = "camtrapdp_error_class_invalid"
+    )
+  expect_error(
+    update_taxon(x, from, to_dataframe),
+    class = "camtrapdp_error_class_invalid"
+  )
+})
+
 test_that("update_taxon() returns error if scientificName is missing from 'to'", {
   skip_if_offline()
   x <- example_dataset()

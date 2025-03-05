@@ -31,6 +31,15 @@ update_taxon <- function(x, from, to) {
     return(x)
   }
 
+  if (!is.list(to)) {
+    cli::cli_abort(
+      c(
+        "{.arg {to}} must be a list."
+      ),
+      class = "camtrapdp_error_class_invalid"
+    )
+  }
+
   if (!"scientificName" %in% names(to)) {
     cli::cli_abort(
       c(
