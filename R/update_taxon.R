@@ -23,8 +23,7 @@ update_taxon <- function(x, from, to) {
   if (!"scientificName" %in% names(to)) {
     cli::cli_abort(
       c(
-        "{.arg {to}} must have a scientificName property.",
-        "i" = "Assign to {.field {to}$scientificName}."
+        "{.arg {to}} must have a scientificName property."
       ),
       class = "camtrapdp_error_scientificname_missing"
     )
