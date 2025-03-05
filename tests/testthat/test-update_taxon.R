@@ -81,25 +81,43 @@ test_that("update_taxon() updates scientificName in observations", {
 })
 
 
-# test_that("update_taxon() updates taxonomy", {
-#   skip_if_offline()
-#   x <- example_dataset()
-#   taxa_original <- taxa(x)
-#   from <- "Anas platyrhynchos"
-#   to <- list(
-#     scientificName = "Anas",
-#     taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
-#     taxonRank = "genus",
-#     vernacularNames.eng = "dabbling ducks",
-#     vernacularNames.fr = "canards et sarcelles"
-#   )
-#
-#   x_updated <- suppressMessages(update_taxon(x, from, to))
-#   taxa_new <- taxa(x_updated)
-#
-#   x$taxonomic
-#
-# })
+test_that("update_taxon() updates taxonomy in data", {
+  skip_if_offline()
+  x <- example_dataset()
+  taxa_original <- taxa(x)
+  from <- "Anas platyrhynchos"
+  to <- list(
+    scientificName = "Anas",
+    taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
+    taxonRank = "genus",
+    vernacularNames.fr = "canards et sarcelles"
+  )
+  expected_taxa <- taxa(x) %>%
+    dplyr::filter(scientificName != "Anas platyrhynchos") %>%
+    dplyr::mutate(vernacularNames.fr = NA) %>%
+    rbind(
+      data.frame(
+        scientificName = "Anas",
+        taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
+        taxonRank = "genus",
+        vernacularNames.eng = NA,
+        vernacularNames.nld = NA,
+        vernacularNames.fr = "canards et sarcelles"
+      )
+    ) %>%
+    dplyr::arrange(.data$scientificName)
+
+  x_updated <- suppressMessages(update_taxon(x, from, to))
+  taxa_new <- taxa(x_updated)
+
+  expect_identical(
+    taxa_new,
+    expected_taxa
+  )
+
+  x$taxonomic
+
+})
 
 test_that("update_taxon() returns message", {
   skip_if_offline()
