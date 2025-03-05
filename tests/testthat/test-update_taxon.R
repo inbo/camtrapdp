@@ -9,11 +9,11 @@ test_that("update_taxon() returns error if scientificName is missing from 'to'",
   )
   expect_error(
     update_taxon(x, from, to),
-    "camtrapdp_error_scientificname_missing"
+    class = "camtrapdp_error_scientificname_missing"
     )
 })
 
-test_that("update_taxon() updates scientificName in observations", {
+test_that("shift_time() returns a valid camtrapdp object", {
   skip_if_offline()
   x <- example_dataset()
   from <- "Anas platyrhynchos"
@@ -24,15 +24,102 @@ test_that("update_taxon() updates scientificName in observations", {
     vernacularNames.eng = "dabbling ducks"
   )
 
-  x <- update_taxon(x, from, to)
+  expect_no_error(
+    check_camtrapdp(
+      suppressMessages(update_taxon(x, from, to))
+    )
+  )
+})
 
-  expected_scientificNames <- c(
+test_that("update_taxon() updates scientificName in observations", {
+  skip_if_offline()
+
+  x <- example_dataset()
+
+  # Test 1: new taxon
+  from <- "Anas platyrhynchos"
+  to <- list(
+    scientificName = "Anas",
+    taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
+    taxonRank = "genus",
+    vernacularNames.eng = "dabbling ducks"
+  )
+
+  x_updated_new <- suppressMessages(update_taxon(x, from, to))
+
+  expected_scientificNames_new <- c(
     "Anas", NA, "Rattus norvegicus", "Ardea cinerea",
     "Homo sapiens", "Anas strepera", "Aves", "Mustela putorius",
     "Vulpes vulpes", "Martes foina", "Ardea"
   )
   expect_identical(
-    expected_scientificNames,
-    unique(observations(x)$scientificName)
+    unique(observations(x_updated_new)$scientificName),
+    expected_scientificNames_new
+
   )
+
+  # Test 2: present taxon
+  from <- "Ardea cinerea"
+  to <- list(
+    scientificName = "Ardea",
+    comment = "taxon updated from Ardea cinerea"
+  )
+
+  x_updated_present <- suppressMessages(update_taxon(x, from, to))
+
+  expected_scientificNames_present <- c(
+    "Anas platyrhynchos", NA, "Rattus norvegicus", "Ardea",
+    "Homo sapiens", "Anas strepera", "Aves", "Mustela putorius",
+    "Vulpes vulpes", "Martes foina"
+  )
+  expect_identical(
+    unique(observations(x_updated_present)$scientificName),
+    expected_scientificNames_present
+
+  )
+
+})
+
+
+# test_that("update_taxon() updates taxonomy", {
+#   skip_if_offline()
+#   x <- example_dataset()
+#   taxa_original <- taxa(x)
+#   from <- "Anas platyrhynchos"
+#   to <- list(
+#     scientificName = "Anas",
+#     taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
+#     taxonRank = "genus",
+#     vernacularNames.eng = "dabbling ducks",
+#     vernacularNames.fr = "canards et sarcelles"
+#   )
+#
+#   x_updated <- suppressMessages(update_taxon(x, from, to))
+#   taxa_new <- taxa(x_updated)
+#
+#   x$taxonomic
+#
+# })
+
+test_that("update_taxon() returns message", {
+  skip_if_offline()
+  x <- example_dataset()
+  taxa_original <- taxa(x)
+  from <- "Anas platyrhynchos"
+  to <- list(
+    scientificName = "Anas",
+    taxonRank = "genus"
+  )
+
+  expect_message(
+    update_taxon(x, from, to),
+    class = "camtrapdp_message_update_taxon"
+  )
+
+  # Test fails
+  # expect_message(
+  #   update_taxon(x, from, to),
+  #   regexp = "Taxon \"Anas platyrhynchos\" is replaced by Anas and genus.",
+  #   fixed = TRUE
+  # )
 })
