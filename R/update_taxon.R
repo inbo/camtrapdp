@@ -1,10 +1,11 @@
-#' Title
+#' Update taxon information
 #'
-#' @param x
-#' @param from
-#' @param to
-#'
-#' @return
+#' @inheritParams print.camtrapdp
+#' @param from `scientificName` to be updated.
+#' @param to List with new taxon information. Must have a `scientificName`
+#' property.
+#' @return `x` with updated taxon information.
+#' @family transformation functions
 #' @export
 #'
 #' @examples
@@ -61,4 +62,6 @@ update_taxon <- function(x, from, to) {
       taxonomy_new,
       by = dplyr::join_by("scientificName" == "taxon.scientificName")
     )
+
+  return(x)
 }
