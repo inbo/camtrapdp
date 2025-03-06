@@ -41,6 +41,16 @@ update_taxon <- function(x, from, to) {
     )
   }
 
+  if (all(names(to) != "")) {
+    cli::cli_abort(
+      c(
+        "{.arg to} must be a named list.",
+        "i" = "Not all elements of {.arg to} have a name."
+      ),
+      class = "camtrapdp_error_list_not_named"
+    )
+  }
+
   if (!"scientificName" %in% names(to)) {
     cli::cli_abort(
       c(

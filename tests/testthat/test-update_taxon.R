@@ -14,20 +14,28 @@ test_that("update_taxon() warns if provided 'from' cannot be found as a value in
     )
 })
 
-test_that("update_taxon() returns error if 'to' is not a list", {
+test_that("update_taxon() returns error if 'to' is not a named list", {
   skip_if_offline()
   x <- example_dataset()
   from <- "Anas platyrhynchos"
-  to_string <- "Anas"
-  to_df <- data.frame(scientificName = "Anas")
+  string <- "Anas"
+  df <- data.frame(scientificName = "Anas")
+  list_not_named <- list(
+    scientificName = "Anas",
+    "https://www.checklistbank.org/dataset/9910/taxon/V8R"
+    )
 
   expect_error(
-    update_taxon(x, from, to_string),
+    update_taxon(x, from, string),
     class = "camtrapdp_error_class_invalid"
     )
   expect_error(
-    update_taxon(x, from, to_df),
+    update_taxon(x, from, df),
     class = "camtrapdp_error_class_invalid"
+  )
+  expect_error(
+    update_taxon(x, from, list_not_named),
+    class = "camtrapdp_error_list_not_named"
   )
 })
 
