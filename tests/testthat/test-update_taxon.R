@@ -156,6 +156,57 @@ test_that("update_taxon() updates taxonomy in data", {
   )
 })
 
+test_that("update_taxon() updates taxonomy in metadata", {
+  skip_if_offline()
+  x <- example_dataset() %>%
+    filter_deployments(deploymentID == "29b7d356")
+
+  from <- "Anas platyrhynchos"
+  to <- list(
+    scientificName = "Anas",
+    taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
+    taxonRank = "genus",
+    vernacularNames.fr = "canards et sarcelles"
+  )
+
+  expected_taxonomic <- list(
+    list(
+      scientificName = "Anas",
+      taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
+      taxonRank = "genus",
+      vernacularNames = list(
+        eng = NA_character_,
+        nld = NA_character_,
+        fr = "canards et sarcelles"
+      )
+    ),
+    list(
+      scientificName = "Anas strepera",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "gadwall",
+        nld = "krakeend",
+        fr = NA_character_
+      )
+    ),
+    list(
+      scientificName = "Aves",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/V2",
+      taxonRank = "class",
+      vernacularNames = list(
+        eng = "bird sp.",
+        nld = "vogel",
+        fr = NA_character_
+      )
+    )
+  )
+
+  x_updated <- suppressMessages(update_taxon(x, from, to))
+
+  expect_identical(x_updated$taxonomic, expected_taxonomic)
+})
+
 test_that("update_taxon() returns message", {
   skip_if_offline()
   x <- example_dataset()
