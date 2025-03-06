@@ -73,6 +73,8 @@ And invisibly, a list of data frames with the transformed data.</p>
 <li><p>Only observations with <code>observationType = "animal"</code> and
 <code>observationLevel = "event"</code> are included, thus excluding observations that
 are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.</p></li>
+<li><p>Observations classified by humans with 100% certainty get a
+<code>dwc:identificationVerificationStatus = "verified using recorded media"</code>.</p></li>
 <li><p>Deployment information is included in the Occurrence core, such as
 location, habitat, <code>dwc:samplingProtocol</code>, deployment duration in
 <code>dwc:samplingEffort</code> and <code>dwc:parentEventID = deploymentID</code> as grouping
