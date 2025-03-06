@@ -23,8 +23,8 @@ update_taxon <- function(x, from, to) {
   if (!from %in% taxa(x)$scientificName) {
     cli::cli_warn(
       c(
-        "{.arg {from}} is not found as a scientificName in the data.",
-        "i" = "No taxon is updated."
+        "{.arg {from}} is not found as a {.field scientificName} in the data.",
+        "x" = "No taxon is updated."
       ),
       class = "camtrapdp_warning_taxon_not_found"
     )
@@ -34,7 +34,8 @@ update_taxon <- function(x, from, to) {
   if (!"list" %in% class(to)) {
     cli::cli_abort(
       c(
-        "{.arg {to}} must be a list."
+        "{.arg to} must be a named list.",
+        "i" = "{.arg to} is not a list."
       ),
       class = "camtrapdp_error_class_invalid"
     )
@@ -43,7 +44,9 @@ update_taxon <- function(x, from, to) {
   if (!"scientificName" %in% names(to)) {
     cli::cli_abort(
       c(
-        "{.arg {to}} must have a scientificName property."
+        "{.arg to} must have a {.field scientificName} property.",
+        "i" = paste("No element with name {.field scientificName} is found in",
+                     "{.arg to}.")
       ),
       class = "camtrapdp_error_scientificname_missing"
     )
