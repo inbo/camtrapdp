@@ -1,22 +1,47 @@
 #' Update taxon information
 #'
+#' @description
+#' Updates taxon information in both data and metadata.
+#'
+#' If `to`is a list containing a scientificName that already exists in the
+#' dataset, duplicate taxa (i.e. with the same `scientificName`) are removed.
+#' The function retains the taxon with (first) a `taxonID` and (second) the most
+#' taxonomic information.
+#'
+#' Taxonomic information for a `scientificName` can be updated by replacing the
+#' existing taxon with the same `scientificName` but different taxonomic details
+#' provided in `to`.
+#'
+#'
 #' @inheritParams print.camtrapdp
 #' @param from `scientificName` to be updated.
-#' @param to List with new taxon information. Must have a `scientificName`
+#' @param to List with new taxon information. It must have a `scientificName`
 #' property.
 #' @return `x` with updated taxon information.
 #' @family transformation functions
 #' @export
 #'
 #' @examples
+#' # Example 1: change scientificName
 #' x <- example_dataset()
 #' from <- "Anas platyrhynchos"
 #' to <- list(
 #' scientificName = "Anas",
 #' taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
-#' taxonRank = "genus",
-#' vernacularNames.eng = "dabbling ducks"
+#'  )
+#' x_updated <- update_taxon(x, from, to)
+#' taxa(x_updated)
+#'
+#' # Example 2: update taxon information
+#' to <- list(
+#' scientificName = "Anas platyrhynchos",
+#' taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+#' taxonRank = "species",
+#' vernacularNames.fr = "canard chipeau"
 #' )
+#'
+#' x_updated <- update_taxon(x, from, to)
+#' taxa(x_updated)
 update_taxon <- function(x, from, to) {
   check_camtrapdp(x)
 
