@@ -11,24 +11,45 @@ update_taxon(x, from, to)
 
 \item{from}{\code{scientificName} to be updated.}
 
-\item{to}{List with new taxon information. Must have a \code{scientificName}
+\item{to}{List with new taxon information. It must have a \code{scientificName}
 property.}
 }
 \value{
 \code{x} with updated taxon information.
 }
 \description{
-Update taxon information
+Updates taxon information in both data and metadata.
+
+If \code{to}is a list containing a scientificName that already exists in the
+dataset, duplicate taxa (i.e. with the same \code{scientificName}) are removed.
+The function retains the taxon with (first) a \code{taxonID} and (second) the most
+taxonomic information.
+
+Taxonomic information for a \code{scientificName} can be updated by replacing the
+existing taxon with the same \code{scientificName} but different taxonomic details
+provided in \code{to}.
 }
 \examples{
+# Example 1: change scientificName
 x <- example_dataset()
 from <- "Anas platyrhynchos"
 to <- list(
 scientificName = "Anas",
 taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
-taxonRank = "genus",
-vernacularNames.eng = "dabbling ducks"
+ )
+x_updated <- update_taxon(x, from, to)
+taxa(x_updated)
+
+# Example 2: update taxon information
+to <- list(
+scientificName = "Anas platyrhynchos",
+taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+taxonRank = "species",
+vernacularNames.fr = "canard chipeau"
 )
+
+x_updated <- update_taxon(x, from, to)
+taxa(x_updated)
 }
 \seealso{
 Other transformation functions: 
