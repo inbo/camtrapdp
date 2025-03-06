@@ -31,7 +31,7 @@ update_taxon <- function(x, from, to) {
     return(x)
   }
 
-  if (!is.list(to)) {
+  if (!"list" %in% class(to)) {
     cli::cli_abort(
       c(
         "{.arg {to}} must be a list."

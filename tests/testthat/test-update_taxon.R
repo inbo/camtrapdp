@@ -26,7 +26,7 @@ test_that("update_taxon() returns error if 'to' is not a list", {
     class = "camtrapdp_error_class_invalid"
     )
   expect_error(
-    update_taxon(x, from, to_dataframe),
+    update_taxon(x, from, to_df),
     class = "camtrapdp_error_class_invalid"
   )
 })
