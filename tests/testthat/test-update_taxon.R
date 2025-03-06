@@ -166,10 +166,7 @@ test_that("update_taxon() returns message", {
     taxonRank = "genus"
   )
 
-  expect_message(
-    update_taxon(x, from, to),
-    class = "camtrapdp_message_update_taxon"
-  )
+  expect_message(update_taxon(x, from, to))
 
   # Test fails
   # expect_message(

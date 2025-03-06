@@ -41,7 +41,7 @@ update_taxon <- function(x, from, to) {
     )
   }
 
-  if (all(names(to) != "")) {
+  if (any(names(to) == "")) {
     cli::cli_abort(
       c(
         "{.arg to} must be a named list.",
@@ -96,13 +96,8 @@ update_taxon <- function(x, from, to) {
     )
 
   # Return message
-  cli::cli_inform(
-    c(
-      "v" = "Taxon {.val {from}} is replaced by {.val {to}}."
-    ),
-    class = "camtrapdp_message_update_taxon"
-  )
-
+  cli::cli_alert_info("Taxon {.val {from}} is replaced by:")
+  cli::cli_dl(to, names(to))
 
   return(x)
 }
