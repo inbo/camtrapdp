@@ -55,8 +55,10 @@ update_taxon <- function(x, from, to) {
     cli::cli_abort(
       c(
         "{.arg to} must have a {.field scientificName} property.",
-        "i" = paste("No element with name {.field scientificName} is found in",
-                     "{.arg to}.")
+        "i" = paste(
+          "No element with name {.field scientificName} is found in",
+          "{.arg to}."
+          )
       ),
       class = "camtrapdp_error_scientificname_missing"
     )
