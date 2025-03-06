@@ -294,15 +294,17 @@ test_that("update_taxon() returns message", {
 
   expect_message(update_taxon(x, from, to))
 
-  # Test fails
-  # expect_message(
-  #   update_taxon(x, from, to),
-  #   regexp = paste(
-  #     "Taxon \"Anas platyrhynchos\" is replaced by:",
-  #     "scientificName: Anas",
-  #     "taxonRank: genus",
-  #     sep = "\n"
-  #     ),
-  #   fixed = TRUE
-  # )
+  expect_message(
+    update_taxon(x, from, to),
+    regexp = paste(
+      "i Taxon \"Anas platyrhynchos\" is replaced by:",
+      "scientificName: Anas",
+      "taxonID: NA",
+      "taxonRank: genus",
+      "vernacularNames.eng: NA",
+      "vernacularNames.nld: NA",
+      sep = "\n"
+      ),
+    fixed = TRUE
+  )
 })
