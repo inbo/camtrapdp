@@ -171,7 +171,12 @@ test_that("update_taxon() returns message", {
   # Test fails
   # expect_message(
   #   update_taxon(x, from, to),
-  #   regexp = "Taxon \"Anas platyrhynchos\" is replaced by Anas and genus.",
+  #   regexp = paste(
+  #     "Taxon \"Anas platyrhynchos\" is replaced by:",
+  #     "scientificName: Anas",
+  #     "taxonRank: genus",
+  #     sep = "\n"
+  #     ),
   #   fixed = TRUE
   # )
 })
