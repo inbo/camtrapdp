@@ -204,9 +204,10 @@ write_dwc <- function(x, directory) {
         format = "%Y-%m-%dT%H:%M:%SZ"
       ),
       identificationVerificationStatus = dplyr::if_else(
-        .data$classificationMethod == "human" & .data$classificationProbability == 1,
+        .data$classificationMethod == "human" &
+        .data$classificationProbability == 1,
         "verified using recorded media",
-        ""
+        NA_character_
       ),
       identificationRemarks = paste0(
         # E.g. "classified by a machine with 89% certainty"
