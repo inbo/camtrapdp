@@ -212,7 +212,7 @@ test_that("update_taxon() updates taxonomy in metadata", {
     scientificName = "Anas strepera",
     taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
     taxonRank = "species",
-    vernacularNames.fr = "Canard chipeau"
+    vernacularNames.fr = "canard chipeau"
   )
 
   expected_taxonomic_present <- list(
@@ -240,6 +240,45 @@ test_that("update_taxon() updates taxonomy in metadata", {
     suppressMessages(update_taxon(x_updated, from_present, to_present))
 
   expect_identical(x_updated_present$taxonomic, expected_taxonomic_present)
+
+})
+
+test_that("update_taxon() updates taxonomic data when replacing an existing
+          scientificName", {
+  skip_if_offline
+
+  x <- example_dataset() %>%
+    filter_observations(scientificName == "Anas platyrhynchos")
+
+  from <- "Anas platyrhynchos"
+  to <- list(
+    scientificName = "Anas platyrhynchos",
+    taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+    taxonRank = "species",
+    vernacularNames.fr = "canard chipeau"
+  )
+
+  expected_taxa <- dplyr::tibble(
+    scientificName = "Anas platyrhynchos",
+    taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+    taxonRank = "species",
+    vernacularNames.fr = "canard chipeau"
+  )
+  expected_taxonomic <- list(
+    list(
+      scientificName = "Anas platyrhynchos",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      taxonRank = "species",
+      vernacularNames = list(
+        fr = "canard chipeau"
+      )
+    )
+  )
+
+  x_updated <- suppressMessages(update_taxon(x, from, to))
+
+  expect_identical(taxa(x_updated), expected_taxa)
+  expect_identical(x_updated$taxonomic, expected_taxonomic)
 
 })
 
