@@ -12,6 +12,7 @@
 * `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.1. The internal function `convert()` has been renamed to `upgrade()` (#113).
 * Internal function `build_taxa()` is renamed to `taxonomic()` (#130).
 * `taxa()` now removes duplicates (#130).
+* `write_dwc()` now adds `identificationVerificationStatus` for observations classified by humans with 100% certainty (#158).
 
 # camtrapdp 0.3.1
 

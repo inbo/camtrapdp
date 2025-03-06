@@ -24,6 +24,8 @@
 #' - Only observations with `observationType = "animal"` and
 #'   `observationLevel = "event"` are included, thus excluding observations that
 #'   are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.
+#' - Observations classified by humans with 100% certainty get a
+#'   `dwc:identificationVerificationStatus = "verified using recorded media"`.
 #' - Deployment information is included in the Occurrence core, such as
 #'   location, habitat, `dwc:samplingProtocol`, deployment duration in
 #'   `dwc:samplingEffort` and `dwc:parentEventID = deploymentID` as grouping
@@ -201,6 +203,12 @@ write_dwc <- function(x, directory) {
         .data$classificationTimestamp,
         format = "%Y-%m-%dT%H:%M:%SZ"
       ),
+      identificationVerificationStatus = dplyr::if_else(
+        .data$classificationMethod == "human" &
+        .data$classificationProbability == 1,
+        "verified using recorded media",
+        NA_character_
+      ),
       identificationRemarks = paste0(
         # E.g. "classified by a machine with 89% certainty"
         dplyr::if_else(
@@ -232,7 +240,8 @@ write_dwc <- function(x, directory) {
       "maximumDistanceAboveSurfaceInMeters", "decimalLatitude",
       "decimalLongitude", "geodeticDatum", "coordinateUncertaintyInMeters",
       "coordinatePrecision", "identifiedBy", "dateIdentified",
-      "identificationRemarks", "taxonID", "scientificName", "kingdom"
+      "identificationVerificationStatus", "identificationRemarks", "taxonID",
+      "scientificName", "kingdom"
     )
 
   # Create Audubon/Audiovisual Media Description extension
