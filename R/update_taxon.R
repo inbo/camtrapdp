@@ -24,15 +24,16 @@
 #' @examples
 #' # Example 1: change scientificName
 #' x <- example_dataset()
-#' from <- "Anas platyrhynchos"
+#' from <- "Ardea cinerea"
 #' to <- list(
-#' scientificName = "Anas",
-#' taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
+#' scientificName = "Ardea",
+#' taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/32FH"
 #'  )
 #' x_updated <- update_taxon(x, from, to)
 #' taxa(x_updated)
 #'
 #' # Example 2: update taxon information
+#' from <- Anas platyrhynchos"
 #' to <- list(
 #' scientificName = "Anas platyrhynchos",
 #' taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
@@ -123,8 +124,9 @@ update_taxon <- function(x, from, to) {
     )
 
   # Return message
+  taxon <- taxa(x) %>% filter(scientificName == to$scientificName)
   cli::cli_alert_info("Taxon {.val {from}} is replaced by:")
-  cli::cli_dl(to, names(to))
+  cli::cli_dl(taxon, names(taxon))
 
   return(x)
 }
