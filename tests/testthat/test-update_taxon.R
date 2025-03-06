@@ -205,6 +205,42 @@ test_that("update_taxon() updates taxonomy in metadata", {
   x_updated <- suppressMessages(update_taxon(x, from, to))
 
   expect_identical(x_updated$taxonomic, expected_taxonomic)
+
+  # Update to a taxon that is already present in the (updated) dataset
+  from_present <- "Anas"
+  to_present <- list(
+    scientificName = "Anas strepera",
+    taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+    taxonRank = "species",
+    vernacularNames.fr = "Canard chipeau"
+  )
+
+  expected_taxonomic_present <- list(
+    list(
+      scientificName = "Anas strepera",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+      taxonRank = "species",
+      vernacularNames = list(
+        eng = "gadwall",
+        nld = "krakeend"
+      )
+    ),
+    list(
+      scientificName = "Aves",
+      taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/V2",
+      taxonRank = "class",
+      vernacularNames = list(
+        eng = "bird sp.",
+        nld = "vogel"
+      )
+    )
+  )
+
+  x_updated_present <-
+    suppressMessages(update_taxon(x_updated, from_present, to_present))
+
+  expect_identical(x_updated_present$taxonomic, expected_taxonomic_present)
+
 })
 
 test_that("update_taxon() returns message", {
