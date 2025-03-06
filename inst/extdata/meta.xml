@@ -40,10 +40,11 @@
     <field index="33" term="http://rs.tdwg.org/dwc/terms/coordinatePrecision"/>
     <field index="34" term="http://rs.tdwg.org/dwc/terms/identifiedBy"/>
     <field index="35" term="http://rs.tdwg.org/dwc/terms/dateIdentified"/>
-    <field index="36" term="http://rs.tdwg.org/dwc/terms/identificationRemarks"/>
-    <field index="37" term="http://rs.tdwg.org/dwc/terms/taxonID"/>
-    <field index="38" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
-    <field index="39" term="http://rs.tdwg.org/dwc/terms/kingdom"/>
+    <field index="36" term="http://rs.tdwg.org/dwc/terms/identificationVerificationStatus"/>
+    <field index="37" term="http://rs.tdwg.org/dwc/terms/identificationRemarks"/>
+    <field index="38" term="http://rs.tdwg.org/dwc/terms/taxonID"/>
+    <field index="39" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
+    <field index="40" term="http://rs.tdwg.org/dwc/terms/kingdom"/>
   </core>
   <extension encoding="UTF-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy="&quot;" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/ac/terms/Multimedia">
     <files>
