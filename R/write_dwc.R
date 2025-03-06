@@ -206,7 +206,7 @@ write_dwc <- function(x, directory) {
       ),
       identificationVerificationStatus = dplyr::if_else(
         .data$classificationMethod == "human" & .data$classificationProbability == 1,
-        "verified based on photographic evidence",
+        "verified using recorded media",
         ""
       ),
       identificationRemarks = paste0(
