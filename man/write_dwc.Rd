@@ -35,6 +35,8 @@ Key features of the Darwin Core transformation:
 \item Only observations with \code{observationType = "animal"} and
 \code{observationLevel = "event"} are included, thus excluding observations that
 are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.
+\item Observations classified by humans with 100\% certainty get a
+\code{dwc:identificationVerificationStatus = "verified using recorded media"}.
 \item Deployment information is included in the Occurrence core, such as
 location, habitat, \code{dwc:samplingProtocol}, deployment duration in
 \code{dwc:samplingEffort} and \code{dwc:parentEventID = deploymentID} as grouping
@@ -56,9 +58,6 @@ Audubon Media Description extension.
 \item \code{dcterms:rightsHolder}: first contributor in \code{x$contributors} with role
 \code{rightsHolder}.
 \item \code{dwc:dataGeneralizations}: set if \code{x$coordinatePrecision} is defined.
-\item \code{dwc:identificationVerificationStatus}: set to "verified based on
-photographic evidence" if \code{classificationMethod = "human"} and
-\code{classificationProbability = 1}.
 }
 }
 }

@@ -24,6 +24,8 @@
 #' - Only observations with `observationType = "animal"` and
 #'   `observationLevel = "event"` are included, thus excluding observations that
 #'   are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.
+#' - Observations classified by humans with 100% certainty get a
+#'   `dwc:identificationVerificationStatus = "verified using recorded media"`.
 #' - Deployment information is included in the Occurrence core, such as
 #'   location, habitat, `dwc:samplingProtocol`, deployment duration in
 #'   `dwc:samplingEffort` and `dwc:parentEventID = deploymentID` as grouping
@@ -44,9 +46,6 @@
 #'   - `dcterms:rightsHolder`: first contributor in `x$contributors` with role
 #'     `rightsHolder`.
 #'   - `dwc:dataGeneralizations`: set if `x$coordinatePrecision` is defined.
-#'   - `dwc:identificationVerificationStatus`: set to "verified based on
-#'      photographic evidence" if `classificationMethod = "human"` and
-#'      `classificationProbability = 1`.
 #' @examples
 #' x <- example_dataset()
 #' write_dwc(x, directory = "my_directory")
