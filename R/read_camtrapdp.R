@@ -36,8 +36,9 @@
 #' Camtrap DP metadata has a `spatial` and `temporal` property that contains the
 #' spatial and temporal coverage of the package respectively.
 #'
-#' This function **will automatically update the spatial and temporal scopes**
-#' in metadata based on the data.
+#' This function
+#' **will automatically update the spatial, temporal and taxonomic scope** in
+#' metadata based on the data.
 #'
 #' @param file Path or URL to a `datapackage.json` file.
 #' @return A Camera Trap Data Package object.
