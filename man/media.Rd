@@ -20,7 +20,7 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with media.
 \description{
 \code{media()} gets the media from a Camera Trap Data Package object.
 
-\verb{media<-()} is the assignment equivalent.
+\verb{media()<-} is the assignment equivalent.
 \itemize{
 \item It should only be used within other functions, where the expected data
 structure can be guaranteed.
