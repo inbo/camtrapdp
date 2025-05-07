@@ -64,7 +64,9 @@ information for each <code>scientificName</code> found in observations.
 Such information can include higher taxonomy (<code>family</code>, <code>order</code>, etc.) and
 vernacular names in multiple languages.</p>
 <p>This function <strong>will automatically include this taxonomic information in
-observations</strong>, as extra columns starting with <code>taxon.</code>.</p>
+observations</strong>, as extra columns starting with <code>taxon.</code>.
+It will then update the <code>taxonomic</code> scope in the metadata to the unique
+<code><a href="taxa.html">taxa()</a></code> found in the data.</p>
     </div>
     <div class="section level2">
     <h2 id="assign-eventids">Assign eventIDs<a class="anchor" aria-label="anchor" href="#assign-eventids"></a></h2>
@@ -91,7 +93,8 @@ being duplicated), for example when events and sub-events were defined.</p>
 <p>Camtrap DP metadata has a <code>spatial</code> and <code>temporal</code> property that contains the
 spatial and temporal coverage of the package respectively.</p>
 <p>This function <strong>will automatically update the spatial and temporal scopes</strong>
-in metadata based on the data.</p>
+in the metadata based on the data.
+It also does this for the taxonomic scope (see higher).</p>
     </div>
 
     <div class="section level2">
