@@ -8,7 +8,7 @@
 * New function `individuals()` returns a data frame with unique individuals (#149).
 * `filter_deployments()` and `deployments()<-` now update the spatial, temporal and taxonomic scope in the metadata based on the returned data (#100, #132).
 * `filter_observations()`, `filter_media()`, `media()<-` and `observations()<-` now update the taxonomic scope in the metadata based on the returned data (#89, #100, #130).
-* `read_camtrapdp()` now updates the spatial and temporal scope in metadata based on the data (#130).
+* `read_camtrapdp()` now updates the spatial, temporal and taxonomic scope in the metadata based on the data (#130, #164).
 * `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.1. The internal function `convert()` has been renamed to `upgrade()` (#113).
 * Internal function `build_taxa()` is renamed to `taxonomic()` (#130).
 * `taxa()` now removes duplicates (#130).
