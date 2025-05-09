@@ -87,6 +87,7 @@ merge_camtrapdp(x, y)
 Other transformation functions: 
 \code{\link{round_coordinates}()},
 \code{\link{shift_time}()},
+\code{\link{update_taxon}()},
 \code{\link{write_dwc}()},
 \code{\link{write_eml}()}
 }
