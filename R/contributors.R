@@ -1,10 +1,10 @@
-#' Get contributors and build a data frame
+#' Get contributors as a data frame
 #'
-#' Gets the `x$contributors` property in a Camera Trap Data Package object and
-#' builds a data frame with the contributors.
+#' Gets contributors from the `x$contributors` property in a Camera Trap Data
+#' Package object and returns it as a data frame.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A data frame with the contributors.
+#' @return A [tibble::tibble()] data frame with the contributors.
 #' @family accessor functions
 #' @export
 #' @examples
@@ -17,7 +17,7 @@ contributors <- function(x) {
       x$contributors,
       ~ as.data.frame(., stringsAsFactors = FALSE)
     ) %>%
-    dplyr::filter(!.data$role %in% c("rightsHolder", "publisher")) %>%
+    # dplyr::filter(!.data$role %in% c("rightsHolder", "publisher")) %>%
     mutate_when_missing(path = character()) %>% # Guarantee path col
     dplyr::mutate(
       first_name = purrr::map_chr(
@@ -38,7 +38,8 @@ contributors <- function(x) {
         NA_character_,
         .data$path
       )
-    )
+    ) %>%
+    dplyr::as_tibble()
+
   return(contributors)
 }
-

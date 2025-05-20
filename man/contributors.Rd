@@ -2,7 +2,7 @@
 % Please edit documentation in R/contributors.R
 \name{contributors}
 \alias{contributors}
-\title{Get contributors and build a data frame}
+\title{Get contributors as a data frame}
 \usage{
 contributors(x)
 }
@@ -10,11 +10,11 @@ contributors(x)
 \item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 }
 \value{
-A data frame with the contributors.
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the contributors.
 }
 \description{
-Gets the \code{x$contributors} property in a Camera Trap Data Package object and
-builds a data frame with the contributors.
+Gets contributors from the \code{x$contributors} property in a Camera Trap Data
+Package object and returns it as a data frame.
 }
 \examples{
 x <- example_dataset()
@@ -24,6 +24,7 @@ contributors(x)
 Other accessor functions: 
 \code{\link{deployments}()},
 \code{\link{events}()},
+\code{\link{individuals}()},
 \code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()},
