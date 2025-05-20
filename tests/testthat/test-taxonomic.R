@@ -1,7 +1,7 @@
-test_that("taxonomic() returns a data frame", {
+test_that("taxonomic() returns a tibble", {
   skip_if_offline()
   x <- example_dataset()
-  expect_s3_class(taxonomic(x), "data.frame")
+  expect_s3_class(taxonomic(x), "tbl")
 })
 
 test_that("taxonomic() returns NULL when there is no taxonomic information", {
