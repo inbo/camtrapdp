@@ -8,6 +8,20 @@ test_that("merge_camtrapdp() returns a valid camtrapdp object", {
   expect_no_error(check_camtrapdp(merge_camtrapdp(x, y)))
 })
 
+test_that("merge_camtrapdp() returns warning on non-identical samplingDesign", {
+  skip_if_offline()
+  x <- example_dataset()
+  x$name <- "x"
+  y <- x
+  y$name <- "y"
+  y$project$samplingDesign <- "opportunistic"
+
+  expect_warning(
+    merge_camtrapdp(x, y),
+    class = "camtrapdp_warning_different_sampligndesign"
+  )
+})
+
 test_that("merge_camtrapdp() returns error on missing/invalid/duplicate dataset
            name(s)", {
   skip_if_offline()
@@ -151,6 +165,7 @@ test_that("merge_camtrapdp() returns the expected datapackage.json when merging
    download.file(y_url, zip_file, mode = "wb", quiet = TRUE)
    unzip(zip_file, exdir = temp_dir)
    y <- read_camtrapdp(datapackage_file)
+   y$project$samplingDesign <- "targeted" # To avoid warning
    xy <- merge_camtrapdp(x, y)
    xy$created <- NULL
 

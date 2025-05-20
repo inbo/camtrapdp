@@ -62,6 +62,7 @@ test_that("write_dwc() returns the expected Darwin Core terms as columns", {
       "coordinatePrecision",
       "identifiedBy",
       "dateIdentified",
+      "identificationVerificationStatus",
       "identificationRemarks",
       "taxonID",
       "scientificName",

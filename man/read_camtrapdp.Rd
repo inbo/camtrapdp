@@ -25,6 +25,8 @@ vernacular names in multiple languages.
 
 This function \strong{will automatically include this taxonomic information in
 observations}, as extra columns starting with \code{taxon.}.
+It will then update the \code{taxonomic} scope in the metadata to the unique
+\code{\link[=taxa]{taxa()}} found in the data.
 }
 
 \section{Assign eventIDs}{
@@ -53,7 +55,8 @@ Camtrap DP metadata has a \code{spatial} and \code{temporal} property that conta
 spatial and temporal coverage of the package respectively.
 
 This function \strong{will automatically update the spatial and temporal scopes}
-in metadata based on the data.
+in the metadata based on the data.
+It also does this for the taxonomic scope (see higher).
 }
 
 \examples{

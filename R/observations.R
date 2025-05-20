@@ -4,7 +4,7 @@
 #' `observations()` gets the observations from a Camera Trap Data Package
 #'   object.
 #'
-#' `observations<-()` is the assignment equivalent.
+#' `observations()<-` is the assignment equivalent.
 #' - It should only be used within other functions, where the expected data
 #' structure can be guaranteed.
 #' - Metadata (`x$taxonomic`) are updated to match the assigned observations.

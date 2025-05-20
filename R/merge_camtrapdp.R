@@ -94,6 +94,20 @@ merge_camtrapdp <- function(x, y) {
   }
   prefixes <- c(x$name, y$name)
 
+  # Warn if samplingDesign of x and y are different
+  if (x$project$samplingDesign != y$project$samplingDesign) {
+    cli::cli_warn(
+      c(
+        "{.arg x} and {.arg y} have a different
+         {.field x$project$samplingDesign} ({.val {x$project$samplingDesign}} vs
+         {.val {y$project$samplingDesign}}).",
+        "i" = "The sampling design of {.arg x} will be used
+               ({.val {x$project$samplingDesign}})."
+      ),
+      class = "camtrapdp_warning_different_sampligndesign"
+    )
+  }
+
   # Create xy from x
   xy <- x
 
