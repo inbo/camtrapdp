@@ -110,13 +110,10 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
       last_name = purrr::map_chr(
         .data$title,
         ~ sub("^\\S* ", "", .x) # Remove string up until first space
-      ),
-      orcid = ifelse( # Move ORCID from path to separate column
-        !is.na(regexpr(orcid_regex, .data$path)),
-        regmatches(.data$path, regexpr(orcid_regex, .data$path)),
-        NA_character_
-      ),
-      path = ifelse(
+       ),
+      # Move ORCID from path to separate column
+      orcid = stringr::str_extract(.data$path, orcid_regex),
+      path = dplyr::if_else(
         grepl(orcid_regex, .data$path),
         NA_character_,
         .data$path
