@@ -25,7 +25,7 @@ contributors <- function(x) {
 }
 
 #' @rdname contributors
-#' @param value A data frame to assign as contributors
+#' @param value A data frame to assign as contributors.
 #' @export
 "contributors<-" <- function(x, value) {
   if (!is.data.frame(value)) {
@@ -36,6 +36,5 @@ contributors <- function(x) {
   }
 
   purrr::pluck(x, "contributors") <- purrr::transpose(value)
-
   return(x)
 }

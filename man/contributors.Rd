@@ -12,7 +12,7 @@ contributors(x) <- value
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
-\item{value}{A data frame to assign as contributors}
+\item{value}{A data frame to assign as contributors.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the contributors.

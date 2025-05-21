@@ -51,8 +51,8 @@ additional_resources <- function(x) {
 
 #' Create list of contributors in EML format
 #'
-#' @param contributors A data frame with the contributors
-#' @return List of contributors as emld responsibleParty objects.
+#' @param contributors A data frame with the contributors.
+#' @return List of contributors as `emld::responsibleParty` objects.
 #' @family helper functions
 #' @noRd
 create_eml_contributors <- function(contributors) {
