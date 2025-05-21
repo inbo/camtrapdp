@@ -12,6 +12,7 @@
 #' @export
 #' @examples
 #' x <- example_dataset()
+#' # Get contributors
 #' contributors(x)
 #'
 #' # Set contributors
