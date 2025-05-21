@@ -1,5 +1,6 @@
 #' Get or set contributors
 #'
+#' @description
 #' `contributors()` gets contributors from the `x$contributors` property in a
 #' Camera Trap Data Package object and returns it as a tibble data frame.
 #'
