@@ -2,6 +2,7 @@
 
 S3method(print,camtrapdp)
 export("%>%")
+export("contributors<-")
 export("deployments<-")
 export("media<-")
 export("observations<-")

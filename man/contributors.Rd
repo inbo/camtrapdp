@@ -2,23 +2,34 @@
 % Please edit documentation in R/contributors.R
 \name{contributors}
 \alias{contributors}
-\title{Get contributors as a data frame}
+\alias{contributors<-}
+\title{Get or set contributors}
 \usage{
 contributors(x)
+
+contributors(x) <- value
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
+
+\item{value}{A data frame to assign as contributors}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the contributors.
 }
 \description{
-Gets contributors from the \code{x$contributors} property in a Camera Trap Data
-Package object and returns it as a data frame.
+\code{contributors()} gets contributors from the \code{x$contributors} property in a
+Camera Trap Data Package object and returns it as a tibble data frame.
+}
+\details{
+\verb{contributors()<-} is the assignment equivalent.
 }
 \examples{
 x <- example_dataset()
 contributors(x)
+
+# Set contributors
+contributors(x) <- head(contributors(x), 1)
 }
 \seealso{
 Other accessor functions: 
