@@ -124,7 +124,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   eml$dataset$creator <- create_eml_contributors(creators)
 
   # Set contacts
-  contact_df <- dplyr::filter(creators, role == "contact")
+  contact_df <- dplyr::filter(creators, .data$role == "contact")
   if (nrow(contact_df) != 0) {
     contacts <- create_eml_contributors(contact_df)
   } else {
