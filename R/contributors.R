@@ -3,6 +3,12 @@
 #' @description
 #' `contributors()` gets contributors from the `x$contributors` property in a
 #' Camera Trap Data Package object and returns it as a tibble data frame.
+#' It always shows following columns, even if some of the parameters are missing
+#' from `x$contributors`:
+#' - email
+#' - path
+#' - role
+#' - organization
 #'
 #' `contributors()<-` is the assignment equivalent.
 #'
@@ -22,7 +28,13 @@ contributors <- function(x) {
     x$contributors %>%
     purrr::map(., ~ as.data.frame(.)) %>%
     purrr::list_rbind() %>%
-    dplyr::as_tibble()
+    dplyr::as_tibble() %>%
+    mutate_when_missing(
+      email = NA_character_,
+      path = NA_character_,
+      role = NA_character_,
+      organization = NA_character_
+      )
   return(contributors)
 }
 
