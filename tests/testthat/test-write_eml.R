@@ -26,11 +26,11 @@ test_that("write_eml() returns the expected eml.xml file for the example
   # Adapt contributors to test for bug #166
   contributors(x) <- contributors(x) %>%
     tibble::add_row(
-      title = "Sanne Govaert",
-      email = "sanne.govaert@inbo.be",
-      path = "https://orcid.org/0000-0002-8939-1305",
+      title = "Ms Dummy",
+      email = "name@dummy.org",
+      path = "https://orcid.org/0000-0000-0000-0000",
       role = "contributor",
-      organization = "Research Institute for Nature and Forest (INBO)"
+      organization = "Institute for dummies"
     )
 
   temp_dir <- tempdir()
