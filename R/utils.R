@@ -58,9 +58,8 @@ additional_resources <- function(x) {
 #' @noRd
 create_eml_contributors <- function(contributors) {
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
-  contributors_orcid <-
+  contributor_list <-
     contributors %>%
-    mutate_when_missing(path = character()) %>% # Guarantee path col
     dplyr::mutate(
       first_name = purrr::map_chr(
         .data$title,
@@ -77,8 +76,8 @@ create_eml_contributors <- function(contributors) {
         NA_character_,
         .data$path
       )
-    )
-  contributor_list <- purrr::transpose(contributors_orcid)
+    ) %>%
+    purrr::transpose()
   purrr::map(contributor_list, ~ EML::set_responsibleParty(
     givenName = .$first_name,
     surName = .$last_name,
