@@ -3,8 +3,9 @@
 #' @description
 #' `contributors()` gets contributors from the `x$contributors` property in a
 #' Camera Trap Data Package object and returns it as a tibble data frame.
-#' It always shows following columns, even if some of the parameters are missing
-#' from `x$contributors`:
+#' It always shows following columns, even if non-required properties are
+#' missing from `x$contributors`:
+#' - title (compulsory property)
 #' - email
 #' - path
 #' - role

@@ -20,6 +20,15 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the contributors
 \description{
 \code{contributors()} gets contributors from the \code{x$contributors} property in a
 Camera Trap Data Package object and returns it as a tibble data frame.
+It always shows following columns, even if non-required properties are
+missing from \code{x$contributors}:
+\itemize{
+\item title (compulsory property)
+\item email
+\item path
+\item role
+\item organization
+}
 
 \verb{contributors()<-} is the assignment equivalent.
 }
