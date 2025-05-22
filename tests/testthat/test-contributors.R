@@ -4,13 +4,6 @@ test_that("contributors() returns a tibble", {
   expect_s3_class(contributors(x), "tbl")
 })
 
-test_that("contributors() returns the expected columns", {
-  skip_if_offline()
-  x <- example_dataset()
-  names_contributors <- c("title", "email", "path", "role", "organization")
-  expect_identical(names(contributors(x)), names_contributors)
-})
-
 test_that("contributors()<- assigns a dataframe as list to contributors", {
   skip_if_offline()
   x <- example_dataset()
@@ -23,6 +16,15 @@ test_that("contributors()<- assigns a dataframe as list to contributors", {
   contributors(x) <- df
   expect_identical(class(x$contributors), "list")
   expect_identical(dplyr::as_tibble(df), contributors(x))
+})
+
+test_that("contributors() returns the expected columns", {
+  skip_if_offline()
+  x <- example_dataset()
+  df <- data.frame(title = 1:3)
+  contributors(x) <- df
+  names_contributors <- c("title", "email", "path", "role", "organization")
+  expect_identical(names(contributors(x)), names_contributors)
 })
 
 test_that("contributors()<- returns error when value is not a data frame", {
