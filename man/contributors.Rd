@@ -20,12 +20,12 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the contributors
 \description{
 \code{contributors()} gets contributors from the \code{x$contributors} property in a
 Camera Trap Data Package object and returns it as a tibble data frame.
-}
-\details{
+
 \verb{contributors()<-} is the assignment equivalent.
 }
 \examples{
 x <- example_dataset()
+# Get contributors
 contributors(x)
 
 # Set contributors
