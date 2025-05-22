@@ -97,28 +97,9 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   )
 
   # Create creators
-  orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
   creators <-
     contributors(x) %>%
-    dplyr::filter(!.data$role %in% c("rightsHolder", "publisher")) %>%
-    mutate_when_missing(path = character()) %>% # Guarantee path col
-    dplyr::mutate(
-      first_name = purrr::map_chr(
-        .data$title,
-        ~ strsplit(.x, " ", fixed = TRUE)[[1]][1] # First string before space
-      ),
-      last_name = purrr::map_chr(
-        .data$title,
-        ~ sub("^\\S* ", "", .x) # Remove string up until first space
-       ),
-      # Move ORCID from path to separate column
-      orcid = stringr::str_extract(.data$path, orcid_regex),
-      path = dplyr::if_else(
-        grepl(orcid_regex, .data$path),
-        NA_character_,
-        .data$path
-      )
-    )
+    dplyr::filter(!.data$role %in% c("rightsHolder", "publisher"))
 
   # Set creators
   eml$dataset$creator <- create_eml_contributors(creators)
