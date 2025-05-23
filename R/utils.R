@@ -8,10 +8,12 @@
 #' @family helper functions
 #' @noRd
 #' @examples
-#' # Column "space" is not present yet, so it is added
-#' mutate_when_missing(cars, space = "The final frontier")
-#' # Column "speed" is present, so it is not added
-#' mutate_when_missing(cars, speed = "warp 9")
+#' # The data frame cars contains 2 columns (speed and dist)
+#' mutate_when_missing(
+#'   cars,
+#'   speed = "warp 9", # Present, will not be overwritten
+#'   space = "The final frontier" # Absent, will be overwritten
+#' )
 mutate_when_missing <- function(.data, ...) {
   dots <- substitute(list(...))[-1]
   cols_to_check <- names(sapply(dots, deparse))
