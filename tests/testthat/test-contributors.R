@@ -53,4 +53,32 @@ test_that("contributors() returns the expected columns", {
   expect_identical(names(contributors(x)), names_contributors)
 })
 
-
+test_that("contributors() creates firstName and lastName as expected", {
+  skip_if_offline()
+  x <- example_dataset()
+  contributors(x) <-
+    data.frame(
+      title = c(
+        "first_name last_name", "one_name", "publisher",
+        "rightsholder", "multiple_names_first multiple names"
+      ),
+      role = c(
+        "contact", "principal investigator", "publisher",
+        "rightsholder", "contributor"
+      )
+    )
+  expect_identical(
+    contributors(x)$firstName,
+    c(
+      "first_name", NA_character_, NA_character_,
+      NA_character_, "multiple_names_first"
+      )
+  )
+  expect_identical(
+    contributors(x)$lastName,
+    c(
+      "last_name", NA_character_, NA_character_,
+      NA_character_, "multiple names"
+      )
+  )
+})
