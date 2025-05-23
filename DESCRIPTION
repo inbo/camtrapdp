@@ -30,7 +30,7 @@ Imports:
     cli,
     dplyr,
     EML,
-    frictionless (>= 1.1.0),
+    frictionless (>= 1.2.0),
     memoise,
     purrr,
     readr,
