@@ -60,6 +60,13 @@ contributors <- function(x) {
     )
   }
 
+  if (is.null(value$title) | class(value$title) != "character") {
+    cli::cli_abort(
+      "{.arg value} must have a title column of class character.",
+      class = "camtrapdp_error_assignment_title"
+    )
+  }
+
   purrr::pluck(x, "contributors") <- purrr::transpose(value)
   return(x)
 }
