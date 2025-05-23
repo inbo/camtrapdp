@@ -115,7 +115,7 @@ test_that("write_dwc() can write media-based occurrences", {
   expect_snapshot_file(file.path(temp_dir, "occurrence_media_based.csv"))
   expect_true("07840dcc_1" %in% result$occurrence$occurrenceID)
   expect_false("705e6036" %in% result$occurrence$occurrenceID)
-  expect_true(nrow(result$occurrence$occurrenceID) == 337)
+  expect_true(nrow(result$occurrence) == 337)
 })
 
 test_that("write_dwc() returns files that comply with the info in meta.xml", {
