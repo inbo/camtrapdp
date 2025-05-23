@@ -37,10 +37,6 @@
       <userId directory="https://orcid.org/">0000-0002-8442-8025</userId>
     </creator>
     <creator>
-      <individualName>
-        <givenName>Ms</givenName>
-        <surName>Dummy</surName>
-      </individualName>
       <organizationName>Institute for dummies</organizationName>
       <electronicMailAddress>name@dummy.org</electronicMailAddress>
       <userId directory="https://orcid.org/">0000-0000-0000-0000</userId>
