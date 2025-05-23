@@ -32,6 +32,7 @@ locations(x)
 Other accessor functions: 
 \code{\link{deployments}()},
 \code{\link{events}()},
+\code{\link{individuals}()},
 \code{\link{media}()},
 \code{\link{observations}()},
 \code{\link{taxa}()}

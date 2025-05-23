@@ -21,7 +21,7 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with observations.
 \code{observations()} gets the observations from a Camera Trap Data Package
 object.
 
-\verb{observations<-()} is the assignment equivalent.
+\verb{observations()<-} is the assignment equivalent.
 \itemize{
 \item It should only be used within other functions, where the expected data
 structure can be guaranteed.
@@ -40,6 +40,7 @@ observations(x) <- head(observations(x), 1)
 Other accessor functions: 
 \code{\link{deployments}()},
 \code{\link{events}()},
+\code{\link{individuals}()},
 \code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{taxa}()}

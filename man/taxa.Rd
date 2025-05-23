@@ -28,6 +28,7 @@ taxa(x)
 Other accessor functions: 
 \code{\link{deployments}()},
 \code{\link{events}()},
+\code{\link{individuals}()},
 \code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()}

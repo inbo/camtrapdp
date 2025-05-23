@@ -35,6 +35,8 @@ Key features of the Darwin Core transformation:
 \item Only observations with \code{observationType = "animal"} and
 \code{observationLevel = "event"} are included, thus excluding observations that
 are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.
+\item Observations classified by humans with 100\% certainty get a
+\code{dwc:identificationVerificationStatus = "verified using recorded media"}.
 \item Deployment information is included in the Occurrence core, such as
 location, habitat, \code{dwc:samplingProtocol}, deployment duration in
 \code{dwc:samplingEffort} and \code{dwc:parentEventID = deploymentID} as grouping
@@ -69,6 +71,7 @@ unlink("my_directory", recursive = TRUE)
 }
 \seealso{
 Other transformation functions: 
+\code{\link{merge_camtrapdp}()},
 \code{\link{round_coordinates}()},
 \code{\link{shift_time}()},
 \code{\link{write_eml}()}

@@ -16,7 +16,7 @@ test_that("print() informs about the number of tables, their rows and unclass()"
   expect_output(
     print(x_no_additional),
     regexp = paste(
-      "A Camera Trap Data Package with 3 tables:",
+      "A Camera Trap Data Package \"camtrap-dp-example-dataset\" with 3 tables:",
       "* deployments: 4 rows",
       "* media: 423 rows",
       "* observations: 549 rows",

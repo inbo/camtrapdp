@@ -3,7 +3,7 @@
 #' @description
 #' `deployments()` gets the deployments from a Camera Trap Data Package object.
 #'
-#' `deployments<-()` is the assignment equivalent.
+#' `deployments()<-` is the assignment equivalent.
 #'
 #' - It should only be used within other functions, where the expected data
 #' structure can be guaranteed.

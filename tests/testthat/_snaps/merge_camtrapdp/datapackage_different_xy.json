@@ -1,0 +1,317 @@
+{
+  "resources": [
+    {
+      "name": "deployments",
+      "path": "deployments.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/deployments-table-schema.json"
+    },
+    {
+      "name": "media",
+      "path": "media.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/media-table-schema.json"
+    },
+    {
+      "name": "observations",
+      "path": "observations.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/observations-table-schema.json"
+    },
+    {
+      "name": "individuals",
+      "description": "Custom table/resource not part of the Camtrap DP model. Included to showcase that extending with more resources is possible.",
+      "data": [
+        {
+          "id": 1,
+          "individualName": "Reinaert",
+          "scientificName": "Vulpes vulpes"
+        }
+      ]
+    }
+  ],
+  "profile": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/camtrap-dp-profile.json",
+  "contributors": [
+    {
+      "title": "Axel Neukermans",
+      "email": "axel.neukermans@inbo.be",
+      "path": "https://orcid.org/0000-0003-0272-9180",
+      "role": "contributor",
+      "organization": "Research Institute for Nature and Forest (INBO)"
+    },
+    {
+      "title": "Danny Van der beeck",
+      "email": "daniel.vanderbeeck@gmail.com"
+    },
+    {
+      "title": "Emma Cartuyvels",
+      "email": "emma.cartuyvels@inbo.be",
+      "role": "principalInvestigator",
+      "organization": "Research Institute for Nature and Forest (INBO)"
+    },
+    {
+      "title": "Peter Desmet",
+      "email": "peter.desmet@inbo.be",
+      "path": "https://orcid.org/0000-0002-8442-8025",
+      "role": "contact",
+      "organization": "Research Institute for Nature and Forest (INBO)"
+    },
+    {
+      "title": "Research Institute for Nature and Forest (INBO)",
+      "path": "https://inbo.be",
+      "role": "rightsHolder"
+    },
+    {
+      "title": "Research Institute for Nature and Forest (INBO)",
+      "path": "https://inbo.be",
+      "role": "publisher"
+    },
+    {
+      "title": "Julian Evans",
+      "email": "jevansbio@gmail.com",
+      "organization": "University of Amsterdam",
+      "role": "principalInvestigator",
+      "firstName": "Julian",
+      "lastName": "Evans"
+    },
+    {
+      "title": "Rotem Zilber",
+      "email": "r.kadanzilber@uva.nl",
+      "organization": "University of Amsterdam",
+      "role": "principalInvestigator",
+      "firstName": "Rotem",
+      "lastName": "Zilber"
+    },
+    {
+      "title": "W. Daniel  Kissling",
+      "path": "https://www.danielkissling.de/",
+      "email": "wdkissling@gmail.com",
+      "organization": "University of Amsterdam",
+      "role": "principalInvestigator",
+      "firstName": "W. Daniel ",
+      "lastName": "Kissling"
+    }
+  ],
+  "description": "MICA - Muskrat and coypu camera trap observations in Belgium, the Netherlands and Germany is an occurrence dataset published by the Research Institute of Nature and Forest (INBO). It is part of the LIFE project MICA, in which innovative techniques are tested for a more efficient control of muskrat and coypu populations, both invasive species. This dataset is a sample of the original dataset and serves as an example of a Camera Trap Data Package (Camtrap DP)./nCamera trap pilot 2 was a test of the difference in species detection and data accumulation between a Snyper Commander camera with a regular lens (52°) and one with a wide lens (100°). The cameras were deployed at 30 cm above the ground within the herbivore exclosure Zeeveld Noord in the Amsterdam Water Supply Dunes from 14th of August 2021 to 24th of September 2021. During this pilot, a solar panel failure caused the cameras to stop recording data from the 24th of August 2021 to the 6th of September (14 days). During annotation, only days in which both cameras were operational were annotated. This led to a total of 1,113 images over 28 days from the two cameras. A detailed description of the dataset can be found in a data paper published in the journal Data in Brief (Evans et al. 2024, https://doi.org/10.1016/j.dib.2024.110544).",
+  "version": "1.0",
+  "keywords": ["camera traps", "public awareness campaign", "flood protection", "flood control", "damage prevention", "animal damage", "pest control", "invasive alien species", "muskrat", "coypu", "dune ecosystem", "mammals", "exclosure", "camera trap", "biodiversity monitoring", "Natura 2000", "herbivore", "wildlife camera"],
+  "sources": [
+    {
+      "title": "Agouti",
+      "path": "https://www.agouti.eu",
+      "email": "agouti@wur.nl",
+      "version": "v3.21"
+    },
+    {
+      "title": "Agouti",
+      "path": "https://www.agouti.eu",
+      "email": "agouti@wur.nl",
+      "version": "v4"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "CC0-1.0",
+      "scope": "data"
+    },
+    {
+      "path": "http://creativecommons.org/licenses/by/4.0/",
+      "scope": "media"
+    },
+    {
+      "name": "CC-BY-4.0",
+      "scope": "data"
+    },
+    {
+      "name": "CC-BY-4.0",
+      "scope": "media"
+    }
+  ],
+  "project": {
+    "title": "Management of Invasive Coypu and muskrAt in Europe / Data from three camera trapping pilots in the Amsterdam Water Supply Dunes of the Netherlands",
+    "description": "Invasive alien species such as the coypu and muskrat pose a major threat to biodiversity and cost millions of euros annually. By feeding on rushes and reeds, these animals cause serious damage to the environment in which they live and endangered species suffer from habitat loss. The disappearance of reeds and digging in dikes represents a safety risk for humans in the lowland areas. With the LIFE project MICA (<https://lifemica.eu>), the partners from the participating countries want to develop a transnational plan for the management of coypu and muskrat populations in Europe and aim to reduce their population. The objective of an effective population control of coypu and muskrat is to protect lowlands from flooding, to prevent crop damage and loss of biodiversity. The objective of the project is to serve as a pilot and demonstration project in which ‘best practices’ are tested and new techniques are developed for a more efficient control of muskrat and coypu populations. By involving organisations from Belgium, Germany and the Netherlands, the project also promotes international cooperation and knowledge exchange in the field of muskrat and coypu management./nThree pilot studies were conducted to test the autonomous deployment of wireless 4G wildlife cameras with solar panels and automated data transmission in the coastal dunes of the Amsterdam Water Supply Dunes, The Netherlands. Monitoring and management of grazing mammals such as the European rabbit (Oryctolagus cuniculus) and the European fallow deer (Dama dama) is of key interest in this nature reserve, as they slow down the rate of natural succession and alter plant species composition and vegetation structure through grazing and digging. These grazers as well as predators such as the red fox (Vulpes vulpes) have typically been monitored using traditional survey methods such as transect and areal counts, but only once or twice a year. The study was aimed to test the feasibility and methodology of running long-term autonomous monitoring networks with wildlife cameras. This involved the testing of power usage, data transmission, and data accumulation, and the robustness of cameras to herbivore damage. Furthermore, the pilots specifically tested how the detection of focal species (rabbits, deer, foxes) differs with deployment heights, camera lens types and the placement in different habitats. The pilot also provides labelled images for the development of deep learning algorithms to automatically identify species.\r\n\r\nWork was carried out as part of the development of the monitoring demonstration sites of a large-scale research infrastructure project ARISE.",
+    "samplingDesign": "targeted",
+    "captureMethod": ["activityDetection", "timeLapse"],
+    "individualAnimals": false,
+    "observationLevel": ["media", "event"],
+    "individuals": false
+  },
+  "coordinatePrecision": 0.001,
+  "spatial": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [4.013, 50.699],
+        [5.659, 50.699],
+        [5.659, 52.356],
+        [4.013, 52.356],
+        [4.013, 50.699]
+      ]
+    ]
+  },
+  "temporal": {
+    "start": "2020-05-30",
+    "end": "2022-03-18"
+  },
+  "taxonomic": [
+    {
+      "scientificName": "Anas platyrhynchos",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+      "taxonRank": "species",
+      "vernacularNames": {
+        "eng": "mallard",
+        "nld": "wilde eend"
+      }
+    },
+    {
+      "scientificName": "Anas strepera",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/DGPL",
+      "taxonRank": "species",
+      "vernacularNames": {
+        "eng": "gadwall",
+        "nld": "krakeend"
+      }
+    },
+    {
+      "scientificName": "Apodemus sylvaticus",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/FRJJ",
+      "taxonRank": "species",
+      "family": "Muridae",
+      "order.": "Rodentia",
+      "vernacularNames": {
+        "eng": "wood mouse",
+        "nld": "bosmuis"
+      }
+    },
+    {
+      "scientificName": "Ardea",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/32FH",
+      "taxonRank": "genus",
+      "vernacularNames": {
+        "eng": "great herons",
+        "nld": "reigers"
+      }
+    },
+    {
+      "scientificName": "Ardea cinerea",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/GCHS",
+      "taxonRank": "species",
+      "vernacularNames": {
+        "eng": "grey heron",
+        "nld": "blauwe reiger"
+      }
+    },
+    {
+      "scientificName": "Aves",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/V2",
+      "taxonRank": "class",
+      "vernacularNames": {
+        "eng": "bird sp.",
+        "nld": "vogel"
+      }
+    },
+    {
+      "scientificName": "Corvus corone",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/YNHJ",
+      "taxonRank": "species",
+      "family": "Corvidae",
+      "order.": "Passeriformes",
+      "vernacularNames": {
+        "eng": "carrion crow",
+        "nld": "zwarte kraai"
+      }
+    },
+    {
+      "scientificName": "Homo sapiens",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/6MB3T",
+      "taxonRank": "species",
+      "family": "Hominidae",
+      "order.": "Primates",
+      "vernacularNames": {
+        "eng": "human",
+        "nld": "mens"
+      }
+    },
+    {
+      "scientificName": "Martes foina",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/3Y9VW",
+      "taxonRank": "species",
+      "vernacularNames": {
+        "eng": "beech marten",
+        "nld": "steenmarter"
+      }
+    },
+    {
+      "scientificName": "Mustela putorius",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/44QYC",
+      "taxonRank": "species",
+      "vernacularNames": {
+        "eng": "European polecat",
+        "nld": "bunzing"
+      }
+    },
+    {
+      "scientificName": "Oryctolagus cuniculus",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/74ZBP",
+      "taxonRank": "species",
+      "family": "Leporidae",
+      "order.": "Lagomorpha",
+      "vernacularNames": {
+        "eng": "European rabbit",
+        "nld": "Europees konijn"
+      }
+    },
+    {
+      "scientificName": "Rattus norvegicus",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/4RM67",
+      "taxonRank": "species",
+      "vernacularNames": {
+        "eng": "brown rat",
+        "nld": "bruine rat"
+      }
+    },
+    {
+      "scientificName": "Vulpes vulpes",
+      "taxonID": "https://www.checklistbank.org/dataset/COL2023/taxon/5BSG3",
+      "taxonRank": "species",
+      "family": "Canidae",
+      "order.": "Carnivora",
+      "vernacularNames": {
+        "eng": "red fox",
+        "nld": "vos"
+      }
+    }
+  ],
+  "relatedIdentifiers": [
+    {
+      "relationType": "IsDerivedFrom",
+      "relatedIdentifier": "https://doi.org/10.15468/5tb6ze",
+      "resourceTypeGeneral": "Dataset",
+      "relatedIdentifierType": "DOI"
+    },
+    {
+      "relationType": "IsSupplementTo",
+      "relatedIdentifier": "https://inbo.github.io/camtraptor/",
+      "resourceTypeGeneral": "Software",
+      "relatedIdentifierType": "URL"
+    },
+    {
+      "relationType": "IsPublishedIn",
+      "relatedIdentifier": "https://doi.org/10.1016/j.dib.2024.110544",
+      "resourceTypeGeneral": "DataPaper",
+      "relatedIdentifierType": "DOI"
+    }
+  ],
+  "references": [
+    "Evans, J.C., Zilber, R., & Kissling, W.D. (2024). Data from three camera trapping pilots in the Amsterdam Water Supply Dunes of the Netherlands. Data in Brief, 54, 110544. https://doi.org/10.1016/j.dib.2024.110544"
+  ]
+}

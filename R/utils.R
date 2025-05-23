@@ -37,7 +37,19 @@ expand_cols <- function(df, colnames) {
   return(df)
 }
 
-#' Creates list of contributors in EML format
+#' Lists the names of additional resources in a Camera Trap Data Package
+#'
+#' @inheritParams print.camtrapdp
+#' @return Character vector with the additional resource names.
+#' @family helper functions
+#' @noRd
+additional_resources <- function(x) {
+  camtrapdp_resource_names <- c("deployments", "media", "observations")
+  resource_names <- frictionless::resources(x)
+  resource_names[!resource_names %in% camtrapdp_resource_names]
+}
+
+#' Create list of contributors in EML format
 #'
 #' @param contributor_list List of contributors
 #' @return List of contributors as emld responsibleParty objects.

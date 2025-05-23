@@ -26,7 +26,8 @@
 #'   (and associated media) of animals. Excluded are records that document blank
 #'   or unclassified media, vehicles and observations of humans.
 #' - **license**: License with scope `data` as provided in `x$licenses`.
-#' - **creators**: Contributors (all roles) as provided in `x$contributors`.
+#' - **creators**: Contributors as provided in `x$contributors`, excluding those
+#' with roles `rightsHolder` and `publisher`.
 #' - **contact**: Contributors with role `contact`. If none exist, first
 #' creator.
 #' - **metadata provider**: Same as `contact`.
@@ -133,7 +134,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   eml$dataset$creator <- create_eml_contributors(creator_list)
 
   # Set contacts
-  contact_df <- dplyr::filter(creators, role == "contact")
+  contact_df <- dplyr::filter(creators, .data$role == "contact")
   contact_list <- purrr::transpose(contact_df)
   if (length(contact_list) != 0) {
     contacts <- create_eml_contributors(contact_list)

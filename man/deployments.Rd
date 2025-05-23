@@ -20,7 +20,7 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with deployments.
 \description{
 \code{deployments()} gets the deployments from a Camera Trap Data Package object.
 
-\verb{deployments<-()} is the assignment equivalent.
+\verb{deployments()<-} is the assignment equivalent.
 \itemize{
 \item It should only be used within other functions, where the expected data
 structure can be guaranteed.
@@ -39,6 +39,7 @@ deployments(x) <- head(deployments(x), 1)
 \seealso{
 Other accessor functions: 
 \code{\link{events}()},
+\code{\link{individuals}()},
 \code{\link{locations}()},
 \code{\link{media}()},
 \code{\link{observations}()},

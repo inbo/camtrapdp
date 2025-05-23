@@ -1,14 +1,18 @@
 # camtrapdp (development version)
 
+* New function `write_camtrapdp()` writes a Camera Trap Data Package to disk as a `datapackage.json` and CSV files (#137).
+* New function `merge_camtrapdp()` allows to merge two datasets (#112).
 * New function `write_eml()` transforms Camtrap DP metadata to EML (#99).
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` and spatial scope in the metadata (#106).
 * New function `shift_time()` allows to shift/correct date-times in data and metadata for specified deploymentIDs and duration (#108).
+* New function `individuals()` returns a data frame with unique individuals (#149).
 * `filter_deployments()` and `deployments()<-` now update the spatial, temporal and taxonomic scope in the metadata based on the returned data (#100, #132).
 * `filter_observations()`, `filter_media()`, `media()<-` and `observations()<-` now update the taxonomic scope in the metadata based on the returned data (#89, #100, #130).
-* `read_camtrapdp()` now updates the spatial and temporal scope in metadata based on the data (#130).
+* `read_camtrapdp()` now updates the spatial, temporal and taxonomic scope in the metadata based on the data (#130, #164).
 * `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.1. The internal function `convert()` has been renamed to `upgrade()` (#113).
 * Internal function `build_taxa()` is renamed to `taxonomic()` (#130).
 * `taxa()` now removes duplicates (#130).
+* `write_dwc()` now adds `identificationVerificationStatus` for observations classified by humans with 100% certainty (#158).
 
 # camtrapdp 0.3.1
 
