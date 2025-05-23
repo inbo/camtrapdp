@@ -32,9 +32,13 @@ Key features of the Darwin Core transformation:
 \itemize{
 \item The Occurrence core contains one row per observation
 (\code{dwc:occurrenceID = observationID}).
-\item Only observations with \code{observationType = "animal"} and
-\code{observationLevel = "event"} are included, thus excluding observations that
-are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.
+\item Only observations with \code{observationType = "animal"} and are included, thus
+excluding observations that are (of) humans, vehicles, blanks, unknowns and
+unclassified.
+\item Only observations of either \code{observationLevel = "event"} or
+\code{observationLevel = "media"} are included, based on
+\code{x$gbifIngestion$observationLevel}. It defaults to event-based
+observations.
 \item Observations classified by humans with 100\% certainty get a
 \code{dwc:identificationVerificationStatus = "verified using recorded media"}.
 \item Deployment information is included in the Occurrence core, such as
