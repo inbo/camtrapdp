@@ -3,18 +3,22 @@
 #' @description
 #' `contributors()` gets contributors from the `x$contributors` property in a
 #' Camera Trap Data Package object and returns it as a tibble data frame.
-#' It always shows following columns, even if non-required properties are
-#' missing from `x$contributors`:
-#' - title (compulsory property)
-#' - email
-#' - path
-#' - role
-#' - organization
 #'
 #' `contributors()<-` is the assignment equivalent.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A [tibble::tibble()] data frame with the contributors.
+#' @return A [tibble::tibble()] data frame with the contributors, containing the
+#'   following columns (columns absent in `x$contributors` will be created):
+#'   - `title`
+#'   - `firstName`: if absent, this will be set to the first word in `title`,
+#'   except if it is a single word or the `role` is `rightsHolder` or
+#'   `publisher`.
+#'   - `lastName`: if absent, this will be set to the remaining words in
+#'   `title`, with the same exceptions as `firstName`.
+#'   - `email`
+#'   - `path`
+#'   - `role`
+#'   - `organization`
 #' @family accessor functions
 #' @export
 #' @examples

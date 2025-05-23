@@ -15,20 +15,24 @@ contributors(x) <- value
 \item{value}{A data frame to assign as contributors.}
 }
 \value{
-A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the contributors.
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame with the contributors, containing the
+following columns (columns absent in \code{x$contributors} will be created):
+\itemize{
+\item \code{title}
+\item \code{firstName}: if absent, this will be set to the first word in \code{title},
+except if it is a single word or the \code{role} is \code{rightsHolder} or
+\code{publisher}.
+\item \code{lastName}: if absent, this will be set to the remaining words in
+\code{title}, with the same exceptions as \code{firstName}.
+\item \code{email}
+\item \code{path}
+\item \code{role}
+\item \code{organization}
+}
 }
 \description{
 \code{contributors()} gets contributors from the \code{x$contributors} property in a
 Camera Trap Data Package object and returns it as a tibble data frame.
-It always shows following columns, even if non-required properties are
-missing from \code{x$contributors}:
-\itemize{
-\item title (compulsory property)
-\item email
-\item path
-\item role
-\item organization
-}
 
 \verb{contributors()<-} is the assignment equivalent.
 }
