@@ -35,6 +35,7 @@ Imports:
     purrr,
     readr,
     rlang,
+    stringr,
     uuid
 Suggests:
     jsonlite,
