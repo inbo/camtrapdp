@@ -1,9 +1,10 @@
-#' Create columns, but only if they are missing
+#' Create columns if they are missing
 #'
 #' Adds columns using [dplyr::mutate()], but only if they are absent in the
 #' provided data frame.
 #'
 #' @inherit dplyr::mutate
+#' @return Data frame with the extra columns.
 #' @family helper functions
 #' @noRd
 #' @examples
@@ -21,39 +22,34 @@ mutate_when_missing <- function(.data, ...) {
   return(.data)
 }
 
-#' Create names, but only when they are missing
+#' Create first and last names from title if they are missing
 #'
-#' Adds columns `firstName` and `lastName` based on `.data$title` using
-#' `mutate_when_missing()`.
-#' If the title is a single string, or if the role is `rightsHolder` or
-#' `publisher`, the value for both names is `NA_character_`.
-#' Else, the first name is the first string before a space, the last name is the
-#' string after the first space.
-
+#' Adds columns `firstName` and `lastName` from respectively the first and
+#' remaining words in `title`, but only if they are absent in the provided data
+#' frame.
+#' `firstName` and `lastName` will be set to `NA_character_` if `title` is a
+#' single word, or if the role is `rightsHolder` or `publisher`.
 #'
 #' @param df A data frame with a `title` and `role` column.
+#' @return Data frame with the extra columns.
 #' @family helper functions
 #' @noRd
 #' @examples
 #' df <- data.frame(
-#' title = c("John Doe", "Jane", "Research Institute"),
-#' role = c("contact", "contributor", "rightsHolder")
+#'   title = c("John Doe", "Jane", "Research Institute"),
+#'   role = c("contact", "contributor", "rightsHolder")
 #' )
-#' mutate_names(df)
-
-mutate_names <- function(df) {
+#' mutate_person_names(df)
+mutate_person_names <- function(df) {
   df %>%
     dplyr::mutate(
       n_title = stringr::str_count(.data$title, "\\S+")
     ) %>%
     mutate_when_missing(
       firstName = dplyr::if_else(
-        !(.data$role %in% c("rightsHolder", "publisher")) &
-          .data$n_title > 1,
-        purrr::map_chr(
-          .data$title,
-          ~ strsplit(.x, " ", fixed = TRUE)[[1]][1] # First string before space
-        ),
+        !(.data$role %in% c("rightsHolder", "publisher")) & .data$n_title > 1,
+        # First string before space
+        purrr::map_chr(.data$title, ~ strsplit(.x, " ", fixed = TRUE)[[1]][1]),
         NA_character_
       ),
       lastName = dplyr::if_else(
@@ -96,8 +92,7 @@ additional_resources <- function(x) {
 
 #' Create list of contributors in EML format
 #'
-#' @param contributors A data frame with the contributors from
-#' `contributors(x)`.
+#' @param contributors A data frame returned by `contributors(x)`.
 #' @return List of contributors as `emld::responsibleParty` objects.
 #' @family helper functions
 #' @noRd

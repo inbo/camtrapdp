@@ -40,7 +40,7 @@ contributors <- function(x) {
       role = NA_character_,
       organization = NA_character_
     ) %>%
-    mutate_names() %>%
+    mutate_person_names() %>%
     dplyr::select(
       title,
       firstName,
