@@ -34,7 +34,8 @@ test_that("observations()<- updates taxonomic scope in metadata", {
   observations(x) <- data.frame(
     scientificName = "Anas platyrhynchos",
     taxon.taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
-    taxon.taxonRank = "species"
+    taxon.taxonRank = "species",
+    stringsAsFactors = FALSE
   )
 
   expected_taxonomic <- list(
