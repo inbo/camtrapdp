@@ -11,7 +11,7 @@ test_that("taxonomic() returns NULL when there is no taxonomic information", {
   expect_null(taxonomic(x))
 })
 
-test_that("taxonomic() returns one row per species in $data$observations", {
+test_that("taxonomic() returns one row per species in x$data$observations", {
   skip_if_offline()
   x <- example_dataset()
   number_of_species <-
