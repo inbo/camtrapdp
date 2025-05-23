@@ -15,13 +15,9 @@
 #'   space = "The final frontier" # Absent, will be overwritten
 #' )
 mutate_when_missing <- function(.data, ...) {
-  dots <- substitute(list(...))[-1]
-  cols_to_check <- names(sapply(dots, deparse))
-  columns_to_add <- cols_to_check[!cols_to_check %in% colnames(.data)]
-  if (!rlang::is_empty(columns_to_add)) {
-    .data <- dplyr::mutate(.data, ...)
-  }
-  return(.data)
+  args <- rlang::list2(...)
+  new_columns <- args[!names(args) %in% colnames(.data)]
+  dplyr::mutate(.data, !!!new_columns)
 }
 
 #' Create first and last names from title if they are missing
