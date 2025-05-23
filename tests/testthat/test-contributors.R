@@ -13,17 +13,6 @@ test_that("contributors()<- returns error when value is not a data frame", {
   )
 })
 
-test_that("contributors()<- returns error when value has missing title column or
-          wrong class of title column", {
-  skip_if_offline()
-  x <- example_dataset()
-  expect_error(
-    contributors(x) <- data.frame(firstName = c("Joe", "Jane")),
-    class = "camtrapdp_error_assignment_title"
-  )
-  expect_error(
-    contributors(x) <- data.frame(title = 1:3),
-    class = "camtrapdp_error_assignment_title"
   )
 })
 

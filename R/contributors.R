@@ -35,6 +35,7 @@ contributors <- function(x) {
     purrr::list_rbind() %>%
     dplyr::as_tibble() %>%
     mutate_when_missing(
+      title = NA_character_,
       email = NA_character_,
       path = NA_character_,
       role = NA_character_,
@@ -61,13 +62,6 @@ contributors <- function(x) {
     cli::cli_abort(
       "{.arg value} must be a data.frame, not {.type {value}}.",
       class = "camtrapdp_error_assignment_wrong_class"
-    )
-  }
-
-  if (is.null(value$title) | class(value$title) != "character") {
-    cli::cli_abort(
-      "{.arg value} must have a title column of class character.",
-      class = "camtrapdp_error_assignment_title"
     )
   }
 
