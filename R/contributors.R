@@ -35,7 +35,17 @@ contributors <- function(x) {
       path = NA_character_,
       role = NA_character_,
       organization = NA_character_
-      )
+    ) %>%
+    mutate_names() %>%
+    dplyr::select(
+      title,
+      firstName,
+      lastName,
+      email,
+      path,
+      role,
+      organization
+    )
   return(contributors)
 }
 

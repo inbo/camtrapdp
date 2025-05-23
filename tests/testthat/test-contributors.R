@@ -8,7 +8,9 @@ test_that("contributors()<- assigns a dataframe as list to contributors", {
   skip_if_offline()
   x <- example_dataset()
   df <- data.frame(
-    title = 1:3,
+    title = c("one", "two", "three"),
+    firstName = 1:3,
+    lastName = 1:3,
     email = 1:3,
     path = 1:3,
     role = 1:3,
@@ -21,9 +23,10 @@ test_that("contributors()<- assigns a dataframe as list to contributors", {
 test_that("contributors() returns the expected columns", {
   skip_if_offline()
   x <- example_dataset()
-  df <- data.frame(title = 1:3)
+  df <- data.frame(title = c("one", "two", "three"))
   contributors(x) <- df
-  names_contributors <- c("title", "email", "path", "role", "organization")
+  names_contributors <-
+    c("title", "firstName", "lastName", "email", "path", "role", "organization")
   expect_identical(names(contributors(x)), names_contributors)
 })
 

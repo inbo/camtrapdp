@@ -21,6 +21,51 @@ mutate_when_missing <- function(.data, ...) {
   return(.data)
 }
 
+#' Create names, but only when they are missing
+#'
+#' Adds columns `firstName` and `lastName` based on `.data$title` using
+#' `mutate_when_missing()`.
+#' If the title is a single string, or if the role is `rightsHolder` or
+#' `publisher`, the value for both names is `NA_character_`.
+#' Else, the first name is the first string before a space, the last name is the
+#' string after the first space.
+
+#'
+#' @param df A data frame with a `title` and `role` column.
+#' @family helper functions
+#' @noRd
+#' @examples
+#' df <- data.frame(
+#' title = c("John Doe", "Jane", "Research Institute),
+#' role = c("contact", "contributor", "rightsHolder")
+#' )
+#' mutate_names(df)
+
+mutate_names <- function(df) {
+  df %>%
+    dplyr::mutate(
+      n_title = stringr::str_count(.data$title, "\\S+")
+    ) %>%
+    mutate_when_missing(
+      firstName = dplyr::if_else(
+        !(.data$role %in% c("rightsHolder", "publisher")) &
+          .data$n_title > 1,
+        purrr::map_chr(
+          .data$title,
+          ~ strsplit(.x, " ", fixed = TRUE)[[1]][1] # First string before space
+        ),
+        NA_character_
+      ),
+      lastName = dplyr::if_else(
+        !is.na(.data$firstName),
+        # Remove string up until first space
+        purrr::map_chr(.data$title, ~ sub("^\\S* ", "", .x)), #
+        NA_character_
+      )
+    ) %>%
+    dplyr::select(-n_title)
+}
+
 #' Expand columns
 #'
 #' Expands a data frame with columns. Added columns will have `NA_character_`
@@ -61,14 +106,6 @@ create_eml_contributors <- function(contributors) {
   contributor_list <-
     contributors %>%
     dplyr::mutate(
-      first_name = purrr::map_chr(
-        .data$title,
-        ~ strsplit(.x, " ", fixed = TRUE)[[1]][1] # First string before space
-      ),
-      last_name = purrr::map_chr(
-        .data$title,
-        ~ sub("^\\S* ", "", .x) # Remove string up until first space
-      ),
       # Move ORCID from path to separate column
       orcid = stringr::str_extract(.data$path, orcid_regex),
       path = dplyr::if_else(
@@ -79,8 +116,8 @@ create_eml_contributors <- function(contributors) {
     ) %>%
     purrr::transpose()
   purrr::map(contributor_list, ~ EML::set_responsibleParty(
-    givenName = .$first_name,
-    surName = .$last_name,
+    givenName = .$firstName,
+    surName = .$lastName,
     organizationName = .$organization, # Discouraged by EML, but used by IPT
     email = .$email,
     userId = if (!is.na(.$orcid)) {
