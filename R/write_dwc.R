@@ -21,9 +21,13 @@
 #' Key features of the Darwin Core transformation:
 #' - The Occurrence core contains one row per observation
 #'   (`dwc:occurrenceID = observationID`).
-#' - Only observations with `observationType = "animal"` and
-#'   `observationLevel = "event"` are included, thus excluding observations that
-#'   are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.
+#' - Only observations with `observationType = "animal"` and are included, thus
+#'   excluding observations that are (of) humans, vehicles, blanks, unknowns and
+#'    unclassified.
+#' - Only observations of either `observationLevel = "event"` or
+#'   `observationLevel = "media"` are included, based on
+#'   `x$gbifIngestion$observationLevel`. It defaults to event-based
+#'   observations.
 #' - Observations classified by humans with 100% certainty get a
 #'   `dwc:identificationVerificationStatus = "verified using recorded media"`.
 #' - Deployment information is included in the Occurrence core, such as
@@ -76,11 +80,14 @@ write_dwc <- function(x, directory) {
     purrr::pluck(x, "coordinatePrecision", .default = NA_character_)
 
   # Filter dataset on observations (also affects media)
-  x <- filter_observations(
-    x,
-    .data$observationLevel == "event",
-    .data$observationType == "animal"
-  )
+  if (!is.null(x$gbifIngestion$observationLevel)) {
+    if (x$gbifIngestion$observationLevel == "media") {
+      x <- filter_observations(x, .data$observationLevel == "media")
+    }
+  } else {
+    x <- filter_observations(x, .data$observationLevel == "event")
+  }
+  x <- filter_observations(x, .data$observationType == "animal")
 
   # Start transformation
   cli::cli_h2("Transforming data to Darwin Core")
