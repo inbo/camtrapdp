@@ -36,7 +36,7 @@ mutate_when_missing <- function(.data, ...) {
 #' @noRd
 #' @examples
 #' df <- data.frame(
-#' title = c("John Doe", "Jane", "Research Institute),
+#' title = c("John Doe", "Jane", "Research Institute"),
 #' role = c("contact", "contributor", "rightsHolder")
 #' )
 #' mutate_names(df)
