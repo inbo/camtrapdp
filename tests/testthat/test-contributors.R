@@ -4,6 +4,29 @@ test_that("contributors() returns a tibble", {
   expect_s3_class(contributors(x), "tbl")
 })
 
+test_that("contributors()<- returns error when value is not a data frame", {
+  skip_if_offline()
+  x <- example_dataset()
+  expect_error(
+    contributors(x) <- "not_a_data_frame",
+    class = "camtrapdp_error_assignment_wrong_class"
+  )
+})
+
+test_that("contributors()<- returns error when value has missing title column or
+          wrong class of title column", {
+  skip_if_offline()
+  x <- example_dataset()
+  expect_error(
+    contributors(x) <- data.frame(firstName = c("Joe", "Jane")),
+    class = "camtrapdp_error_assignment_title"
+  )
+  expect_error(
+    contributors(x) <- data.frame(title = 1:3),
+    class = "camtrapdp_error_assignment_title"
+  )
+})
+
 test_that("contributors()<- assigns a dataframe as list to contributors", {
   skip_if_offline()
   x <- example_dataset()
@@ -30,25 +53,4 @@ test_that("contributors() returns the expected columns", {
   expect_identical(names(contributors(x)), names_contributors)
 })
 
-test_that("contributors()<- returns error when value is not a data frame", {
-  skip_if_offline()
-  x <- example_dataset()
-  expect_error(
-    contributors(x) <- "not_a_data_frame",
-    class = "camtrapdp_error_assignment_wrong_class"
-  )
-})
 
-test_that("contributors()<- returns error when value has missing title column or
-          wrong class of title column", {
-  skip_if_offline()
-  x <- example_dataset()
-  expect_error(
-    contributors(x) <- data.frame(firstName = c("Joe", "Jane")),
-    class = "camtrapdp_error_assignment_title"
-  )
-  expect_error(
-    contributors(x) <- data.frame(title = 1:3),
-    class = "camtrapdp_error_assignment_title"
-  )
-})
