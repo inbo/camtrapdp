@@ -52,7 +52,7 @@ With camtrapdp you can **read** a Camtrap DP dataset into your R
 environment:
 
 ``` r
-library(camtrapdp)
+library(camtrapdp, warn.conflicts = FALSE)
 
 file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
 x <- read_camtrapdp(file)
