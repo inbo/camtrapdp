@@ -15,7 +15,7 @@
 #'   space = "The final frontier" # Absent, will be overwritten
 #' )
 mutate_if_missing <- function(.data, ...) {
-  args <- rlang::list2(...)
+  args <- rlang::quos(...)
   new_columns <- args[!names(args) %in% colnames(.data)]
   dplyr::mutate(.data, !!!new_columns)
 }
