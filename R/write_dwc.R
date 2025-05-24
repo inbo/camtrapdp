@@ -82,6 +82,11 @@ write_dwc <- function(x, directory) {
     .data$observationType == "animal"
   )
 
+  # Warns if there is no argument directory before data transformations
+  if (!dir.exists(directory)) {
+    dir.create(directory, recursive = TRUE)
+  }
+
   # Start transformation
   cli::cli_h2("Transforming data to Darwin Core")
 
@@ -304,9 +309,6 @@ write_dwc <- function(x, directory) {
     "{.file {multimedia_path}}",
     "{.file {meta_xml_path}}"
   ))
-  if (!dir.exists(directory)) {
-    dir.create(directory, recursive = TRUE)
-  }
   readr::write_csv(occurrence, occurrence_path, na = "")
   readr::write_csv(multimedia, multimedia_path, na = "")
   file.copy(
