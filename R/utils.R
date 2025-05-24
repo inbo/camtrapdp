@@ -57,7 +57,7 @@ mutate_person_names <- function(df) {
         NA_character_
       )
     ) %>%
-    dplyr::select(-n_title)
+    dplyr::select(-.data$n_title)
 }
 
 #' Expand columns
@@ -109,15 +109,15 @@ create_eml_contributors <- function(contributors) {
     ) %>%
     purrr::transpose()
   purrr::map(contributor_list, ~ EML::set_responsibleParty(
-    givenName = .$firstName,
-    surName = .$lastName,
-    organizationName = .$organization, # Discouraged by EML, but used by IPT
-    email = .$email,
-    userId = if (!is.na(.$orcid)) {
-      list(directory = "https://orcid.org/", .$orcid)
+    givenName = .x$firstName,
+    surName = .x$lastName,
+    organizationName = .x$organization, # Discouraged by EML, but used by IPT
+    email = .x$email,
+    userId = if (!is.na(.x$orcid)) {
+      list(directory = "https://orcid.org/", .x$orcid)
     } else {
       NULL
     },
-    onlineUrl = .$path
+    onlineUrl = .x$path
   ))
 }

@@ -31,7 +31,7 @@
 contributors <- function(x) {
   contributors <-
     x$contributors %>%
-    purrr::map(., ~ as.data.frame(.)) %>%
+    purrr::map(as.data.frame) %>%
     purrr::list_rbind() %>%
     dplyr::as_tibble() %>%
     mutate_if_missing(
@@ -43,13 +43,13 @@ contributors <- function(x) {
     ) %>%
     mutate_person_names() %>%
     dplyr::select(
-      title,
-      firstName,
-      lastName,
-      email,
-      path,
-      role,
-      organization
+      .data$title,
+      .data$firstName,
+      .data$lastName,
+      .data$email,
+      .data$path,
+      .data$role,
+      .data$organization
     )
   return(contributors)
 }
