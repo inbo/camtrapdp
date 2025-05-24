@@ -9,12 +9,12 @@
 #' @noRd
 #' @examples
 #' # The data frame cars contains 2 columns (speed and dist)
-#' mutate_when_missing(
+#' mutate_if_missing(
 #'   cars,
 #'   speed = "warp 9", # Present, will not be overwritten
 #'   space = "The final frontier" # Absent, will be overwritten
 #' )
-mutate_when_missing <- function(.data, ...) {
+mutate_if_missing <- function(.data, ...) {
   args <- rlang::list2(...)
   new_columns <- args[!names(args) %in% colnames(.data)]
   dplyr::mutate(.data, !!!new_columns)
@@ -43,7 +43,7 @@ mutate_person_names <- function(df) {
     dplyr::mutate(
       n_title = stringr::str_count(.data$title, "\\S+")
     ) %>%
-    mutate_when_missing(
+    mutate_if_missing(
       firstName = dplyr::if_else(
         !(.data$role %in% c("rightsHolder", "publisher")) & .data$n_title > 1,
         # First string before space
