@@ -53,7 +53,7 @@ mutate_person_names <- function(df) {
       lastName = dplyr::if_else(
         !is.na(.data$firstName),
         # Remove string up until first space
-        purrr::map_chr(.data$title, ~ sub("^\\S* ", "", .x)), #
+        purrr::map_chr(.data$title, ~ sub("^\\S* ", "", .x)),
         NA_character_
       )
     ) %>%
