@@ -156,7 +156,9 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     )
 
   # Set taxonomic coverage
-  taxa <- taxonomic(x)
+  taxa <-
+    taxonomic(x) %>%
+    mutate_if_missing(taxonRank = NA_character_)
   eml$dataset$coverage$taxonomicCoverage <-
     list(
       taxonomicClassification =
