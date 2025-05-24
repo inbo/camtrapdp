@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(camtrapdp)
+library(camtrapdp, warn.conflicts = FALSE)
 
 test_check("camtrapdp")
