@@ -73,7 +73,7 @@
 </h2>
 <p>With camtrapdp you can <strong>read</strong> a Camtrap DP dataset into your R environment:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inbo/camtrapdp" class="external-link">camtrapdp</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inbo/camtrapdp" class="external-link">camtrapdp</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_camtrapdp.html">read_camtrapdp</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
