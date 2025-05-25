@@ -115,27 +115,34 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   eml$dataset$metadataProvider <- contacts
 
   # Set keywords
-  eml$dataset$keywordSet <-
+  keywords <- list(
     list(
-      list(
-        keywordThesaurus = paste(
-          "GBIF Dataset Type Vocabulary:",
-          "http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml"
-        ),
-        keyword = "Occurrence"
+      keywordThesaurus = paste(
+        "GBIF Dataset Type Vocabulary:",
+        "http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml"
       ),
-      list(
-        keywordThesaurus = paste(
-          "GBIF Dataset Subtype Vocabulary:",
-          "http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml"
-        ),
-        keyword = "Observation"
+      keyword = "Occurrence"
+    ),
+    list(
+      keywordThesaurus = paste(
+        "GBIF Dataset Subtype Vocabulary:",
+        "http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml"
       ),
+      keyword = "Observation"
+    )
+  )
+  if (!is.null(x$keywords)) {
+    keywords <- append(
+      keywords,
       list(
-        keywordThesaurus = "n/a",
-        keyword = x$keywords
+        list(
+          keywordThesaurus = "n/a",
+          keyword = x$keywords
+        )
       )
     )
+  }
+  eml$dataset$keywordSet <- keywords
 
   # Set license
   eml$dataset$intellectualRights$para <-
