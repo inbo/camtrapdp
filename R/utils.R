@@ -57,7 +57,7 @@ mutate_person_names <- function(df) {
         NA_character_
       )
     ) %>%
-    dplyr::select(-.data$n_title)
+    dplyr::select(-"n_title")
 }
 
 #' Expand columns

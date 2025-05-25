@@ -43,13 +43,13 @@ contributors <- function(x) {
     ) %>%
     mutate_person_names() %>%
     dplyr::select(
-      .data$title,
-      .data$firstName,
-      .data$lastName,
-      .data$email,
-      .data$path,
-      .data$role,
-      .data$organization
+      "title",
+      "firstName",
+      "lastName",
+      "email",
+      "path",
+      "role",
+      "organization"
     )
   return(contributors)
 }
