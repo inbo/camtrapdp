@@ -69,9 +69,6 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     dataset = list()
   )
 
-  # Get properties
-  project <- x$project
-
   # Set title
   eml$dataset$title <- x$title
 
@@ -96,18 +93,16 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     maintenanceUpdateFrequency = "unknown"
   )
 
-  # Create creators
+  # Set creators
   creators <-
     contributors(x) %>%
     dplyr::filter(!.data$role %in% c("rightsHolder", "publisher"))
-
-  # Set creators
   eml$dataset$creator <- create_eml_contributors(creators)
 
   # Set contacts
-  contact_df <- dplyr::filter(creators, .data$role == "contact")
-  if (nrow(contact_df) != 0) {
-    contacts <- create_eml_contributors(contact_df)
+  contacts <- dplyr::filter(creators, .data$role == "contact")
+  if (nrow(contacts) != 0) {
+    contacts <- create_eml_contributors(contacts)
   } else {
     contacts <- purrr::pluck(eml, "dataset", "creator", 1) # First creator
   }
@@ -180,6 +175,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   }
 
   # Set project
+  project <- x$project
   type_samplingDesign <-
     dplyr::case_when(
       project$samplingDesign == "simpleRandom" ~ "simple random",
