@@ -1,5 +1,6 @@
 # camtrapdp (development version)
 
+* camtrapdp now relies on (and is tested for) R version 3.6.0 or higher (#138).
 * New function `write_camtrapdp()` writes a Camera Trap Data Package to disk as a `datapackage.json` and CSV files (#137).
 * New function `merge_camtrapdp()` allows to merge two datasets (#112).
 * New function `write_eml()` transforms Camtrap DP metadata to EML (#99).
