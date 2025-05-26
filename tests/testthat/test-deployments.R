@@ -32,7 +32,7 @@ test_that("deployments()<- returns error when value is not a data frame", {
   )
 })
 
-test_that("deployments<-() updates spatial and temporal scope in metadata", {
+test_that("deployments()<- updates spatial and temporal scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
   deployments(x) <- data.frame(

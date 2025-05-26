@@ -1,10 +1,10 @@
-#' Get taxonomic metadata and build a data frame
+#' Get taxonomic metadata as a data frame
 #'
-#' Gets the `x$taxonomic` property in a Camera Trap Data Package object and
-#' builds a data frame with the taxonomic information.
+#' Gets taxonomic information from the `x$taxonomic` property in a Camera Trap
+#' Data Package object and returns it as a data frame.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A data frame with the taxonomic information.
+#' @return A [tibble::tibble()] data frame with the taxonomic information.
 #' @noRd
 taxonomic <- function(x) {
   # Extract the taxonomic information
@@ -23,7 +23,8 @@ taxonomic <- function(x) {
       name_spec = "{outer}.{inner}"
     ) %>%
     purrr::map(as.data.frame) %>%
-    purrr::list_rbind()
+    purrr::list_rbind() %>%
+    dplyr::as_tibble()
 
   # Warn if there are duplicate scientificNames
   scientific_names <- purrr::pluck(taxa, "scientificName")

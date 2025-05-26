@@ -28,7 +28,7 @@ test_that("observations()<- returns error when value is not a data frame", {
   )
 })
 
-test_that("observations<-() updates taxonomic scope in metadata", {
+test_that("observations()<- updates taxonomic scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
   observations(x) <- data.frame(

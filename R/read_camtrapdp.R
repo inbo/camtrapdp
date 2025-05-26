@@ -12,6 +12,8 @@
 #'
 #' This function **will automatically include this taxonomic information in
 #' observations**, as extra columns starting with `taxon.`.
+#' It will then update the `taxonomic` scope in the metadata to the unique
+#' [taxa()] found in the data.
 #'
 #' @section Assign eventIDs:
 #'
@@ -37,7 +39,8 @@
 #' spatial and temporal coverage of the package respectively.
 #'
 #' This function **will automatically update the spatial and temporal scopes**
-#' in metadata based on the data.
+#' in the metadata based on the data.
+#' It also does this for the taxonomic scope (see higher).
 #'
 #' @param file Path or URL to a `datapackage.json` file.
 #' @return A Camera Trap Data Package object.

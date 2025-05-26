@@ -22,6 +22,17 @@ test_that("write_eml() returns the expected eml.xml file for the example
            dataset", {
   skip_if_offline()
   x <- example_dataset()
+
+  # Adapt contributors to test for bug #166
+  contributors(x) <- contributors(x) %>%
+    tibble::add_row(
+      title = "Ms Dummy",
+      email = "name@dummy.org",
+      path = "https://orcid.org/0000-0000-0000-0000",
+      role = "contributor",
+      organization = "Institute for dummies"
+    )
+
   temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
   result <- suppressMessages(write_eml(x, temp_dir))
