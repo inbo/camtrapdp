@@ -31,23 +31,25 @@
 contributors <- function(x) {
   contributors <-
     x$contributors %>%
-    purrr::map(., ~ as.data.frame(.)) %>%
+    purrr::map(as.data.frame) %>%
     purrr::list_rbind() %>%
     dplyr::as_tibble() %>%
-    mutate_when_missing(title = NA_character_) %>%
-    mutate_when_missing(email = NA_character_) %>%
-    mutate_when_missing(path = NA_character_) %>%
-    mutate_when_missing(role = NA_character_) %>%
-    mutate_when_missing(organization = NA_character_) %>%
+    mutate_if_missing(
+      title = NA_character_,
+      email = NA_character_,
+      path = NA_character_,
+      role = NA_character_,
+      organization = NA_character_
+    ) %>%
     mutate_person_names() %>%
     dplyr::select(
-      title,
-      firstName,
-      lastName,
-      email,
-      path,
-      role,
-      organization
+      "title",
+      "firstName",
+      "lastName",
+      "email",
+      "path",
+      "role",
+      "organization"
     )
   return(contributors)
 }

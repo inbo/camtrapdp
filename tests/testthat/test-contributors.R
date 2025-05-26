@@ -14,7 +14,7 @@ test_that("contributors() returns the expected columns (even when absent)", {
   )
 })
 
-test_that("contributors() creates firstName and lastName as expected", {
+test_that("contributors() creates first/lastName as expected", {
   skip_if_offline()
   x <- example_dataset()
   contributors(x) <- data.frame(
@@ -52,6 +52,24 @@ test_that("contributors() creates firstName and lastName as expected", {
       NA_character_,
       NA_character_
     )
+  )
+})
+
+test_that("contributors() does not create first/lastName if already present", {
+  skip_if_offline()
+  x <- example_dataset()
+  contributors(x) <- data.frame(
+    title = "Don't use this",
+    firstName = "First name",
+    lastName = "Last name"
+  )
+  expect_identical(
+    contributors(x)$firstName,
+    "First name" # Not "Don't"
+  )
+  expect_identical(
+    contributors(x)$lastName,
+    "Last name" # Not "use this"
   )
 })
 

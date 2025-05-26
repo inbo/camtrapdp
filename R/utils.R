@@ -9,19 +9,15 @@
 #' @noRd
 #' @examples
 #' # The data frame cars contains 2 columns (speed and dist)
-#' mutate_when_missing(
+#' mutate_if_missing(
 #'   cars,
 #'   speed = "warp 9", # Present, will not be overwritten
 #'   space = "The final frontier" # Absent, will be overwritten
 #' )
-mutate_when_missing <- function(.data, ...) {
-  dots <- substitute(list(...))[-1]
-  cols_to_check <- names(sapply(dots, deparse))
-  columns_to_add <- cols_to_check[!cols_to_check %in% colnames(.data)]
-  if (!rlang::is_empty(columns_to_add)) {
-    .data <- dplyr::mutate(.data, ...)
-  }
-  return(.data)
+mutate_if_missing <- function(.data, ...) {
+  args <- rlang::quos(...)
+  new_columns <- args[!names(args) %in% colnames(.data)]
+  dplyr::mutate(.data, !!!new_columns)
 }
 
 #' Create first and last names from title if they are missing
@@ -47,7 +43,7 @@ mutate_person_names <- function(df) {
     dplyr::mutate(
       n_title = stringr::str_count(.data$title, "\\S+")
     ) %>%
-    mutate_when_missing(
+    mutate_if_missing(
       firstName = dplyr::if_else(
         !(.data$role %in% c("rightsHolder", "publisher")) & .data$n_title > 1,
         # First string before space
@@ -57,11 +53,11 @@ mutate_person_names <- function(df) {
       lastName = dplyr::if_else(
         !is.na(.data$firstName),
         # Remove string up until first space
-        purrr::map_chr(.data$title, ~ sub("^\\S* ", "", .x)), #
+        purrr::map_chr(.data$title, ~ sub("^\\S* ", "", .x)),
         NA_character_
       )
     ) %>%
-    dplyr::select(-n_title)
+    dplyr::select(-"n_title")
 }
 
 #' Expand columns
@@ -113,15 +109,15 @@ create_eml_contributors <- function(contributors) {
     ) %>%
     purrr::transpose()
   purrr::map(contributor_list, ~ EML::set_responsibleParty(
-    givenName = .$firstName,
-    surName = .$lastName,
-    organizationName = .$organization, # Discouraged by EML, but used by IPT
-    email = .$email,
-    userId = if (!is.na(.$orcid)) {
-      list(directory = "https://orcid.org/", .$orcid)
+    givenName = .x$firstName,
+    surName = .x$lastName,
+    organizationName = .x$organization, # Discouraged by EML, but used by IPT
+    email = .x$email,
+    userId = if (!is.na(.x$orcid)) {
+      list(directory = "https://orcid.org/", .x$orcid)
     } else {
       NULL
     },
-    onlineUrl = .$path
+    onlineUrl = .x$path
   ))
 }

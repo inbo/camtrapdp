@@ -69,9 +69,6 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     dataset = list()
   )
 
-  # Get properties
-  project <- x$project
-
   # Set title
   eml$dataset$title <- x$title
 
@@ -96,18 +93,16 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     maintenanceUpdateFrequency = "unknown"
   )
 
-  # Create creators
+  # Set creators
   creators <-
     contributors(x) %>%
     dplyr::filter(!.data$role %in% c("rightsHolder", "publisher"))
-
-  # Set creators
   eml$dataset$creator <- create_eml_contributors(creators)
 
   # Set contacts
-  contact_df <- dplyr::filter(creators, .data$role == "contact")
-  if (nrow(contact_df) != 0) {
-    contacts <- create_eml_contributors(contact_df)
+  contacts <- dplyr::filter(creators, .data$role == "contact")
+  if (nrow(contacts) != 0) {
+    contacts <- create_eml_contributors(contacts)
   } else {
     contacts <- purrr::pluck(eml, "dataset", "creator", 1) # First creator
   }
@@ -115,27 +110,34 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   eml$dataset$metadataProvider <- contacts
 
   # Set keywords
-  eml$dataset$keywordSet <-
+  keywords <- list(
     list(
-      list(
-        keywordThesaurus = paste(
-          "GBIF Dataset Type Vocabulary:",
-          "http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml"
-        ),
-        keyword = "Occurrence"
+      keywordThesaurus = paste(
+        "GBIF Dataset Type Vocabulary:",
+        "http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml"
       ),
-      list(
-        keywordThesaurus = paste(
-          "GBIF Dataset Subtype Vocabulary:",
-          "http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml"
-        ),
-        keyword = "Observation"
+      keyword = "Occurrence"
+    ),
+    list(
+      keywordThesaurus = paste(
+        "GBIF Dataset Subtype Vocabulary:",
+        "http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml"
       ),
+      keyword = "Observation"
+    )
+  )
+  if (!is.null(x$keywords)) {
+    keywords <- append(
+      keywords,
       list(
-        keywordThesaurus = "n/a",
-        keyword = x$keywords
+        list(
+          keywordThesaurus = "n/a",
+          keyword = x$keywords
+        )
       )
     )
+  }
+  eml$dataset$keywordSet <- keywords
 
   # Set license
   eml$dataset$intellectualRights$para <-
@@ -156,21 +158,24 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     )
 
   # Set taxonomic coverage
-  taxa <- taxonomic(x)
-  eml$dataset$coverage$taxonomicCoverage <-
-    list(
-      taxonomicClassification =
-        purrr::map(1:nrow(taxa), function(i) {
-          current_row <- taxa[i, ]
-          list(
-            taxonRankName = current_row$taxonRank,
-            taxonRankValue = current_row$scientificName
-          )
-        }
+  if (!is.null(taxonomic(x))) {
+    taxa <- mutate_if_missing(taxonomic(x), taxonRank = NA_character_)
+    eml$dataset$coverage$taxonomicCoverage <-
+      list(
+        taxonomicClassification =
+          purrr::map(1:nrow(taxa), function(i) {
+            current_row <- taxa[i, ]
+            list(
+              taxonRankName = current_row$taxonRank,
+              taxonRankValue = current_row$scientificName
+            )
+          }
+        )
       )
-    )
+  }
 
   # Set project
+  project <- x$project
   type_samplingDesign <-
     dplyr::case_when(
       project$samplingDesign == "simpleRandom" ~ "simple random",
