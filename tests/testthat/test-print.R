@@ -27,7 +27,12 @@ test_that("print() informs about the number of tables, their rows and unclass()"
   )
 
   # Extra table added
-  x_no_additional$data$extra <- data.frame("col_1" = c(1, 2), "col_2" = c("a", "b"))
+  x_no_additional$data$extra <-
+    data.frame(
+      "col_1" = c(1, 2),
+      "col_2" = c("a", "b"),
+      stringsAsFactors = FALSE
+    )
   expect_output(
     print(x_no_additional),
     regexp = "* extra: 2 rows",

@@ -46,14 +46,12 @@ mutate_person_names <- function(df) {
     mutate_if_missing(
       firstName = dplyr::if_else(
         !(.data$role %in% c("rightsHolder", "publisher")) & .data$n_title > 1,
-        # First string before space
-        purrr::map_chr(.data$title, ~ strsplit(.x, " ", fixed = TRUE)[[1]][1]),
+        stringr::str_extract(.data$title, "^\\S*"), # First word before space
         NA_character_
       ),
       lastName = dplyr::if_else(
         !is.na(.data$firstName),
-        # Remove string up until first space
-        purrr::map_chr(.data$title, ~ sub("^\\S* ", "", .x)),
+        stringr::str_replace(.data$title, "^\\S* ", ""), # Remove first word
         NA_character_
       )
     ) %>%
