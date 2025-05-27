@@ -24,15 +24,18 @@ Description: Read and manipulate Camera Trap Data Packages ('Camtrap DP').
 License: MIT + file LICENSE
 URL: https://github.com/inbo/camtrapdp, https://inbo.github.io/camtrapdp/
 BugReports: https://github.com/inbo/camtrapdp/issues
+Depends: 
+    R (>= 3.6.0)
 Imports:
     cli,
     dplyr,
     EML,
-    frictionless (>= 1.1.0),
+    frictionless (>= 1.2.1),
     memoise,
     purrr,
     readr,
     rlang,
+    stringr,
     uuid
 Suggests:
     jsonlite,

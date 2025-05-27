@@ -61,7 +61,8 @@ test_that("taxa() removes duplicates and keeps the taxon with most taxonomical
       "DGP6_2",
       "DGPL",
       "DGPL_1"
-    )
+    ),
+    stringsAsFactors = FALSE
   )
   expected_taxa <- dplyr::tibble(
     scientificName = c("Anas platyrhynchos", "Anas strepera"),
@@ -110,7 +111,8 @@ test_that("taxa() removes duplicates and keeps the taxon with most taxonomical
       NA_character_,
       NA_character_,
       "wilde eend"
-    )
+    ),
+    stringsAsFactors = FALSE
   )
   expected_taxa <- dplyr::tibble(
     scientificName = c("Anas platyrhynchos"),
