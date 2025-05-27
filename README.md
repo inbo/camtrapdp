@@ -10,7 +10,7 @@ status](https://www.r-pkg.org/badges/version/camtrapdp)](https://CRAN.R-project.
 [![CRAN
 checks](https://badges.cranchecks.info/worst/camtrapdp.svg)](https://cran.r-project.org/web/checks/check_results_camtrapdp.html)
 [![R-CMD-check](https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/inbo/camtraptor/branch/main/graph/badge.svg)](https://app.codecov.io/gh/inbo/camtrapdp/)
+[![codecov](https://codecov.io/gh/inbo/camtrapdp/branch/main/graph/badge.svg)](https://app.codecov.io/gh/inbo/camtrapdp/)
 [![repo
 status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11490269.svg)](https://doi.org/10.5281/zenodo.11490269)
@@ -52,12 +52,12 @@ With camtrapdp you can **read** a Camtrap DP dataset into your R
 environment:
 
 ``` r
-library(camtrapdp)
+library(camtrapdp, warn.conflicts = FALSE)
 
 file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
 x <- read_camtrapdp(file)
 x
-#> A Camera Trap Data Package with 3 tables:
+#> A Camera Trap Data Package "camtrap-dp-example-dataset" with 3 tables:
 #> • deployments: 4 rows
 #> • media: 423 rows
 #> • observations: 549 rows

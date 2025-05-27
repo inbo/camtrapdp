@@ -1,30 +1,28 @@
 url: https://inbo.github.io/camtrapdp/
-
 template:
   bootstrap: 5
-
 navbar:
   bg: dark
-
 reference:
-- title: "Read and write functions"
+- title: Read and write functions
   contents:
   - has_concept("read functions")
   - has_concept("write functions")
-- title: "Accessor (and assignment) functions"
+- title: Accessor (and assignment) functions
   contents:
   - has_concept("accessor functions")
-- title: "Filter functions"
+- title: Filter functions
   contents:
   - has_concept("filter functions")
-- title: "Transformation functions"
+- title: Transformation functions
   contents:
   - has_concept("transformation functions")
-- title: "Miscellaneous functions"
+- title: Miscellaneous functions
   contents:
   - has_concept("print functions")
   - has_concept("check functions")
   - has_concept("misc functions")
-- title: "Sample datasets"
+- title: Sample datasets
   contents:
   - has_concept("sample data")
+

@@ -32,7 +32,7 @@ test_that("deployments()<- returns error when value is not a data frame", {
   )
 })
 
-test_that("deployments<-() updates spatial and temporal scope in metadata", {
+test_that("deployments()<- updates spatial and temporal scope in metadata", {
   skip_if_offline()
   x <- example_dataset()
   deployments(x) <- data.frame(
@@ -40,7 +40,8 @@ test_that("deployments<-() updates spatial and temporal scope in metadata", {
     latitude = 51.496,
     longitude = 4.774,
     deploymentStart = as.POSIXct("2020-05-30 02:57:37 UTC", tz = "UTC"),
-    deploymentEnd = as.POSIXct("2020-07-01 09:41:41 UTC", tz = "UTC")
+    deploymentEnd = as.POSIXct("2020-07-01 09:41:41 UTC", tz = "UTC"),
+    stringsAsFactors = FALSE
   )
 
   expected_spatial <- list(
