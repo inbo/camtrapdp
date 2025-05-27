@@ -91,38 +91,31 @@ update_taxon <- function(x, from, to) {
     )
   }
 
-  # Update taxonomy
-  taxonomy_new <-
+  # Update taxa: remove "from", add "to"
+  taxa <-
     taxa(x) %>%
     dplyr::filter(scientificName != from) %>%
     dplyr::bind_rows(to)
+  colnames(taxa) <- paste("taxon", colnames(taxa), sep = ".")
 
-  # Add taxon. as column suffix
-  colnames(taxonomy_new) <- paste("taxon", colnames(taxonomy_new), sep = ".")
-
-  # Remove taxonomic information in observations
-  observations(x) <-
+  # Update observations: replace "from" with "to", replace taxon. information
+  observations <-
     observations(x) %>%
-    dplyr::select(-dplyr::starts_with("taxon."))
-
-  # Change scientificName in observations
-  observations(x) <-
-    observations(x) %>%
+    dplyr::select(-dplyr::starts_with("taxon.")) %>%
     dplyr::mutate(
-      scientificName = dplyr::if_else(
-        .data$scientificName == from,
-        to$scientificName,
-        .data$scientificName
+      scientificName = dplyr::case_when(
+        .data$scientificName == from ~ to$scientificName,
+        .default = .data$scientificName
       )
+    ) %>%
+    dplyr::left_join(
+      taxa,
+      by = dplyr::join_by("scientificName" == "taxon.scientificName"),
+      multiple = "first"
     )
 
-  # Join taxonomy with observations, x$taxonomic is automatically updated with the assignment function
-  observations(x) <-
-    dplyr::left_join(
-      observations(x),
-      taxonomy_new,
-      by = dplyr::join_by("scientificName" == "taxon.scientificName")
-    )
+  # Assign observations (also updates x$taxonomic)
+  observations(x) <- observations
 
   # Return message
   taxon <- taxa(x) %>% dplyr::filter(scientificName == to$scientificName)
