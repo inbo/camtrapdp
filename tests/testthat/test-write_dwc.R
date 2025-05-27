@@ -141,4 +141,3 @@ test_that("write_dwc() returns output when taxonID is missing", {
 
   expect_no_error(suppressMessages(write_dwc(x, temp_dir)))
 })
-
