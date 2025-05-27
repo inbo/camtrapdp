@@ -56,9 +56,12 @@
 #' unlink("my_directory", recursive = TRUE)
 write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Filter dataset on observations (also affects media)
+  observation_level <- dplyr::if_else(
+    x$gbifIngestion$observationLevel %||% "" == "media", "media", "event"
+  )
   x <- filter_observations(
     x,
-    .data$observationLevel == "event",
+    .data$observationLevel == observation_level,
     .data$observationType == "animal"
   )
 
