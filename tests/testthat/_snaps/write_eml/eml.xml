@@ -36,6 +36,11 @@
       <electronicMailAddress>peter.desmet@inbo.be</electronicMailAddress>
       <userId directory="https://orcid.org/">0000-0002-8442-8025</userId>
     </creator>
+    <creator>
+      <organizationName>Institute for dummies</organizationName>
+      <electronicMailAddress>name@dummy.org</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0000-0000-0000</userId>
+    </creator>
     <metadataProvider>
       <individualName>
         <givenName>Peter</givenName>

@@ -30,6 +30,7 @@ events(x)
 }
 \seealso{
 Other accessor functions: 
+\code{\link{contributors}()},
 \code{\link{deployments}()},
 \code{\link{individuals}()},
 \code{\link{locations}()},

@@ -38,6 +38,7 @@ observations(x) <- head(observations(x), 1)
 }
 \seealso{
 Other accessor functions: 
+\code{\link{contributors}()},
 \code{\link{deployments}()},
 \code{\link{events}()},
 \code{\link{individuals}()},
