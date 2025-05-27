@@ -35,10 +35,10 @@ Key features of the Darwin Core transformation:
 \item Only observations with \code{observationType = "animal"} and are included, thus
 excluding observations that are (of) humans, vehicles, blanks, unknowns and
 unclassified.
-\item Only observations of either \code{observationLevel = "event"} or
-\code{observationLevel = "media"} are included, based on
-\code{x$gbifIngestion$observationLevel}. It defaults to event-based
-observations.
+\item Either observations with \code{observationLevel = "event"} or \code{"media"} are
+used, never both to avoid duplicates.
+The level be defined with \code{x$gbifIngestion$observationLevel},
+with \code{"event"} as default.
 \item Observations classified by humans with 100\% certainty get a
 \code{dwc:identificationVerificationStatus = "verified using recorded media"}.
 \item Deployment information is included in the Occurrence core, such as

@@ -23,11 +23,11 @@
 #'   (`dwc:occurrenceID = observationID`).
 #' - Only observations with `observationType = "animal"` and are included, thus
 #'   excluding observations that are (of) humans, vehicles, blanks, unknowns and
-#'    unclassified.
-#' - Only observations of either `observationLevel = "event"` or
-#'   `observationLevel = "media"` are included, based on
-#'   `x$gbifIngestion$observationLevel`. It defaults to event-based
-#'   observations.
+#'   unclassified.
+#' - Either observations with `observationLevel = "event"` or `"media"` are
+#'   used, never both to avoid duplicates.
+#'   The level be defined with `x$gbifIngestion$observationLevel`,
+#'   with `"event"` as default.
 #' - Observations classified by humans with 100% certainty get a
 #'   `dwc:identificationVerificationStatus = "verified using recorded media"`.
 #' - Deployment information is included in the Occurrence core, such as

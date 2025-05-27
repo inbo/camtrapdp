@@ -15,7 +15,7 @@
 * Internal function `build_taxa()` is renamed to `taxonomic()` (#130).
 * `taxa()` now removes duplicates (#130).
 * `write_dwc()` now adds `identificationVerificationStatus` for observations classified by humans with 100% certainty (#158).
-* `write_dwc()` now also allows to write media-based observations (#172).
+* `write_dwc()` now allows to create occurrences from media-based observations (#172).
 
 # camtrapdp 0.3.1
 
