@@ -90,7 +90,9 @@ write_dwc <- function(x, directory) {
   )
 
   # Start transformation
-  cli::cli_h2("Transforming data to Darwin Core")
+  cli::cli_h2(
+    "Transforming data to Darwin Core ({observation_level}-based observations)"
+  )
 
   # Read data and add optional columns that are used in transformation
  deployments <- deployments(x)
