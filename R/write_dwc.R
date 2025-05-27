@@ -80,14 +80,14 @@ write_dwc <- function(x, directory) {
     purrr::pluck(x, "coordinatePrecision", .default = NA_character_)
 
   # Filter dataset on observations (also affects media)
-  if (!is.null(x$gbifIngestion$observationLevel)) {
-    if (x$gbifIngestion$observationLevel == "media") {
-      x <- filter_observations(x, .data$observationLevel == "media")
-    }
-  } else {
-    x <- filter_observations(x, .data$observationLevel == "event")
-  }
-  x <- filter_observations(x, .data$observationType == "animal")
+  observation_level <- dplyr::if_else(
+    x$gbifIngestion$observationLevel %||% "" == "media", "media", "event"
+  )
+  x <- filter_observations(
+    x,
+    .data$observationLevel == observation_level,
+    .data$observationType == "animal"
+  )
 
   # Start transformation
   cli::cli_h2("Transforming data to Darwin Core")
