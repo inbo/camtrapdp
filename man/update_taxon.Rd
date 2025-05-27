@@ -2,55 +2,59 @@
 % Please edit documentation in R/update_taxon.R
 \name{update_taxon}
 \alias{update_taxon}
-\title{Update taxon information}
+\title{Update taxon}
 \usage{
 update_taxon(x, from, to)
 }
 \arguments{
 \item{x}{Camera Trap Data Package object, as returned by \code{\link[=read_camtrapdp]{read_camtrapdp()}}.}
 
-\item{from}{\code{scientificName} to be updated.}
+\item{from}{\code{scientificName} of the taxon to update.}
 
-\item{to}{List with new taxon information. It must have a \code{scientificName}
-property.}
+\item{to}{Named list with taxon information, e.g.
+\code{list(scientificName = "Ardea", taxonRank = "genus", vernacularname.eng = "great herons")}.}
 }
 \value{
 \code{x} with updated taxon information.
 }
 \description{
-Updates taxon information in both data and metadata.
-
-If \code{to}is a list containing a scientificName that already exists in the
-dataset, duplicate taxa (i.e. with the same \code{scientificName}) are removed.
-The function retains the taxon with (first) a \code{taxonID} and (second) the most
-taxonomic information.
-
-Taxonomic information for a \code{scientificName} can be updated by replacing the
-existing taxon with the same \code{scientificName} but different taxonomic details
-provided in \code{to}.
+Updates information for a taxon in data and metadata.
+This allows:
+\enumerate{
+\item Taxon update: when \code{to} and \code{from$scientificName} are the same, then the
+existing taxon is updated with the provided information.
+\item Taxon rename: when \code{to} and \code{from$scientificName} are different and the
+latter is new, then the existing taxon is renamed and updated with the
+provided information.
+\item Taxon lump: when \code{to} and \code{from$scientificName} are different and the
+latter is already present, then the existing taxon is lumped into the already
+present taxon.
+Information is retained from the taxon (provided or already present) with
+(first) a \code{taxonID} and (second) the most information.
+}
 }
 \examples{
-# Example 1: change scientificName
 x <- example_dataset()
-from <- "Ardea cinerea"
-to <- list(
-scientificName = "Ardea",
-taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/32FH"
-)
-x_updated <- update_taxon(x, from, to)
-taxa(x_updated)
 
-# Example 2: update taxon information
-from <- "Anas platyrhynchos"
-to <- list(
-scientificName = "Anas platyrhynchos",
-taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
-taxonRank = "species",
-vernacularNames.fr = "canard chipeau"
+# Update taxonomic information for "Anas platyrhynchos"
+updated_x <- update_taxon(
+  x,
+  from = "Anas platyrhynchos",
+  to = list (
+    scientificName = "Anas platyrhynchos",
+    taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+    taxonRank = "species",
+    vernacularNames.fra = "canard colvert"
+  )
 )
 
-x_updated <- update_taxon(x, from, to)
-taxa(x_updated)
+# Lump "Ardea cinerea" into already present taxon "Ardea".
+# Provided information is ignored, because the present taxon has a taxonID.
+updated_x <- update_taxon(
+  x,
+  from = "Ardea cinerea",
+  to = list(scientificName = "Ardea", vernacularname.fra = "grands hérons")
+)
 }
 \seealso{
 Other transformation functions: 

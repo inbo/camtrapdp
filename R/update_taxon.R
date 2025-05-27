@@ -1,48 +1,49 @@
-#' Update taxon information
+#' Update taxon
 #'
 #' @description
-#' Updates taxon information in both data and metadata.
-#'
-#' If `to`is a list containing a scientificName that already exists in the
-#' dataset, duplicate taxa (i.e. with the same `scientificName`) are removed.
-#' The function retains the taxon with (first) a `taxonID` and (second) the most
-#' taxonomic information.
-#'
-#' Taxonomic information for a `scientificName` can be updated by replacing the
-#' existing taxon with the same `scientificName` but different taxonomic details
-#' provided in `to`.
-#'
+#' Updates information for a taxon in data and metadata.
+#' This allows:
+#' 1. Taxon update: when `to` and `from$scientificName` are the same, then the
+#' existing taxon is updated with the provided information.
+#' 2. Taxon rename: when `to` and `from$scientificName` are different and the
+#' latter is new, then the existing taxon is renamed and updated with the
+#' provided information.
+#' 3. Taxon lump: when `to` and `from$scientificName` are different and the
+#' latter is already present, then the existing taxon is lumped into the already
+#' present taxon.
+#' Information is retained from the taxon (provided or already present) with
+#' (first) a `taxonID` and (second) the most information.
 #'
 #' @inheritParams print.camtrapdp
-#' @param from `scientificName` to be updated.
-#' @param to List with new taxon information. It must have a `scientificName`
-#' property.
+#' @param from `scientificName` of the taxon to update.
+#' @param to Named list with taxon information, e.g.
+#' `list(scientificName = "Ardea", taxonRank = "genus",
+#' vernacularname.eng = "great herons")`.
 #' @return `x` with updated taxon information.
 #' @family transformation functions
 #' @export
-#'
 #' @examples
-#' # Example 1: change scientificName
 #' x <- example_dataset()
-#' from <- "Ardea cinerea"
-#' to <- list(
-#' scientificName = "Ardea",
-#' taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/32FH"
-#' )
-#' x_updated <- update_taxon(x, from, to)
-#' taxa(x_updated)
 #'
-#' # Example 2: update taxon information
-#' from <- "Anas platyrhynchos"
-#' to <- list(
-#' scientificName = "Anas platyrhynchos",
-#' taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
-#' taxonRank = "species",
-#' vernacularNames.fr = "canard chipeau"
+#' # Update taxonomic information for "Anas platyrhynchos"
+#' updated_x <- update_taxon(
+#'   x,
+#'   from = "Anas platyrhynchos",
+#'   to = list (
+#'     scientificName = "Anas platyrhynchos",
+#'     taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+#'     taxonRank = "species",
+#'     vernacularNames.fra = "canard colvert"
+#'   )
 #' )
 #'
-#' x_updated <- update_taxon(x, from, to)
-#' taxa(x_updated)
+#' # Lump "Ardea cinerea" into already present taxon "Ardea".
+#' # Provided information is ignored, because the present taxon has a taxonID.
+#' updated_x <- update_taxon(
+#'   x,
+#'   from = "Ardea cinerea",
+#'   to = list(scientificName = "Ardea", vernacularname.fra = "grands hérons")
+#' )
 update_taxon <- function(x, from, to) {
   check_camtrapdp(x)
 
