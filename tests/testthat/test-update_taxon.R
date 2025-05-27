@@ -1,3 +1,20 @@
+test_that("update_taxon() returns a valid camtrapdp object", {
+  skip_if_offline()
+  x <- example_dataset()
+  from <- "Anas platyrhynchos"
+  to <- list(
+    scientificName = "Anas",
+    taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
+    taxonRank = "genus",
+    vernacularNames.eng = "dabbling ducks"
+  )
+  expect_no_error(
+    check_camtrapdp(
+      suppressMessages(update_taxon(x, from, to))
+    )
+  )
+})
+
 test_that("update_taxon() warns if provided 'from' cannot be found as a value in
           scientificName", {
   skip_if_offline()
@@ -14,61 +31,40 @@ test_that("update_taxon() warns if provided 'from' cannot be found as a value in
     )
 })
 
-test_that("update_taxon() returns error if 'to' is not a named list", {
+test_that("update_taxon() returns error if 'to' is not a named list or missing
+           a scientificName", {
   skip_if_offline()
   x <- example_dataset()
   from <- "Anas platyrhynchos"
-  string <- "Anas"
-  df <- data.frame(scientificName = "Anas")
-  list_not_named <- list(
-    scientificName = "Anas",
-    "https://www.checklistbank.org/dataset/9910/taxon/V8R"
-    )
 
+  # Not a list
   expect_error(
-    update_taxon(x, from, string),
-    class = "camtrapdp_error_class_invalid"
-    )
-  expect_error(
-    update_taxon(x, from, df),
-    class = "camtrapdp_error_class_invalid"
+    update_taxon(x, from, "not_a_list"),
+    class = "camtrapdp_error_to_invalid"
   )
   expect_error(
-    update_taxon(x, from, list_not_named),
-    class = "camtrapdp_error_list_not_named"
+    update_taxon(x, from, NULL),
+    class = "camtrapdp_error_to_invalid"
   )
-})
 
-test_that("update_taxon() returns error if scientificName is missing from 'to'", {
-  skip_if_offline()
-  x <- example_dataset()
-  from <- "Anas platyrhynchos"
-  to <- list(
-    taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
-    taxonRank = "genus",
-    vernacularNames.eng = "dabbling ducks"
+  # Unnamed properties
+  expect_error(
+    update_taxon(x, from, list()),
+    class = "camtrapdp_error_to_properties_invalid"
   )
   expect_error(
-    update_taxon(x, from, to),
-    class = "camtrapdp_error_scientificname_missing"
-    )
-})
-
-test_that("shift_time() returns a valid camtrapdp object", {
-  skip_if_offline()
-  x <- example_dataset()
-  from <- "Anas platyrhynchos"
-  to <- list(
-    scientificName = "Anas",
-    taxonID = "https://www.checklistbank.org/dataset/9910/taxon/V8R",
-    taxonRank = "genus",
-    vernacularNames.eng = "dabbling ducks"
+    update_taxon(x, from, list(scientificName = "Anas", "unnamed_property")),
+    class = "camtrapdp_error_to_properties_invalid"
   )
 
-  expect_no_error(
-    check_camtrapdp(
-      suppressMessages(update_taxon(x, from, to))
-    )
+  # No or invalid scientificName
+  expect_error(
+    update_taxon(x, from, list(taxonRank = "species")),
+    class = "camtrapdp_error_to_scientificname_invalid"
+  )
+  expect_error(
+    update_taxon(x, from, list(scientificName = 2)),
+    class = "camtrapdp_error_to_scientificname_invalid"
   )
 })
 

@@ -50,7 +50,7 @@ update_taxon <- function(x, from, to) {
   if (!from %in% taxa(x)$scientificName) {
     cli::cli_warn(
       c(
-        "{.arg {from}} is not found as a {.field scientificName} in the data.",
+        "Can't find {.val {from}} as a {.field scientificName} in the data.",
         "x" = "No taxon is updated."
       ),
       class = "camtrapdp_warning_taxon_not_found"
@@ -58,36 +58,25 @@ update_taxon <- function(x, from, to) {
     return(x)
   }
 
-  if (!"list" %in% class(to)) {
+  if (!"list" %in% class(to) || is.null(to)) {
     cli::cli_abort(
-      c(
-        "{.arg to} must be a named list.",
-        "i" = "{.arg to} is not a list."
-      ),
-      class = "camtrapdp_error_class_invalid"
+      "{.arg to} must be a named list, not {.type {to}}.",
+      class = "camtrapdp_error_to_invalid"
     )
   }
 
-  if (any(names(to) == "")) {
+  if (any(names(to) == "") || is.null(names(to))) {
     cli::cli_abort(
-      c(
-        "{.arg to} must be a named list.",
-        "i" = "Not all elements of {.arg to} have a name."
-      ),
-      class = "camtrapdp_error_list_not_named"
+      "{.arg to} must (only) have named properties.",
+      class = "camtrapdp_error_to_properties_invalid"
     )
   }
 
-  if (!"scientificName" %in% names(to)) {
+  if (!is.character(to$scientificName)) {
     cli::cli_abort(
-      c(
-        "{.arg to} must have a {.field scientificName} property.",
-        "i" = paste(
-          "No element with name {.field scientificName} is found in",
-          "{.arg to}."
-          )
-      ),
-      class = "camtrapdp_error_scientificname_missing"
+      "{.arg to} must have a {.field scientificName} property with a character
+         value.",
+      class = "camtrapdp_error_to_scientificname_invalid"
     )
   }
 
