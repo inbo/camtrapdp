@@ -1,18 +1,14 @@
-#' Update taxon
+#' Update a taxon
 #'
 #' @description
-#' Updates information for a taxon in data and metadata.
-#' This allows:
-#' 1. Taxon update: when `to` and `from$scientificName` are the same, then the
-#' existing taxon is updated with the provided information.
-#' 2. Taxon rename: when `to` and `from$scientificName` are different and the
-#' latter is new, then the existing taxon is renamed and updated with the
-#' provided information.
-#' 3. Taxon lump: when `to` and `from$scientificName` are different and the
-#' latter is already present, then the existing taxon is lumped into the already
-#' present taxon.
-#' Information is retained from the taxon (provided or already present) with
-#' (first) a `taxonID` and (second) the most information.
+#' Updates taxonomic information in data and metadata for a provided taxon.
+#' This allows to:
+#' 1. Update a taxon: provide the same name in `to` and `from$scientificName`.
+#' 2. Replace a taxon: provide a new name in `from$scientificName`.
+#' 3. Lump a taxon: provide a name in `from$scientificName` that is already
+#' present in the dataset.
+#' In all cases, existing information will be overwritten with the provided
+#' information.
 #'
 #' @inheritParams print.camtrapdp
 #' @param from `scientificName` of the taxon to update.
@@ -37,8 +33,7 @@
 #'   )
 #' )
 #'
-#' # Lump "Ardea cinerea" into already present taxon "Ardea".
-#' # Provided information is ignored, because the present taxon has a taxonID.
+#' # Lump "Ardea cinerea" into already present "Ardea", using the provided info
 #' updated_x <- update_taxon(
 #'   x,
 #'   from = "Ardea cinerea",
@@ -100,7 +95,7 @@ update_taxon <- function(x, from, to) {
     dplyr::left_join(
       taxa,
       by = dplyr::join_by("scientificName" == "taxon.scientificName"),
-      multiple = "first"
+      multiple = "last" # Newly added taxon
     )
 
   # Assign observations (also updates x$taxonomic)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/update_taxon.R
 \name{update_taxon}
 \alias{update_taxon}
-\title{Update taxon}
+\title{Update a taxon}
 \usage{
 update_taxon(x, from, to)
 }
@@ -18,19 +18,15 @@ update_taxon(x, from, to)
 \code{x} with updated taxon information.
 }
 \description{
-Updates information for a taxon in data and metadata.
-This allows:
+Updates taxonomic information in data and metadata for a provided taxon.
+This allows to:
 \enumerate{
-\item Taxon update: when \code{to} and \code{from$scientificName} are the same, then the
-existing taxon is updated with the provided information.
-\item Taxon rename: when \code{to} and \code{from$scientificName} are different and the
-latter is new, then the existing taxon is renamed and updated with the
-provided information.
-\item Taxon lump: when \code{to} and \code{from$scientificName} are different and the
-latter is already present, then the existing taxon is lumped into the already
-present taxon.
-Information is retained from the taxon (provided or already present) with
-(first) a \code{taxonID} and (second) the most information.
+\item Update a taxon: provide the same name in \code{to} and \code{from$scientificName}.
+\item Replace a taxon: provide a new name in \code{from$scientificName}.
+\item Lump a taxon: provide a name in \code{from$scientificName} that is already
+present in the dataset.
+In all cases, existing information will be overwritten with the provided
+information.
 }
 }
 \examples{
@@ -48,8 +44,7 @@ updated_x <- update_taxon(
   )
 )
 
-# Lump "Ardea cinerea" into already present taxon "Ardea".
-# Provided information is ignored, because the present taxon has a taxonID.
+# Lump "Ardea cinerea" into already present "Ardea", using the provided info
 updated_x <- update_taxon(
   x,
   from = "Ardea cinerea",
