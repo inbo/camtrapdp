@@ -104,7 +104,6 @@ update_taxon <- function(x, from, to) {
   # Return message
   taxon <- taxa(x) %>% dplyr::filter(scientificName == to$scientificName)
   cli::cli_alert_info("Taxon {.val {from}} is replaced by:")
-  cli::cli_dl(taxon, names(taxon))
-
+  cli::cli_dl(taxon)
   return(x)
 }

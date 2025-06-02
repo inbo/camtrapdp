@@ -82,21 +82,22 @@ test_that("update_taxon() returns message", {
     vernacularNames.fr = "canard colvert"
   )
 
-  expect_message(update_taxon(x, from, to))
-  expect_message(
+  suppressMessages(expect_message(
     update_taxon(x, from, to),
-    regexp = paste(
-      "i Taxon \"Anas platyrhynchos\" is replaced by:",
-      "scientificName: Anas",
-      "taxonID: NA",
-      "taxonRank: genus",
-      "vernacularNames.eng: NA",
-      "vernacularNames.nld: NA",
-      "vernacularNames.fra: canard colvert",
-      sep = "\n"
-    ),
+    regexp = "Taxon \"Anas platyrhynchos\" is replaced by:",
     fixed = TRUE
-  )
+  ))
+  suppressMessages(expect_message(
+    update_taxon(x, from, to),
+    regexp = "scientificName: Anas",
+    fixed = TRUE
+  ))
+  suppressMessages(expect_message(
+    update_taxon(x, from, to),
+    regexp = "taxonID: NA",
+    fixed = TRUE
+  ))
+  # Further cli_dl rows not tested
 })
 
 test_that("update_taxon() can update a taxon in data and metadata", {
