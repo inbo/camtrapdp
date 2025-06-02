@@ -48,6 +48,17 @@
 #' temporal scopes** in the metadata based on the data.
 #' It also does this for the taxonomic scope (see higher).
 #'
+#' @section Additional resources:
+#'
+#' A Camtrap DP can contain Data Resources not described by the standard.
+#' Those are listed with the tables supported by the standard (i.e. deployments,
+#' media, observations) in the `resources` property.
+#'
+#' The `read_camtrapdp()` function will **ignore these additional resources**
+#' and only read the tables described by the standard.
+#' Additional resources can be read with [frictionless::read_resource()] if they
+#' are tabular.
+#'
 #' @param file Path or URL to a `datapackage.json` file.
 #' @return A Camera Trap Data Package object.
 #' @family read functions

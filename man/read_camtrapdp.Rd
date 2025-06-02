@@ -70,6 +70,19 @@ temporal scopes} in the metadata based on the data.
 It also does this for the taxonomic scope (see higher).
 }
 
+\section{Additional resources}{
+
+
+A Camtrap DP can contain Data Resources not described by the standard.
+Those are listed with the tables supported by the standard (i.e. deployments,
+media, observations) in the \code{resources} property.
+
+The \code{read_camtrapdp()} function will \strong{ignore these additional resources}
+and only read the tables described by the standard.
+Additional resources can be read with \code{\link[frictionless:read_resource]{frictionless::read_resource()}} if they
+are tabular.
+}
+
 \examples{
 file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
 x <- read_camtrapdp(file)
