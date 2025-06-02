@@ -1,12 +1,14 @@
 # camtrapdp (development version)
 
+* camtrapdp now relies on (and is tested for) R version 3.6.0 or higher (#138).
 * New function `write_camtrapdp()` writes a Camera Trap Data Package to disk as a `datapackage.json` and CSV files (#137).
 * New function `merge_camtrapdp()` allows to merge two datasets (#112).
 * New function `write_eml()` transforms Camtrap DP metadata to EML (#99).
 * New function `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` and spatial scope in the metadata (#106).
 * New function `shift_time()` allows to shift/correct date-times in data and metadata for specified deploymentIDs and duration (#108).
 * New function `contributors()` returns a tibble with contributors (#140).
-* New function `individuals()` returns a tibble with unique individuals (#149).
+* New function `individuals()` returns a data frame with unique individuals (#149).
+* New function `update_taxon()` allows to update taxonomic information in data and metadata (#159).  
 * `filter_deployments()` and `deployments()<-` now update the spatial, temporal and taxonomic scope in the metadata based on the returned data (#100, #132).
 * `filter_observations()`, `filter_media()`, `media()<-` and `observations()<-` now update the taxonomic scope in the metadata based on the returned data (#89, #100, #130).
 * `read_camtrapdp()` now updates the spatial, temporal and taxonomic scope in the metadata based on the data (#130, #164).

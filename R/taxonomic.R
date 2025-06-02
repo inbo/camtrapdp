@@ -22,7 +22,7 @@ taxonomic <- function(x) {
       purrr::list_flatten,
       name_spec = "{outer}.{inner}"
     ) %>%
-    purrr::map(as.data.frame) %>%
+    purrr::map(as.data.frame, stringsAsFactors = FALSE) %>%
     purrr::list_rbind() %>%
     dplyr::as_tibble()
 

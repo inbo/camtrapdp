@@ -17,41 +17,23 @@ test_that("contributors() returns the expected columns (even when absent)", {
 test_that("contributors() creates first/lastName as expected", {
   skip_if_offline()
   x <- example_dataset()
-  contributors(x) <- data.frame(
-    title = c(
-      "first_name last_name",
-      "first_name multiple last names",
-      "one_name",
-      "a_publisher",
-      "a_rightsholder"
-    ),
-    role = c(
-      "contact",
-      "contributor",
-      "principal investigator",
-      "publisher",
-      "rightsholder"
-    )
+  contributors(x) <- tibble::tribble(
+    ~ role,~title,
+    "contributor", "first last",
+    "contributor", "first multiple last",
+    "contributor", "single_word",
+    "contact", "first last",
+    "principalInvestigator", "first last",
+    "publisher", "first last",
+    "rightsHolder", "first last"
   )
   expect_identical(
     contributors(x)$firstName,
-    c(
-      "first_name",
-      "first_name",
-      NA_character_,
-      NA_character_,
-      NA_character_
-    )
+    c("first", "first", NA_character_, "first", "first", NA_character_, NA_character_)
   )
   expect_identical(
     contributors(x)$lastName,
-    c(
-      "last_name",
-      "multiple last names",
-      NA_character_,
-      NA_character_,
-      NA_character_
-    )
+    c("last", "multiple last", NA_character_, "last", "last", NA_character_, NA_character_)
   )
 })
 
@@ -61,7 +43,8 @@ test_that("contributors() does not create first/lastName if already present", {
   contributors(x) <- data.frame(
     title = "Don't use this",
     firstName = "First name",
-    lastName = "Last name"
+    lastName = "Last name",
+    stringsAsFactors = FALSE
   )
   expect_identical(
     contributors(x)$firstName,
@@ -83,7 +66,9 @@ test_that("contributors()<- assigns a dataframe as list to x$contributors", {
     email = 1:3,
     path = 1:3,
     role = 1:3,
-    organization = 1:3)
+    organization = 1:3,
+    stringsAsFactors = FALSE
+  )
   contributors(x) <- df
   expect_type(x$contributors, "list")
   expect_identical(dplyr::as_tibble(df), contributors(x))

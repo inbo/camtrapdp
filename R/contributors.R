@@ -31,7 +31,7 @@
 contributors <- function(x) {
   contributors <-
     x$contributors %>%
-    purrr::map(as.data.frame) %>%
+    purrr::map(as.data.frame, stringsAsFactors = FALSE) %>%
     purrr::list_rbind() %>%
     dplyr::as_tibble() %>%
     mutate_if_missing(

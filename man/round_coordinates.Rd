@@ -90,6 +90,7 @@ deployments(x_rounded)[c("latitude", "longitude", "coordinateUncertainty")]
 Other transformation functions: 
 \code{\link{merge_camtrapdp}()},
 \code{\link{shift_time}()},
+\code{\link{update_taxon}()},
 \code{\link{write_dwc}()},
 \code{\link{write_eml}()}
 }
