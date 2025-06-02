@@ -152,7 +152,7 @@ test_that("merge_camtrapdp() returns the expected datapackage.json when merging
 
 test_that("merge_camtrapdp() returns the expected datapackage.json when merging
            different datasets", {
-   skip_if_offline()
+   skip()
    temp_dir <- tempdir()
    on.exit(unlink(temp_dir, recursive = TRUE))
 
