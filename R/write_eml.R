@@ -73,8 +73,10 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   eml$dataset$title <- x$title
 
   # Set abstract, with optional extra paragraph
-  para <- x$description %>%
-    # Add <p></p> tags to each paragraph
+  para <-
+    # Split description per line, remove empty lines, wrap each line in <p></p>
+    unlist(strsplit(x$description, "<p>|</p>|\n")) %>%
+    purrr::discard(~ .x == "") %>%
     purrr::map_chr(~ paste0("<p>", ., "</p>"))
   if (derived_paragraph) {
     last_para <- paste0(
