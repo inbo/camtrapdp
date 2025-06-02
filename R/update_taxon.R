@@ -78,7 +78,7 @@ update_taxon <- function(x, from, to) {
   # Update taxa: remove "from", add "to"
   taxa <-
     taxa(x) %>%
-    dplyr::filter(scientificName != from) %>%
+    dplyr::filter(.data$scientificName != from) %>%
     dplyr::bind_rows(to)
   colnames(taxa) <- paste("taxon", colnames(taxa), sep = ".")
 
@@ -102,7 +102,7 @@ update_taxon <- function(x, from, to) {
   observations(x) <- observations
 
   # Return message
-  taxon <- taxa(x) %>% dplyr::filter(scientificName == to$scientificName)
+  taxon <- taxa(x) %>% dplyr::filter(.data$scientificName == to$scientificName)
   cli::cli_alert_info("Taxon {.val {from}} is replaced by:")
   cli::cli_dl(taxon)
   return(x)
