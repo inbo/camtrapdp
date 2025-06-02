@@ -52,6 +52,7 @@ deployments(x_shifted)[, c("deploymentID", "deploymentStart", "deploymentEnd")]
 Other transformation functions: 
 \code{\link{merge_camtrapdp}()},
 \code{\link{round_coordinates}()},
+\code{\link{update_taxon}()},
 \code{\link{write_dwc}()},
 \code{\link{write_eml}()}
 }
