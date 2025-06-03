@@ -39,7 +39,7 @@ It will then update the \code{taxonomic} scope in the metadata to the unique
 \code{\link[=taxa]{taxa()}} found in the data.
 }
 
-\section{eventIDs}{
+\section{Events}{
 
 
 Observations can contain classifications at two levels:
