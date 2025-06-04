@@ -282,10 +282,10 @@ write_dwc <- function(x, directory) {
       ),
       accessURI = .data$filePath,
       `dc:format` = .data$fileMediatype,
-      serviceExpectation = dplyr::if_else(
-        as.logical(.data$filePublic),
-        "online",
-        "authenticate"
+      serviceExpectation = dplyr::case_when(
+        !as.logical(.data$filePublic) ~ "authenticate",
+        stringr::str_detect(.data$filePath, "^http") ~ "online",
+        .default = "local"
       )
     ) %>%
     dplyr::select(
