@@ -25,20 +25,6 @@ standard.
 It currently supports versions 1.0 and 1.0.1 (latest).
 }
 
-\section{Taxonomic information}{
-
-
-Camtrap DP metadata has a \code{taxonomic} property that can contain extra
-information for each \code{scientificName} found in observations.
-Such information can include higher taxonomy (\code{family}, \code{order}, etc.) and
-vernacular names in multiple languages.
-
-The \code{read_camtrapdp()} function \strong{will automatically include this taxonomic
-information in observations}, as extra columns starting with \code{taxon.}.
-It will then update the \code{taxonomic} scope in the metadata to the unique
-\code{\link[=taxa]{taxa()}} found in the data.
-}
-
 \section{Events}{
 
 
@@ -57,6 +43,20 @@ media}, using \code{media.deploymentID = observations.deploymentID} and
 \verb{observations.eventStart <= media.timestamp <= observations.eventEnd}.
 Note that this can result in media being linked to multiple events (and thus
 being duplicated), for example when events and sub-events were defined.
+}
+
+\section{Taxonomic information}{
+
+
+Camtrap DP metadata has a \code{taxonomic} property that can contain extra
+information for each \code{scientificName} found in observations.
+Such information can include higher taxonomy (\code{family}, \code{order}, etc.) and
+vernacular names in multiple languages.
+
+The \code{read_camtrapdp()} function \strong{will automatically include this taxonomic
+information in observations}, as extra columns starting with \code{taxon.}.
+It will then update the \code{taxonomic} scope in the metadata to the unique
+\code{\link[=taxa]{taxa()}} found in the data.
 }
 
 \section{Spatial/temporal coverage}{

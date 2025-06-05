@@ -10,18 +10,6 @@
 #' standard.
 #' It currently supports versions 1.0 and 1.0.1 (latest).
 #'
-#' @section Taxonomic information:
-#'
-#' Camtrap DP metadata has a `taxonomic` property that can contain extra
-#' information for each `scientificName` found in observations.
-#' Such information can include higher taxonomy (`family`, `order`, etc.) and
-#' vernacular names in multiple languages.
-#'
-#' The `read_camtrapdp()` function **will automatically include this taxonomic
-#' information in observations**, as extra columns starting with `taxon.`.
-#' It will then update the `taxonomic` scope in the metadata to the unique
-#' [taxa()] found in the data.
-#'
 #' @section Events:
 #'
 #' Observations can contain classifications at two levels:
@@ -38,6 +26,18 @@
 #' `observations.eventStart <= media.timestamp <= observations.eventEnd`.
 #' Note that this can result in media being linked to multiple events (and thus
 #' being duplicated), for example when events and sub-events were defined.
+#'
+#' @section Taxonomic information:
+#'
+#' Camtrap DP metadata has a `taxonomic` property that can contain extra
+#' information for each `scientificName` found in observations.
+#' Such information can include higher taxonomy (`family`, `order`, etc.) and
+#' vernacular names in multiple languages.
+#'
+#' The `read_camtrapdp()` function **will automatically include this taxonomic
+#' information in observations**, as extra columns starting with `taxon.`.
+#' It will then update the `taxonomic` scope in the metadata to the unique
+#' [taxa()] found in the data.
 #'
 #' @section Spatial/temporal coverage:
 #'
