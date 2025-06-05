@@ -44,8 +44,8 @@
 #' Camtrap DP metadata has a `spatial` and `temporal` property that contains the
 #' spatial and temporal coverage of the package respectively.
 #'
-#' The `read_camtrapdp()` function **will automatically update the spatial and
-#' temporal scopes** in the metadata based on the data.
+#' The `read_camtrapdp()` function **will automatically update (or create) the
+#' spatial and temporal scopes** in the metadata based on the data.
 #' It also does this for the taxonomic scope (see higher).
 #'
 #' @section Additional resources:
@@ -128,6 +128,8 @@ read_camtrapdp <- function(file) {
         taxonomy,
         by = dplyr::join_by("scientificName" == "taxon.scientificName")
       )
+  } else {
+    x <- update_taxonomic(x)
   }
 
   # Update temporal and spatial scope in metadata

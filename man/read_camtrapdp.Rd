@@ -65,8 +65,8 @@ being duplicated), for example when events and sub-events were defined.
 Camtrap DP metadata has a \code{spatial} and \code{temporal} property that contains the
 spatial and temporal coverage of the package respectively.
 
-The \code{read_camtrapdp()} function \strong{will automatically update the spatial and
-temporal scopes} in the metadata based on the data.
+The \code{read_camtrapdp()} function \strong{will automatically update (or create) the
+spatial and temporal scopes} in the metadata based on the data.
 It also does this for the taxonomic scope (see higher).
 }
 
