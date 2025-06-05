@@ -57,3 +57,21 @@ test_that("read_camtrapdp() adds eventIDs to media", {
     nrow(dplyr::distinct(media(x), mediaID)),
   )
 })
+
+test_that("read_camtrapdp() creates scopes if missing", {
+  skip_if_offline()
+  temp_dir <- file.path(tempdir(), "no_scopes")
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  no_scopes <- frictionless::read_package(
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
+  )
+  no_scopes$spatial <- NULL
+  no_scopes$temporal <- NULL
+  no_scopes$taxonomic <- NULL
+  suppressMessages(frictionless::write_package(no_scopes, temp_dir))
+
+  x <- read_camtrapdp(file.path(temp_dir, "datapackage.json"))
+  expect_type(x$spatial, "list")
+  expect_type(x$temporal, "list")
+  expect_type(x$taxonomic, "list")
+})
