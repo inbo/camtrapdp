@@ -13,7 +13,7 @@ sensitive species and/or prevent theft of active cameras."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">camtrapdp</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,8 @@ coordinates and calculated <code>coordinateUncertainty</code> in deployments.</p
 
 
 <p>Rounding coordinates is a recommended method to generalize sensitive
-biodiversity information (see <a href="https://doi.org/10.15468/doc-5jp4-5g10#s-generalization" class="external-link">Section 4.2</a> in Chapman 2020).
+biodiversity information (see <a href="https://docs.gbif.org/sensitive-species-best-practices/master/en/#s-generalization" class="external-link">Section 4.2</a>
+in Chapman 2020).
 Use this function to do so for your data.
 Determine the category of sensitivity (see <a href="https://docs.gbif.org/sensitive-species-best-practices/master/en/#table-06" class="external-link">Section 2.2</a>
 in Chapman 2020) and choose the associated number of digits :</p><table class="table table"><tr><td>category</td><td>sensitivity</td><td>digits</td></tr><tr><td>category 1</td><td>extreme</td><td>(do not publish)</td></tr><tr><td>category 2</td><td>high</td><td>1</td></tr><tr><td>category 3</td><td>medium</td><td>2</td></tr><tr><td>category 4</td><td>low</td><td>3</td></tr><tr><td>not sensitive</td><td>not sensitive</td><td>all (do not use this function)</td></tr></table><p>The function will:</p><ol><li><p>Set the <code>coordinatePrecision</code> in the metadata (original values will be
@@ -82,8 +83,8 @@ overwritten):</p><table class="table table"><tr><td>digits</td><td>coordinatePre
 <li><p>Round all coordinates in the deployments to the selected number of digits.</p></li>
 <li><p>Update the <code>coordinateUncertainy</code> (in meters) in the deployments.
 This uncertainty is based on the number of digits and the latitude,
-following <a href="https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty" class="external-link">Table 3</a> in Chapman &amp;
-Wieczorek 2020:</p><table class="table table"><tr><td>digits</td><td>0° latitude</td><td>30° latitude</td><td>60° latitude</td><td>85° latitude</td></tr><tr><td>1</td><td>15691 m</td><td>14697 m</td><td>12461 m</td><td>11211 m</td></tr><tr><td>2</td><td>1570 m</td><td>1470 m</td><td>1246 m</td><td>1121 m</td></tr><tr><td>3</td><td>157 m</td><td>147 m</td><td>125 m</td><td>112 m</td></tr></table><p>If a <code>coordinatePrecision</code> is already present, the function will subtract
+following <a href="https://docs.gbif.org/georeferencing-best-practices/1.0/en/#table-uncertainty" class="external-link">Table 3</a>
+in Chapman &amp; Wieczorek 2020:</p><table class="table table"><tr><td>digits</td><td>0° latitude</td><td>30° latitude</td><td>60° latitude</td><td>85° latitude</td></tr><tr><td>1</td><td>15691 m</td><td>14697 m</td><td>12461 m</td><td>11211 m</td></tr><tr><td>2</td><td>1570 m</td><td>1470 m</td><td>1246 m</td><td>1121 m</td></tr><tr><td>3</td><td>157 m</td><td>147 m</td><td>125 m</td><td>112 m</td></tr></table><p>If a <code>coordinatePrecision</code> is already present, the function will subtract
 the <code>coordinateUncertainty</code> associated with it before setting a new
 uncertainty (e.g. <code>0.001</code> to <code>0.01</code> = <code>original value - 157 + 1570 m</code>).
 If <code>original value</code> is <code>NA</code>, the function will assume the coordinates
