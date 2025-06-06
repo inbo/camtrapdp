@@ -8,7 +8,8 @@ message: 'To cite package "camtrapdp" in publications use:'
 type: software
 license: MIT
 title: 'camtrapdp: Read and Manipulate Camera Trap Data Packages'
-version: 0.3.1
+version: 0.4.0
+doi: 10.32614/CRAN.package.camtrapdp
 abstract: Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP'
   (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data.
   With 'camtrapdp' you can read, filter and transform data (including to Darwin Core)
@@ -37,7 +38,7 @@ authors:
 repository: https://CRAN.R-project.org/package=camtrapdp
 repository-code: https://github.com/inbo/camtrapdp
 url: https://inbo.github.io/camtrapdp/
-date-released: '2024-07-05'
+date-released: '2025-06-06'
 contact:
 - family-names: Desmet
   given-names: Peter
@@ -52,6 +53,17 @@ keywords:
 - rstats
 references:
 - type: software
+  title: 'R: A Language and Environment for Statistical Computing'
+  notes: Depends
+  url: https://www.R-project.org/
+  authors:
+  - name: R Core Team
+  institution:
+    name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2025'
+  version: '>= 3.6.0'
+- type: software
   title: cli
   abstract: 'cli: Helpers for Developing Command Line Interfaces'
   notes: Imports
@@ -60,8 +72,9 @@ references:
   authors:
   - family-names: Csárdi
     given-names: Gábor
-    email: csardi.gabor@gmail.com
-  year: '2024'
+    email: gabor@posit.co
+  year: '2025'
+  doi: 10.32614/CRAN.package.cli
 - type: software
   title: dplyr
   abstract: 'dplyr: A Grammar of Data Manipulation'
@@ -85,7 +98,24 @@ references:
     given-names: Davis
     email: davis@posit.co
     orcid: https://orcid.org/0000-0003-4777-038X
-  year: '2024'
+  year: '2025'
+  doi: 10.32614/CRAN.package.dplyr
+- type: software
+  title: EML
+  abstract: 'EML: Read and Write Ecological Metadata Language Files'
+  notes: Imports
+  url: https://docs.ropensci.org/EML/
+  repository: https://CRAN.R-project.org/package=EML
+  authors:
+  - family-names: Boettiger
+    given-names: Carl
+    email: cboettig@gmail.com
+    orcid: https://orcid.org/0000-0002-1642-628X
+  - family-names: Jones
+    given-names: Matthew B.
+    orcid: https://orcid.org/0000-0003-0077-4738
+  year: '2025'
+  doi: 10.32614/CRAN.package.EML
 - type: software
   title: frictionless
   abstract: 'frictionless: Read and Write Frictionless Data Packages'
@@ -95,18 +125,27 @@ references:
   authors:
   - family-names: Desmet
     given-names: Peter
-    email: peter.desmet.work@gmail.com
+    email: peter.desmet@inbo.be
     orcid: https://orcid.org/0000-0002-8442-8025
+    affiliation: Research Institute for Nature and Forest (INBO)
   - family-names: Oldoni
     given-names: Damiano
     email: damiano.oldoni@inbo.be
     orcid: https://orcid.org/0000-0003-3445-7562
+    affiliation: Research Institute for Nature and Forest (INBO)
   - family-names: Huybrechts
     given-names: Pieter
     email: pieter.huybrechts@inbo.be
     orcid: https://orcid.org/0000-0002-6658-6062
-  version: '>= 1.1.0'
-  year: '2024'
+    affiliation: Research Institute for Nature and Forest (INBO)
+  - family-names: Govaert
+    given-names: Sanne
+    email: sanne.govaert@inbo.be
+    orcid: https://orcid.org/0000-0002-8939-1305
+    affiliation: Research Institute for Nature and Forest (INBO)
+  year: '2025'
+  doi: 10.32614/CRAN.package.frictionless
+  version: '>= 1.2.1'
 - type: software
   title: memoise
   abstract: 'memoise: ''Memoisation'' of Functions'
@@ -128,7 +167,8 @@ references:
   - family-names: Cook
     given-names: Daniel
     email: danielecook@gmail.com
-  year: '2024'
+  year: '2025'
+  doi: 10.32614/CRAN.package.memoise
 - type: software
   title: purrr
   abstract: 'purrr: Functional Programming Tools'
@@ -138,12 +178,13 @@ references:
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
     orcid: https://orcid.org/0000-0003-4757-117X
   - family-names: Henry
     given-names: Lionel
-    email: lionel@rstudio.com
-  year: '2024'
+    email: lionel@posit.co
+  year: '2025'
+  doi: 10.32614/CRAN.package.purrr
 - type: software
   title: readr
   abstract: 'readr: Read Rectangular Text Data'
@@ -160,7 +201,64 @@ references:
     given-names: Jennifer
     email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
-  year: '2024'
+  year: '2025'
+  doi: 10.32614/CRAN.package.readr
+- type: software
+  title: rlang
+  abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
+  notes: Imports
+  url: https://rlang.r-lib.org
+  repository: https://CRAN.R-project.org/package=rlang
+  authors:
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@posit.co
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2025'
+  doi: 10.32614/CRAN.package.rlang
+- type: software
+  title: stringr
+  abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
+  notes: Imports
+  url: https://stringr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=stringr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2025'
+  doi: 10.32614/CRAN.package.stringr
+- type: software
+  title: uuid
+  abstract: 'uuid: Tools for Generating and Handling of UUIDs'
+  notes: Imports
+  url: https://www.rforge.net/uuid
+  repository: https://CRAN.R-project.org/package=uuid
+  authors:
+  - family-names: Urbanek
+    given-names: Simon
+    email: Simon.Urbanek@r-project.org
+    orcid: https://orcid.org/0000-0003-2297-1732
+  - family-names: Ts'o
+    given-names: Theodore
+    email: tytso@thunk.org
+  year: '2025'
+  doi: 10.32614/CRAN.package.uuid
+- type: software
+  title: jsonlite
+  abstract: 'jsonlite: A Simple and Robust JSON Parser and Generator for R'
+  notes: Suggests
+  url: https://jeroen.r-universe.dev/jsonlite
+  repository: https://CRAN.R-project.org/package=jsonlite
+  authors:
+  - family-names: Ooms
+    given-names: Jeroen
+    email: jeroenooms@gmail.com
+    orcid: https://orcid.org/0000-0002-4035-0289
+  year: '2025'
+  doi: 10.32614/CRAN.package.jsonlite
 - type: software
   title: lubridate
   abstract: 'lubridate: Make Dealing with Dates a Little Easier'
@@ -175,7 +273,8 @@ references:
     given-names: Garrett
   - family-names: Wickham
     given-names: Hadley
-  year: '2024'
+  year: '2025'
+  doi: 10.32614/CRAN.package.lubridate
 - type: software
   title: testthat
   abstract: 'testthat: Unit Testing for R'
@@ -186,7 +285,8 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2024'
+  year: '2025'
+  doi: 10.32614/CRAN.package.testthat
   version: '>= 3.0.0'
 - type: software
   title: tibble
@@ -202,20 +302,22 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@rstudio.com
-  year: '2024'
+  year: '2025'
+  doi: 10.32614/CRAN.package.tibble
 - type: software
   title: xml2
   abstract: 'xml2: Parse XML'
   notes: Suggests
-  url: https://xml2.r-lib.org/
+  url: https://xml2.r-lib.org
   repository: https://CRAN.R-project.org/package=xml2
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@posit.co
   - family-names: Hester
     given-names: Jim
   - family-names: Ooms
     given-names: Jeroen
-  year: '2024'
+    email: jeroenooms@gmail.com
+  year: '2025'
+  doi: 10.32614/CRAN.package.xml2
 

@@ -4,17 +4,17 @@
   "identifier": "camtrapdp",
   "description": "Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP' (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data. With 'camtrapdp' you can read, filter and transform data (including to Darwin Core) before further analysis in e.g. 'camtraptor' or 'camtrapR'.",
   "name": "camtrapdp: Read and Manipulate Camera Trap Data Packages",
-  "relatedLink": ["https://inbo.github.io/camtrapdp/", "https://CRAN.R-project.org/package=camtrapdp"],
+  "relatedLink": "https://inbo.github.io/camtrapdp/",
   "codeRepository": "https://github.com/inbo/camtrapdp",
   "issueTracker": "https://github.com/inbo/camtrapdp/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.3 (2023-03-15)",
+  "runtimePlatform": "R version 4.5.0 (2025-04-11)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -60,7 +60,7 @@
   "funder": [
     {
       "@type": "Organization",
-      "name": "LifeWatch Belgium"
+      "name": "Research Foundation - Flanders"
     }
   ],
   "maintainer": [
@@ -73,6 +73,18 @@
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "jsonlite",
+      "name": "jsonlite",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
@@ -126,6 +138,12 @@
   "softwareRequirements": {
     "1": {
       "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.6.0"
+    },
+    "2": {
+      "@type": "SoftwareApplication",
       "identifier": "cli",
       "name": "cli",
       "provider": {
@@ -136,7 +154,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=cli"
     },
-    "2": {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
@@ -148,11 +166,23 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    "3": {
+    "4": {
+      "@type": "SoftwareApplication",
+      "identifier": "EML",
+      "name": "EML",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=EML"
+    },
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "frictionless",
       "name": "frictionless",
-      "version": ">= 1.1.0",
+      "version": ">= 1.2.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -161,7 +191,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=frictionless"
     },
-    "4": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "memoise",
       "name": "memoise",
@@ -173,7 +203,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=memoise"
     },
-    "5": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "purrr",
       "name": "purrr",
@@ -185,7 +215,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=purrr"
     },
-    "6": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "readr",
       "name": "readr",
@@ -197,12 +227,43 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=readr"
     },
+    "9": {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
+    "10": {
+      "@type": "SoftwareApplication",
+      "identifier": "stringr",
+      "name": "stringr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=stringr"
+    },
+    "11": {
+      "@type": "SoftwareApplication",
+      "identifier": "uuid",
+      "name": "uuid",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=uuid"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "193.695KB",
-  "releaseNotes": "https://github.com/inbo/camtrapdp/blob/master/NEWS.md",
-  "readme": "https://github.com/inbo/camtrapdp/blob/main/README.md",
-  "contIntegration": ["https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/inbo/camtrapdp/"],
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "keywords": ["camtrap-dp", "oscibio", "r", "r-package", "rstats"]
+  "fileSize": "652.254KB"
 }
