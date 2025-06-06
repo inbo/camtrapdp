@@ -60,6 +60,8 @@
 <h3 id="transforming-data-development-version">Transforming data<a class="anchor" aria-label="anchor" href="#transforming-data-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/write_dwc.html">write_dwc()</a></code> now adds <code>identificationVerificationStatus</code> for observations classified by humans with 100% certainty (<a href="https://github.com/inbo/camtrapdp/issues/158" class="external-link">#158</a>).</li>
+<li>
+<code><a href="../reference/write_dwc.html">write_dwc()</a></code> now allows to create occurrences from media-based observations (<a href="https://github.com/inbo/camtrapdp/issues/172" class="external-link">#172</a>).</li>
 <li>New <code><a href="../reference/write_eml.html">write_eml()</a></code> transforms Camtrap DP metadata to EML (<a href="https://github.com/inbo/camtrapdp/issues/99" class="external-link">#99</a>). This function is used by GBIF to create metadata for a dataset page.</li>
 <li>New <code><a href="../reference/merge_camtrapdp.html">merge_camtrapdp()</a></code> allows to merge two datasets (<a href="https://github.com/inbo/camtrapdp/issues/112" class="external-link">#112</a>). This can be useful to combine data from multiple studies.</li>
 <li>New <code><a href="../reference/round_coordinates.html">round_coordinates()</a></code> allows to fuzzy/generalize location information by rounding deployment <code>latitude</code> and <code>longitude</code>. It also updates <code>coordinateUncertainty</code> in the deployments and <code>coordinatePrecision</code> and spatial scope in the metadata (<a href="https://github.com/inbo/camtrapdp/issues/106" class="external-link">#106</a>).</li>
