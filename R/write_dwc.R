@@ -255,10 +255,10 @@ write_dwc <- function(x, directory) {
 
   # Create Audubon/Audiovisual Media Description extension
   if (observation_level == "media") {
-    drop_col <- "eventID" # To avoid duplicate columns after join
+    drop_col <- "eventID"
     join_by <- c("deploymentID", "mediaID")
   } else {
-    drop_col <- "mediaID" # To avoid duplicate columns after join
+    drop_col <- "mediaID"
     join_by <- c("deploymentID", "eventID")
   }
 
