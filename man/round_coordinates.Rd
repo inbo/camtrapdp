@@ -25,7 +25,8 @@ sensitive species and/or prevent theft of active cameras.
 \section{Details}{
 
 Rounding coordinates is a recommended method to generalize sensitive
-biodiversity information (see \href{https://doi.org/10.15468/doc-5jp4-5g10#s-generalization}{Section 4.2} in Chapman 2020).
+biodiversity information (see \href{https://docs.gbif.org/sensitive-species-best-practices/master/en/#s-generalization}{Section 4.2}
+in Chapman 2020).
 Use this function to do so for your data.
 Determine the category of sensitivity (see \href{https://docs.gbif.org/sensitive-species-best-practices/master/en/#table-06}{Section 2.2}
 in Chapman 2020) and choose the associated number of digits :\tabular{lll}{
@@ -51,8 +52,8 @@ overwritten):\tabular{ll}{
 \item Round all coordinates in the deployments to the selected number of digits.
 \item Update the \code{coordinateUncertainy} (in meters) in the deployments.
 This uncertainty is based on the number of digits and the latitude,
-following \href{https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty}{Table 3} in Chapman &
-Wieczorek 2020:\tabular{lllll}{
+following \href{https://docs.gbif.org/georeferencing-best-practices/1.0/en/#table-uncertainty}{Table 3}
+in Chapman & Wieczorek 2020:\tabular{lllll}{
    digits \tab 0° latitude \tab 30° latitude \tab 60° latitude \tab 85° latitude \cr
    1 \tab 15691 m \tab 14697 m \tab 12461 m \tab 11211 m \cr
    2 \tab 1570 m \tab 1470 m \tab 1246 m \tab 1121 m \cr

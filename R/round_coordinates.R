@@ -15,7 +15,8 @@
 #' @section Details:
 #' Rounding coordinates is a recommended method to generalize sensitive
 #' biodiversity information (see [Section 4.2](
-#' https://doi.org/10.15468/doc-5jp4-5g10#s-generalization) in Chapman 2020).
+#' https://docs.gbif.org/sensitive-species-best-practices/master/en/#s-generalization)
+#'  in Chapman 2020).
 #' Use this function to do so for your data.
 #' Determine the category of sensitivity (see [Section 2.2](
 #' https://docs.gbif.org/sensitive-species-best-practices/master/en/#table-06)
@@ -45,8 +46,8 @@
 #' 3. Update the `coordinateUncertainy` (in meters) in the deployments.
 #'     This uncertainty is based on the number of digits and the latitude,
 #'     following [Table 3](
-#'     https://doi.org/10.15468/doc-gg7h-s853#table-uncertainty) in Chapman &
-#'     Wieczorek 2020:
+#'     https://docs.gbif.org/georeferencing-best-practices/1.0/en/#table-uncertainty)
+#'     in Chapman & Wieczorek 2020:
 #'
 #'     digits | 0° latitude | 30° latitude | 60° latitude | 85° latitude
 #'     --- | --- | --- | --- | ---
