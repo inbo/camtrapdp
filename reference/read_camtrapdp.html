@@ -68,20 +68,6 @@ standard.
 It currently supports versions 1.0 and 1.0.1 (latest).</p>
     </div>
     <div class="section level2">
-    <h2 id="taxonomic-information">Taxonomic information<a class="anchor" aria-label="anchor" href="#taxonomic-information"></a></h2>
-
-
-
-<p>Camtrap DP metadata has a <code>taxonomic</code> property that can contain extra
-information for each <code>scientificName</code> found in observations.
-Such information can include higher taxonomy (<code>family</code>, <code>order</code>, etc.) and
-vernacular names in multiple languages.</p>
-<p>The <code>read_camtrapdp()</code> function <strong>will automatically include this taxonomic
-information in observations</strong>, as extra columns starting with <code>taxon.</code>.
-It will then update the <code>taxonomic</code> scope in the metadata to the unique
-<code><a href="taxa.html">taxa()</a></code> found in the data.</p>
-    </div>
-    <div class="section level2">
     <h2 id="events">Events<a class="anchor" aria-label="anchor" href="#events"></a></h2>
 
 
@@ -99,14 +85,28 @@ Note that this can result in media being linked to multiple events (and thus
 being duplicated), for example when events and sub-events were defined.</p>
     </div>
     <div class="section level2">
+    <h2 id="taxonomic-information">Taxonomic information<a class="anchor" aria-label="anchor" href="#taxonomic-information"></a></h2>
+
+
+
+<p>Camtrap DP metadata has a <code>taxonomic</code> property that can contain extra
+information for each <code>scientificName</code> found in observations.
+Such information can include higher taxonomy (<code>family</code>, <code>order</code>, etc.) and
+vernacular names in multiple languages.</p>
+<p>The <code>read_camtrapdp()</code> function <strong>will automatically include this taxonomic
+information in observations</strong>, as extra columns starting with <code>taxon.</code>.
+It will then update the <code>taxonomic</code> scope in the metadata to the unique
+<code><a href="taxa.html">taxa()</a></code> found in the data.</p>
+    </div>
+    <div class="section level2">
     <h2 id="spatial-temporal-coverage">Spatial/temporal coverage<a class="anchor" aria-label="anchor" href="#spatial-temporal-coverage"></a></h2>
 
 
 
 <p>Camtrap DP metadata has a <code>spatial</code> and <code>temporal</code> property that contains the
 spatial and temporal coverage of the package respectively.</p>
-<p>The <code>read_camtrapdp()</code> function <strong>will automatically update the spatial and
-temporal scopes</strong> in the metadata based on the data.
+<p>The <code>read_camtrapdp()</code> function <strong>will automatically update (or create) the
+spatial and temporal scopes</strong> in the metadata based on the data.
 It also does this for the taxonomic scope (see higher).</p>
     </div>
     <div class="section level2">
