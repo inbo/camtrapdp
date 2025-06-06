@@ -10,18 +10,6 @@
 #' standard.
 #' It currently supports versions 1.0 and 1.0.1 (latest).
 #'
-#' @section Taxonomic information:
-#'
-#' Camtrap DP metadata has a `taxonomic` property that can contain extra
-#' information for each `scientificName` found in observations.
-#' Such information can include higher taxonomy (`family`, `order`, etc.) and
-#' vernacular names in multiple languages.
-#'
-#' The `read_camtrapdp()` function **will automatically include this taxonomic
-#' information in observations**, as extra columns starting with `taxon.`.
-#' It will then update the `taxonomic` scope in the metadata to the unique
-#' [taxa()] found in the data.
-#'
 #' @section Events:
 #'
 #' Observations can contain classifications at two levels:
@@ -39,13 +27,25 @@
 #' Note that this can result in media being linked to multiple events (and thus
 #' being duplicated), for example when events and sub-events were defined.
 #'
+#' @section Taxonomic information:
+#'
+#' Camtrap DP metadata has a `taxonomic` property that can contain extra
+#' information for each `scientificName` found in observations.
+#' Such information can include higher taxonomy (`family`, `order`, etc.) and
+#' vernacular names in multiple languages.
+#'
+#' The `read_camtrapdp()` function **will automatically include this taxonomic
+#' information in observations**, as extra columns starting with `taxon.`.
+#' It will then update the `taxonomic` scope in the metadata to the unique
+#' [taxa()] found in the data.
+#'
 #' @section Spatial/temporal coverage:
 #'
 #' Camtrap DP metadata has a `spatial` and `temporal` property that contains the
 #' spatial and temporal coverage of the package respectively.
 #'
-#' The `read_camtrapdp()` function **will automatically update the spatial and
-#' temporal scopes** in the metadata based on the data.
+#' The `read_camtrapdp()` function **will automatically update (or create) the
+#' spatial and temporal scopes** in the metadata based on the data.
 #' It also does this for the taxonomic scope (see higher).
 #'
 #' @section Additional resources:
@@ -128,6 +128,8 @@ read_camtrapdp <- function(file) {
         taxonomy,
         by = dplyr::join_by("scientificName" == "taxon.scientificName")
       )
+  } else {
+    x <- update_taxonomic(x)
   }
 
   # Update temporal and spatial scope in metadata
