@@ -16,6 +16,7 @@ A single Camera Trap Data Package object that is the combination of
 }
 \description{
 Merges two Camera Trap Data Package objects into one.
+Repeat to merge multiple datasets.
 }
 \section{Transformation details}{
 

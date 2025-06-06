@@ -1,6 +1,7 @@
 #' Merge two Camera Trap Data Packages
 #'
 #' Merges two Camera Trap Data Package objects into one.
+#' Repeat to merge multiple datasets.
 #'
 #' @param x,y Camera Trap Data Package objects, as returned by
 #'  [read_camtrapdp()].

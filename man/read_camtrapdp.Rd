@@ -25,20 +25,6 @@ standard.
 It currently supports versions 1.0 and 1.0.1 (latest).
 }
 
-\section{Taxonomic information}{
-
-
-Camtrap DP metadata has a \code{taxonomic} property that can contain extra
-information for each \code{scientificName} found in observations.
-Such information can include higher taxonomy (\code{family}, \code{order}, etc.) and
-vernacular names in multiple languages.
-
-The \code{read_camtrapdp()} function \strong{will automatically include this taxonomic
-information in observations}, as extra columns starting with \code{taxon.}.
-It will then update the \code{taxonomic} scope in the metadata to the unique
-\code{\link[=taxa]{taxa()}} found in the data.
-}
-
 \section{Events}{
 
 
@@ -59,14 +45,28 @@ Note that this can result in media being linked to multiple events (and thus
 being duplicated), for example when events and sub-events were defined.
 }
 
+\section{Taxonomic information}{
+
+
+Camtrap DP metadata has a \code{taxonomic} property that can contain extra
+information for each \code{scientificName} found in observations.
+Such information can include higher taxonomy (\code{family}, \code{order}, etc.) and
+vernacular names in multiple languages.
+
+The \code{read_camtrapdp()} function \strong{will automatically include this taxonomic
+information in observations}, as extra columns starting with \code{taxon.}.
+It will then update the \code{taxonomic} scope in the metadata to the unique
+\code{\link[=taxa]{taxa()}} found in the data.
+}
+
 \section{Spatial/temporal coverage}{
 
 
 Camtrap DP metadata has a \code{spatial} and \code{temporal} property that contains the
 spatial and temporal coverage of the package respectively.
 
-The \code{read_camtrapdp()} function \strong{will automatically update the spatial and
-temporal scopes} in the metadata based on the data.
+The \code{read_camtrapdp()} function \strong{will automatically update (or create) the
+spatial and temporal scopes} in the metadata based on the data.
 It also does this for the taxonomic scope (see higher).
 }
 
