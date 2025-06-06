@@ -20,6 +20,7 @@
 ## Transforming data
 
 * `write_dwc()` now adds `identificationVerificationStatus` for observations classified by humans with 100% certainty (#158).
+* `write_dwc()` now allows to create occurrences from media-based observations (#172).
 * New `write_eml()` transforms Camtrap DP metadata to EML (#99). This function is used by GBIF to create metadata for a dataset page.
 * New `merge_camtrapdp()` allows to merge two datasets (#112). This can be useful to combine data from multiple studies.
 * New `round_coordinates()` allows to fuzzy/generalize location information by rounding deployment `latitude` and `longitude`. It also updates `coordinateUncertainty` in the deployments and `coordinatePrecision` and spatial scope in the metadata (#106).

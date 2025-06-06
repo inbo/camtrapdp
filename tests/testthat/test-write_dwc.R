@@ -100,6 +100,29 @@ test_that("write_dwc() returns the expected Darwin Core mapping for the example
   expect_snapshot_file(file.path(temp_dir, "meta.xml"))
 })
 
+test_that("write_dwc() can write media-based occurrences", {
+  skip_if_offline()
+  x <- example_dataset()
+  x$gbifIngestion$observationLevel <- "media"
+  temp_dir <- tempdir()
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  result <- suppressMessages(write_dwc(x, temp_dir))
+  file.rename(
+    file.path(temp_dir, "occurrence.csv"),
+    file.path(temp_dir, "occurrence_media_based.csv")
+  )
+  file.rename(
+    file.path(temp_dir, "multimedia.csv"),
+    file.path(temp_dir, "multimedia_media_based.csv")
+  )
+
+  expect_snapshot_file(file.path(temp_dir, "occurrence_media_based.csv"))
+  expect_snapshot_file(file.path(temp_dir, "multimedia_media_based.csv"))
+  # Expect as many occurrences as media
+  expect_identical(nrow(result$occurrence), nrow(result$multimedia))
+  expect_in("07840dcc_1", result$occurrence$occurrenceID)
+})
+
 test_that("write_dwc() returns files that comply with the info in meta.xml", {
   skip_if_offline()
   x <- example_dataset()

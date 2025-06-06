@@ -21,9 +21,13 @@
 #' Key features of the Darwin Core transformation:
 #' - The Occurrence core contains one row per observation
 #'   (`dwc:occurrenceID = observationID`).
-#' - Only observations with `observationType = "animal"` and
-#'   `observationLevel = "event"` are included, thus excluding observations that
-#'   are (of) humans, vehicles, blanks, unknowns, unclassified and media-based.
+#' - Only observations with `observationType = "animal"` and are included, thus
+#'   excluding observations that are (of) humans, vehicles, blanks, unknowns and
+#'   unclassified.
+#' - Either observations with `observationLevel = "event"` or `"media"` are
+#'   used, never both to avoid duplicates.
+#'   The level be defined with `x$gbifIngestion$observationLevel`,
+#'   with `"event"` as default.
 #' - Observations classified by humans with 100% certainty get a
 #'   `dwc:identificationVerificationStatus = "verified using recorded media"`.
 #' - Deployment information is included in the Occurrence core, such as
@@ -76,14 +80,19 @@ write_dwc <- function(x, directory) {
     purrr::pluck(x, "coordinatePrecision", .default = NA_character_)
 
   # Filter dataset on observations (also affects media)
+  observation_level <- dplyr::if_else(
+    x$gbifIngestion$observationLevel %||% "" == "media", "media", "event"
+  )
   x <- filter_observations(
     x,
-    .data$observationLevel == "event",
+    .data$observationLevel == observation_level,
     .data$observationType == "animal"
   )
 
   # Start transformation
-  cli::cli_h2("Transforming data to Darwin Core")
+  cli::cli_h2(
+    "Transforming data to Darwin Core ({observation_level}-based observations)"
+  )
 
   # Read data and add optional columns that are used in transformation
  deployments <- deployments(x)
@@ -245,12 +254,20 @@ write_dwc <- function(x, directory) {
     )
 
   # Create Audubon/Audiovisual Media Description extension
+  if (observation_level == "media") {
+    drop_col <- "eventID"
+    join_by <- c("deploymentID", "mediaID")
+  } else {
+    drop_col <- "mediaID"
+    join_by <- c("deploymentID", "eventID")
+  }
+
   multimedia <-
     observations %>%
-    dplyr::select(-"mediaID") %>%
+    dplyr::select(-drop_col) %>%
     dplyr::left_join(
       media,
-      by = c("deploymentID", "eventID"),
+      by = join_by,
       relationship = "many-to-many" # Silence warning
     ) %>%
     dplyr::left_join(
