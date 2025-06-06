@@ -254,12 +254,20 @@ write_dwc <- function(x, directory) {
     )
 
   # Create Audubon/Audiovisual Media Description extension
+  if (observation_level == "media") {
+    drop_col <- "eventID" # To avoid duplicate columns after join
+    join_by <- c("deploymentID", "mediaID")
+  } else {
+    drop_col <- "mediaID" # To avoid duplicate columns after join
+    join_by <- c("deploymentID", "eventID")
+  }
+
   multimedia <-
     observations %>%
-    dplyr::select(-"mediaID") %>%
+    dplyr::select(-drop_col) %>%
     dplyr::left_join(
       media,
-      by = c("deploymentID", "eventID"),
+      by = join_by,
       relationship = "many-to-many" # Silence warning
     ) %>%
     dplyr::left_join(
