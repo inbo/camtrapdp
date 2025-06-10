@@ -8,7 +8,7 @@
 #' The `read_camtrapdp()` function supports older versions of Camtrap DP and
 #' will automatically **upgrade** such datasets to the latest version of the
 #' standard.
-#' It currently supports versions 1.0 and 1.0.1 (latest).
+#' It currently supports versions 1.0, 1.0.1 and 1.0.2 (latest).
 #'
 #' @section Events:
 #'
@@ -73,7 +73,7 @@ read_camtrapdp <- function(file) {
 
   # Check version
   version <- version(package)
-  supported_versions <- c("1.0", "1.0.1")
+  supported_versions <- c("1.0", "1.0.1", "1.0.2")
   if (!version %in% supported_versions) {
     cli::cli_abort(
       c(
@@ -100,7 +100,7 @@ read_camtrapdp <- function(file) {
     frictionless::read_resource(package, "observations")
 
   # Upgrade
-  x <- upgrade(x, upgrade_to = "1.0.1")
+  x <- upgrade(x, upgrade_to = "1.0.2")
 
   # Add eventID to media
   media(x) <-

@@ -25,20 +25,25 @@ test_that("read_camtrapdp() returns error on unsupported Camtrap DP version", {
   )
 })
 
-test_that("read_camtrapdp() upgrades 1.0", {
+test_that("read_camtrapdp() upgrades 1.0 and 1.0.1", {
   skip_if_offline()
-  camtrapdp_1.0 <-
+  camtrapdp_1.0 <- read_camtrapdp(
     "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
-  x <- read_camtrapdp(camtrapdp_1.0)
-  expect_identical(version(x), "1.0.1")
+  )
+  camtrapdp_1.0.1 <- read_camtrapdp(
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/example/datapackage.json"
+  )
+
+  expect_identical(version(camtrapdp_1.0), "1.0.2")
+  expect_identical(version(camtrapdp_1.0.1), "1.0.2")
 })
 
-test_that("read_camtrapdp() does not upgrade 1.0.1", {
+test_that("read_camtrapdp() does not upgrade 1.0.2", {
   skip_if_offline()
-  camtrapdp_1.0.1 <-
-    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/example/datapackage.json"
-  x <- read_camtrapdp(camtrapdp_1.0.1)
-  expect_identical(version(x), "1.0.1")
+  camtrapdp_1.0.2 <- read_camtrapdp(
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/example/datapackage.json"
+  )
+  expect_identical(version(camtrapdp_1.0.2), "1.0.2")
 })
 
 test_that("read_camtrapdp() adds eventIDs to media", {
