@@ -264,7 +264,7 @@ write_dwc <- function(x, directory) {
 
   multimedia <-
     observations %>%
-    dplyr::select(-drop_col) %>%
+    dplyr::select(-dplyr::all_of(drop_col)) %>%
     dplyr::left_join(
       media,
       by = join_by,
