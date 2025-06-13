@@ -38,18 +38,18 @@ test_that("write_camtrapdp() writes the unaltered example dataset as is", {
 
   # datapackage.json
   original_datapackage <- jsonlite::fromJSON(
-    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/example/datapackage.json",
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/example/datapackage.json",
     simplifyDataFrame = FALSE, simplifyVector = TRUE
-    )
+  )
   written_datapackage <- jsonlite::fromJSON(
     file.path(temp_dir, "datapackage.json"),
     simplifyDataFrame = FALSE, simplifyVector = TRUE
-    )
+  )
   expect_identical(written_datapackage, original_datapackage)
 
   # deployments.csv
   original_deployments <- suppressMessages(readr::read_delim(
-    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/example/deployments.csv",
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/example/deployments.csv",
     delim = ","
   ))
   written_deployments <- suppressMessages(readr::read_delim(
@@ -59,7 +59,7 @@ test_that("write_camtrapdp() writes the unaltered example dataset as is", {
 
   # media.csv
   original_media <- suppressMessages(readr::read_delim(
-    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/example/media.csv",
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/example/media.csv",
     delim = ","
   ))
   written_media <- suppressMessages(readr::read_delim(
@@ -69,7 +69,7 @@ test_that("write_camtrapdp() writes the unaltered example dataset as is", {
 
   # observations.csv
   original_observations <- suppressMessages(readr::read_delim(
-    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.1/example/observations.csv",
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/example/observations.csv",
     delim = ","
   ))
   written_observations <- suppressMessages(readr::read_delim(

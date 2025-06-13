@@ -22,7 +22,7 @@ dataset into memory.
 The \code{read_camtrapdp()} function supports older versions of Camtrap DP and
 will automatically \strong{upgrade} such datasets to the latest version of the
 standard.
-It currently supports versions 1.0 and 1.0.1 (latest).
+It currently supports versions 1.0, 1.0.1 and 1.0.2 (latest).
 }
 
 \section{Events}{

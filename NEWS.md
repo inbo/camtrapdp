@@ -1,5 +1,7 @@
 # camtrapdp (development version)
 
+* `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.2 (#183).
+
 # camtrapdp 0.4.0
 
 ## Reading and writing data
