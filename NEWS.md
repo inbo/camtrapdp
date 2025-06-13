@@ -1,3 +1,5 @@
+# camtrapdp (development version)
+
 # camtrapdp 0.4.0
 
 ## Reading and writing data
