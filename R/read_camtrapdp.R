@@ -64,7 +64,7 @@
 #' @family read functions
 #' @export
 #' @examples
-#' file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
+#' file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/example/datapackage.json"
 #' x <- read_camtrapdp(file)
 #' x
 read_camtrapdp <- function(file) {
