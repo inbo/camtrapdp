@@ -119,3 +119,33 @@ create_eml_contributors <- function(contributors) {
     onlineUrl = .x$path
   ))
 }
+
+#' Recursively remove NA values from a nested list
+#'
+#' Removes all elements that are NA at any depth. It works recursively, so any
+#' NA inside sublists will also be removed.
+#'
+#' @param nested_list A (possibly nested) list to clean of NA values.
+#' @return A list of the same structure as nested_list, but with all NA elements
+#' removed.
+#' @family helper functions
+#' @noRd
+#' @examples
+#' test_list <- list(
+#'   a = NA,
+#'   b = list(
+#'     c = 1,
+#'     d = NA
+#'   ),
+#'   e = 2
+#' )
+remove_na_recursive <- function(nested_list) {
+  if (is.list(nested_list)) {
+    purrr::map(nested_list, remove_na_recursive) %>%
+      purrr::compact()
+  } else if (is.na(nested_list)) {
+    NULL
+  } else {
+    nested_list
+  }
+}
