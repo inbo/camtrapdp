@@ -58,7 +58,7 @@ write_camtrapdp <- function(x, directory, ...) {
   x$data <- NULL
 
   # Remove NA values in x$taxonomic to avoid validation error in frictionless
-  x$taxonomic <- purrr::map(x$taxonomic, ~ .x[!is.na(.x)])
+  x$taxonomic <- purrr::map(x$taxonomic, remove_na_recursive)
 
   # Write files
   frictionless::write_package(x, directory, ...)
