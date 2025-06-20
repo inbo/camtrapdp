@@ -1,6 +1,7 @@
 # camtrapdp (development version)
 
 * `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.2 (#183).
+* `write_camtrapdp()` now removes NA values nested in `x$taxonomic` (#186).
 
 # camtrapdp 0.4.0
 
