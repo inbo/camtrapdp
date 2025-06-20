@@ -91,3 +91,24 @@ test_that("write_camtrapdp() can write compressed files", {
       "observations.csv.gz")
   )
 })
+
+test_that("write_camtrapdp() returns the expected json when elements in
+          x$taxonomic are missing", {
+  skip_if_offline()
+  x <- example_dataset()
+  temp_dir <- tempdir()
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  x_updated <- x %>%
+    update_taxon(
+      from = "Anas platyrhynchos",
+      to = list(
+        scientificName = "Anas platyrhynchos",
+        taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+        taxonRank = "species",
+        vernacularNames.nld = "wilde eend"
+      )
+    )
+  write_camtrapdp(x_updated, temp_dir)
+
+  expect_snapshot_file(file.path(temp_dir, "datapackage.json"))
+})
