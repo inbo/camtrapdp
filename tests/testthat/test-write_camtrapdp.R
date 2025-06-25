@@ -92,12 +92,14 @@ test_that("write_camtrapdp() can write compressed files", {
   )
 })
 
-test_that("write_camtrapdp() removes NA elements in `x$taxonomic` and
-          `x$contributors`", {
+test_that("write_camtrapdp() returns the expected datapackage.json for the
+           example dataset", {
   skip_if_offline()
   x <- example_dataset()
   temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
+
+  # Adapt x$taxonomic and x$contributors to test for bug #185
   x_updated <- x %>%
     update_taxon(
       from = "Anas platyrhynchos",
