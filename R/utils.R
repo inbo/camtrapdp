@@ -120,32 +120,29 @@ create_eml_contributors <- function(contributors) {
   ))
 }
 
-#' Recursively remove NA values from a nested list
+#' Clean list
 #'
-#' Removes all elements that are NA at any depth. It works recursively, so any
-#' NA inside sublists will also be removed.
+#' Removes all elements from a list that meet a criterion function, e.g.
+#' [is.null()] for empty elements.
+#' Removal can be recursive to guarantee elements are removed at any level.
+#' Function is copied and adapted from `rlist::list.clean()` (MIT licensed), to
+#' avoid requiring full `rlist` dependency.
 #'
-#' @param nested_list A (possibly nested) list to clean of NA values.
-#' @return A list of the same structure as nested_list, but with all NA elements
-#' removed.
+#' @param x List or vector.
+#' @param fun Function returning `TRUE` for elements that should be removed.
+#' @param recursive Whether list should be cleaned recursively.
+#' @return Cleaned list.
 #' @family helper functions
 #' @noRd
-#' @examples
-#' test_list <- list(
-#'   a = NA,
-#'   b = list(
-#'     c = 1,
-#'     d = NA
-#'   ),
-#'   e = 2
-#' )
-remove_na_recursive <- function(nested_list) {
-  if (is.list(nested_list)) {
-    purrr::map(nested_list, remove_na_recursive) %>%
-      purrr::compact()
-  } else if (is.na(nested_list)) {
-    NULL
-  } else {
-    nested_list
+clean_list <- function(x, fun = is.null, recursive = FALSE) {
+  if (recursive) {
+    x <- lapply(x, function(item) {
+      if (is.list(item)) {
+        clean_list(item, fun, recursive = TRUE)
+      } else {
+        item
+      }
+    })
   }
+  "[<-"(x, vapply(x, fun, logical(1L)), NULL)
 }
