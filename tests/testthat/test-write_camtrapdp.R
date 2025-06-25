@@ -108,6 +108,8 @@ test_that("write_camtrapdp() returns the expected json when elements in
         vernacularNames.nld = "wilde eend"
       )
     )
+
+  contributors(x_updated) <- contributors(x)
   write_camtrapdp(x_updated, temp_dir)
 
   expect_snapshot_file(file.path(temp_dir, "datapackage.json"))

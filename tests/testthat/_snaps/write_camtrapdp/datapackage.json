@@ -47,6 +47,8 @@
   "contributors": [
     {
       "title": "Axel Neukermans",
+      "firstName": "Axel",
+      "lastName": "Neukermans",
       "email": "axel.neukermans@inbo.be",
       "path": "https://orcid.org/0000-0003-0272-9180",
       "role": "contributor",
@@ -54,16 +56,22 @@
     },
     {
       "title": "Danny Van der beeck",
+      "firstName": "Danny",
+      "lastName": "Van der beeck",
       "email": "daniel.vanderbeeck@gmail.com"
     },
     {
       "title": "Emma Cartuyvels",
+      "firstName": "Emma",
+      "lastName": "Cartuyvels",
       "email": "emma.cartuyvels@inbo.be",
       "role": "principalInvestigator",
       "organization": "Research Institute for Nature and Forest (INBO)"
     },
     {
       "title": "Peter Desmet",
+      "firstName": "Peter",
+      "lastName": "Desmet",
       "email": "peter.desmet@inbo.be",
       "path": "https://orcid.org/0000-0002-8442-8025",
       "role": "contact",
