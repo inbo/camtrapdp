@@ -63,6 +63,11 @@ write_camtrapdp <- function(x, directory, ...) {
     function(x) any(is.na(x)) || length(x) == 0L,
     recursive = TRUE
   )
+  x$contributors <- clean_list(
+    x$contributors,
+    function(x) any(is.na(x)) || length(x) == 0L,
+    recursive = TRUE
+  )
 
   # Write files
   frictionless::write_package(x, directory, ...)
