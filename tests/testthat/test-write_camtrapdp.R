@@ -92,8 +92,8 @@ test_that("write_camtrapdp() can write compressed files", {
   )
 })
 
-test_that("write_camtrapdp() returns the expected json when elements in
-          x$taxonomic are missing", {
+test_that("write_camtrapdp() removes NA elements in `x$taxonomic` and
+          `x$contributors`", {
   skip_if_offline()
   x <- example_dataset()
   temp_dir <- tempdir()
@@ -108,7 +108,6 @@ test_that("write_camtrapdp() returns the expected json when elements in
         vernacularNames.nld = "wilde eend"
       )
     )
-
   contributors(x_updated) <- contributors(x)
   write_camtrapdp(x_updated, temp_dir)
 
