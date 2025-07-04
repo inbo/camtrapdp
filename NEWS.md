@@ -1,7 +1,7 @@
 # camtrapdp (development version)
 
 * `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.2 (#183).
-* `write_camtrapdp()` now removes NA values nested in `x$taxonomic` and `x$contributors` (#186).
+* `write_camtrapdp()` now removes properties with `NA` values from `x$taxonomic` and `x$contributors` which caused `datapackage.json` to be invalid (#186).
 
 # camtrapdp 0.4.0
 
