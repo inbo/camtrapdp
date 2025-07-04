@@ -99,19 +99,19 @@ test_that("write_camtrapdp() returns the expected datapackage.json for the
   temp_dir <- tempdir()
   on.exit(unlink(temp_dir, recursive = TRUE))
 
-  # Adapt x$taxonomic and x$contributors to test for bug #185
-  x_updated <- x %>%
+  # Adapt x$taxonomic and x$contributors to test for https://github.com/inbo/camtrapdp/issues/185
+  x <- x %>%
     update_taxon(
       from = "Anas platyrhynchos",
       to = list(
         scientificName = "Anas platyrhynchos",
         taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
         taxonRank = "species",
-        vernacularNames.nld = "wilde eend"
+        vernacularNames.nld = "wilde eend" # Assigns NA for vernacularNames.eng
       )
     )
-  contributors(x_updated) <- contributors(x)
-  write_camtrapdp(x_updated, temp_dir)
+  contributors(x) <- contributors(x) # Assigns NA for e.g. firstName of INBO
+  write_camtrapdp(x, temp_dir)
 
   expect_snapshot_file(file.path(temp_dir, "datapackage.json"))
 })
