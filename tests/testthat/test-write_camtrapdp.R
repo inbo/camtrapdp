@@ -91,3 +91,27 @@ test_that("write_camtrapdp() can write compressed files", {
       "observations.csv.gz")
   )
 })
+
+test_that("write_camtrapdp() returns the expected datapackage.json for the
+           example dataset", {
+  skip_if_offline()
+  x <- example_dataset()
+  temp_dir <- tempdir()
+  on.exit(unlink(temp_dir, recursive = TRUE))
+
+  # Adapt x$taxonomic and x$contributors to test for https://github.com/inbo/camtrapdp/issues/185
+  x <- x %>%
+    update_taxon(
+      from = "Anas platyrhynchos",
+      to = list(
+        scientificName = "Anas platyrhynchos",
+        taxonID = "https://www.checklistbank.org/dataset/COL2023/taxon/DGP6",
+        taxonRank = "species",
+        vernacularNames.nld = "wilde eend" # Assigns NA for vernacularNames.eng
+      )
+    )
+  contributors(x) <- contributors(x) # Assigns NA for e.g. firstName of INBO
+  write_camtrapdp(x, temp_dir)
+
+  expect_snapshot_file(file.path(temp_dir, "datapackage.json"))
+})

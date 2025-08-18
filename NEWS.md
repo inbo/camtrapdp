@@ -1,6 +1,7 @@
 # camtrapdp (development version)
 
 * `read_camtrapdp()` now upgrades datasets to Camtrap DP 1.0.2 (#183).
+* `write_camtrapdp()` now removes properties with `NA` values from `x$taxonomic` and `x$contributors` which caused `datapackage.json` to be invalid (#186).
 * `write_eml()`'s derived paragraph is now formatted as DocBook rather than HTML (#188).
 
 # camtrapdp 0.4.0
