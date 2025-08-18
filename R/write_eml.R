@@ -77,10 +77,9 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
 
   # Set abstract, with optional extra paragraph
   para <-
-    # Split description per line, remove empty lines, wrap each line in <p></p>
+    # Split description per line/<p>, remove empty lines, assign as <para>s
     unlist(strsplit(x$description, "<p>|</p>|\n")) %>%
-    purrr::discard(~ .x == "") %>%
-    purrr::map_chr(~ paste0("<p>", ., "</p>"))
+    purrr::discard(~ .x == "")
   if (derived_paragraph) {
     last_para <- paste0(
       "Data have been standardized to Darwin Core using the ",
