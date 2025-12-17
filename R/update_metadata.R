@@ -95,7 +95,7 @@ update_taxonomic <- function(x) {
       vernacularNames <-
         current_row %>%
         dplyr::select(dplyr::starts_with("vernacularNames")) %>%
-        dplyr::rename_with(~ sub("^vernacularNames.", "", .x)) %>%
+        dplyr::rename_with(~ stringr::str_remove(.x, "^vernacularNames\\.")) %>%
         as.list()
 
       # Append to taxonomic list
