@@ -78,13 +78,12 @@ read_camtrapdp <- function(file) {
   if (!version %in% supported_versions) {
     cli::cli_abort(
       c(
-        "{.val {version}} is not a supported Camtrap DP version. If you are
-        using a newer version of the Camtrap DP standard, please consider
-        updating the camtrapdp package to the latest version.",
-        "i" = "You are using camtrapdp r package version
-        {.val {camtrapdp_version}}.",
-        "i" = "Supported Camtrap DP standard version{?s}:
-        {.val {supported_versions}}."
+        "Can't read a dataset that is referencing Camtrap DP version
+         {.val {version}}.",
+        "i" = "Supported Camtrap DP version{?s}: {.val {supported_versions}}.",
+        "i" = "You currently use {.pkg camtrapdp} {.val {camtrapdp_version}}.
+               Updating to the latest version with {.code
+               install.packages(\"camtrapdp\")} might resolve this error."
       ),
       class = "camtrapdp_error_unsupported_version"
     )
