@@ -16,10 +16,10 @@
 #' )
 #' remove_uuid(to_clean)
 remove_uuid <- function(character, replacement = "RANDOM_UUID") {
-  gsub(
-    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}", # nolint: line_length_linter
-    replacement,
-    character
+  stringr::str_replace_all(
+    character,
+    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
+    replacement
   )
 }
 
@@ -59,7 +59,7 @@ expect_meta_match <- function(file, core = "occurrence.csv", ...) {
   csv_file_cols <-
     readr::read_csv(file, show_col_types = FALSE) %>%
     colnames() %>%
-    purrr::map_chr(~ sub("^[A-Za-z]+:", "", .x)) # Remove namespace like "dcterms:"
+    purrr::map_chr(~ stringr::str_remove(.x, "^[A-Za-z]+:")) # Remove namespace like "dcterms:"
   csv_file_fields <-
     dplyr::tibble(field = csv_file_cols) %>%
     dplyr::mutate(index = as.integer(rownames(.)) - 1, .before = field) # Add index

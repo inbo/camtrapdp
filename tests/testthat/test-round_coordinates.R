@@ -150,6 +150,10 @@ test_that("round_coordinates() updates spatial scope in metadata", {
   x1 <- round_coordinates(x, 1)
 
   # The number of digits in spatial scope is updated
-  expect_equal(max(nchar(gsub("^\\d*.", "", x2$spatial$coordinates))), 2)
-  expect_equal(max(nchar(gsub("^\\d*.", "", x1$spatial$coordinates))), 1)
+  expect_equal(max(stringr::str_length(
+    stringr::str_remove(x2$spatial$coordinates, "^\\d*\\.")
+  )), 2)
+  expect_equal(max(stringr::str_length(
+    stringr::str_remove(x1$spatial$coordinates, "^\\d*\\.")
+  )), 1)
 })

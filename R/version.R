@@ -36,8 +36,8 @@ version <- function(x) {
   match <- grep(pattern, profile)
   if (length(match) > 0) {
     extracted_version <- regmatches(profile, regexpr(pattern, profile))
-    extracted_version <- sub("camtrap-dp/", "", extracted_version, fixed = TRUE)
-    extracted_version <- sub("/", "", extracted_version, fixed = TRUE)
+    extracted_version <- stringr::str_remove(extracted_version, "camtrap-dp/")
+    extracted_version <- stringr::str_remove(extracted_version, "/")
     extracted_version
   } else {
     profile
@@ -52,13 +52,14 @@ version <- function(x) {
   new <- value
 
   # Update profile
-  x$profile <- sub(old, new, x$profile, fixed = TRUE)
+  x$profile <- stringr::str_replace(x$profile, old, new)
 
   # Update resource schemas
   resource_names <- c("deployments", "media", "observations")
   x$resources <- purrr::map(x$resources, function(resource) {
     if (resource$name %in% resource_names) {
-      resource$schema <- sub(old, new, resource$schema, fixed = TRUE)
+      resource$schema <-
+        stringr::str_replace(resource$schema, old, new)
     }
     resource
   })

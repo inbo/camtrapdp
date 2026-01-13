@@ -105,7 +105,7 @@ round_coordinates <- function(x, digits) {
     original_digits <-
       deployments(x) %>%
       dplyr::mutate(
-        lat_digits = nchar(gsub("^\\d*.", "", .data$latitude))
+        lat_digits = nchar(stringr::str_remove(.data$latitude, "^\\d*\\."))
       ) %>%
       dplyr::summarize(max(.data$lat_digits)) %>%
       dplyr::pull()
