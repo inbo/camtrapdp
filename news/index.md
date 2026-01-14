@@ -1,11 +1,12 @@
 # Changelog
 
-## camtrapdp (development version)
+## camtrapdp 0.5.0
 
 - [`read_camtrapdp()`](https://inbo.github.io/camtrapdp/reference/read_camtrapdp.md)
   now upgrades datasets to Camtrap DP 1.0.2
   ([\#183](https://github.com/inbo/camtrapdp/issues/183)) and provides
-  help for unsupported versions.
+  help for unsupported versions
+  ([\#198](https://github.com/inbo/camtrapdp/issues/198)).
 - [`write_camtrapdp()`](https://inbo.github.io/camtrapdp/reference/write_camtrapdp.md)
   now removes properties with `NA` values from `x$taxonomic` and
   `x$contributors` which caused `datapackage.json` to be invalid
