@@ -8,7 +8,7 @@ message: 'To cite package "camtrapdp" in publications use:'
 type: software
 license: MIT
 title: 'camtrapdp: Read and Manipulate Camera Trap Data Packages'
-version: 0.4.0
+version: 0.5.0
 doi: 10.32614/CRAN.package.camtrapdp
 abstract: Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP'
   (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data.
@@ -38,7 +38,7 @@ authors:
 repository: https://CRAN.R-project.org/package=camtrapdp
 repository-code: https://github.com/inbo/camtrapdp
 url: https://inbo.github.io/camtrapdp/
-date-released: '2025-06-06'
+date-released: '2026-01-13'
 contact:
 - family-names: Desmet
   given-names: Peter
@@ -61,7 +61,7 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2025'
+  year: '2026'
   version: '>= 3.6.0'
 - type: software
   title: cli
@@ -73,7 +73,7 @@ references:
   - family-names: Csárdi
     given-names: Gábor
     email: gabor@posit.co
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.cli
 - type: software
   title: dplyr
@@ -98,7 +98,7 @@ references:
     given-names: Davis
     email: davis@posit.co
     orcid: https://orcid.org/0000-0003-4777-038X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.dplyr
 - type: software
   title: EML
@@ -114,7 +114,7 @@ references:
   - family-names: Jones
     given-names: Matthew B.
     orcid: https://orcid.org/0000-0003-0077-4738
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.EML
 - type: software
   title: frictionless
@@ -143,7 +143,7 @@ references:
     email: sanne.govaert@inbo.be
     orcid: https://orcid.org/0000-0002-8939-1305
     affiliation: Research Institute for Nature and Forest (INBO)
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.frictionless
   version: '>= 1.2.1'
 - type: software
@@ -167,7 +167,7 @@ references:
   - family-names: Cook
     given-names: Daniel
     email: danielecook@gmail.com
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.memoise
 - type: software
   title: purrr
@@ -183,7 +183,7 @@ references:
   - family-names: Henry
     given-names: Lionel
     email: lionel@posit.co
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.purrr
 - type: software
   title: readr
@@ -201,7 +201,7 @@ references:
     given-names: Jennifer
     email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.readr
 - type: software
   title: rlang
@@ -216,7 +216,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.rlang
 - type: software
   title: stringr
@@ -228,7 +228,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.stringr
 - type: software
   title: uuid
@@ -244,7 +244,7 @@ references:
   - family-names: Ts'o
     given-names: Theodore
     email: tytso@thunk.org
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.uuid
 - type: software
   title: jsonlite
@@ -257,7 +257,7 @@ references:
     given-names: Jeroen
     email: jeroenooms@gmail.com
     orcid: https://orcid.org/0000-0002-4035-0289
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.jsonlite
 - type: software
   title: lubridate
@@ -273,7 +273,7 @@ references:
     given-names: Garrett
   - family-names: Wickham
     given-names: Hadley
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.lubridate
 - type: software
   title: testthat
@@ -285,7 +285,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.testthat
   version: '>= 3.0.0'
 - type: software
@@ -302,7 +302,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@rstudio.com
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.tibble
 - type: software
   title: xml2
@@ -318,6 +318,6 @@ references:
   - family-names: Ooms
     given-names: Jeroen
     email: jeroenooms@gmail.com
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.xml2
 
