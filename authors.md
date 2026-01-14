@@ -26,7 +26,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/inbo/camtrapdp/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/inbo/camtrapdp/blob/v0.5.0/DESCRIPTION)
 
 Desmet P, Govaert S, Huybrechts P, Oldoni D (2026). *camtrapdp: Read and
 Manipulate Camera Trap Data Packages*. R package version 0.5.0,

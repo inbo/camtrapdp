@@ -2,6 +2,8 @@
 
 ## camtrapdp 0.5.0
 
+CRAN release: 2026-01-14
+
 - [`read_camtrapdp()`](https://inbo.github.io/camtrapdp/reference/read_camtrapdp.md)
   now upgrades datasets to Camtrap DP 1.0.2
   ([\#183](https://github.com/inbo/camtrapdp/issues/183)) and provides
