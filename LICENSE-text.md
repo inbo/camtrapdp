@@ -1,4 +1,4 @@
 # License
 
-    YEAR: 2024
+    YEAR: 2026
     COPYRIGHT HOLDER: Research Institute for Nature and Forest (INBO)
