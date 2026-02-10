@@ -171,7 +171,7 @@ CRAN release: 2024-06-05
   and
   [`filter_media()`](https://inbo.github.io/camtrapdp/reference/filter_media.md)
   allow to filter data. They work similarly to
-  [dplyr](https://cran.r-project.org/package=dplyr)’s
+  [dplyr](https://dplyr.tidyverse.org)’s
   [`filter()`](https://rdrr.io/r/stats/filter.html)
   ([\#23](https://github.com/inbo/camtrapdp/issues/23)).
 - New function
@@ -193,9 +193,9 @@ CRAN release: 2024-06-05
   latest version. This function is currently not used, as the only
   supported version is Camtrap DP 1.0
   ([\#9](https://github.com/inbo/camtrapdp/issues/9)).
-- [dplyr](https://cran.r-project.org/package=dplyr)’s pipe (`%>%`) is
-  included in NAMESPACE, so you don’t have to load dplyr (or magrittr)
-  to use it ([\#56](https://github.com/inbo/camtrapdp/issues/56)). `%>%`
-  and `.data` are imported at package level, so they can be used in
+- [dplyr](https://dplyr.tidyverse.org)’s pipe (`%>%`) is included in
+  NAMESPACE, so you don’t have to load dplyr (or magrittr) to use it
+  ([\#56](https://github.com/inbo/camtrapdp/issues/56)). `%>%` and
+  `.data` are imported at package level, so they can be used in
   functions without namespace
   ([\#37](https://github.com/inbo/camtrapdp/issues/37)).
