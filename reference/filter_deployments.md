@@ -118,6 +118,22 @@ x %>%
 # Filtering on dates is easiest with lubridate
 library(lubridate, warn.conflicts = FALSE)
 x %>%
+  filter_deployments(lubridate::year(deploymentStart) == 2020) %>%
+  deployments()
+#> # A tibble: 3 × 24
+#>   deploymentID locationID locationName  latitude longitude coordinateUncertainty
+#>   <chr>        <chr>      <chr>            <dbl>     <dbl>                 <dbl>
+#> 1 00a2c20d     e254a13c   B_HS_val 2_p…     51.5      4.77                   187
+#> 2 29b7d356     2df5259b   B_DL_val 5_b…     51.2      5.66                   187
+#> 3 577b543a     ff1535c0   B_DL_val 3_d…     51.2      5.66                   187
+#> # ℹ 18 more variables: deploymentStart <dttm>, deploymentEnd <dttm>,
+#> #   setupBy <chr>, cameraID <chr>, cameraModel <chr>, cameraDelay <dbl>,
+#> #   cameraHeight <dbl>, cameraDepth <dbl>, cameraTilt <dbl>,
+#> #   cameraHeading <dbl>, detectionDistance <dbl>, timestampIssues <lgl>,
+#> #   baitUse <lgl>, featureType <fct>, habitat <chr>, deploymentGroups <chr>,
+#> #   deploymentTags <chr>, deploymentComments <chr>
+
+x %>%
   filter_deployments(
     deploymentStart >= lubridate::as_date("2020-06-19"),
     deploymentEnd <= lubridate::as_date("2020-08-30")

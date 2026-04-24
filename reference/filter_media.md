@@ -99,6 +99,26 @@ x %>%
 # Filtering on datetimes is easiest with lubridate
 library(lubridate, warn.conflicts = FALSE)
 x %>%
+  filter_media(lubridate::year(timestamp) == 2020) %>%
+  media()
+#> # A tibble: 363 × 12
+#>    mediaID  deploymentID captureMethod   timestamp           filePath filePublic
+#>    <chr>    <chr>        <fct>           <dttm>              <chr>    <lgl>     
+#>  1 07840dcc 00a2c20d     activityDetect… 2020-05-30 02:57:37 https:/… TRUE      
+#>  2 401386c7 00a2c20d     activityDetect… 2020-05-30 02:57:40 https:/… TRUE      
+#>  3 ca3ff293 00a2c20d     activityDetect… 2020-05-30 02:57:40 https:/… TRUE      
+#>  4 e8b8e44c 00a2c20d     activityDetect… 2020-05-30 02:57:41 https:/… TRUE      
+#>  5 b8690a15 00a2c20d     activityDetect… 2020-05-30 02:57:41 https:/… TRUE      
+#>  6 64734615 00a2c20d     activityDetect… 2020-05-30 02:57:42 https:/… TRUE      
+#>  7 12ce5004 00a2c20d     activityDetect… 2020-05-30 02:57:43 https:/… TRUE      
+#>  8 f372acaf 00a2c20d     activityDetect… 2020-05-30 02:57:43 https:/… TRUE      
+#>  9 97140835 00a2c20d     activityDetect… 2020-05-30 02:57:44 https:/… TRUE      
+#> 10 d1326349 00a2c20d     activityDetect… 2020-05-30 02:57:44 https:/… TRUE      
+#> # ℹ 353 more rows
+#> # ℹ 6 more variables: fileName <chr>, fileMediatype <chr>, exifData <chr>,
+#> #   favorite <lgl>, mediaComments <chr>, eventID <chr>
+
+x %>%
   filter_media(
     timestamp >= lubridate::as_datetime("2020-08-02 05:01:00"),
     timestamp <= lubridate::as_datetime("2020-08-02 05:02:00")
