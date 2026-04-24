@@ -35,6 +35,10 @@
 #' # Filtering on dates is easiest with lubridate
 #' library(lubridate, warn.conflicts = FALSE)
 #' x %>%
+#'   filter_deployments(lubridate::year(deploymentStart) == 2020) %>%
+#'   deployments()
+#'
+#' x %>%
 #'   filter_deployments(
 #'     deploymentStart >= lubridate::as_date("2020-06-19"),
 #'     deploymentEnd <= lubridate::as_date("2020-08-30")
