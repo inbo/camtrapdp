@@ -58,6 +58,10 @@ x \%>\%
 # Filtering on datetimes is easiest with lubridate
 library(lubridate, warn.conflicts = FALSE)
 x \%>\%
+  filter_observations(lubridate::year(eventStart) == 2020) \%>\%
+  observations()
+
+x \%>\%
   filter_observations(
     eventStart >= lubridate::as_datetime("2020-06-19 22:00:00"),
     eventEnd <= lubridate::as_datetime("2020-06-19 22:10:00")

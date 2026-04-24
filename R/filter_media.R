@@ -34,6 +34,10 @@
 #' # Filtering on datetimes is easiest with lubridate
 #' library(lubridate, warn.conflicts = FALSE)
 #' x %>%
+#'   filter_media(lubridate::year(timestamp) == 2020) %>%
+#'   media()
+#'
+#' x %>%
 #'   filter_media(
 #'     timestamp >= lubridate::as_datetime("2020-08-02 05:01:00"),
 #'     timestamp <= lubridate::as_datetime("2020-08-02 05:02:00")
