@@ -73,8 +73,9 @@ CRAN release: 2025-06-11
 ### Transforming data
 
 - [`write_dwc()`](https://inbo.github.io/camtrapdp/reference/write_dwc.md)
-  now adds `identificationVerificationStatus` for observations
-  classified by humans with 100% certainty
+  now adds
+  [`dwc:identificationVerificationStatus`](http://rs.tdwg.org/dwc/terms/identificationVerificationStatus)
+  for observations classified by humans with 100% certainty
   ([\#158](https://github.com/inbo/camtrapdp/issues/158)).
 - [`write_dwc()`](https://inbo.github.io/camtrapdp/reference/write_dwc.md)
   now allows to create occurrences from media-based observations
