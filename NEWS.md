@@ -27,7 +27,7 @@
 
 ## Transforming data
 
-* `write_dwc()` now adds `identificationVerificationStatus` for observations classified by humans with 100% certainty (#158).
+* `write_dwc()` now adds [`dwc:identificationVerificationStatus`](http://rs.tdwg.org/dwc/terms/identificationVerificationStatus) for observations classified by humans with 100% certainty (#158).
 * `write_dwc()` now allows to create occurrences from media-based observations (#172).
 * New `write_eml()` transforms Camtrap DP metadata to EML (#99). This function is used by GBIF to create metadata for a dataset page.
 * New `merge_camtrapdp()` allows to merge two datasets (#112). This can be useful to combine data from multiple studies.
