@@ -60,12 +60,12 @@ write_camtrapdp <- function(x, directory, ...) {
   # Remove elements that are NA or empty list
   x$taxonomic <- clean_list(
     x$taxonomic,
-    function(x) any(is.na(x)) || length(x) == 0L,
+    function(x) anyNA(x) || length(x) == 0L,
     recursive = TRUE
   )
   x$contributors <- clean_list(
     x$contributors,
-    function(x) any(is.na(x)) || length(x) == 0L,
+    function(x) anyNA(x) || length(x) == 0L,
     recursive = TRUE
   )
 
