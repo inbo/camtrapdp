@@ -1,6 +1,6 @@
 # camtrapdp (development version)
 
-* camtrapdp now relies on R >= 4.1.0 and uses base pipes (`|>` rather than `%>%`).
+* camtrapdp now relies on R >= 4.1.0 and uses base pipes (`|>` rather than `%>%`) (#209).
 
 # camtrapdp 0.5.0
 
