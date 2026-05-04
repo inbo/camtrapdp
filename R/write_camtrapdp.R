@@ -46,9 +46,9 @@ write_camtrapdp <- function(x, directory, ...) {
       x,
       resource_name = resource_name,
       data = x$data[[resource_name]],
-      schema = ,
+      schema = schema,
       replace = TRUE,
-      )
+    )
     # Hack to circumvent that add_resource() adds schema verbosely
     resource_index <- purrr::detect_index(x$resources, ~ .x$name == resource_name)
     x$resources[[resource_index]]$schema <- schema
