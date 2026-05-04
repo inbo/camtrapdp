@@ -169,7 +169,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
     eml$dataset$coverage$taxonomicCoverage <-
       list(
         taxonomicClassification =
-          purrr::map(1:nrow(taxa), function(i) {
+          purrr::map(seq_len(nrow(taxa)), function(i) {
             current_row <- taxa[i, ]
             list(
               taxonRankName = current_row$taxonRank,
