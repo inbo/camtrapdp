@@ -98,9 +98,9 @@ test_that("merge_camtrapdp() adds prefixes to identifiers in the data to keep
   deployment_ids <- purrr::pluck(deployments(xy), "deploymentID")
   media_ids <- purrr::pluck(media(xy), "mediaID")
   observation_ids <- purrr::pluck(observations(xy), "observationID")
-  expect_false(any(duplicated(deployment_ids)))
-  expect_false(any(duplicated(media_ids)))
-  expect_false(any(duplicated(observation_ids)))
+  expect_false(anyDuplicated(deployment_ids))
+  expect_false(anyDuplicated(media_ids))
+  expect_false(anyDuplicated(observation_ids))
 
   # deploymentID
   merged_deployment_ids <- c("00a2c20d", "x_29b7d356", "y_29b7d356", "577b543a")
