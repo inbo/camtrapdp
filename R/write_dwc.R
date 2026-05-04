@@ -280,7 +280,7 @@ write_dwc <- function(x, directory) {
       occurrenceID = .data$observationID,
       identifier = .data$mediaID,
       `dc:type` = dplyr::case_when(
-        grepl("video", .data$fileMediatype) ~ "MovingImage",
+        grepl("video", .data$fileMediatype, fixed = TRUE) ~ "MovingImage",
         .default = "StillImage"
       ),
       comments = dplyr::case_when(
