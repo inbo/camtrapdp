@@ -28,7 +28,7 @@ Depends:
     R (>= 3.6.0)
 Imports:
     cli,
-    dplyr,
+    dplyr (>= 1.2.0),
     EML,
     frictionless (>= 1.2.1),
     memoise,

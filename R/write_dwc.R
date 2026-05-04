@@ -167,7 +167,7 @@ write_dwc <- function(x, directory) {
           "",
           paste0(
             " near ",
-            dplyr::case_match(
+            dplyr::recode_values(
               .data$featureType,
               "roadPaved" ~ "paved road",
               "roadDirt" ~ "dirt road",
@@ -292,7 +292,7 @@ write_dwc <- function(x, directory) {
       `dcterms:rights` = media_license,
       CreateDate = format(.data$timestamp, format = "%Y-%m-%dT%H:%M:%SZ"),
       captureDevice = .data$cameraModel,
-      resourceCreationTechnique = dplyr::case_match(
+      resourceCreationTechnique = dplyr::recode_values(
         .data$captureMethod,
         "activityDetection" ~ "activity detection",
         "timeLapse" ~ "time lapse"
