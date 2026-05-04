@@ -138,7 +138,7 @@ test_that("write_dwc() returns files that comply with the info in meta.xml", {
 test_that("write_dwc() returns output when taxonID is missing", {
   skip_if_offline()
   x <- example_dataset()
-  optional_cols <- c("taxon.taxonID")
+  optional_cols <- "taxon.taxonID"
   observations(x) <-
     dplyr::select(observations(x), -dplyr::all_of(optional_cols))
   temp_dir <- tempdir()

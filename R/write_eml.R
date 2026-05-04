@@ -232,9 +232,9 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Write files
   eml_path <- file.path(directory, "eml.xml")
   cli::cli_h2("Writing file")
-  cli::cli_ul(c(
+  cli::cli_ul(
     "{.file {eml_path}}"
-  ))
+  )
   if (!dir.exists(directory)) {
     dir.create(directory, recursive = TRUE)
   }

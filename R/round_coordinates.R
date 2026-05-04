@@ -81,7 +81,7 @@
 round_coordinates <- function(x, digits) {
   if (is.null(digits) || !(digits %in% c(1, 2, 3))) {
     cli::cli_abort(
-      c("{.arg digits} must be {.val 1}, {.val 2} or {.val 3}."),
+      "{.arg digits} must be {.val 1}, {.val 2} or {.val 3}.",
       class = "camtrapdp_error_digits_invalid"
     )
   }

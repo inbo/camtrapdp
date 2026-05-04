@@ -115,13 +115,13 @@ test_that("taxa() removes duplicates and keeps the taxon with most taxonomical
     stringsAsFactors = FALSE
   )
   expected_taxa <- dplyr::tibble(
-    scientificName = c("Anas platyrhynchos"),
-    taxonRank = c("species"),
+    scientificName = "Anas platyrhynchos",
+    taxonRank = "species",
     # class: removed because duplicate with less columns has it
-    family = c("Anatidae"),
-    vernacularNames.eng = c("mallard"),
+    family = "Anatidae",
+    vernacularNames.eng = "mallard",
     # vernacularNames.fra removed because no data
-    vernacularNames.nld = c("wilde eend")
+    vernacularNames.nld = "wilde eend"
   )
   expect_identical(taxa(x), expected_taxa)
 })

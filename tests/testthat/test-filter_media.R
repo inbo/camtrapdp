@@ -36,7 +36,7 @@ test_that("filter_media() supports combinations of conditions", {
     timestamp <= lubridate::as_datetime("2020-08-02 05:02:00")
   )
   expect_equal(nrow(media(x_between)), 10) # 2020-08-02 05:01:00 till 2020-08-02 05:01:05
-  x_combo <- filter_media(x, eventID %in% c("5fbf69a4") | is.na(eventID))
+  x_combo <- filter_media(x, eventID == "5fbf69a4" | is.na(eventID))
   expect_equal(nrow(media(x_combo)), 13) # 10 & 3
 })
 

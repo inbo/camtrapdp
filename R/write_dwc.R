@@ -97,7 +97,7 @@ write_dwc <- function(x, directory) {
   # Read data and add optional columns that are used in transformation
  deployments <- deployments(x)
  media <- media(x)
- observations_cols <- c("taxon.taxonID")
+ observations_cols <- "taxon.taxonID"
  observations <- expand_cols(observations(x), observations_cols)
 
   # Create Darwin Core Occurrence core
