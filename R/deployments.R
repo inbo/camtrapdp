@@ -41,8 +41,8 @@ deployments <- function(x) {
 
   # Update spatial and temporal scope in metadata
   x <-
-    x %>%
-    update_spatial() %>%
+    x |>
+    update_spatial() |>
     update_temporal()
 
   return(x)

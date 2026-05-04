@@ -175,7 +175,7 @@ test_that("update_taxon() can replace a taxon in data and metadata", {
 
   # Data
   expect_equal(
-    dplyr::filter(taxa(x_updated), scientificName == "Ardea cinerea") %>% nrow(),
+    dplyr::filter(taxa(x_updated), scientificName == "Ardea cinerea") |> nrow(),
     0
   )
   expect_identical(
@@ -224,7 +224,7 @@ test_that("update_taxon() can lump a taxon in data and metadata", {
 
   # Data
   expect_equal(
-    dplyr::filter(taxa(x_updated), scientificName == "Ardea cinerea") %>% nrow(),
+    dplyr::filter(taxa(x_updated), scientificName == "Ardea cinerea") |> nrow(),
     0
   )
   expect_identical(

@@ -103,11 +103,11 @@ round_coordinates <- function(x, digits) {
     }
   } else {
     original_digits <-
-      deployments(x) %>%
+      deployments(x) |>
       dplyr::mutate(
         lat_digits = nchar(stringr::str_remove(.data$latitude, "^\\d*\\."))
-      ) %>%
-      dplyr::summarize(max(.data$lat_digits)) %>%
+      ) |>
+      dplyr::summarize(max(.data$lat_digits)) |>
       dplyr::pull()
     if (digits >= original_digits) {
       cli::cli_abort(
@@ -136,7 +136,7 @@ round_coordinates <- function(x, digits) {
 
   # Update longitude, latitude and coordinateUncertainty
   deployments(x) <-
-    deployments(x) %>%
+    deployments(x) |>
     dplyr::mutate(
       latitudeGroup = dplyr::case_when(
         abs(latitude) >= 85 ~ "lat_85",
@@ -164,7 +164,7 @@ round_coordinates <- function(x, digits) {
             - .data$oldRoundingUncertainty
             + .data$roundingUncertainty
         )
-    ) %>%
+    ) |>
     dplyr::select(
       -"latitudeGroup", -"roundingUncertainty", -"oldRoundingUncertainty"
       )

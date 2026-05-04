@@ -19,65 +19,65 @@
 #' x <- example_dataset()
 #'
 #' # Filtering returns x, so pipe with observations() to see the result
-#' x %>%
-#'   filter_observations(observationType == "animal") %>%
+#' x |>
+#'   filter_observations(observationType == "animal") |>
 #'   observations()
 #'
 #' # Filtering on observations also affects associated media, but not deployments
-#' x %>%
+#' x |>
 #'   filter_observations(
 #'     scientificName == "Vulpes vulpes",
 #'     observationLevel == "event"
-#'   ) %>%
+#'   ) |>
 #'   media()
-#' x %>%
+#' x |>
 #'   filter_observations(
 #'     scientificName == "Vulpes vulpes",
 #'     observationLevel == "media"
-#'   ) %>%
+#'   ) |>
 #'   media()
 #'
 #' # Filtering on multiple conditions (combined with &)
-#' x %>%
+#' x |>
 #'   filter_observations(
 #'     deploymentID == "577b543a",
 #'     scientificName %in% c("Martes foina", "Mustela putorius")
-#'   ) %>%
+#'   ) |>
 #'   observations()
 #'
 #' # Filtering on datetimes is easiest with lubridate
 #' library(lubridate, warn.conflicts = FALSE)
-#' x %>%
-#'   filter_observations(lubridate::year(eventStart) == 2020) %>%
+#' x |>
+#'   filter_observations(lubridate::year(eventStart) == 2020) |>
 #'   observations()
 #'
-#' x %>%
+#' x |>
 #'   filter_observations(
 #'     eventStart >= lubridate::as_datetime("2020-06-19 22:00:00"),
 #'     eventEnd <= lubridate::as_datetime("2020-06-19 22:10:00")
-#'   ) %>%
+#'   ) |>
 #'   observations()
 filter_observations <- function(x, ...) {
   check_camtrapdp(x)
 
   # Filter observations
   observations <-
-    observations(x) %>%
+    observations(x) |>
     dplyr::filter(...)
 
   # Filter media
   select_media_ids <-
-    observations %>%
-    dplyr::filter(.data$observationLevel == "media") %>%
-    dplyr::distinct(.data$mediaID) %>%
+    observations |>
+    dplyr::filter(.data$observationLevel == "media") |>
+    dplyr::distinct(.data$mediaID) |>
     dplyr::pull()
   select_event_ids <-
-    observations %>%
-    dplyr::filter(.data$observationLevel == "event") %>%
-    dplyr::distinct(.data$eventID) %>%
+    observations |>
+    dplyr::filter(.data$observationLevel == "event") |>
+    dplyr::distinct(.data$eventID) |>
     dplyr::pull()
   media <-
-    media(x) %>%
+    media(x) |>
     dplyr::filter(
       # On mediaID for media-based obs
       .data$mediaID %in% select_media_ids |

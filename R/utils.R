@@ -39,10 +39,10 @@ mutate_if_missing <- function(.data, ...) {
 #' )
 #' mutate_person_names(df)
 mutate_person_names <- function(df) {
-  df %>%
+  df |>
     dplyr::mutate(
       n_title = stringr::str_count(.data$title, "\\S+")
-    ) %>%
+    ) |>
     mutate_if_missing(
       firstName = dplyr::if_else(
         !(.data$role %in% c("rightsHolder", "publisher")) & .data$n_title > 1,
@@ -54,7 +54,7 @@ mutate_person_names <- function(df) {
         stringr::str_replace(.data$title, "^\\S* ", ""), # Remove first word
         NA_character_
       )
-    ) %>%
+    ) |>
     dplyr::select(-"n_title")
 }
 
@@ -95,7 +95,7 @@ additional_resources <- function(x) {
 create_eml_contributors <- function(contributors) {
   orcid_regex <- "(\\d{4}-){3}\\d{3}(\\d|X)"
   contributor_list <-
-    contributors %>%
+    contributors |>
     dplyr::mutate(
       # Move ORCID from path to separate column
       orcid = stringr::str_extract(.data$path, orcid_regex),
@@ -104,7 +104,7 @@ create_eml_contributors <- function(contributors) {
         NA_character_,
         .data$path
       )
-    ) %>%
+    ) |>
     purrr::transpose()
   purrr::map(contributor_list, ~ EML::set_responsibleParty(
     givenName = .x$firstName,

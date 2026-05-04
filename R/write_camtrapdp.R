@@ -29,13 +29,13 @@ write_camtrapdp <- function(x, directory, ...) {
 
   # Remove columns and duplicates that were added by read_camtrapdp()
   media(x) <-
-    media(x) %>%
-    dplyr::select(-"eventID") %>%
+    media(x) |>
+    dplyr::select(-"eventID") |>
     dplyr::distinct()
   # Do not use assign function for observations because it would update
   # x$taxonomic without the "taxon."-terms
   x$data$observations <-
-    observations(x) %>%
+    observations(x) |>
     dplyr::select(-dplyr::starts_with("taxon."))
 
   # Update resources

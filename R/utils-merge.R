@@ -66,7 +66,7 @@ merge_resources <- function(x, y, prefixes) {
 merge_deployments <- function(x, y, prefixes) {
   x_deployments <- deployments(x)
   y_deployments <- deployments(y)
-  dplyr::bind_rows(x_deployments, y_deployments) %>%
+  dplyr::bind_rows(x_deployments, y_deployments) |>
     dplyr::mutate(
       deploymentID = merge_vectors(
         purrr::chuck(x_deployments, "deploymentID"),
@@ -89,7 +89,7 @@ merge_deployments <- function(x, y, prefixes) {
 merge_media <- function(x, y, prefixes) {
   x_media <- media(x)
   y_media <- media(y)
-  dplyr::bind_rows(x_media, y_media) %>%
+  dplyr::bind_rows(x_media, y_media) |>
     dplyr::mutate(
       mediaID = merge_vectors(
         purrr::chuck(x_media, "mediaID"),
@@ -122,7 +122,7 @@ merge_media <- function(x, y, prefixes) {
 merge_observations <- function(x, y, prefixes) {
   x_observations <- observations(x)
   y_observations <- observations(y)
-  dplyr::bind_rows(x_observations, y_observations) %>%
+  dplyr::bind_rows(x_observations, y_observations) |>
     dplyr::mutate(
       observationID = merge_vectors(
         purrr::chuck(x_observations, "observationID"),

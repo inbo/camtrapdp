@@ -86,10 +86,10 @@ test_that("merge_camtrapdp() adds prefixes to identifiers in the data to keep
   skip_if_offline()
 
   # Merge datasets with overlapping deployments: a, b and b, c
-  x <- example_dataset() %>%
+  x <- example_dataset() |>
     filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356")) # a, b
   x$name <- "x"
-  y <- example_dataset() %>%
+  y <- example_dataset() |>
     filter_deployments(deploymentID %in% c("29b7d356", "577b543a")) # b, c
   y$name <- "y"
   xy <- merge_camtrapdp(x, y)

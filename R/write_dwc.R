@@ -65,16 +65,16 @@ write_dwc <- function(x, directory) {
   collection_code <-
     purrr::pluck(x, "sources", 1, "title", .default = NA_character_)
   license <-
-    purrr::pluck(x, "licenses") %>%
-    purrr::detect(~ !is.null(.x$scope) && .x$scope == "data") %>%
+    purrr::pluck(x, "licenses") |>
+    purrr::detect(~ !is.null(.x$scope) && .x$scope == "data") |>
     purrr::pluck("name", .default = NA_character_)
   media_license <-
-    purrr::pluck(x, "licenses") %>%
-    purrr::detect(~ !is.null(.x$scope) && .x$scope == "media") %>%
+    purrr::pluck(x, "licenses") |>
+    purrr::detect(~ !is.null(.x$scope) && .x$scope == "media") |>
     purrr::pluck("name", .default = NA_character_)
   rights_holder <-
-    purrr::pluck(x, "contributors") %>%
-    purrr::detect(~ !is.null(.x$role) && .x$role == "rightsHolder") %>%
+    purrr::pluck(x, "contributors") |>
+    purrr::detect(~ !is.null(.x$role) && .x$role == "rightsHolder") |>
     purrr::pluck("title", .default = NA_character_)
   coordinate_precision <-
     purrr::pluck(x, "coordinatePrecision", .default = NA_character_)
@@ -102,9 +102,9 @@ write_dwc <- function(x, directory) {
 
   # Create Darwin Core Occurrence core
   occurrence <-
-    observations %>%
-    dplyr::left_join(deployments, by = "deploymentID") %>%
-    dplyr::arrange(.data$deploymentID, .data$eventStart) %>%
+    observations |>
+    dplyr::left_join(deployments, by = "deploymentID") |>
+    dplyr::arrange(.data$deploymentID, .data$eventStart) |>
     dplyr::mutate(
       .keep = "none",
       type = "Image",
@@ -237,7 +237,7 @@ write_dwc <- function(x, directory) {
       taxonID = .data$taxon.taxonID,
       scientificName = .data$scientificName,
       kingdom = "Animalia"
-    ) %>%
+    ) |>
     dplyr::select(
       "type", "license", "rightsHolder", "datasetID", "collectionCode",
       "datasetName", "basisOfRecord", "dataGeneralizations", "occurrenceID",
@@ -263,18 +263,18 @@ write_dwc <- function(x, directory) {
   }
 
   multimedia <-
-    observations %>%
-    dplyr::select(-dplyr::all_of(drop_col)) %>%
+    observations |>
+    dplyr::select(-dplyr::all_of(drop_col)) |>
     dplyr::left_join(
       media,
       by = join_by,
       relationship = "many-to-many" # Silence warning
-    ) %>%
+    ) |>
     dplyr::left_join(
       deployments,
       by = "deploymentID"
-    ) %>%
-    dplyr::arrange(.data$deploymentID, .data$timestamp, .data$fileName) %>%
+    ) |>
+    dplyr::arrange(.data$deploymentID, .data$timestamp, .data$fileName) |>
     dplyr::mutate(
       .keep = "none",
       occurrenceID = .data$observationID,
@@ -304,7 +304,7 @@ write_dwc <- function(x, directory) {
         stringr::str_detect(.data$filePath, "^http") ~ "online",
         .default = "local"
       )
-    ) %>%
+    ) |>
     dplyr::select(
       "occurrenceID", "identifier", "dc:type", "comments", "dcterms:rights",
       "CreateDate", "captureDevice", "resourceCreationTechnique", "accessURI",

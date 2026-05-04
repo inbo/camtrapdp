@@ -68,10 +68,10 @@ locations(x)
 You can also **filter** data with one of the [filter functions](https://inbo.github.io/camtrapdp/reference/index.html#filter-functions), which automatically filter the related data. For example, here we filter observations on scientific name(s) and return the associated events in that subset:
 
 ```{r}
-x %>%
+x |>
   filter_observations(
     scientificName %in% c("Martes foina", "Mustela putorius")
-  ) %>%
+  ) |>
   events()
 ```
 

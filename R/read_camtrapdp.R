@@ -117,7 +117,7 @@ read_camtrapdp <- function(file) {
         "timestamp" >= "eventStart",
         "timestamp" <= "eventEnd"
       )
-    ) %>%
+    ) |>
     dplyr::select(-"eventStart", -"eventEnd")
 
   # Add taxonomic info to observations
@@ -139,8 +139,8 @@ read_camtrapdp <- function(file) {
 
   # Update temporal and spatial scope in metadata
   x <-
-    x %>%
-    update_temporal() %>%
+    x |>
+    update_temporal() |>
     update_spatial()
 
   return(x)

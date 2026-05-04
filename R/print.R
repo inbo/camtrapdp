@@ -21,7 +21,7 @@ print.camtrapdp <- function(x, ...) {
 
   # Calculate number of rows for the tables (resources in x$data)
   tables <-
-    purrr::pluck(x, "data") %>%
+    purrr::pluck(x, "data") |>
     purrr::map(nrow)
   tables_length <- length(tables)
 
