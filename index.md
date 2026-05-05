@@ -85,10 +85,10 @@ that subset:
 
 ``` r
 
-x %>%
+x |>
   filter_observations(
     scientificName %in% c("Martes foina", "Mustela putorius")
-  ) %>%
+  ) |>
   events()
 #> # A tibble: 4 × 4
 #>   deploymentID eventID  eventStart          eventEnd           

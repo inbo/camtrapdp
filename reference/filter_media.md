@@ -45,8 +45,8 @@ Other filter functions:
 x <- example_dataset()
 
 # Filtering returns x, so pipe with media() to see the result
-x %>%
-  filter_media(captureMethod == "timeLapse") %>%
+x |>
+  filter_media(captureMethod == "timeLapse") |>
   media()
 #> # A tibble: 3 × 12
 #>   mediaID  deploymentID captureMethod timestamp           filePath    filePublic
@@ -76,8 +76,8 @@ observations(x_filtered)
 #> #   classifiedBy <chr>, classificationTimestamp <dttm>, …
 
 # Filtering on multiple conditions (combined with &)
-x %>%
-  filter_media(captureMethod == "activityDetection", filePublic == FALSE) %>%
+x |>
+  filter_media(captureMethod == "activityDetection", filePublic == FALSE) |>
   media()
 #> # A tibble: 60 × 12
 #>    mediaID  deploymentID captureMethod   timestamp           filePath filePublic
@@ -98,8 +98,8 @@ x %>%
 
 # Filtering on datetimes is easiest with lubridate
 library(lubridate, warn.conflicts = FALSE)
-x %>%
-  filter_media(lubridate::year(timestamp) == 2020) %>%
+x |>
+  filter_media(lubridate::year(timestamp) == 2020) |>
   media()
 #> # A tibble: 363 × 12
 #>    mediaID  deploymentID captureMethod   timestamp           filePath filePublic
@@ -118,11 +118,11 @@ x %>%
 #> # ℹ 6 more variables: fileName <chr>, fileMediatype <chr>, exifData <chr>,
 #> #   favorite <lgl>, mediaComments <chr>, eventID <chr>
 
-x %>%
+x |>
   filter_media(
     timestamp >= lubridate::as_datetime("2020-08-02 05:01:00"),
     timestamp <= lubridate::as_datetime("2020-08-02 05:02:00")
-  ) %>%
+  ) |>
   media()
 #> # A tibble: 10 × 12
 #>    mediaID  deploymentID captureMethod   timestamp           filePath filePublic

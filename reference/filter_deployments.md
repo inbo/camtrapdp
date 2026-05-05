@@ -44,8 +44,8 @@ Other filter functions:
 x <- example_dataset()
 
 # Filtering returns x, so pipe with deployments() to see the result
-x %>%
-  filter_deployments(deploymentID == "62c200a9") %>%
+x |>
+  filter_deployments(deploymentID == "62c200a9") |>
   deployments()
 #> # A tibble: 1 × 24
 #>   deploymentID locationID locationName  latitude longitude coordinateUncertainty
@@ -100,8 +100,8 @@ observations(x_filtered)
 #> #   bboxY <dbl>, bboxWidth <dbl>, bboxHeight <dbl>, …
 
 # Filtering on multiple conditions (combined with &)
-x %>%
-  filter_deployments(latitude > 51.0, longitude > 5.0) %>%
+x |>
+  filter_deployments(latitude > 51.0, longitude > 5.0) |>
   deployments()
 #> # A tibble: 2 × 24
 #>   deploymentID locationID locationName  latitude longitude coordinateUncertainty
@@ -117,8 +117,8 @@ x %>%
 
 # Filtering on dates is easiest with lubridate
 library(lubridate, warn.conflicts = FALSE)
-x %>%
-  filter_deployments(lubridate::year(deploymentStart) == 2020) %>%
+x |>
+  filter_deployments(lubridate::year(deploymentStart) == 2020) |>
   deployments()
 #> # A tibble: 3 × 24
 #>   deploymentID locationID locationName  latitude longitude coordinateUncertainty
@@ -133,11 +133,11 @@ x %>%
 #> #   baitUse <lgl>, featureType <fct>, habitat <chr>, deploymentGroups <chr>,
 #> #   deploymentTags <chr>, deploymentComments <chr>
 
-x %>%
+x |>
   filter_deployments(
     deploymentStart >= lubridate::as_date("2020-06-19"),
     deploymentEnd <= lubridate::as_date("2020-08-30")
-  ) %>%
+  ) |>
   deployments()
 #> # A tibble: 2 × 24
 #>   deploymentID locationID locationName  latitude longitude coordinateUncertainty

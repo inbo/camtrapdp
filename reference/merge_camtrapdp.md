@@ -119,9 +119,9 @@ Other transformation functions:
 ## Examples
 
 ``` r
-x <- example_dataset() %>%
+x <- example_dataset() |>
   filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
-y <- example_dataset() %>%
+y <- example_dataset() |>
   filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
 x$name <- "x"
 y$name <- "y"
