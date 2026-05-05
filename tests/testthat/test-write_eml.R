@@ -24,7 +24,7 @@ test_that("write_eml() returns the expected eml.xml file for the example
   x <- example_dataset()
 
   # Adapt contributors to test for bug #166
-  contributors(x) <- contributors(x) %>%
+  contributors(x) <- contributors(x) |>
     tibble::add_row(
       title = "Ms Dummy",
       email = "name@dummy.org",

@@ -9,7 +9,7 @@ test_that("print() returns output invisibly", {
 test_that("print() informs about the number of tables, their rows and unclass()", {
   skip_if_offline()
   x_no_additional <-
-    example_dataset() %>%
+    example_dataset() |>
     frictionless::remove_resource("individuals")
 
   # Default (additional resources removed)

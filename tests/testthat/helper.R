@@ -40,29 +40,30 @@ expect_meta_match <- function(file, core = "occurrence.csv", ...) {
 
   # Parse reference meta.xml from inst/extdata/meta.xml
   xml_list <-
-    xml2::read_xml(system.file("extdata", "meta.xml", package = "camtrapdp")) %>%
+    xml2::read_xml(system.file("extdata", "meta.xml", package = "camtrapdp")) |>
     xml2::as_list()
   xml_file_location <-
-    purrr::chuck(xml_list, "archive", core_or_extension, "files", "location") %>%
+    purrr::chuck(xml_list, "archive", core_or_extension, "files", "location") |>
     unlist()
   xml_file_fields <-
-    xml_list %>%
-    purrr::chuck("archive", core_or_extension) %>%
-    purrr::map_dfr(~ dplyr::tibble(
+    xml_list |>
+    purrr::chuck("archive", core_or_extension) |>
+    purrr::map(~ dplyr::tibble(
       index = as.numeric(attr(.x, which = "index")),
       term = attr(.x, which = "term")
-    )) %>%
-    dplyr::filter(!is.na(term)) %>%
+    )) |>
+    purrr::list_rbind() |>
+    dplyr::filter(!is.na(term)) |>
     dplyr::mutate(field = basename(term), .keep = "unused")
 
   # Get fields from csv
   csv_file_cols <-
-    readr::read_csv(file, show_col_types = FALSE) %>%
-    colnames() %>%
+    readr::read_csv(file, show_col_types = FALSE, n_max = 0) |>
+    names() |>
     purrr::map_chr(~ stringr::str_remove(.x, "^[A-Za-z]+:")) # Remove namespace like "dcterms:"
   csv_file_fields <-
-    dplyr::tibble(field = csv_file_cols) %>%
-    dplyr::mutate(index = as.integer(rownames(.)) - 1, .before = field) # Add index
+    dplyr::tibble(field = csv_file_cols) |>
+    dplyr::mutate(index = seq_len(length(csv_file_cols)) - 1, .before = field) # Add index
 
   # Compare
   testthat::expect_identical(csv_file_fields, xml_file_fields)

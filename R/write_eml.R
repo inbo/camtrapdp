@@ -78,7 +78,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Set abstract, with optional extra paragraph
   para <-
     # Split description per line/<p>, remove empty lines, assign as <para>s
-    unlist(strsplit(x$description, "<p>|</p>|\n")) %>%
+    unlist(strsplit(x$description, "<p>|</p>|\n")) |>
     purrr::discard(~ .x == "")
   if (derived_paragraph) {
     last_para <- paste0(
@@ -101,7 +101,7 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
 
   # Set creators
   creators <-
-    contributors(x) %>%
+    contributors(x) |>
     dplyr::filter(!.data$role %in% c("rightsHolder", "publisher"))
   eml$dataset$creator <- create_eml_contributors(creators)
 

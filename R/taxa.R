@@ -18,19 +18,19 @@
 taxa <- function(x) {
   check_camtrapdp(x)
   taxa <-
-    observations(x) %>%
-    dplyr::filter(!is.na(.data$scientificName)) %>%
-    dplyr::select("scientificName", dplyr::starts_with("taxon.")) %>%
-    dplyr::distinct() %>%
-    dplyr::rename_with(~ stringr::str_remove(.x, "^taxon\\.")) %>%
+    observations(x) |>
+    dplyr::filter(!is.na(.data$scientificName)) |>
+    dplyr::select("scientificName", dplyr::starts_with("taxon.")) |>
+    dplyr::distinct() |>
+    dplyr::rename_with(~ stringr::str_remove(.x, "^taxon\\.")) |>
     dplyr::arrange(.data$scientificName)
 
   # Remove duplicates without taxonID
   if ("taxonID" %in% names(taxa)) {
     duplicates_without_taxonid <-
-      taxa %>%
-      dplyr::group_by(.data$scientificName) %>%
-      dplyr::filter(dplyr::n() > 1) %>%
+      taxa |>
+      dplyr::group_by(.data$scientificName) |>
+      dplyr::filter(dplyr::n() > 1) |>
       dplyr::filter(is.na(.data$taxonID))
     taxa <- dplyr::anti_join(
       taxa,
@@ -41,13 +41,13 @@ taxa <- function(x) {
 
   # Remove duplicates with the least information
   duplicates_with_least_info <-
-    taxa %>%
-    dplyr::mutate(columns_with_info = rowSums(!is.na(taxa))) %>%
-    dplyr::group_by(.data$scientificName) %>%
-    dplyr::filter(dplyr::n() > 1) %>%
-    dplyr::arrange(dplyr::desc(.data$columns_with_info)) %>%
-    dplyr::slice_tail(n = -1) %>% # Remove first row from group (with most info)
-    dplyr::ungroup() %>%
+    taxa |>
+    dplyr::mutate(columns_with_info = rowSums(!is.na(taxa))) |>
+    dplyr::group_by(.data$scientificName) |>
+    dplyr::filter(dplyr::n() > 1) |>
+    dplyr::arrange(dplyr::desc(.data$columns_with_info)) |>
+    dplyr::slice_tail(n = -1) |> # Remove first row from group (with most info)
+    dplyr::ungroup() |>
     dplyr::select(-"columns_with_info")
   taxa <- dplyr::anti_join(
     taxa,

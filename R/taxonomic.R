@@ -21,9 +21,9 @@ taxonomic <- function(x) {
       taxonomic_list,
       purrr::list_flatten,
       name_spec = "{outer}.{inner}"
-    ) %>%
-    purrr::map(as.data.frame, stringsAsFactors = FALSE) %>%
-    purrr::list_rbind() %>%
+    ) |>
+    purrr::map(as.data.frame, stringsAsFactors = FALSE) |>
+    purrr::list_rbind() |>
     dplyr::as_tibble()
 
   # Warn if there are duplicate scientificNames

@@ -18,8 +18,8 @@
 #' x <- example_dataset()
 #'
 #' # Filtering returns x, so pipe with media() to see the result
-#' x %>%
-#'   filter_media(captureMethod == "timeLapse") %>%
+#' x |>
+#'   filter_media(captureMethod == "timeLapse") |>
 #'   media()
 #'
 #' # Filtering on media also affects associated observations, but not deployments
@@ -27,35 +27,35 @@
 #' observations(x_filtered)
 #'
 #' # Filtering on multiple conditions (combined with &)
-#' x %>%
-#'   filter_media(captureMethod == "activityDetection", filePublic == FALSE) %>%
+#' x |>
+#'   filter_media(captureMethod == "activityDetection", filePublic == FALSE) |>
 #'   media()
 #'
 #' # Filtering on datetimes is easiest with lubridate
 #' library(lubridate, warn.conflicts = FALSE)
-#' x %>%
-#'   filter_media(lubridate::year(timestamp) == 2020) %>%
+#' x |>
+#'   filter_media(lubridate::year(timestamp) == 2020) |>
 #'   media()
 #'
-#' x %>%
+#' x |>
 #'   filter_media(
 #'     timestamp >= lubridate::as_datetime("2020-08-02 05:01:00"),
 #'     timestamp <= lubridate::as_datetime("2020-08-02 05:02:00")
-#'   ) %>%
+#'   ) |>
 #'   media()
 filter_media <- function(x, ...) {
   check_camtrapdp(x)
 
   # Filter media
   media <-
-    media(x) %>%
+    media(x) |>
     dplyr::filter(...)
 
   # Filter observations
   select_media_ids <- unique(purrr::pluck(media, "mediaID"))
   select_event_ids <- unique(purrr::pluck(media, "eventID"))
   observations <-
-    observations(x) %>%
+    observations(x) |>
     dplyr::filter(
       # On mediaID for media-based obs
       (.data$observationLevel == "media" & .data$mediaID %in% select_media_ids) |

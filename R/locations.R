@@ -18,7 +18,7 @@
 #' locations(x)
 locations <- function(x) {
   check_camtrapdp(x)
-  deployments(x) %>%
+  deployments(x) |>
     dplyr::distinct(
       .data$locationID,
       .data$locationName,

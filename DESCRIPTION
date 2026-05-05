@@ -25,10 +25,10 @@ License: MIT + file LICENSE
 URL: https://github.com/inbo/camtrapdp, https://inbo.github.io/camtrapdp/
 BugReports: https://github.com/inbo/camtrapdp/issues
 Depends: 
-    R (>= 3.6.0)
+    R (>= 4.1.0)
 Imports:
     cli,
-    dplyr,
+    dplyr (>= 1.2.0),
     EML,
     frictionless (>= 1.2.1),
     memoise,

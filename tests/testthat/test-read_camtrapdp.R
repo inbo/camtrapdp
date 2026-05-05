@@ -54,7 +54,7 @@ test_that("read_camtrapdp() adds eventIDs to media", {
   expect_true("eventID" %in% colnames(media(x)))
 
   # All media get eventID, except 3 (timeLapse) media that have no event-level obs
-  expect_equal(media(x) %>% dplyr::filter(is.na(eventID)) %>% nrow(), 3)
+  expect_equal(media(x) |> dplyr::filter(is.na(eventID)) |> nrow(), 3)
 
   # At least for example dataset, no duplicate mediaIDs are created
   expect_identical(
