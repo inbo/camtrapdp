@@ -80,16 +80,3 @@ test_that("read_camtrapdp() creates scopes if missing", {
   expect_type(x$temporal, "list")
   expect_type(x$taxonomic, "list")
 })
-
-test_that("read_camtrapdp() reads package with empty package$taxonomic", {
-  skip_if_offline()
-  temp_dir <- file.path(tempdir(), "empty_taxonomic")
-  on.exit(unlink(temp_dir, recursive = TRUE))
-  empty_taxonomic <- frictionless::read_package(
-    "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
-  )
-  empty_taxonomic$taxonomic <- NULL
-  suppressMessages(frictionless::write_package(empty_taxonomic, temp_dir))
-
-  expect_no_error(read_camtrapdp(file.path(temp_dir, "datapackage.json")))
-})

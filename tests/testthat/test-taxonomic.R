@@ -4,10 +4,12 @@ test_that("taxonomic() returns a tibble", {
   expect_s3_class(taxonomic(x), "tbl")
 })
 
-test_that("taxonomic() returns NULL when there is no taxonomic information", {
+test_that("taxonomic() returns NULL when x$taxonomic is missing or empty", {
   skip_if_offline()
   x <- example_dataset()
   x$taxonomic <- NULL
+  expect_null(taxonomic(x))
+  x$taxonomic <- list()
   expect_null(taxonomic(x))
 })
 
