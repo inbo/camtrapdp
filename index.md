@@ -1,6 +1,6 @@
 # camtrapdp
 
-Camtrapdp is an R package to read and manipulate Camera Trap Data
+camtrapdp is an R package to read and manipulate Camera Trap Data
 Packages (Camtrap DP). [Camtrap DP](https://camtrap-dp.tdwg.org) is a
 data exchange format for camera trap data. With camtrapdp you can read,
 filter and transform data (including to [Darwin
@@ -16,20 +16,20 @@ To get started, see:
 
 ## Installation
 
-Install the latest released version from CRAN:
+Install the released version of camtrapdp from CRAN:
 
 ``` r
 
 install.packages("camtrapdp")
 ```
 
-Or the development version from
-[GitHub](https://github.com/inbo/camtrapdp):
+Or install the development version from [GitHub](https://github.com/)
+with:
 
 ``` r
 
-# install.packages("devtools")
-devtools::install_github("inbo/camtrapdp")
+# install.packages("pak")
+pak::pak("inbo/camtrapdp")
 ```
 
 ## Usage
