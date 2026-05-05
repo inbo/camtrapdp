@@ -19,6 +19,7 @@ To get started, see:
 Install the latest released version from CRAN:
 
 ``` r
+
 install.packages("camtrapdp")
 ```
 
@@ -26,6 +27,7 @@ Or the development version from
 [GitHub](https://github.com/inbo/camtrapdp):
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("inbo/camtrapdp")
 ```
@@ -36,6 +38,7 @@ With camtrapdp you can **read** a Camtrap DP dataset into your R
 environment:
 
 ``` r
+
 library(camtrapdp, warn.conflicts = FALSE)
 
 file <- "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/example/datapackage.json"
@@ -63,6 +66,7 @@ like
 [`locations()`](https://inbo.github.io/camtrapdp/reference/locations.md):
 
 ``` r
+
 locations(x)
 #> # A tibble: 4 × 5
 #>   locationID locationName               latitude longitude coordinateUncertainty
@@ -80,6 +84,7 @@ observations on scientific name(s) and return the associated events in
 that subset:
 
 ``` r
+
 x %>%
   filter_observations(
     scientificName %in% c("Martes foina", "Mustela putorius")
