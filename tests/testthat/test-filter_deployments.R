@@ -36,7 +36,7 @@ test_that("filter_deployments() supports combinations of conditions", {
     deploymentEnd <= lubridate::as_date("2020-08-09"),
   )
   expect_equal(nrow(deployments(x_between)), 2) # 2020-06-19 21:00:00 till 2020-08-08 04:20:40
-  x_combo <- filter_deployments(x, setupBy %in% c("Danny Van der beeck") | is.na(setupBy))
+  x_combo <- filter_deployments(x, setupBy == "Danny Van der beeck" | is.na(setupBy))
   expect_equal(nrow(deployments(x_combo)), 3) # 2 Danny van der beeck & 1 NA
 })
 

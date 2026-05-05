@@ -81,7 +81,7 @@ update_taxonomic <- function(x) {
   }
 
   # Set taxonomic
-  x$taxonomic <- purrr::map(1:nrow(taxa), function(i) {
+  x$taxonomic <- purrr::map(seq_len(nrow(taxa)), function(i) {
     current_row <- taxa[i, ]
 
     # Create taxonomic list without vernacular names

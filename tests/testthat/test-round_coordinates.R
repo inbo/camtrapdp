@@ -32,7 +32,7 @@ test_that("round_coordinates() does not change the variable names of
   skip_if_offline()
   x <- example_dataset()
   x_rounded <- round_coordinates(x, 2)
-  expect_equal(names(deployments(x)), names(deployments(x_rounded)))
+  expect_named(deployments(x), names(deployments(x_rounded)))
 })
 
 test_that("round_coordinates() sets lat, lon, uncertainty and precision", {

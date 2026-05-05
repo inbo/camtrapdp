@@ -53,7 +53,7 @@ update_taxon <- function(x, from, to) {
     return(x)
   }
 
-  if (!"list" %in% class(to) || is.null(to)) {
+  if (!inherits(to, "list") || is.null(to)) {
     cli::cli_abort(
       "{.arg to} must be a named list, not {.type {to}}.",
       class = "camtrapdp_error_to_invalid"

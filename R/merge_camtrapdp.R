@@ -154,7 +154,7 @@ merge_camtrapdp <- function(x, y) {
 
   # Add package$id to related identifiers if it is a DOI
   add_related_id <- function(id, related_ids) {
-    if (grepl("doi", id %||% "")) {
+    if (grepl("doi", id %||% "", fixed = TRUE)) {
       new_related_id <- list(
         relationType = "isDerivedFrom",
         relatedIdentifier = id,

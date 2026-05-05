@@ -6,7 +6,7 @@ test_that("write_eml() writes an eml.xml to a directory and returns eml
   on.exit(unlink(temp_dir, recursive = TRUE))
   result <- suppressMessages(write_eml(x, temp_dir))
 
-  expect_identical(list.files(temp_dir), c("eml.xml"))
+  expect_identical(list.files(temp_dir), "eml.xml")
   expect_identical(
     result$dataset$title,
     paste(

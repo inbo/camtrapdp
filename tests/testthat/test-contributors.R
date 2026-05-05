@@ -8,8 +8,8 @@ test_that("contributors() returns the expected columns (even when absent)", {
   skip_if_offline()
   x <- example_dataset()
   contributors(x) <- data.frame()
-  expect_identical(
-    names(contributors(x)),
+  expect_named(
+    contributors(x),
     c("title", "firstName", "lastName", "email", "path", "role", "organization")
   )
 })

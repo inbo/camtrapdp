@@ -10,7 +10,7 @@ test_that("write_dwc() writes CSV and meta.xml files to a directory and
     list.files(temp_dir),
     c("meta.xml", "multimedia.csv", "occurrence.csv")
   )
-  expect_identical(names(result), c("occurrence", "multimedia"))
+  expect_named(result, c("occurrence", "multimedia"))
   expect_s3_class(result$occurrence, "tbl")
   expect_s3_class(result$multimedia, "tbl")
   expect_invisible(suppressMessages(write_dwc(x, temp_dir)))
@@ -138,7 +138,7 @@ test_that("write_dwc() returns files that comply with the info in meta.xml", {
 test_that("write_dwc() returns output when taxonID is missing", {
   skip_if_offline()
   x <- example_dataset()
-  optional_cols <- c("taxon.taxonID")
+  optional_cols <- "taxon.taxonID"
   observations(x) <-
     dplyr::select(observations(x), -dplyr::all_of(optional_cols))
   temp_dir <- tempdir()
