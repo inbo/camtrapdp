@@ -120,12 +120,11 @@ for details.
 ## Meta
 
 - We welcome
-  [contributions](https://inbo.github.io/camtrapdp/CONTRIBUTING.html)
+  [contributions](https://inbo.github.io/camtrapdp/CONTRIBUTING.md)
   including bug reports.
 - License: MIT
-- Get [citation
-  information](https://inbo.github.io/camtrapdp/authors.html#citation)
-  for camtrapdp in R doing `citation("camtrapdp")`.
+- Get citation information for camtrapdp in R with
+  `citation("camtrapdp")`.
 - Please note that this project is released with a [Contributor Code of
-  Conduct](https://inbo.github.io/camtrapdp/CODE_OF_CONDUCT.html). By
+  Conduct](https://inbo.github.io/camtrapdp/CODE_OF_CONDUCT.md). By
   participating in this project you agree to abide by its terms.
