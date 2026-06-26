@@ -19,22 +19,26 @@ Useful links:
 ## Author
 
 **Maintainer**: Peter Desmet <peter.desmet@inbo.be>
-([ORCID](https://orcid.org/0000-0002-8442-8025)) (Research Institute for
-Nature and Forest (INBO))
+([ORCID](https://orcid.org/0000-0002-8442-8025)) (affiliation: Research
+Institute for Nature and Forest (INBO))
 
 Authors:
 
+- Peter Desmet <peter.desmet@inbo.be>
+  ([ORCID](https://orcid.org/0000-0002-8442-8025)) (affiliation:
+  Research Institute for Nature and Forest (INBO))
+
 - Sanne Govaert <sanne.govaert@inbo.be>
-  ([ORCID](https://orcid.org/0000-0002-8939-1305)) (Research Institute
-  for Nature and Forest (INBO))
+  ([ORCID](https://orcid.org/0000-0002-8939-1305)) (affiliation:
+  Research Institute for Nature and Forest (INBO))
 
 - Pieter Huybrechts <pieter.huybrechts@inbo.be>
-  ([ORCID](https://orcid.org/0000-0002-6658-6062)) (Research Institute
-  for Nature and Forest (INBO))
+  ([ORCID](https://orcid.org/0000-0002-6658-6062)) (affiliation:
+  Research Institute for Nature and Forest (INBO))
 
 - Damiano Oldoni <damiano.oldoni@inbo.be>
-  ([ORCID](https://orcid.org/0000-0003-3445-7562)) (Research Institute
-  for Nature and Forest (INBO))
+  ([ORCID](https://orcid.org/0000-0003-3445-7562)) (affiliation:
+  Research Institute for Nature and Forest (INBO))
 
 Other contributors:
 
