@@ -4,7 +4,7 @@
 #' Data Package object and returns it as a data frame.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A [tibble::tibble()] data frame with the taxonomic information.
+#' @returns A [tibble::tibble()] data frame with the taxonomic information.
 #' @noRd
 taxonomic <- function(x) {
   # Extract the taxonomic information

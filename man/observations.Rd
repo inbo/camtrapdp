@@ -37,13 +37,13 @@ observations(x)
 observations(x) <- head(observations(x), 1)
 }
 \seealso{
-Other accessor functions: 
-\code{\link{contributors}()},
-\code{\link{deployments}()},
-\code{\link{events}()},
-\code{\link{individuals}()},
-\code{\link{locations}()},
-\code{\link{media}()},
-\code{\link{taxa}()}
+Other accessor functions:
+\code{\link[=contributors]{contributors()}},
+\code{\link[=deployments]{deployments()}},
+\code{\link[=events]{events()}},
+\code{\link[=individuals]{individuals()}},
+\code{\link[=locations]{locations()}},
+\code{\link[=media]{media()}},
+\code{\link[=taxa]{taxa()}}
 }
 \concept{accessor functions}

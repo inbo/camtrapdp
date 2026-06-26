@@ -74,11 +74,11 @@ write_dwc(x, directory = "my_directory")
 unlink("my_directory", recursive = TRUE)
 }
 \seealso{
-Other transformation functions: 
-\code{\link{merge_camtrapdp}()},
-\code{\link{round_coordinates}()},
-\code{\link{shift_time}()},
-\code{\link{update_taxon}()},
-\code{\link{write_eml}()}
+Other transformation functions:
+\code{\link[=merge_camtrapdp]{merge_camtrapdp()}},
+\code{\link[=round_coordinates]{round_coordinates()}},
+\code{\link[=shift_time]{shift_time()}},
+\code{\link[=update_taxon]{update_taxon()}},
+\code{\link[=write_eml]{write_eml()}}
 }
 \concept{transformation functions}

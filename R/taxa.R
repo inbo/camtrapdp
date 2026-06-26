@@ -8,7 +8,7 @@
 #' information.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A [tibble::tibble()] data frame with the taxonomic information,
+#' @returns A [tibble::tibble()] data frame with the taxonomic information,
 #'   containing at least a `scientificName` column.
 #' @family accessor functions
 #' @export

@@ -10,7 +10,7 @@
 #' - Metadata (`x$taxonomic`) are updated to match the assigned observations.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A [tibble::tibble()] data frame with observations.
+#' @returns A [tibble::tibble()] data frame with observations.
 #' @family accessor functions
 #' @export
 #' @examples

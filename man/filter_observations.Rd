@@ -69,8 +69,8 @@ x |>
   observations()
 }
 \seealso{
-Other filter functions: 
-\code{\link{filter_deployments}()},
-\code{\link{filter_media}()}
+Other filter functions:
+\code{\link[=filter_deployments]{filter_deployments()}},
+\code{\link[=filter_media]{filter_media()}}
 }
 \concept{filter functions}

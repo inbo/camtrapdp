@@ -11,7 +11,7 @@
 #' deployments.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A [tibble::tibble()] data frame with deployments.
+#' @returns A [tibble::tibble()] data frame with deployments.
 #' @family accessor functions
 #' @export
 #' @examples

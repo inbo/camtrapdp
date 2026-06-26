@@ -5,7 +5,7 @@
 #'
 #' @inheritParams print.camtrapdp
 #' @param directory Path to local directory to write files to.
-#' @return CSV and `meta.xml` files written to disk.
+#' @returns CSV and `meta.xml` files written to disk.
 #'   And invisibly, a list of data frames with the transformed data.
 #' @family transformation functions
 #' @export

@@ -52,11 +52,11 @@ updated_x <- update_taxon(
 )
 }
 \seealso{
-Other transformation functions: 
-\code{\link{merge_camtrapdp}()},
-\code{\link{round_coordinates}()},
-\code{\link{shift_time}()},
-\code{\link{write_dwc}()},
-\code{\link{write_eml}()}
+Other transformation functions:
+\code{\link[=merge_camtrapdp]{merge_camtrapdp()}},
+\code{\link[=round_coordinates]{round_coordinates()}},
+\code{\link[=shift_time]{shift_time()}},
+\code{\link[=write_dwc]{write_dwc()}},
+\code{\link[=write_eml]{write_eml()}}
 }
 \concept{transformation functions}

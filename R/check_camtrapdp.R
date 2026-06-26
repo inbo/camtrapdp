@@ -4,7 +4,7 @@
 #' properties.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` invisibly or an error.
+#' @returns `x` invisibly or an error.
 #' @family check functions
 #' @export
 #' @examples

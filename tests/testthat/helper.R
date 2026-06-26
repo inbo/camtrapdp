@@ -5,7 +5,7 @@
 #' for every run - to be compared against a snapshot.
 #' @param character Character vector from which UUID should be removed.
 #' @param replacement Optional replacement character.
-#' @return A character vector with the UUIDs removed.
+#' @returns A character vector with the UUIDs removed.
 #' @examples
 #' to_clean <- paste(
 #'   'encoding=\"UTF-8\"?>",',
@@ -31,6 +31,7 @@ remove_uuid <- function(character, replacement = "RANDOM_UUID") {
 #'
 #' @param file Path to CSV file.
 #' @param core Name of core CSV file.
+#' @returns [testthat::expect_identical()] result.
 #' @inheritDotParams expect_identical info label
 #' @noRd
 #' @examples

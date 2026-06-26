@@ -3,7 +3,7 @@
 #' Reads the [Camtrap DP example dataset](https://camtrap-dp.tdwg.org/example/).
 #' This dataset is maintained and versioned with the Camtrap DP standard.
 #'
-#' @return Camera Trap Data Package object.
+#' @returns Camera Trap Data Package object.
 #' @family sample data
 #' @export
 #' @importFrom memoise memoise

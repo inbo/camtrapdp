@@ -6,7 +6,7 @@
 #' @param a,b Character vectors.
 #' @param prefixes Prefixes (e.g. `c("a", "b")`) to add to `a` and `b` values
 #'   respectively, as `<prefix>_<value>`.
-#' @return `c(a, b)` with prefixed duplicates.
+#' @returns `c(a, b)` with prefixed duplicates.
 #' @family helper functions
 #' @noRd
 #' @examples
@@ -32,7 +32,7 @@ merge_vectors <- function(a, b, prefixes) {
 #' Resource names that occur in both `x` and `y` get a prefix.
 #' @inheritParams merge_camtrapdp
 #' @param prefixes Prefixes (e.g. `c("x", "y")`) to add to duplicate values.
-#' @return A list with resources.
+#' @returns A list with resources.
 #' @family helper functions
 #' @noRd
 merge_resources <- function(x, y, prefixes) {
@@ -60,7 +60,7 @@ merge_resources <- function(x, y, prefixes) {
 #' Values in `deploymentID` that occur in both `x` and `y` get a prefix.
 #' @inheritParams merge_camtrapdp
 #' @param prefixes Prefixes (e.g. `c("x", "y")`) to add to duplicate values.
-#' @return A [tibble::tibble()] data frame with deployments.
+#' @returns A [tibble::tibble()] data frame with deployments.
 #' @family helper functions
 #' @noRd
 merge_deployments <- function(x, y, prefixes) {
@@ -83,7 +83,7 @@ merge_deployments <- function(x, y, prefixes) {
 #' `y` get a prefix.
 #' @inheritParams merge_camtrapdp
 #' @param prefixes Prefixes (e.g. `c("x", "y")`) to add to duplicate values.
-#' @return A [tibble::tibble()] data frame with media.
+#' @returns A [tibble::tibble()] data frame with media.
 #' @family helper functions
 #' @noRd
 merge_media <- function(x, y, prefixes) {
@@ -116,7 +116,7 @@ merge_media <- function(x, y, prefixes) {
 #' in both `x` and `y` get a prefix.
 #' @inheritParams merge_camtrapdp
 #' @param prefixes Prefixes (e.g. `c("x", "y")`) to add to duplicate values.
-#' @return A [tibble::tibble()] data frame with observations.
+#' @returns A [tibble::tibble()] data frame with observations.
 #' @family helper functions
 #' @noRd
 merge_observations <- function(x, y, prefixes) {

@@ -4,7 +4,7 @@
 #' Package object.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A [tibble::tibble()] data frame with the locations, containing the
+#' @returns A [tibble::tibble()] data frame with the locations, containing the
 #'   following columns:
 #'   - `locationID`
 #'   - `locationName`

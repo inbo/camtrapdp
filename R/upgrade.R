@@ -5,7 +5,7 @@
 #'
 #' @inheritParams print.camtrapdp
 #' @param upgrade_to Version to upgrade to.
-#' @return `x` upgraded.
+#' @returns `x` upgraded.
 #' @family upgrade functions
 #' @noRd
 upgrade <- function(x, upgrade_to = "1.0.2") {
