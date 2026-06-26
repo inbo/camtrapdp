@@ -37,13 +37,13 @@ deployments(x)
 deployments(x) <- head(deployments(x), 1)
 }
 \seealso{
-Other accessor functions: 
-\code{\link{contributors}()},
-\code{\link{events}()},
-\code{\link{individuals}()},
-\code{\link{locations}()},
-\code{\link{media}()},
-\code{\link{observations}()},
-\code{\link{taxa}()}
+Other accessor functions:
+\code{\link[=contributors]{contributors()}},
+\code{\link[=events]{events()}},
+\code{\link[=individuals]{individuals()}},
+\code{\link[=locations]{locations()}},
+\code{\link[=media]{media()}},
+\code{\link[=observations]{observations()}},
+\code{\link[=taxa]{taxa()}}
 }
 \concept{accessor functions}

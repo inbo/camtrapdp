@@ -49,11 +49,11 @@ deployments(x)[, c("deploymentID", "deploymentStart", "deploymentEnd")]
 deployments(x_shifted)[, c("deploymentID", "deploymentStart", "deploymentEnd")]
 }
 \seealso{
-Other transformation functions: 
-\code{\link{merge_camtrapdp}()},
-\code{\link{round_coordinates}()},
-\code{\link{update_taxon}()},
-\code{\link{write_dwc}()},
-\code{\link{write_eml}()}
+Other transformation functions:
+\code{\link[=merge_camtrapdp]{merge_camtrapdp()}},
+\code{\link[=round_coordinates]{round_coordinates()}},
+\code{\link[=update_taxon]{update_taxon()}},
+\code{\link[=write_dwc]{write_dwc()}},
+\code{\link[=write_eml]{write_eml()}}
 }
 \concept{transformation functions}

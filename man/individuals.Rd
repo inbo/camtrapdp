@@ -28,13 +28,13 @@ x <- example_dataset()
 individuals(x)
 }
 \seealso{
-Other accessor functions: 
-\code{\link{contributors}()},
-\code{\link{deployments}()},
-\code{\link{events}()},
-\code{\link{locations}()},
-\code{\link{media}()},
-\code{\link{observations}()},
-\code{\link{taxa}()}
+Other accessor functions:
+\code{\link[=contributors]{contributors()}},
+\code{\link[=deployments]{deployments()}},
+\code{\link[=events]{events()}},
+\code{\link[=locations]{locations()}},
+\code{\link[=media]{media()}},
+\code{\link[=observations]{observations()}},
+\code{\link[=taxa]{taxa()}}
 }
 \concept{accessor functions}

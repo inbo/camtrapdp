@@ -45,13 +45,13 @@ contributors(x)
 contributors(x) <- head(contributors(x), 1)
 }
 \seealso{
-Other accessor functions: 
-\code{\link{deployments}()},
-\code{\link{events}()},
-\code{\link{individuals}()},
-\code{\link{locations}()},
-\code{\link{media}()},
-\code{\link{observations}()},
-\code{\link{taxa}()}
+Other accessor functions:
+\code{\link[=deployments]{deployments()}},
+\code{\link[=events]{events()}},
+\code{\link[=individuals]{individuals()}},
+\code{\link[=locations]{locations()}},
+\code{\link[=media]{media()}},
+\code{\link[=observations]{observations()}},
+\code{\link[=taxa]{taxa()}}
 }
 \concept{accessor functions}

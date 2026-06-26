@@ -25,13 +25,13 @@ x <- example_dataset()
 taxa(x)
 }
 \seealso{
-Other accessor functions: 
-\code{\link{contributors}()},
-\code{\link{deployments}()},
-\code{\link{events}()},
-\code{\link{individuals}()},
-\code{\link{locations}()},
-\code{\link{media}()},
-\code{\link{observations}()}
+Other accessor functions:
+\code{\link[=contributors]{contributors()}},
+\code{\link[=deployments]{deployments()}},
+\code{\link[=events]{events()}},
+\code{\link[=individuals]{individuals()}},
+\code{\link[=locations]{locations()}},
+\code{\link[=media]{media()}},
+\code{\link[=observations]{observations()}}
 }
 \concept{accessor functions}
