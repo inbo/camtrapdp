@@ -4,7 +4,7 @@
 #' the deployment coordinates or `NULL` if there are no deployments.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated spatial metadata.
+#' @returns `x` with updated spatial metadata.
 #' @family helper functions
 #' @noRd
 update_spatial <- function(x) {
@@ -39,7 +39,7 @@ update_spatial <- function(x) {
 #' Sets `x$temporal` to `NULL` if there are no deployments.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated temporal metadata.
+#' @returns `x` with updated temporal metadata.
 #' @family helper functions
 #' @noRd
 update_temporal <- function(x) {
@@ -69,7 +69,7 @@ update_temporal <- function(x) {
 #' Sets `x$taxonomic` to `NULL` if there are no taxa/observations.
 #'
 #' @inheritParams print.camtrapdp
-#' @return `x` with updated taxonomic metadata.
+#' @returns `x` with updated taxonomic metadata.
 #' @family helper functions
 #' @noRd
 update_taxonomic <- function(x) {

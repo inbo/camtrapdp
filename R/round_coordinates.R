@@ -8,7 +8,7 @@
 #' @inheritParams print.camtrapdp
 #' @param digits Number of decimal places to round coordinates to (`1`, `2` or
 #'   `3`).
-#' @return `x` with chosen `coordinatePrecision` in metadata and rounded
+#' @returns `x` with chosen `coordinatePrecision` in metadata and rounded
 #'   coordinates and calculated `coordinateUncertainty` in deployments.
 #' @family transformation functions
 #' @export

@@ -7,7 +7,7 @@
 #' `contributors()<-` is the assignment equivalent.
 #'
 #' @inheritParams print.camtrapdp
-#' @return A [tibble::tibble()] data frame with the contributors, containing the
+#' @returns A [tibble::tibble()] data frame with the contributors, containing the
 #'   following columns (columns absent in `x$contributors` will be created):
 #'   - `title`
 #'   - `firstName`: if absent, this will be set to the first word in `title`,

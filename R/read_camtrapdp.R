@@ -60,7 +60,7 @@
 #' are tabular.
 #'
 #' @param file Path or URL to a `datapackage.json` file.
-#' @return A Camera Trap Data Package object.
+#' @returns A Camera Trap Data Package object.
 #' @family read functions
 #' @export
 #' @examples

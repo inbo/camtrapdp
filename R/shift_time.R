@@ -16,7 +16,7 @@
 #' @param deployment_id One or more deploymentIDs.
 #' @param duration Difference between the current and new date-times.
 #'   Provide as a [lubridate::duration()] or [difftime].
-#' @return `x` with shifted date-times.
+#' @returns `x` with shifted date-times.
 #' @family transformation functions
 #' @export
 #' @examples

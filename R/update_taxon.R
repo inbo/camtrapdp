@@ -15,7 +15,7 @@
 #' @param to Named list with taxon information, e.g.
 #' `list(scientificName = "Ardea", taxonRank = "genus",
 #' vernacularname.eng = "great herons")`.
-#' @return `x` with updated taxon information.
+#' @returns `x` with updated taxon information.
 #' @family transformation functions
 #' @export
 #' @examples

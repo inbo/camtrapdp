@@ -5,7 +5,7 @@
 #'
 #' @param x,y Camera Trap Data Package objects, as returned by
 #'  [read_camtrapdp()].
-#' @return A single Camera Trap Data Package object that is the combination of
+#' @returns A single Camera Trap Data Package object that is the combination of
 #'   `x` and `y`.
 #' @family transformation functions
 #' @export

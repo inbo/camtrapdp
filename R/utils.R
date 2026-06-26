@@ -4,7 +4,7 @@
 #' provided data frame.
 #'
 #' @inherit dplyr::mutate
-#' @return Data frame with the extra columns.
+#' @returns Data frame with the extra columns.
 #' @family helper functions
 #' @noRd
 #' @examples
@@ -29,7 +29,7 @@ mutate_if_missing <- function(.data, ...) {
 #' single word, or if the role is `rightsHolder` or `publisher`.
 #'
 #' @param df A data frame with a `title` and `role` column.
-#' @return Data frame with the extra columns.
+#' @returns Data frame with the extra columns.
 #' @family helper functions
 #' @noRd
 #' @examples
@@ -65,7 +65,7 @@ mutate_person_names <- function(df) {
 #'
 #' @param df A data frame.
 #' @param colnames A character vector of column names.
-#' @return Data frame expanded with columns that were not yet present.
+#' @returns Data frame expanded with columns that were not yet present.
 #' @family helper functions
 #' @noRd
 expand_cols <- function(df, colnames) {
@@ -77,7 +77,7 @@ expand_cols <- function(df, colnames) {
 #' Lists the names of additional resources in a Camera Trap Data Package
 #'
 #' @inheritParams print.camtrapdp
-#' @return Character vector with the additional resource names.
+#' @returns Character vector with the additional resource names.
 #' @family helper functions
 #' @noRd
 additional_resources <- function(x) {
@@ -89,7 +89,7 @@ additional_resources <- function(x) {
 #' Create list of contributors in EML format
 #'
 #' @param contributors A data frame returned by `contributors(x)`.
-#' @return List of contributors as `emld::responsibleParty` objects.
+#' @returns List of contributors as `emld::responsibleParty` objects.
 #' @family helper functions
 #' @noRd
 create_eml_contributors <- function(contributors) {
@@ -131,7 +131,7 @@ create_eml_contributors <- function(contributors) {
 #' @param x List or vector.
 #' @param fun Function returning `TRUE` for elements that should be removed.
 #' @param recursive Whether list should be cleaned recursively.
-#' @return Cleaned list.
+#' @returns Cleaned list.
 #' @family helper functions
 #' @noRd
 clean_list <- function(x, fun = is.null, recursive = FALSE) {

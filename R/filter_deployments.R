@@ -11,7 +11,7 @@
 #'
 #' @inheritParams print.camtrapdp
 #' @param ... Filtering conditions, see `dplyr::filter()`.
-#' @return `x` filtered.
+#' @returns `x` filtered.
 #' @family filter functions
 #' @export
 #' @examples
