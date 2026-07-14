@@ -13,6 +13,6 @@ jobs:
 
     steps:
       - name: Get CRAN checks
-        uses: ricochet-rs/cran-checks/check-pkg@main
+        uses: ricochet-rs/cran-checks/check-pkg@7c785ec5542611c7843b7edcb50da28de4083d4b # main
         with:
           pkg: camtrapdp
