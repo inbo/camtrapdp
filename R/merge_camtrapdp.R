@@ -150,7 +150,7 @@ merge_camtrapdp <- function(x, y) {
     max(x$coordinatePrecision, y$coordinatePrecision, na.rm = TRUE)
   xy$relatedIdentifiers <- unique(c(x$relatedIdentifiers, y$relatedIdentifiers))
   xy$references <- unique(c(x$references, y$references))
-  xy$directory <- "."
+  attr(xy, "directory") <- "."
 
   # Add package$id to related identifiers if it is a DOI
   add_related_id <- function(id, related_ids) {
