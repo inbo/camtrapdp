@@ -10,3 +10,4 @@
 ^pkgdown$
 ^README\.Rmd$
 ^CRAN-SUBMISSION$
+^revdep$
