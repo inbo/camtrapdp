@@ -23,15 +23,3 @@
 
 # Revdeps
 
-## Failed to check (1)
-
-|package |version |error |warning |note |
-|:-------|:-------|:-----|:-------|:----|
-|ct      |?       |      |        |     |
-
-## New problems (1)
-
-|package     |version |error  |warning |note |
-|:-----------|:-------|:------|:-------|:----|
-|[R2camtrapdp](problems.md#r2camtrapdp)|2.0.0   |__+1__ |        |     |
-
