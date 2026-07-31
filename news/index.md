@@ -1,5 +1,7 @@
 # Changelog
 
+## camtrapdp (development version)
+
 ## camtrapdp 0.6.0
 
 - camtrapdp now relies on R \>= 4.1.0 and uses base pipes (`|>` rather

@@ -111,7 +111,7 @@ x <- example_dataset()
 #> 
 #> • my_directory/eml.xml
 #> $packageId
-#> [1] "340fb2c4-ae1f-478d-9578-6214a3d0aff6"
+#> [1] "29d793b8-dc85-4a00-9600-e5f70f6a0e15"
 #> 
 #> $system
 #> [1] "uuid"
