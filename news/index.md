@@ -4,6 +4,9 @@
 
 - camtrapdp now relies on R \>= 4.1.0 and uses base pipes (`|>` rather
   than `%>%`) ([\#209](https://github.com/inbo/camtrapdp/issues/209)).
+- camtrapdp now relies on
+  [frictionless](https://github.com/frictionlessdata/frictionless-r) \>=
+  1.3.0 ([\#217](https://github.com/inbo/camtrapdp/issues/217)).
 
 ## camtrapdp 0.5.0
 

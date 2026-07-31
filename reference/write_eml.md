@@ -111,7 +111,7 @@ x <- example_dataset()
 #> 
 #> • my_directory/eml.xml
 #> $packageId
-#> [1] "5a62669a-bd24-4396-b43d-27f3ef3b2cc3"
+#> [1] "0e95dfc1-161f-4bf4-b6c6-a6281aea85e9"
 #> 
 #> $system
 #> [1] "uuid"
@@ -250,11 +250,36 @@ x <- example_dataset()
 #> [1] "n/a"
 #> 
 #> $dataset$keywordSet[[3]]$keyword
-#>  [1] "camera traps"              "public awareness campaign"
-#>  [3] "flood protection"          "flood control"            
-#>  [5] "damage prevention"         "animal damage"            
-#>  [7] "pest control"              "invasive alien species"   
-#>  [9] "muskrat"                   "coypu"                    
+#> $dataset$keywordSet[[3]]$keyword[[1]]
+#> [1] "camera traps"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[2]]
+#> [1] "public awareness campaign"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[3]]
+#> [1] "flood protection"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[4]]
+#> [1] "flood control"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[5]]
+#> [1] "damage prevention"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[6]]
+#> [1] "animal damage"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[7]]
+#> [1] "pest control"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[8]]
+#> [1] "invasive alien species"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[9]]
+#> [1] "muskrat"
+#> 
+#> $dataset$keywordSet[[3]]$keyword[[10]]
+#> [1] "coypu"
+#> 
 #> 
 #> 
 #> 
