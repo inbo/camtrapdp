@@ -73,7 +73,7 @@ test_that("merge_camtrapdp() adds prefixes to additional resource names to keep
   xy <- merge_camtrapdp(x, y)
 
   expect_identical(
-    frictionless::resources(xy),
+    frictionless::resource_names(xy),
     c(
       "deployments", "media", "observations", "x_individuals", "y_individuals",
       "iris"

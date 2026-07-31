@@ -82,7 +82,7 @@ expand_cols <- function(df, colnames) {
 #' @noRd
 additional_resources <- function(x) {
   camtrapdp_resource_names <- c("deployments", "media", "observations")
-  resource_names <- frictionless::resources(x)
+  resource_names <- frictionless::resource_names(x)
   resource_names[!resource_names %in% camtrapdp_resource_names]
 }
 
