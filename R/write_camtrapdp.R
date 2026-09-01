@@ -66,6 +66,9 @@ write_camtrapdp <- function(x, directory, ...) {
     recursive = TRUE
   )
 
+  # Downgrade to data package 1.0 if necessary
+  x <- downgrade_package(x)
+
   # Write files
   frictionless::write_package(x, directory, ...)
 
