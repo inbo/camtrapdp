@@ -66,7 +66,7 @@ write_camtrapdp <- function(x, directory, ...) {
     recursive = TRUE
   )
 
-  # Downgrade to data package 1.0 if necessary
+  # Downgrade to Data Package v1
   x <- downgrade_package(x)
 
   # Write files
