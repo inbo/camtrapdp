@@ -16,8 +16,10 @@ downgrade_package <- function(x) {
   for (resource_name in frictionless::resource_names(x)) {
     resource <- frictionless::resource(x, resource_name)
     if (frictionless::version(resource) != "1.0") {
-      # Set profile, remove $schema and type
-      resource$profile <- "tabular-data-resource"
+      # Set profile (after name and description). Note: also removes attributes
+      resource <- append(resource, list(profile = "tabular-data-resource"), 2)
+
+      # Remove $schema and type
       resource$`$schema` <- NULL
       resource$type <- NULL
       frictionless::resource(x, resource_name) <- resource
