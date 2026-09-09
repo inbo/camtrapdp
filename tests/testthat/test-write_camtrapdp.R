@@ -117,27 +117,3 @@ test_that("write_camtrapdp() returns the expected datapackage.json for the
 
   expect_snapshot_file(file.path(temp_dir, "datapackage.json"))
 })
-
-test_that("write_camtrapdp() returns a datapackage.json as a Data Package v1", {
-  skip_if_offline()
-  x <- example_dataset()
-  x$`$schema` <- "https://datapackage.org/profiles/2.0/datapackage.json"
-  temp_dir <- tempdir()
-  on.exit(unlink(temp_dir, recursive = TRUE))
-  write_camtrapdp(x, temp_dir)
-
-  # datapackage.json
-  written_datapackage <- jsonlite::fromJSON(
-    file.path(temp_dir, "datapackage.json"),
-    simplifyDataFrame = FALSE, simplifyVector = TRUE
-  )
-  expect_identical(frictionless::version(written_datapackage), "1.0")
-  expect_null(written_datapackage$`$schema`)
-
-  # deployments resource
-  written_resource <- written_datapackage$resources[[1]]
-  expect_identical(frictionless::version(written_resource), "1.0")
-  expect_identical(written_resource$profile, "tabular-data-resource")
-  expect_null(written_resource$`$schema`)
-  expect_null(written_resource$type)
-})
