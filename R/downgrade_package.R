@@ -1,10 +1,12 @@
-#' Downgrade a Camera Trap Data Package object from v2 to v1
+#' Downgrade a Camera Trap Data Package to Data Package v1
 #'
-#' Downgrade the descriptor and the associated resources.
+#' Packages, schemas and resources created with frictionless >=2.0.0 follow the
+#' v2 specification of Data Package, while Camtrap DP follows v1.
+#' This function downgrades a package and its resources to v1.
 #'
-#' @param x Camera Trap Data Package object, as returned by [read_camtrapdp()].
+#' @inheritParams print.camtrapdp
 #' @returns Downgraded `x`.
-#' @family downgrade functions
+#' @family helper functions
 #' @noRd
 downgrade_package <- function(x) {
   frictionless::check_package(x)
@@ -18,7 +20,13 @@ downgrade_package <- function(x) {
   # Downgrade resources
   for (resource_name in frictionless::resource_names(x)) {
     resource <- downgrade_resource(frictionless::resource(x, resource_name))
-    frictionless::resource(x, resource_name) <- resource
+    if (frictionless::version(resource) != "1.0") {
+      # Set profile, remove $schema and type
+      resource$profile <- "tabular-data-resource"
+      resource$`$schema` <- NULL
+      resource$type <- NULL
+      frictionless::resource(x, resource_name) <- resource
+    }
   }
 
   return(x)
