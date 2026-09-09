@@ -100,8 +100,9 @@ test_that("write_camtrapdp() returns the expected datapackage.json for the
   on.exit(unlink(temp_dir, recursive = TRUE))
 
   # Adapt x$taxonomic and x$contributors to test for https://github.com/inbo/camtrapdp/issues/185
-  x <- x |>
+  x <- suppressMessages(
     update_taxon(
+      x,
       from = "Anas platyrhynchos",
       to = list(
         scientificName = "Anas platyrhynchos",
@@ -110,6 +111,7 @@ test_that("write_camtrapdp() returns the expected datapackage.json for the
         vernacularNames.nld = "wilde eend" # Assigns NA for vernacularNames.eng
       )
     )
+  )
   contributors(x) <- contributors(x) # Assigns NA for e.g. firstName of INBO
   write_camtrapdp(x, temp_dir)
 
