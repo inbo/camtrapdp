@@ -4,6 +4,8 @@
 
 ## camtrapdp 0.6.0
 
+CRAN release: 2026-07-31
+
 - camtrapdp now relies on R \>= 4.1.0 and uses base pipes (`|>` rather
   than `%>%`) ([\#209](https://github.com/inbo/camtrapdp/issues/209)).
 - camtrapdp now relies on
