@@ -48,7 +48,7 @@
 #' - **project$path**: Removed.
 #' - **project$samplingDesign**: Sampling design of `x`.
 #' - **project$captureMethod**: Combined, with duplicates removed.
-#' - **project$individuals**: `TRUE` if one of the datasets has `TRUE`.
+#' - **project$individualAnimals**: `TRUE` if one of the datasets has `TRUE`.
 #' - **project$observationLevel**: Combined, with duplicates removed.
 #' - **coordinatePrecision**: Set to the least precise `coordinatePrecision`.
 #' - **spatial**: Reset based on the new deployments.
@@ -123,10 +123,10 @@ merge_camtrapdp <- function(x, y) {
   # Merge/update metadata
   xy$name <- NULL
   xy$id <- NULL
-  xy$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+  xy$created <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
   xy$title <- NULL
   xy$contributors <- unique(c(x$contributors, y$contributors))
-  xy$description <- paste(x$description, y$description, sep = "/n")
+  xy$description <- paste(x$description, y$description, sep = "\n")
   xy$version <- "1.0"
   xy$keywords <- unique(c(x$keywords, y$keywords))
   xy$image <- NULL
@@ -138,16 +138,18 @@ merge_camtrapdp <- function(x, y) {
   xy$project$title <- paste(x$project$title, y$project$title, sep = " / ")
   xy$project$acronym <- NULL
   xy$project$description <-
-    paste(x$project$description, y$project$description, sep = "/n")
+    paste(x$project$description, y$project$description, sep = "\n")
   xy$project$path <- NULL
   xy$project$samplingDesign <- x$project$samplingDesign # Second one ignored
   xy$project$captureMethod <-
     unique(c(x$project$captureMethod, y$project$captureMethod))
-  xy$project$individuals <- any(x$project$individuals, y$project$individiuals)
+  xy$project$individualAnimals <-
+    any(x$project$individualAnimals, y$project$individualAnimals)
   xy$project$observationLevel <-
     unique(c(x$project$observationLevel, y$project$observationLevel))
+  precisions <- c(x$coordinatePrecision, y$coordinatePrecision)
   xy$coordinatePrecision <-
-    max(x$coordinatePrecision, y$coordinatePrecision, na.rm = TRUE)
+    if (length(precisions) > 0) max(precisions) else NULL
   xy$relatedIdentifiers <- unique(c(x$relatedIdentifiers, y$relatedIdentifiers))
   xy$references <- unique(c(x$references, y$references))
   attr(xy, "directory") <- "."
