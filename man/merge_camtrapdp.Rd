@@ -63,7 +63,7 @@ Metadata properties are merged as follows:
 \item \strong{project$path}: Removed.
 \item \strong{project$samplingDesign}: Sampling design of \code{x}.
 \item \strong{project$captureMethod}: Combined, with duplicates removed.
-\item \strong{project$individuals}: \code{TRUE} if one of the datasets has \code{TRUE}.
+\item \strong{project$individualAnimals}: \code{TRUE} if one of the datasets has \code{TRUE}.
 \item \strong{project$observationLevel}: Combined, with duplicates removed.
 \item \strong{coordinatePrecision}: Set to the least precise \code{coordinatePrecision}.
 \item \strong{spatial}: Reset based on the new deployments.
