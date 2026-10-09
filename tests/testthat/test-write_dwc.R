@@ -135,6 +135,17 @@ test_that("write_dwc() returns files that comply with the info in meta.xml", {
   expect_meta_match(file.path(temp_dir, "multimedia.csv"))
 })
 
+test_that("write_dwc() only marks media with favorite = TRUE as favorite", {
+  skip_if_offline()
+  x <- example_dataset()
+  media(x) <- dplyr::mutate(media(x), favorite = FALSE)
+  temp_dir <- tempdir()
+  on.exit(unlink(temp_dir, recursive = TRUE))
+  result <- suppressMessages(write_dwc(x, temp_dir))
+
+  expect_false(any(grepl("marked as favorite", result$multimedia$comments)))
+})
+
 test_that("write_dwc() returns output when taxonID is missing", {
   skip_if_offline()
   x <- example_dataset()
