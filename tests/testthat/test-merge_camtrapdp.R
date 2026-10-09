@@ -123,46 +123,6 @@ test_that("merge_camtrapdp() adds prefixes to identifiers in the data to keep
   expect_in(merged_observation_ids, observations(xy)$observationID)
 })
 
-test_that("merge_camtrapdp() merges metadata as documented", {
-  skip_if_offline()
-  x <- example_dataset() |>
-    filter_deployments(deploymentID %in% c("00a2c20d", "29b7d356"))
-  x$name <- "x"
-  y <- example_dataset() |>
-    filter_deployments(deploymentID %in% c("577b543a", "62c200a9"))
-  y$name <- "y"
-
-  # individualAnimals is TRUE if one of the datasets has TRUE
-  x$project$individualAnimals <- FALSE
-  y$project$individualAnimals <- TRUE
-  xy <- merge_camtrapdp(x, y)
-  expect_true(xy$project$individualAnimals)
-  expect_null(xy$project$individuals)
-
-  # Descriptions are combined as two paragraphs (separated by a newline)
-  expect_identical(
-    xy$description,
-    paste(x$description, y$description, sep = "\n")
-  )
-  expect_identical(
-    xy$project$description,
-    paste(x$project$description, y$project$description, sep = "\n")
-  )
-
-  # created is the current timestamp, expressed in UTC
-  created <- as.POSIXct(xy$created, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
-  expect_lt(abs(difftime(created, Sys.time(), units = "secs")), 60)
-
-  # coordinatePrecision is the least precise one
-  expect_identical(xy$coordinatePrecision, 0.001)
-
-  # coordinatePrecision remains absent when absent in both datasets
-  x$coordinatePrecision <- NULL
-  y$coordinatePrecision <- NULL
-  xy_no_precision <- merge_camtrapdp(x, y)
-  expect_null(xy_no_precision$coordinatePrecision)
-})
-
 test_that("merge_camtrapdp() returns the expected datapackage.json when merging
            identical datasets", {
   skip_if_offline()

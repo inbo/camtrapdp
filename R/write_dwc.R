@@ -284,9 +284,9 @@ write_dwc <- function(x, directory) {
         .default = "StillImage"
       ),
       comments = dplyr::case_when(
-        .data$favorite == TRUE & !is.na(.data$mediaComments) ~
+        !is.na(.data$favorite) & .data$favorite & !is.na(.data$mediaComments) ~
           paste("marked as favorite", .data$mediaComments, sep = " | "),
-        .data$favorite == TRUE ~ "marked as favorite",
+        !is.na(.data$favorite) & .data$favorite ~ "marked as favorite",
         .default = .data$mediaComments
       ),
       `dcterms:rights` = media_license,

@@ -147,9 +147,10 @@ merge_camtrapdp <- function(x, y) {
     any(x$project$individualAnimals, y$project$individualAnimals)
   xy$project$observationLevel <-
     unique(c(x$project$observationLevel, y$project$observationLevel))
-  precisions <- c(x$coordinatePrecision, y$coordinatePrecision)
   xy$coordinatePrecision <-
-    if (length(precisions) > 0) max(precisions) else NULL
+    if (!is.null(x$coordinatePrecision) || !is.null(y$coordinatePrecision)) {
+      max(x$coordinatePrecision, y$coordinatePrecision)
+    }
   xy$relatedIdentifiers <- unique(c(x$relatedIdentifiers, y$relatedIdentifiers))
   xy$references <- unique(c(x$references, y$references))
   attr(xy, "directory") <- "."

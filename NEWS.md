@@ -1,7 +1,6 @@
 # camtrapdp (development version)
 
-* `merge_camtrapdp()` now combines descriptions with a newline rather than a literal `/n`, merges `project$individualAnimals` (previously a misspelled property was read and written, ignoring `y` and adding an invalid `individuals` property), keeps `coordinatePrecision` absent when it is absent in both datasets (previously `-Inf`) and expresses `created` in UTC (#226).
-* `write_dwc()` no longer labels media with `favorite = FALSE` as "marked as favorite" (#226).
+* Bug fixes for `merge_camtrapdp()` and `write_dwc()` (#226).
 
 # camtrapdp 0.6.0
 
