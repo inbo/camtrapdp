@@ -2,6 +2,19 @@
 
 ## camtrapdp (development version)
 
+- [`write_camtrapdp()`](https://inbo.github.io/camtrapdp/reference/write_camtrapdp.md)
+  continues to write files in the
+  [v1](https://specs.frictionlessdata.io/) specification of Data
+  Package, as required by the Camtrap DP standard. This is in
+  preparation of an upcoming version of the
+  [frictionless](https://github.com/frictionlessdata/frictionless-r)
+  dependency, which uses the [v2](https://datapackage.org/)
+  specification as default. Users can thus safely install the latest
+  version of
+  [frictionless](https://github.com/frictionlessdata/frictionless-r) and
+  still write valid Camtrap DP datasets
+  ([\#221](https://github.com/inbo/camtrapdp/issues/221)).
+
 ## camtrapdp 0.6.0
 
 CRAN release: 2026-07-31
