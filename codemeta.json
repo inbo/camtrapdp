@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/inbo/camtrapdp",
   "issueTracker": "https://github.com/inbo/camtrapdp/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -266,7 +266,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "665.677KB",
+  "fileSize": "667.242KB",
   "releaseNotes": "https://github.com/inbo/camtrapdp/blob/main/NEWS.md",
   "readme": "https://github.com/inbo/camtrapdp/blob/main/README.md",
   "contIntegration": ["https://github.com/inbo/camtrapdp/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/inbo/camtrapdp/"],

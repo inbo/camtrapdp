@@ -8,7 +8,7 @@ message: 'To cite package "camtrapdp" in publications use:'
 type: software
 license: MIT
 title: 'camtrapdp: Read and Manipulate Camera Trap Data Packages'
-version: 0.6.0
+version: 0.6.1
 doi: 10.32614/CRAN.package.camtrapdp
 abstract: Read and manipulate Camera Trap Data Packages ('Camtrap DP'). 'Camtrap DP'
   (<https://camtrap-dp.tdwg.org>) is a data exchange format for camera trap data.
@@ -38,7 +38,7 @@ authors:
 repository: https://CRAN.R-project.org/package=camtrapdp
 repository-code: https://github.com/inbo/camtrapdp
 url: https://inbo.github.io/camtrapdp/
-date-released: '2026-07-31'
+date-released: '2026-10-23'
 contact:
 - family-names: Desmet
   given-names: Peter
