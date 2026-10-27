@@ -1,5 +1,7 @@
 # Changelog
 
+## camtrapdp (development version)
+
 ## camtrapdp 0.6.1
 
 CRAN release: 2026-10-23
