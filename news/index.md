@@ -1,6 +1,8 @@
 # Changelog
 
-## camtrapdp (development version)
+## camtrapdp 0.6.1
+
+CRAN release: 2026-10-23
 
 - [`write_camtrapdp()`](https://inbo.github.io/camtrapdp/reference/write_camtrapdp.md)
   continues to write files in the
