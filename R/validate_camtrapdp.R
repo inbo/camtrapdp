@@ -26,8 +26,8 @@ validate_camtrapdp <- function(x) {
 
   cli::cat_bullet(
     c(
-      cli::format_inline("deployments: {.val {nrow(deployments)}} issues"),
-      cli::format_inline("observations: {.val {nrow(observations)}} issues")
+      cli::format_inline("deployments: {.val {nrow(deployments)}} issue{?s}"),
+      cli::format_inline("observations: {.val {nrow(observations)}} issue{?s}")
     )
   )
 

@@ -33,7 +33,7 @@ test_that("validate_camtrapdp() informs about the the number of issues per table
     validate_camtrapdp(x),
     regexp = paste(
       "* deployments: 2 issues",
-      "* observations: 1 issues",
+      "* observations: 1 issue",
       sep = "\n"
     ),
     fixed = TRUE
