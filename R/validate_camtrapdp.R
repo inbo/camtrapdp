@@ -10,7 +10,7 @@
 #'   \item{severity}{Severity of the issue}
 #'   \item{type}{Issue type}
 #'   \item{message}{Issue message}
-#' @family validate functions
+#' @family validation functions
 #' @export
 #' @examples
 #' x <- example_dataset()
@@ -43,7 +43,7 @@ validate_camtrapdp <- function(x) {
 #'   \item{severity}{Severity of the issue}
 #'   \item{type}{Issue type}
 #'   \item{message}{Issue message}
-#' @family validate functions
+#' @family validation functions
 #' @noRd
 #' @examples
 #' x <- example_dataset()
@@ -89,7 +89,7 @@ validate_deployments <- function(x) {
 #'   \item{severity}{Severity of the issue}
 #'   \item{type}{Issue type}
 #'   \item{message}{Issue message}
-#' @family validate functions
+#' @family validation functions
 #' @noRd
 #' @examples
 #' x <- example_dataset()
