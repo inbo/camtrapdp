@@ -16,12 +16,19 @@
 #' x <- example_dataset()
 #' validate_camtrapdp(x)
 validate_camtrapdp <- function(x) {
-  invalid_deployments <- validate_deployments(x)
-  invalid_observations <- validate_observations(x)
+  deployments <- validate_deployments(x)
+  observations <- validate_observations(x)
 
   issues <- list(
-    deployments = invalid_deployments,
-    observations = invalid_observations
+    deployments = deployments,
+    observations = observations
+  )
+
+  cli::cat_bullet(
+    c(
+      cli::format_inline("deployments: {.val {nrow(deployments)}} issues"),
+      cli::format_inline("observations: {.val {nrow(observations)}} issues")
+    )
   )
 
   invisible(issues)
