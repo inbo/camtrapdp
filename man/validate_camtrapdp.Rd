@@ -27,4 +27,4 @@ Validate a Camera Trap Data Package
 x <- example_dataset()
 validate_camtrapdp(x)
 }
-\concept{validate functions}
+\concept{validation functions}
