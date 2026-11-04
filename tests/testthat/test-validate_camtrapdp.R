@@ -38,7 +38,6 @@ test_that("validate_camtrapdp() informs about the the number of issues per table
     ),
     fixed = TRUE
   )
-
 })
 
 test_that("validate_camtrapdp() reports missing deployment and observation fields", {
@@ -84,23 +83,25 @@ test_that("validate_camtrapdp() reports missing deployment and observation field
   )
 })
 
-test_that("validate_camtrapdp() reports zero counts as invalid", {
+test_that("validate_camtrapdp() reports negative and zero counts as invalid", {
   skip_if_offline()
   x <- example_dataset()
-  observation_id <- x$data$observations$observationID[[1]]
+  observation_id1 <- x$data$observations$observationID[[1]]
+  observation_id2 <- x$data$observations$observationID[[2]]
   x$data$observations$count[1] <- 0
+  x$data$observations$count[2] <- -3
 
-  result <- validate_camtrapdp(x)
-
+  result<- validate_camtrapdp(x)
   expect_equal(
     result$observations,
-    dplyr::tibble(
-      observationID = observation_id,
-      field = "count",
-      severity = "error",
-      type = "invalid_value",
-      message = "count must be greater than 0"
-    )
+    expected <-
+      dplyr::tibble(
+        observationID = sort(c(observation_id1, observation_id2)),
+        field = "count",
+        severity = "error",
+        type = "invalid_value",
+        message = "count must be greater than 0"
+      )
   )
 })
 

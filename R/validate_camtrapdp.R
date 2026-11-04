@@ -121,7 +121,7 @@ validate_observations <- function(x) {
 
   count_invalid <-
     observations |>
-    dplyr::filter(count == 0) |>
+    dplyr::filter(count <= 0) |>
     dplyr::select(observationID) |>
     dplyr::mutate(
       field = "count",
