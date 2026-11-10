@@ -1,5 +1,7 @@
 # camtrapdp (development version)
 
+* Bug fixes for `merge_camtrapdp()` and `write_dwc()` (#226).
+
 # camtrapdp 0.6.1
 
 * `write_camtrapdp()` continues to write files in the [v1](https://specs.frictionlessdata.io/) specification of Data Package, as required by the Camtrap DP standard. This is in preparation of an upcoming version of the `{frictionless}` dependency, which uses the [v2](https://datapackage.org/) specification as default. Users can thus safely install the latest version of `{frictionless}` and still write valid Camtrap DP datasets (#221).
