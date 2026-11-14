@@ -213,6 +213,10 @@ write_eml <- function(x, directory, derived_paragraph = TRUE) {
   # Set bibliographic citation (can be NULL)
   eml$additionalMetadata$metadata$gbif$citation <- x$bibliographicCitation
 
+  # Set bibliography (can be NULL)
+  references <- as.list(x$references) %>% rlang::set_names("citation")
+  eml$additionalMetadata$metadata$gbif$bibliography <- references
+
   # Set external link = project URL (can be NULL)
   project_url <- x$project$path
   if (!is.null(project_url)) {
