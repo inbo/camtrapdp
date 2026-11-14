@@ -8,6 +8,9 @@ reference:
   contents:
   - has_concept("read functions")
   - has_concept("write functions")
+- title: Validation functions
+  contents:
+  - has_concept("validation functions")
 - title: Accessor (and assignment) functions
   contents:
   - has_concept("accessor functions")
